@@ -18,5 +18,5 @@
 <a href="tos">tos</a>
 </article>
       
-<%-- footer.jsp를 불러와서 배치하는 코드 feffefewfwefewf--%>
+<%-- footer.jsp를 불러와서 배치하는 코드 --%>
 <%@ include file="/WEB-INF/view/template/footer.jsp" %> 
