@@ -5,7 +5,7 @@
 <%@ include file="/WEB-INF/view/template/header.jsp" %>  
 
 <article>
-<%-- 컨테이너 영역 asd--%>
+<%-- 컨테이너 영역ddd asd--%>
 <h1>어서오세요~!</h1>
 <a href="attend">attend</a>
 <a href="check">check</a>
