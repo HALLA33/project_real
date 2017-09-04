@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+    <!-- Uncomment and your base-package here:
+         <context:component-scan
+            base-package="org.springframework.samples.web"/>  -->
+
+<!-- 	<mvc:view-controller path="/board" view-name="/board/board"/> -->
+<!-- 	<mvc:view-controller path="/movie-board" view-name="/board/movie-board"/> -->
+<!-- 	<mvc:view-controller path="/show-board" view-name="/board/show-board"/> -->
+	
+	<mvc:view-controller path="/attend" view-name="/member/attend"/>
+	<mvc:view-controller path="/check" view-name="/member/check"/>
+<!-- 	<mvc:view-controller path="/forget" view-name="/member/forget"/> -->
+	<mvc:view-controller path="/forgetpw" view-name="/member/forgetpw"/>
+	<mvc:view-controller path="/member" view-name="/member/member"/>
+	<mvc:view-controller path="/myedit" view-name="/member/myedit"/>
+	<mvc:view-controller path="/myinfo" view-name="/member/myinfo"/>
+<!-- 	<mvc:view-controller path="/sign" view-name="/member/sign"/> -->
+<!-- 	<mvc:view-controller path="/tos" view-name="/member/tos"/> -->
+	
+    <mvc:resources location="/resources/css/" mapping="/css/**"></mvc:resources>
+    <mvc:resources location="/resources/smarteditor/" mapping="/smarteditor/**"></mvc:resources>
+    <mvc:resources location="/resources/js/" mapping="/js/**"></mvc:resources>
+    
+    <context:component-scan base-package="spring.controller"/>
+ 	
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+	        <!-- Example: a logical view name of 'showMessage' is mapped to '/WEB-INF/jsp/showMessage.jsp' -->
+	        <property name="prefix" value="/WEB-INF/view/"/>
+	        <property name="suffix" value=".jsp"/>
+	</bean>
+	<mvc:annotation-driven/>
+
+</beans>

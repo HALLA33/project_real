@@ -1,0 +1,85 @@
+@charset UTF-8;
+*{
+    font-family: "Verdana", sans-serif;
+}
+
+#main {   
+	margin: 0;
+	padding: 0;
+	display: flex;
+	flex:auto; 
+}
+ 
+#main > article {
+	min-height: 800px;
+	margin: 4px;
+	padding: 5px;
+	border: 1px solid black;
+	border-radius: 7pt;
+	flex: 3 1 60%;
+	order: 2;
+}
+
+#main > nav {
+	min-height: 800px;
+	margin: 4px;
+	padding: 5px;
+	border: 1px solid black;
+	border-radius: 7pt;
+	flex: 1 6 17%;
+	order: 1;
+}
+  
+#main > aside {
+	min-height: 800px;
+	margin: 4px;
+	padding: 5px;
+	border: 1px solid black;
+	border-radius: 7pt;
+	flex: 1 6 20%;
+	order: 3;
+}
+ 
+header, footer {
+	display: block;
+	margin: 4px;
+	padding: 5px;
+	min-height: 100px;
+	border: 1px solid black;
+	border-radius: 7pt;
+}
+
+    
+/* 반응형 레이아웃 설정 */
+@media all and (max-width: 640px) {
+	#main, #page {
+		flex-direction: column;
+	}
+
+	#main > article, #main > nav, #main > aside {
+        /* Return them to document order */
+    	order: 0;
+   	}
+  
+   	#main > header, footer {
+       	min-height: 50px;
+   		max-height: 50px;
+    }
+	#maun > nav {
+		min-height: 200px;
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
