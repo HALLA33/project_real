@@ -1,7 +1,7 @@
 @charset "EUC-KR";
 
 label{
-	margin-left: 10px;
+	margin-left: 15px;
 	font-size: 20px;
 	display: block;
 }
@@ -132,16 +132,23 @@ label{
 	text-emphasis-color: aqua;
 }
 
-/* movie-write text */
-.movie_ul{
-	list-style: none; 
-	margin: 0; 
-	padding: 0;
+#list-ul{
+	list-style: none;
 }
 
-.movie_ul > li{
-	margin: 0 0 0 0;
-	padding: 0 0 0 0;
-	border: 0;
-	float: left;
+.nopadding{
+	padding: 0 !important;
+}
+.list-form{
+	margin: 100px;
+	padding: 100px;
+}
+
+.add-btn{
+	width: 700px;
+}
+
+.block{
+    display: inline-block; 
+    width: 650px;
 }

@@ -7,16 +7,24 @@ import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import spring.model.board.Board;
 import spring.model.board.BoardDao;
+import spring.model.board.Book;
+import spring.service.NaverBookService;
 
 @Controller
 public class BoardController {
 	private Logger log = LoggerFactory.getLogger(getClass());
+	
+	@Autowired
+    private NaverBookService service; 
 	
 	private BoardDao boardDao;
 	public void setBoardDao(BoardDao boardDao) {
@@ -36,13 +44,46 @@ public class BoardController {
 		return "board/list";
 	}
 	
-	@RequestMapping(value =  {"/book-write", "/movie-write", "/show-write"}, method=RequestMethod.GET)
-	public String write_get(HttpServletRequest request, HttpSession session) {
+	@RequestMapping("/book-write")
+	public String search_book(Model model, @RequestParam(required=false) String image, @RequestParam(required=false) String title, @RequestParam(required=false) String author, @RequestParam(required=false) String publisher, @RequestParam(required=false) String pubdate) {
+		log.info("image : " + image);
+    	log.info("title : " + title);
+    	log.info("author : " + author);
+    	log.info("publisher : " + publisher);
+    	log.info("pubdate : " + pubdate);
+    	
+    	Book book = new Book();
+    	
+    	model.addAttribute("name", title);
+    	
+    	if(image==null)
+    		image = "http://placehold.it/120x120";
+    	if(title==null)
+    		title = "책 제목";
+    	if(author==null)
+    		author = "저자";
+    	if(publisher==null)
+    		publisher = "출판사";
+    	if(pubdate==null)
+    		pubdate = "출판일";
+
+    	book.setImage(image);
+    	book.setTitle(title);
+    	book.setAuthor(author);
+    	book.setPublisher(publisher);
+    	book.setPubdate(pubdate);
+    	
+    	model.addAttribute("search_book", book);
+    	
+    	return "board/book-write";
+    }
+	
+	@RequestMapping(value =  {"/movie-write", "/show-write"}, method=RequestMethod.GET)
+	public String write_get(HttpServletRequest request,HttpSession session) {
 		session.getAttribute("nickname");
 		
 		String servletPath  = (String)request.getServletPath();
-		if(servletPath.equals("/book-write")) return "board/book-write";
-		else if(servletPath.equals("/movie-write")) return "board/movie-write";
+		if(servletPath.equals("/movie-write")) return "board/movie-write";
 		else if(servletPath.equals("/show-write")) return "/show-write";
 		else return "/";
 	}
@@ -69,4 +110,17 @@ public class BoardController {
 		boardDao.write(b);
 		return "board/list";
 	}
+	
+	//키워드가 있을때도 있고 없을때도있음 
+    //있을때는 가져가고 없을때는 안가져가고 
+    @RequestMapping("/bookList")
+    public String bookList(Model model, @RequestParam(required=false)String keyword){        
+        if(keyword !=null)
+        {
+        	model.addAttribute("bookList", service.searchBook(keyword,10,1));
+            model.addAttribute("keyword", keyword);
+        }
+        
+        return "board/bookList";
+    }
 }

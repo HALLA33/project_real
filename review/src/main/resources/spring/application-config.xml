@@ -39,7 +39,7 @@
 		</property>
 	</bean>	
 	
-	<context:component-scan base-package="spring.controller.*"/>
+
 	<context:component-scan base-package="spring.model.*"/>
 	
 	
