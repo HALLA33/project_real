@@ -1,4 +1,4 @@
-@charset "EUC-KR";
+@charset "UTF-8";
 
 label{
 	margin-left: 15px;
@@ -31,7 +31,7 @@ label{
 	display:inline-block;
 }
 
-/* ¼­ºê¸Ş´º ½ºÅ¸ÀÏ */
+/* ì„œë¸Œë©”ë‰´ ìŠ¤íƒ€ì¼ */
 .menu-wrap li ul{
 	display:none;
 	width:200px;
