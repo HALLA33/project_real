@@ -13,7 +13,7 @@
 			<br><br>
 			<input type="checkbox"><small>로그인유지여부			
 		</form>		
-			<small><a href="#">회원가입</a></small>
+			<small><a href="location.href='tos'">회원가입</a></small>
 			<small><a href="#">ID/PW 찾기</a></small>
 		</c:if>
 		<c:if test = "${sessionScope.member ne null }">

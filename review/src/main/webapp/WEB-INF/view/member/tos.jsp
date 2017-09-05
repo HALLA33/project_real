@@ -22,8 +22,8 @@
                         </label>
                     </div>
                     <div class="row ">
-                        <input class="input-btn" type="button" value="동의합니다">
-                        <input class="input-btn-negative" type="button" value="동의하지 않습니다">
+                        <input class="input-btn" type="button" value="동의합니다" onclick = "location.href = 'sign'">
+                        <input class="input-btn-negative" type="button" value="동의하지 않습니다" onclick = "redirect:/">
                     </div>
                 </div>
 </article>

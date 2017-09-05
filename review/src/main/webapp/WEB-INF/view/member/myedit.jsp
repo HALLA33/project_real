@@ -39,7 +39,7 @@
       
       <tr>
          <td>닉네임</td>
-         <td><input type = "text" placeholder="닉" class = "form-control" name = "nickname"></td>
+         <td><input type = "text" value = "${sessionScope.member.nickname }" class = "form-control" name = "nickname"></td>
       </tr>
        
        <tr>
@@ -59,7 +59,7 @@
       
        <tr>
          <td>전화번호</td>
-         <td><input type = "tel" placeholder="010-0000-0000" class = "form-control" name = "phone"></td>
+         <td><input type = "tel" value = "${sessionScope.member.phone }" class = "form-control" name = "phone"></td>
       </tr>
        
        <tr>
