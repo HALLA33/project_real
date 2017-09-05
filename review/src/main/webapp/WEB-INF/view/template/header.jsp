@@ -38,7 +38,6 @@
       <a href="myinfo">myinfo</a>
       <a href="sign">sign</a>
       <a href="tos">tos</a>
-      <a href="text">text</a>
    </header>
    <%-- body (몸) --%>
    <div id='main'>
