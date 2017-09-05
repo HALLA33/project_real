@@ -189,11 +189,35 @@ public class MemberController {
 		}else {
 			throw new Exception("비밀번호 미일치");
 		}
-		
-		
-	
-
 	}
+	
+	//나의 정보수정 뷰
+	@RequestMapping("/myedit")
+	public String editview() {
+
+		return "member/myedit";
+	}
+	
+	//나의 정보창에서 비밀번호를 변경
+	@RequestMapping(value = "/myedit", method = RequestMethod.POST)
+	public String myedit(
+			@RequestParam String pw, @RequestParam String rpw, 
+			@RequestParam String nickname, @RequestParam String phone, HttpSession session
+			) throws Exception {
+		
+		if(!pw.equals(rpw)) {
+			throw new Exception("비밀번호 다름 발생");
+		}else {
+			
+			memberDao.infoedit(pw, nickname, phone);
+			
+			session.invalidate();
+			
+			return "redirect:/";
+			
+		}
+	}
+	
 	
 
 }

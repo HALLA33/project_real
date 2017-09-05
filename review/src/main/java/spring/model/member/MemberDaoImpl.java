@@ -128,4 +128,14 @@ public class MemberDaoImpl implements MemberDao {
 
 	}
 
+	@Override
+	public boolean infoedit(String pw, String nickname, String phone) {
+
+		String sql = "update p_member set pw = ?, nickname = ?, phone = ?";
+		
+		int result = jdbcTemplate.update(sql, new Object[] {pw, nickname, phone});
+		
+		return result>0;
+	}
+
 }

@@ -15,78 +15,78 @@
    <tbody>
        <tr>
          <td>아이디</td>
-         <td>hong123</td>
+         <td>${sessionScope.member.id }</td>
       </tr>
        
-       <tr>
-         <td>비밀번호</td>
-         <td>*****</td>
-      </tr>
+<!--        <tr> -->
+<!--          <td>비밀번호</td> -->
+<!--          <td>*****</td> -->
+<!--       </tr> -->
       
       <tr>
          <td>닉네임</td>
-         <td>닉</td>
+         <td>${sessionScope.member.nickname }</td>
       </tr>
        
        <tr>
          <td>메일</td>
-         <td>mail@mail.com</td>
+         <td>${sessionScope.member.email }</td>
       </tr>
        
        <tr>
          <td>이름</td>
-         <td>홍길동</td>
+         <td>${sessionScope.member.name }</td>
       </tr>
        
        <tr>
          <td>성별</td>
-         <td>남</td>
+         <td>${sessionScope.member.gender }</td>
       </tr>
        
        <tr>
          <td>생일</td>
-         <td>1999-01-01</td>
+         <td>${sessionScope.member.birth }</td>
       </tr>
 
        
        <tr>
          <td>전화번호</td>
-         <td>010-0000-0000</td>
+         <td>${sessionScope.member.phone }</td>
       </tr>
        
        <tr>
          <td>등급</td>
-         <td>일반</td>
+         <td>${sessionScope.member.power }</td>
       </tr>
        
        <tr>
          <td>포인트</td>
-         <td>5000</td>
+         <td>${sessionScope.member.point }</td>
       </tr>
        
        <tr>
          <td>가입일</td>
-         <td>2017/08/30</td>
+         <td>${sessionScope.member.reg }</td>
       </tr>
        
        <tr>
          <td>최종방문일</td>
-         <td></td>
+         <td>${sessionScope.member.lastvisit }</td>
       </tr>
        
        <tr>
          <td>방문수</td>
-         <td>1</td>
+         <td>${sessionScope.member.visitnumber }</td>
       </tr>
        
        <tr>
          <td>게시글수</td>
-         <td>0</td>
+         <td>${sessionScope.member.writenumber }</td>
       </tr>
        
        <tr>
          <td>댓글수</td>
-         <td>0</td>
+         <td>${sessionScope.member.replynumber }</td>
       </tr>
        
    </tbody>
