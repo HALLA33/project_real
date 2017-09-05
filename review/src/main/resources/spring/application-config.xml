@@ -23,6 +23,25 @@
 		<property name="dataSource" ref="dataSource"></property>
 	</bean>
 	
-	<context:component-scan base-package="spring.model"/>
+	<!-- JavaMailSender를 이곳에 등록 -->
+	<bean id="mailsender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="smtp.gmail.com"/>
+		<property name="port" value="587"/>
+		<property name="username" value="mjw01209@gmail.com"/>
+		<property name="password" value="wkddnjs084"/>
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.transport.protocol">smtp</prop>
+				<prop key="mail.smtp.auth">true</prop>
+				<prop key="mail.smtp.starttls.enable">true</prop>
+				<prop key="mail.debug">true</prop>
+			</props>
+		</property>
+	</bean>	
+	
+	<context:component-scan base-package="spring.controller.*"/>
+	<context:component-scan base-package="spring.model.*"/>
+	
+	
 
 </beans>

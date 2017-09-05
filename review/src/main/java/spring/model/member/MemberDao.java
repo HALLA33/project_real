@@ -11,4 +11,6 @@ public interface MemberDao {
 	public List<Member> memberlist();
 	public Member login(String id, String pw);
 	public String findid(String name, String email) throws Exception;
+	public void sendemail(String name, String id, String email, String token);
+	public boolean repwset(String email, String id, String pw);
 }

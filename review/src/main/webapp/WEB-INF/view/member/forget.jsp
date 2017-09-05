@@ -14,7 +14,7 @@
                 <div class="panel-title">아이디 찾기</div>
             </div>
             <div class="panel-body">
-                <form id="login-form">
+                <form id="login-form" name ="forgetid" method="post">
                     <div>
                         <input type="text" class="form-control" name="name" placeholder="이름" autofocus required>
                     </div>
