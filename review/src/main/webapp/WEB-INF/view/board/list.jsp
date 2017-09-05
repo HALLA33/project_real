@@ -3,13 +3,45 @@
    
 <%-- header.jsp를 불러와서 배치하는 코드 --%>
 <%@ include file="/WEB-INF/view/template/header.jsp" %>
+<style>
+.movie_ul{
+	list-style: none; 
+	margin: 0; 
+	padding: 0;
+}
 
+.movie_ul > li{
+	margin: 10 10 10 10;
+	padding: 0 0 0 0;
+	border: 0;
+	float: left;
+}
+</style>
+<script>
+	$(document).ready(function() {
+		$(".movie_ul > li").on("click", function() {
+			console.log($(this).children().text());
+		});
+	});
+</script>
 <article>
 <%-- 컨테이너 영역 --%>
 
 <div class="container">
 	<h1>영화 게시판</h1>
 	<br>
+	<div class="emtpy-wrap">
+			<ul class="movie_ul">
+				<li><a href="#">SF/판타지</a></li>
+				<li><a href="#">드라마</a></li>
+				<li><a href="#">전쟁/모험</a></li>
+				<li><a href="#">미스터리/스릴러</a></li>
+				<li><a href="#">애니메이션</a></li>
+				<li><a href="#">코미디</a></li>
+				<li><a href="#">액션/느와르</a></li>
+				<li><a href="#">기타</a></li>
+			</ul>
+		</div>
 	<table class="table table-striped">
 		<thead>
 			<tr>

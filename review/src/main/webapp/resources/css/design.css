@@ -131,3 +131,17 @@ label{
 	font-weight: bold;
 	text-emphasis-color: aqua;
 }
+
+/* movie-write text */
+.movie_ul{
+	list-style: none; 
+	margin: 0; 
+	padding: 0;
+}
+
+.movie_ul > li{
+	margin: 0 0 0 0;
+	padding: 0 0 0 0;
+	border: 0;
+	float: left;
+}
