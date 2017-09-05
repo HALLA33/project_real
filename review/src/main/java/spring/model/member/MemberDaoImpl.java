@@ -129,11 +129,11 @@ public class MemberDaoImpl implements MemberDao {
 	}
 
 	@Override
-	public boolean infoedit(String pw, String nickname, String phone) {
+	public boolean infoedit(String id, String pw, String nickname, String phone) {
 
-		String sql = "update p_member set pw = ?, nickname = ?, phone = ?";
+		String sql = "update p_member set pw = ?, nickname = ?, phone = ? where id = ?";
 		
-		int result = jdbcTemplate.update(sql, new Object[] {pw, nickname, phone});
+		int result = jdbcTemplate.update(sql, new Object[] {pw, nickname, phone, id});
 		
 		return result>0;
 	}

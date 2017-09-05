@@ -13,6 +13,7 @@
     <div class="empty-row"></div>
 
     <form action="myedit" method="post">
+    <input type="hidden" name = "id" value="${sessionScope.member.id }">
     
         <table class = "table-striped info">
    <tbody>

@@ -200,7 +200,7 @@ public class MemberController {
 	
 	//나의 정보창에서 비밀번호를 변경
 	@RequestMapping(value = "/myedit", method = RequestMethod.POST)
-	public String myedit(
+	public String myedit(@RequestParam String id,
 			@RequestParam String pw, @RequestParam String rpw, 
 			@RequestParam String nickname, @RequestParam String phone, HttpSession session
 			) throws Exception {
@@ -209,7 +209,7 @@ public class MemberController {
 			throw new Exception("비밀번호 다름 발생");
 		}else {
 			
-			memberDao.infoedit(pw, nickname, phone);
+			memberDao.infoedit(id, pw, nickname, phone);
 			
 			session.invalidate();
 			
