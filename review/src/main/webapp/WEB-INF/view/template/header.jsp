@@ -256,7 +256,7 @@
 						<li><a href="#">액션/느와르</a></li>
 						<li><a href="#">기타</a></li>
 					</ul></li>
-				<li><a href="#">국내도서</a>
+				<li><a href="<c:url value="list?item=1" />">국내도서</a>
 					<ul>
 						<li><a href="#">SF/판타지/무협</a></li>
 						<li><a href="#">추리</a></li>
@@ -268,7 +268,7 @@
 						<li><a href="#">과학</a></li>
 						<li><a href="#">기타</a></li>
 					</ul></li>
-				<li><a href="#">해외도서</a>
+				<li><a href="<c:url value="list?item=2" />">해외도서</a>
 					<ul>
 						<li><a href="#">SF/판타지/무협</a></li>
 						<li><a href="#">추리</a></li>
