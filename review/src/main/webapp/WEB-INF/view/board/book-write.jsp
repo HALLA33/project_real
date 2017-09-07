@@ -4,23 +4,31 @@
 <%-- header.jsp를 불러와서 배치하는 코드 --%>
 <%@ include file="/WEB-INF/view/template/header.jsp" %>  
 
+<script>
+	function formSubmit(){
+		document.form.action="book-write/preview";
+		oEditors.getById["ir1"].exec("UPDATE_CONTENTS_FIELD", []);	
+		document.form.submit();
+	}
+</script>
+
 <article>
 <%-- 컨테이너 영역 --%>
 <h3>도서 게시판</h3>
-<form action="<c:url value="book-write" />" method="post">
+<form action="<c:url value="book-write/write" />"method="post" name="form">
 	<input type="hidden" name="writer" value="${sessionScope.member.nickname }">
 	<div class="row form-inline">
 		<div class="form-group area-20">
 			<label>카테고리</label>
 		</div>
 	   	<div class="form-group mx-sm-3">
-			<select name="item_no" class="user-input" id="margin">  
+			<select name="item_no" class="user-input" id="margin" required>  
 	        	<option>선택</option>
 	      		<option value = "1">국내도서</option> 
 	        	<option value = "2">해외도서</option> 
 	   		</select> 
 	    </div>
-		<select name="head" class="user-input" id="right">  
+		<select name="head" class="user-input" id="right" required>  
 			<option>장르</option>
 		   	<option value = "1">SF/판타지/무협</option> 
 		    <option value = "2">추리</option> 
@@ -38,7 +46,7 @@
 			<label>제목</label>
 		</div>
 		<div class="form-group mx-sm-3">
-			<input type="text" name="title" class="user-input area-90">
+			<input type="text" name="title" class="user-input area-90" required>
 		</div>
 	</div>
 
@@ -46,44 +54,45 @@
 		<div class="form-group area-20" >
 			<label>책 검색</label>
 		</div>
-			<div class="form-group mx-sm-3">
-				<input id="book_name" class="user-input margin" type="text" value="${name}" placeholder="검색할 책 이름을 작성하세요">
-			</div>
-			<!-- location.href='bookList/keyword='+${book_name} -->
-			<input type="button" onclick="bookname()" value="검색">
+		<div class="form-group mx-sm-3">
+			<input id="book_name" class="user-input margin" type="text" placeholder="검색할 책 이름을 작성하세요">
+		</div>
+		<!-- location.href='bookList/keyword='+${book_name} -->
+		<input type="button" onclick="bookname()" value="검색">
 			
-			<script type="text/javascript">
-				function bookname(){
-					var book_name = document.getElementById("book_name").value;
-	                var openWin = window.open("bookList?keyword="+book_name, "도서 찾기", "width=750, height=800");
-				}
-			</script>
+		<script type="text/javascript">
+			function bookname(){
+				var book_name = $("#book_name").val();
+	            var openWin = window.open("bookList?keyword="+book_name, "도서 찾기", "width=750, height=800");
+			}
+		</script>
 	</div>
 
 	<div class="row form-inline">
 		<div class="form-group area-20" >
-			<img id="p_image" src="${search_book.image}">
+			<img id="image" src="http://placehold.it/120x120">
 		</div>
 		<div style="padding-left: 10px">
-			<h5  style="font-size: 15px">${search_book.title }</h5>
-			<h5  style="font-size: 15px">${search_book.author }</h5>
-			<h5  style="font-size: 15px">${search_book.publisher }</h5>
-			<h5  style="font-size: 15px">${search_book.pubdate }</h5>
+			<h5 id="book_title" style="font-size: 15px">책제목</h5>
+			<h5 id="author" style="font-size: 15px">저자</h5>
+			<h5 id="publisher" style="font-size: 15px">출판사</h5>
+			<h5 id="pubdate" style="font-size: 15px">출판일</h5>
 		</div>   
 	</div>
-   <input type="hidden" name="p_image" value="${search_book.image}">
-   <input type="hidden" name="p_title" value="${search_book.title }">
-   <input type="hidden" name="p_author" value="${search_book.author }">
-   <input type="hidden" name="p_publisher" value="${search_book.publisher }">
-   <input type="hidden" name="p_pubdate" value="${search_book.pubdate }">
+
+	<input type="hidden" class="book_title" name="book_title"  required>
+	<input type="hidden" class="image" name="image">
+	<input type="hidden" class="author" name="author"  required>
+	<input type="hidden" class="publisher" name="publisher">
+	<input type="hidden" class="pubdate" name="pubdate">
    
-	<textarea name="ir1" id="ir1" class="nse_content" style="width:100%; height:412px; min-width:610px; display:none;"></textarea>
+	<textarea name="ir1" id="ir1" class="nse_content" style="width:100%; height:412px; min-width:610px; display:none;" required></textarea>
 	<script type="text/javascript">
    		var oEditors = [];
     	nhn.husky.EZCreator.createInIFrame({
 	       	oAppRef: oEditors,
 	       	elPlaceHolder: "ir1",
-	       	sSkinURI: "/review/smarteditor/SmartEditor2Skin.html",
+	       	sSkinURI: "/review_re/smarteditor/SmartEditor2Skin.html",
 	       	fCreator: "createSEditor2"
        	});
 
@@ -91,12 +100,18 @@
    			// 에디터의 내용이 textarea에 적용됩니다.
 			oEditors.getById["ir1"].exec("UPDATE_CONTENTS_FIELD", []);
         	// 에디터의 내용에 대한 값 검증은 이곳에서 document.getElementById("ir1").value를 이용해서 처리하면 됩니다. 
-  			try {
+        	try {
    				elClickedObj.form.submit();
        		} catch(e) {}
     		}
+    	
 	</script>
-	<input type="submit" value="전송" onclick="submitContents(this)" />
+	<div class="align-right">
+		<input type="submit" class="btn" style="margin: 10px" value="글쓰기" onclick="submitContents(this)" />
+		<input type="button" class="btn" style="margin: 10px" value="미리보기"  onclick="formSubmit()"/>		
+		<input type="button" class="btn" style="margin: 10px" value="목록보기" onclick="location.href='list'"/>	
+	</div>
+	
 </form>
 </article>
       
