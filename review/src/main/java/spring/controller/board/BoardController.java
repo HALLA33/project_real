@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.swing.tree.RowMapper;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,10 +27,8 @@ public class BoardController {
 	@Autowired
     private NaverBookService service; 
 	
+	@Autowired
 	private BoardDao boardDao;
-	public void setBoardDao(BoardDao boardDao) {
-		this.boardDao = boardDao;
-	}
 	
 	@RequestMapping("/text")
 	public String test() {
@@ -90,24 +89,36 @@ public class BoardController {
 	
 	@RequestMapping(value= {"/book-write", "/movie-write", "/show-write"}, method=RequestMethod.POST)
 	public String write_post(HttpServletRequest request) {
+		Book book = new Book();
+		book.setImage(request.getParameter("p_image"));
+		book.setTitle(request.getParameter("p_title"));
+		book.setAuthor(request.getParameter("p_author"));
+		book.setPublisher(request.getParameter("p_publisher"));
+		book.setPubdate(request.getParameter("p_pubdate"));
+		log.info("book : " + book.toString());
+		
 		Board b = new Board();
 		b.setItem_no(Integer.parseInt(request.getParameter("item_no")));
-		b.setHead(request.getParameter("head"));
+		b.setHead(Integer.parseInt(request.getParameter("head")));
 		b.setWriter(request.getParameter("writer"));
 		b.setTitle(request.getParameter("title"));
 		b.setDetail(request.getParameter("detail"));
+		log.info("board : " + b.toString());
 		
-		String notice = request.getParameter("notice");
+		//String notice = request.getParameter("notice");
+		String notice = "false";
 		notice = (notice.equals("true")) ? "true" : "false";
 		
 		b.setNotice(notice);
 		
 		String tag = request.getParameter("tag");
-		tag.replaceAll(" ", "");//공백제거
-		tag.replaceAll(",", "#");
+		//tag.replaceAll(" ", "");//공백제거
+		//tag.replaceAll(",", "#");
 		b.setTag(tag);
 		
-		boardDao.write(b);
+		int no = boardDao.search_write(book);
+		log.info("no : " + no);
+		boardDao.write(b, no);
 		return "board/list";
 	}
 	

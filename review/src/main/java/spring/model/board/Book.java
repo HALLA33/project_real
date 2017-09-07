@@ -1,5 +1,7 @@
 package spring.model.board;
 
+import javax.servlet.http.HttpServletRequest;
+
 public class Book {
 	private String title;
     private String link;
@@ -11,6 +13,22 @@ public class Book {
     private String pubdate;
     private String isbn;
     private String description;
+    
+    public Book() {}
+    
+    public Book(HttpServletRequest request) {
+    	setTitle(request.getParameter("title"));
+    	setLink(request.getParameter("link"));
+    	setImage(request.getParameter("image"));
+    	setAuthor(request.getParameter("author"));
+    	setPrice(request.getParameter("price"));
+    	setDiscount(request.getParameter("discount"));
+    	setPublisher(request.getParameter("publisher"));
+    	setPubdate(request.getParameter("pubdate"));
+    	setIsbn(request.getParameter("isbn"));
+    	setDescription(request.getParameter("description"));
+    }
+    
     public String getTitle() {
         return title;
     }

@@ -7,19 +7,20 @@
 <article>
 <%-- 컨테이너 영역 --%>
 <h3>도서 게시판</h3>
-<form action="#">
+<form action="<c:url value="book-write" />" method="post">
+	<input type="hidden" name="writer" value="${sessionScope.member.nickname }">
 	<div class="row form-inline">
 		<div class="form-group area-20">
 			<label>카테고리</label>
 		</div>
 	   	<div class="form-group mx-sm-3">
-			<select class="user-input" id="margin">  
+			<select name="item_no" class="user-input" id="margin">  
 	        	<option>선택</option>
 	      		<option value = "1">국내도서</option> 
 	        	<option value = "2">해외도서</option> 
 	   		</select> 
 	    </div>
-		<select class="user-input" id="right">  
+		<select name="head" class="user-input" id="right">  
 			<option>장르</option>
 		   	<option value = "1">SF/판타지/무협</option> 
 		    <option value = "2">추리</option> 
@@ -28,7 +29,7 @@
 		    <option value = "5">역사</option> 
 		   	<option value = "6">시/에세이</option> 
 		    <option value = "7">철학/종교</option> 
-		      <option value = "8">과학</option> 
+		    <option value = "8">과학</option> 
 		    <option value = "99">기타</option> 
 		  </select> 
 	</div>
@@ -61,15 +62,20 @@
 
 	<div class="row form-inline">
 		<div class="form-group area-20" >
-			<img id="b_image" src="${search_book.image}">
+			<img id="p_image" src="${search_book.image}">
 		</div>
 		<div style="padding-left: 10px">
-			<h5 style="font-size: 15px">${search_book.title }</h5>
-			<h5 style="font-size: 15px">${search_book.author }</h5>
-			<h5 style="font-size: 15px">${search_book.publisher }</h5>
-			<h5 style="font-size: 15px">${search_book.pubdate }</h5>
+			<h5  style="font-size: 15px">${search_book.title }</h5>
+			<h5  style="font-size: 15px">${search_book.author }</h5>
+			<h5  style="font-size: 15px">${search_book.publisher }</h5>
+			<h5  style="font-size: 15px">${search_book.pubdate }</h5>
 		</div>   
 	</div>
+   <input type="hidden" name="p_image" value="${search_book.image}">
+   <input type="hidden" name="p_title" value="${search_book.title }">
+   <input type="hidden" name="p_author" value="${search_book.author }">
+   <input type="hidden" name="p_publisher" value="${search_book.publisher }">
+   <input type="hidden" name="p_pubdate" value="${search_book.pubdate }">
    
 	<textarea name="ir1" id="ir1" class="nse_content" style="width:100%; height:412px; min-width:610px; display:none;"></textarea>
 	<script type="text/javascript">

@@ -1,9 +1,12 @@
 package spring.model.board;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 public class Board {
 	private int no;
 	private int item_no;
-	private String head;
+	private int head;
 	private String tag;
 	private String writer;
 	private String title;
@@ -14,6 +17,36 @@ public class Board {
 	private int good;
 	private int bad;
 	private String notice;
+	private int search_no;
+	
+	public Board() {}
+	
+	public Board(ResultSet rs) throws SQLException {
+		setNo(rs.getInt("no"));
+		setItem_no(rs.getInt("item_no"));
+		setHead(rs.getInt("head"));
+		setTag(rs.getString("tag"));
+		setWriter(rs.getString("writer"));
+		setTitle(rs.getString("title"));
+		setDetail(rs.getString("detail"));
+		setReg(rs.getString("reg"));
+		setRead(rs.getInt("read"));
+		setReply(rs.getInt("reply"));
+		setGood(rs.getInt("good"));
+		setBad(rs.getInt("bad"));
+		setNotice(rs.getString("notice"));
+		setSearch_no(rs.getInt("search_no"));
+	}
+	
+	
+	public int getSearch_no() {
+		return search_no;
+	}
+
+	public void setSearch_no(int search_no) {
+		this.search_no = search_no;
+	}
+
 	public int getNo() {
 		return no;
 	}
@@ -26,10 +59,10 @@ public class Board {
 	public void setItem_no(int item_no) {
 		this.item_no = item_no;
 	}
-	public String getHead() {
+	public int getHead() {
 		return head;
 	}
-	public void setHead(String head) {
+	public void setHead(int head) {
 		this.head = head;
 	}
 	public String getTag() {
@@ -92,4 +125,13 @@ public class Board {
 	public void setNotice(String notice) {
 		this.notice = notice;
 	}
+
+	@Override
+	public String toString() {
+		return "Board [no=" + no + ", item_no=" + item_no + ", head=" + head + ", tag=" + tag + ", writer=" + writer
+				+ ", title=" + title + ", detail=" + detail + ", reg=" + reg + ", read=" + read + ", reply=" + reply
+				+ ", good=" + good + ", bad=" + bad + ", notice=" + notice + ", search_no=" + search_no + "]";
+	}
+
+	
 }
