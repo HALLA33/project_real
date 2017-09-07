@@ -32,6 +32,8 @@ public class MemberController {
 	@Autowired
 	private Generator generator;
 	
+
+	//뷰 페이지
 	
 	//이용약관 뷰
 	@RequestMapping("/tos")
@@ -48,6 +50,50 @@ public class MemberController {
 		
 		return "member/sign";
 	}
+	
+	//나의 정보 뷰
+	@RequestMapping
+	public String infoview() {
+	
+		return "member/myinfo";
+	}
+	//나의 정보수정 뷰
+	@RequestMapping("/myedit")
+	public String editview() {
+		
+		
+		return "member/myedit";
+	}
+	
+	//비밀번호 찾기 뷰
+	@RequestMapping("/forgetpw")
+	public String findpw() {
+		
+		return "member/forgetpw";		
+	}
+	
+	//관리자 전용 멤버리스트 뷰
+	@RequestMapping("/member")
+	public String memberlist(HttpServletRequest request, HttpServletRequest respons) {
+		
+		List<Member> list = memberDao.memberlist();
+		
+		request.setAttribute("list", list);
+		
+		return "member/member";
+	}
+	
+	//아이디 찾기 뷰
+	@RequestMapping("/forget")
+	public String findidview() {
+		
+		
+		return "member/forget";
+	}
+	
+	//===================================================
+	
+	//처리 페이지
 	
 	//회원가입 처리
 	@RequestMapping(value = "/sign", method = RequestMethod.POST)
@@ -71,17 +117,6 @@ public class MemberController {
 		
 	}
 	
-	//관리자 전용 멤버리스트
-	@RequestMapping("/member")
-	public String memberlist(HttpServletRequest request, HttpServletRequest respons) {
-		
-		List<Member> list = memberDao.memberlist();
-		
-		request.setAttribute("list", list);
-		
-		return "member/member";
-		
-	}
 	//로그인 처리
 	@RequestMapping(value = "login", method = RequestMethod.POST)
 	public String login(
@@ -106,13 +141,6 @@ public class MemberController {
 		
 		return "redirect:/";
 	}
-	//아이디 찾기 뷰
-	@RequestMapping("/forget")
-	public String findidview() {
-		
-		
-		return "member/forget";
-	}
 	//아이디 찾기 처리
 	@RequestMapping(value = "/forget", method = RequestMethod.POST)
 	public String findid(@RequestParam String name, String email, HttpServletRequest request) throws Exception {
@@ -123,14 +151,7 @@ public class MemberController {
 		
 		return "member/forget_suc";
 	}
-	
-	//비밀번호 찾기 뷰
-	@RequestMapping("/forgetpw")
-	public String findpw() {
-		
-		return "member/forgetpw";
-		
-	}
+
 	//비밀번호 변경페이지 전송
 	@RequestMapping(value = "/forgetpw", method = RequestMethod.POST)
 	public String sendrpw(@RequestParam String email, @RequestParam String name,
@@ -164,7 +185,7 @@ public class MemberController {
 		
 		return "member/repwset";
 	}
-	
+	//비밀번호 찾기페이지에서 비밀번호 변경
 	@RequestMapping(value = "/repwset", method = RequestMethod.POST)
 	public String repwset(@RequestParam String pw, @RequestParam String rpw, HttpSession session) throws Exception {
 		
@@ -185,22 +206,14 @@ public class MemberController {
 				throw new Exception("비정상적 비밀번호 변경 감지");
 				
 			}
-			
 		}else {
 			throw new Exception("비밀번호 미일치");
 		}
 	}
 	
-	//나의 정보수정 뷰
-	@RequestMapping("/myedit")
-	public String editview() {
-
-		return "member/myedit";
-	}
-	
 	//나의 정보창에서 비밀번호를 변경
 	@RequestMapping(value = "/myedit", method = RequestMethod.POST)
-	public String myedit(@RequestParam String id,
+	public String myedit(
 			@RequestParam String pw, @RequestParam String rpw, 
 			@RequestParam String nickname, @RequestParam String phone, HttpSession session
 			) throws Exception {
@@ -209,7 +222,7 @@ public class MemberController {
 			throw new Exception("비밀번호 다름 발생");
 		}else {
 			
-			memberDao.infoedit(id, pw, nickname, phone);
+			memberDao.infoedit(pw, nickname, phone);
 			
 			session.invalidate();
 			
@@ -218,62 +231,8 @@ public class MemberController {
 		}
 	}
 	
-	//비밀번호 체크 뷰
-	@RequestMapping("/check")
-	public String checkview() {
-
-		return "member/check";
-	}
 	
-	//비밀번호 체크
-	@RequestMapping(value = "/check", method = RequestMethod.POST)
-	public String check(@RequestParam String mode, @RequestParam String id,@RequestParam String pw) throws Exception {
 	
-		
-		boolean result = memberDao.check(id, pw);
-		
-		if(result) {
-			
-			if(mode.equals("edit")) {
-				return "member/myedit";
-			}else {
-				throw new Exception("없는 모드");
-			}
-			
-		}else {
-			throw new Exception("없는 아이디나 비밀번호");
-		}
-
-	}
-	
-	//아이디 중복확인
-	@RequestMapping(value = "/idcheck", method = RequestMethod.POST)
-	public String idcheck(@RequestParam String id) throws Exception {
-		
-		log.info(id);
-		
-		boolean result = memberDao.idcheck(id);
-		
-		if(result) {
-			return "member/success";
-		}else {
-			throw new Exception("아이디가있음");
-		}		
-	}
-	//닉네임 중복확인
-	@RequestMapping(value = "/nickcheck", method = RequestMethod.POST)
-	public String nickcheck(@RequestParam String nick) throws Exception {
-		
-		log.info(nick);
-		
-		boolean result = memberDao.nickcheck(nick);
-		
-		if(result) {
-			return "member/success";
-		}else {
-			throw new Exception("아이디가있음");
-		}		
-	}
 	
 
 }

@@ -5,6 +5,7 @@
 <%@ include file="/WEB-INF/view/template/header.jsp" %>  
 
 <article>
+<form action="check" method="get">
 <%-- 컨테이너 영역 --%>
 <div class="empty-row"></div>
     <div align="center">
@@ -91,7 +92,11 @@
        
    </tbody>
        </table>
- <div class="empty-row"></div>
+        <div align="center">
+            <button type="button" onclick="location.href = 'check?mode=edit'" class = "btn btn-primary">정보 수정</button>
+        </div>
+    </form>
+     <div class="empty-row"></div>
 </article>
       
 <%-- footer.jsp를 불러와서 배치하는 코드 --%>

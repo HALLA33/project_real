@@ -6,6 +6,9 @@
 
 <article>
 <%-- 컨테이너 영역 --%>
+<form action="check" method="post">
+<input type="hidden" value="${param.mode}" name = "mode">
+<input type="hidden" value="${sessionScope.member.id}" name = "id">
 <div class="container" align = center>
     <div class="empty-row"></div>
     <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2" align = center>
@@ -26,6 +29,7 @@
         </div>
     </div>
 </div>
+</form>
 </article>
       
 <%-- footer.jsp를 불러와서 배치하는 코드 --%>
