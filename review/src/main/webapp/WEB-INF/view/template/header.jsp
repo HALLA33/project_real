@@ -18,11 +18,14 @@
 			console.log($(this).childrens().text());
 		});
 	});
+	
+	
 	</script>
 	<link rel="stylesheet" type="text/css" href="<c:url value="/css/layout.css" />">
     <link rel="stylesheet" type="text/css" href="<c:url value="/css/main.css" />">
     <link rel="stylesheet" type="text/css" href="<c:url value="/css/design.css" />">
     <link rel="stylesheet" type="text/css" href="<c:url value="/css/bootstrap/bootstrap.css" />">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
 <style>
 @font-face{
 	font-family: bmdohyeon;
@@ -93,16 +96,13 @@
 
 .menu-wrap li:hover {
 	background-color: white;
-	border-radius: 5px;
 }
 
 .menu-wrap li:hover>ul {
 	display: block;
 }
 
-.right {
-	margin-left: auto;
-}
+
 
 
 
@@ -155,11 +155,41 @@
 	padding: 180 0 0 80;
 }
 
+
 /* login-form */
 .loginform-wrap{
 	width: 200px;
 	height: 10px;
 }
+.login-location{
+	display: inline-block; 
+	margin-left: -7px;
+}
+.login-location-tab{
+	border: 2;
+	border-collapse: collapse; 
+	border-color: cornflowerblue;
+}
+.login-loc-text{
+	width: 130px;
+}
+.left{
+	margin-right: 2em;
+	display: inline-block;
+}
+.right {
+	margin-left: auto;
+	display: inline-block;
+}
+.edit-btn{
+	width: 30px; height: 20px; 
+	font-size: 7px; 
+	background-color: white; 
+	border-radius: 5px; 
+	outline: 0; 
+	padding: 0px;
+}
+
 .login_tab{
 	border: 1;
 	border-collapse: collapse;
@@ -171,11 +201,13 @@
 	background-color: dodgerblue;
 	color: white;
 }
-.input-group, form-control{
+.input-group, .form-control{
 	height: 40px !important;
 	margin: 0 auto !important;
 }
 
+
+/* menu 상단 searchbar */
 .search-bar{
 	margin-bottom: -20px;
 }
@@ -184,9 +216,16 @@
 	height: 40px;
 	background-color: white;
 }
-.searchicon{
-	background-image: url('img/searchicon40.png');
+ .searchicon{ 
+   padding:2px;
+ } 
+.form-control, .searchicon{
+   border: 2px solid lightblue;
 }
+
+/* write-view */
+
+
 </style>
 </head>
 <body>
@@ -255,7 +294,7 @@
 					<div class="input-group">
 						<input type="search" style="width: 200px;" placeholder="검색어" class="form-control">
 						<span class="input-group-btn search-bar">
-							<button class="btn btn-default searchicon" type="button"></button>
+							<button class="btn btn-default searchicon " type="button"><i class="xi-search xi-2x"></i></button>
 						</span>
 					</div>
 				</div>
