@@ -93,6 +93,7 @@
 
 .menu-wrap li:hover {
 	background-color: white;
+	border-radius: 5px;
 }
 
 .menu-wrap li:hover>ul {
