@@ -17,4 +17,5 @@ public interface MemberDao {
 	public boolean check(String id, String pw);
 	public boolean idcheck(String id);
 	public boolean nickcheck(String nick);
+	public boolean nickcheck(String id, String nick);
 }

@@ -170,4 +170,14 @@ public class MemberDaoImpl implements MemberDao {
 		
 	}
 
+	@Override
+	public boolean nickcheck(String id, String nick) {
+
+		String sql = "select * from p_member where id =? and nickname = ?";
+		
+		boolean result = jdbcTemplate.query(sql, new Object[] {id, nick}, mapper).isEmpty();
+		
+		return result;
+	}
+
 }

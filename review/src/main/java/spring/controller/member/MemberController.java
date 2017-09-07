@@ -204,7 +204,15 @@ public class MemberController {
 			@RequestParam String pw, @RequestParam String rpw, 
 			@RequestParam String nickname, @RequestParam String phone, HttpSession session
 			) throws Exception {
-		
+			
+			Member member = (Member)session.getAttribute("member");
+			
+			if(pw.equals("")) {
+				pw =  member.getPw();
+				rpw = member.getPw();
+			}
+		log.info(pw);
+		log.info(rpw);
 		if(!pw.equals(rpw)) {
 			throw new Exception("비밀번호 다름 발생");
 		}else {
@@ -235,7 +243,7 @@ public class MemberController {
 		if(result) {
 			
 			if(mode.equals("edit")) {
-				return "member/myedit";
+				return "redirect:myedit";
 			}else {
 				throw new Exception("없는 모드");
 			}
@@ -269,6 +277,23 @@ public class MemberController {
 		boolean result = memberDao.nickcheck(nick);
 		
 		if(result) {
+			return "member/success";
+		}else {
+			throw new Exception("아이디가있음");
+		}		
+	}
+	
+	@RequestMapping(value = "/nickcheck2", method = RequestMethod.POST)
+	public String nickcheck2(@RequestParam String nick, @RequestParam String id) throws Exception {
+		
+		
+		boolean result = memberDao.nickcheck(id, nick);
+		boolean result2 = memberDao.nickcheck(nick);
+		
+		System.out.println(result);
+		System.out.println(result2);
+		
+		if(!result || result2) {
 			return "member/success";
 		}else {
 			throw new Exception("아이디가있음");
