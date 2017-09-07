@@ -1,8 +1,12 @@
 package spring.model.board;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 import javax.servlet.http.HttpServletRequest;
 
 public class Book {
+	private int no;
 	private String title;
     private String link;
     private String image;
@@ -16,6 +20,14 @@ public class Book {
     
     public Book() {}
     
+    public Book(ResultSet rs) throws SQLException {
+		setNo(rs.getInt("no"));
+		setTitle(rs.getString("title"));
+		setImage(rs.getString("image"));
+		setAuthor(rs.getString("author"));
+		setPublisher(rs.getString("publisher"));
+		setPubdate(rs.getString("pubdate"));
+	}
     public Book(HttpServletRequest request) {
     	setTitle(request.getParameter("title"));
     	setLink(request.getParameter("link"));
@@ -29,6 +41,12 @@ public class Book {
     	setDescription(request.getParameter("description"));
     }
     
+    public int getNo() {
+    	return no;
+    }
+    public void setNo(int no) {
+    	this.no = no;
+    }
     public String getTitle() {
         return title;
     }
