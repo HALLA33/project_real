@@ -168,7 +168,7 @@
 .login-location-tab{
 	border: 2;
 	border-collapse: collapse; 
-	border-color: cornflowerblue;
+	border-color: lightblue;
 }
 .login-loc-text{
 	width: 130px;
