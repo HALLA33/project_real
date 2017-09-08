@@ -115,7 +115,9 @@
 	background-image: url('img/sea1.png');
 	opacity: 0.825;
 }
-
+aside{
+	background-color: #e4e8f1;
+}
 
 .imgHeader{
 	background-image: url('img/pencil.jpg');

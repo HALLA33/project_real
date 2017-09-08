@@ -38,7 +38,7 @@
 	min-height: 800px;
 	margin: 4px;
 	padding: 5px;
-	border: 1px solid black;
+/* 	border: 1px solid black; */
 	border-radius: 7pt;
 	flex: 1 6 20%;
 	order: 3;
@@ -52,6 +52,9 @@ header, footer {
 	border: 1px solid black;
 	border-radius: 7pt;
 }
+/* body{ */
+/* 	background-color: #F4E4A0; */
+/* } */
 
     
 /* 반응형 레이아웃 설정 */
