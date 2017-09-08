@@ -21,7 +21,7 @@
                         <input class="none-btn" type="button" value="다음달>>">
                     </span>
                 </div>
-                <table border="1" class="c-table">
+                <table border="1" class="c-table" style="width: 700px !important; margin:0 auto;">
                     <tr>
                         <th>출석점수</th>
                         <th>??</th>
@@ -41,7 +41,7 @@
                         <th>??</th>
                         <th><a href="#">개근분류</a></th>
                         <th>
-                            <div class="menu-wrap">
+                            <div class="attend-menu-wrap">
                                 <a href="#">자세히보기▼</a>
                                 <ul>
                                     <li>
