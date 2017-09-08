@@ -88,6 +88,7 @@
 	padding: 0px;
 	font-size: 15px;
 	border-radius: 5px;
+	z-index: 1000;/*항상위로*/
 }
 
 .menu-wrap li {
@@ -102,47 +103,19 @@
 	display: block;
 }
 
-
-
-
-
-#main {   
-	margin: 0 auto;
-	padding: 0;
-	display: flex;
-	flex:auto; 
-	width: 1000px;
-}
- 
-#main > article {
-	min-height: 800px;
-	margin: 4px;
-	padding: 5px;
-/* 	border: 1px solid black; */
-/* 	border-radius: 7pt; */
-	width: 800px;
-	order: 2;
+#caption{
+	margin:60px 50px 20px;
+    color: deeppink;
+/*     border:1px solid black; */
+    background:rgba(100,100,100, 0.3);
+    order: 1;
 }
 
-#main > nav {
-	min-height: 800px;
-	margin: 4px;
-	padding: 5px;
-/* 	border: 1px solid black; */
-/* 	border-radius: 7pt; */
-	width: 200px;
-	order: 1;
+#home_article{
+	background-image: url('img/sea1.png');
+	opacity: 0.825;
 }
-  
-#main > aside {
-	min-height: 800px;
-	margin: 4px;
-	padding: 5px;
-/* 	border: 1px solid black; */
-/* 	border-radius: 7pt; */
-	width: 200px;
-	order: 3;
-}
+
 
 .imgHeader{
 	background-image: url('img/pencil.jpg');

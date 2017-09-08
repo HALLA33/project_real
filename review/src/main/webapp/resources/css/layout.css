@@ -4,23 +4,26 @@
 }
 
 #main {   
-	margin: 0;
+	margin: 0 auto;;
 	padding: 0;
 	display: flex;
 	flex:auto; 
+	width: 1000px;
 }
  
 #main > article {
+	width: 800px;
 	min-height: 800px;
 	margin: 4px;
 	padding: 5px;
-	border: 1px solid black;
+/* 	border: 1px solid black; */
 	border-radius: 7pt;
 	flex: 3 1 60%;
 	order: 2;
 }
 
 #main > nav {
+	width: 200px;
 	min-height: 800px;
 	margin: 4px;
 	padding: 5px;
@@ -31,6 +34,7 @@
 }
   
 #main > aside {
+	width: 200px;
 	min-height: 800px;
 	margin: 4px;
 	padding: 5px;
