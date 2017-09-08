@@ -30,10 +30,11 @@
 				</div>
 			</div>
 			<br><br>
-			<input type="checkbox" style="margin: 20 0 10 0;">로그인 유지
+			<input type="checkbox" id="remember" style="margin: 20 0 10 0; cursor: pointer;">
+			<label for="remember" style="font-size:13px; margin-left:0px; cursor: pointer;">로그인 유지</label>
 			<br>
 			<a href="tos">회원가입</a>&nbsp;&nbsp;
-			<a href="forget">ID</a>/
+			<a href="forget">ID</a>&nbsp;/
 			<a href="forgetpw">PW 찾기</a>
 		</form>		
 		</c:if>
