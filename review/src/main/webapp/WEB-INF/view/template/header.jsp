@@ -234,7 +234,7 @@
 	<header class="imgHeader">
 		<div class="menu-wrap">
 			<ul>
-				<li><a href="#">Home</a></li>
+				<li><a href="home">Home</a></li>
 				<li><a href="list">국내영화</a>
 					<ul>
 						<li><a href="#">SF/판타지</a></li>

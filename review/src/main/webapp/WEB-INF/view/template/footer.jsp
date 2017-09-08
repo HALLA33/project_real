@@ -40,10 +40,10 @@
 		</c:if>
 		<c:if test = "${sessionScope.member ne null }">
 			<div class="left">
-				닉네임 : <a href="#">${sessionScope.member.nickname }&#40;${sessionScope.member.id}&#41;</a>
+				닉네임 : <a href="myinfo">${sessionScope.member.nickname }&#40;${sessionScope.member.id}&#41;</a>
 			</div>
 			<div class="right">
-				<button class="edit-btn">edit</button>
+				<button class="edit-btn" onclick="location.href='myedit'">edit</button>
 			</div>
 			<div>
 				<div class="left">
