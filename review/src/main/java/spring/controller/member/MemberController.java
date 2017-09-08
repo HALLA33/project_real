@@ -206,7 +206,6 @@ public class MemberController {
 			) throws Exception {
 			
 			Member member = (Member)session.getAttribute("member");
-			
 			if(pw.equals("")) {
 				pw =  member.getPw();
 				rpw = member.getPw();
@@ -216,11 +215,13 @@ public class MemberController {
 		if(!pw.equals(rpw)) {
 			throw new Exception("비밀번호 다름 발생");
 		}else {
-			
+			member.setNickname(nickname);
 			memberDao.infoedit(id, pw, nickname, phone);
 			
-			session.invalidate();
+			log.info(member.getNickname());
 			
+			session.setAttribute("member", member);
+	
 			return "redirect:/";
 			
 		}

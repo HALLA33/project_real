@@ -119,7 +119,9 @@
     			alert("중복확인을 하지않으셨거나 올바르지않은 유형을 입력하셨습니다");
     			event.preventDefault();
     			return;
-    		} 
+    		}else{
+    			alert("정보가 수정되었습니다");
+    		}
 		}); 
 		
 		

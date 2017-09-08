@@ -2,6 +2,8 @@ package spring.model.member;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,6 +69,10 @@ public class MemberDaoImpl implements MemberDao {
 		String sql = "select * from p_member where id = ? and pw = ?";
 
 		List<Member> list = jdbcTemplate.query(sql, new Object[] { id, pw }, mapper);
+		
+		sql = "update p_member set lastvisit = sysdate where id = ?";
+		
+		jdbcTemplate.update(sql, new Object[] {id});		
 
 		Member member = list.get(0);
 
@@ -109,7 +115,7 @@ public class MemberDaoImpl implements MemberDao {
 			mailMessage.setTo(email);
 			mailMessage.setSubject("비밀번호 변경 페이지 입니다");
 			
-			String text = "인증하시려면 아래의 링크를 누르세요\n" + "http://localhost:8080/review2/repwset?token=" + token +";";
+			String text = "인증하시려면 아래의 링크를 누르세요\n" + "http://localhost:8080/review/repwset?token=" + token +";";
 			mailMessage.setText(text);
 			mailsender.send(mailMessage);
 			log.debug(email + " 로 인증 메일 발송 완료");
