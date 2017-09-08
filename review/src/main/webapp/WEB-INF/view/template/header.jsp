@@ -153,6 +153,7 @@
 	height: 300px;
 	border: 0;
 	padding: 180 0 0 80;
+	cursor: pointer;
 }
 
 
@@ -215,6 +216,7 @@
 	width: 40px;
 	height: 40px;
 	background-color: lightblue;
+	cursor: pointer;
 }
 
  .searchicon{ 
@@ -231,7 +233,7 @@
 </head>
 <body>
 	<%-- header (상단) --%>
-	<header class="imgHeader">
+	<header class="imgHeader" onclick="location.href='home'">
 		<div class="menu-wrap">
 			<ul>
 				<li><a href="home">Home</a></li>
