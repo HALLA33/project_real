@@ -10,10 +10,10 @@
 				<div class="login-location">
 					<table border="2" class="login-location-tab">
 						<tr>
-							<td><input type="text" placeholder="id" name="id" class="login-loc-text"></td>
+							<td><input type="text" placeholder="id" name="id" class="login-loc-text" required></td>
 						</tr>
 						<tr>
-							<td><input type="password" placeholder="pw" name="pw" class="login-loc-text"></td>
+							<td><input type="password" placeholder="pw" name="pw" class="login-loc-text" required></td>
 						</tr>
 					</table>
 				</div>

@@ -214,8 +214,9 @@
 .search-bar > button{
 	width: 40px;
 	height: 40px;
-	background-color: white;
+	background-color: lightblue;
 }
+
  .searchicon{ 
    padding:2px;
  } 
@@ -294,7 +295,7 @@
 					<div class="input-group">
 						<input type="search" style="width: 200px;" placeholder="검색어" class="form-control">
 						<span class="input-group-btn search-bar">
-							<button class="btn btn-default searchicon " type="button"><i class="xi-search xi-2x"></i></button>
+							<button class="btn btn-default searchicon " type="submit"><i class="xi-search xi-2x"></i></button>
 						</span>
 					</div>
 				</div>
