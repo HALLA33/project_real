@@ -116,7 +116,8 @@
 	opacity: 0.825;
 }
 aside{
-	background-color: #e4e8f1;
+/* 	background-color: #e4e8f1; */
+		background: linear-gradient(#e3e7f0, #50b1d7);
 }
 
 .imgHeader{
