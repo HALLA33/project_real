@@ -1,5 +1,7 @@
 package spring.controller.member;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.request;
+
 import java.util.List;
 
 import javax.servlet.http.Cookie;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import oracle.net.aso.s;
 import spring.model.member.Generator;
 import spring.model.member.Member;
 import spring.model.member.MemberDao;
@@ -43,8 +46,13 @@ public class MemberController {
 	
 	//회원가입 뷰
 	@RequestMapping("/sign")
-	public String signview() {
+	public String signview(HttpSession session) throws Exception {
 		
+		Member member = (Member)session.getAttribute("member");
+		
+		if(member != null) {
+			throw new Exception("잘못된 접근");
+		}
 		
 		return "member/sign";
 	}
