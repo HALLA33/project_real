@@ -5,31 +5,80 @@
 <%@ include file="/WEB-INF/view/template/header.jsp" %>  
 
 <script>
-	function formSubmit(){
-		document.form.action="book-write/preview";
-		oEditors.getById["ir1"].exec("UPDATE_CONTENTS_FIELD", []);	
-		document.form.submit();
+	$(document).ready(function(){
+		$("#preview").on("click", function(){
+ 			var msg = valid(form);
+
+			if(msg!=null)
+				alert(msg);
+			else{
+				var openWin = window.open("about:blank", "preview", "width=750, height=800");
+				form.action="book-preview";
+				form.target="preview"
+				form.submit();
+			}
+		});
+		
+		$("#register").on("click", function(){
+			var msg = valid(form);
+			
+			if(msg!=null)
+				alert(msg);
+			else{
+				form.action="book-write";
+				form.submit();
+			}
+		});
+	});
+	
+	function valid(form){
+		var msg = null;
+		var text = tagRemove(form.ir1.value);
+		
+		if(text=='')
+			msg = "내용을 입력하세요";
+		if(form.book_title.value=='')
+			msg = "책을 검색하세요";
+		if(form.title.value=='')
+			msg = "제목을 입력하세요";
+		if(form.head.value==0)
+			msg = "장르를 선택하세요";
+		if(form.item_no.value==0)
+			msg = "카테고리를 선택하세요";
+
+		return msg;
+	}
+	
+	function tagRemove(text){
+		var detail = text_replace(text);
+			
+		return detail;
+			
+		function text_replace(text){
+			text = text.replace(/<br\/>/ig, "\n"); 
+			text = text.replace(/<(\/)?([a-zA-Z]*)(\s[a-zA-Z]*=[^>]*)?(\s)*(\/)?>/ig, "");
+			return text;
+		}
 	}
 </script>
-
 <article>
 <%-- 컨테이너 영역 --%>
 <h3>도서 게시판</h3>
-<form action="<c:url value="book-write/write" />"method="post" name="form">
-	<input type="hidden" name="writer" value="${sessionScope.member.nickname }">
+<form method="post" name="form">
+	<input type="hidden" name="writer" value="${sessionScope.member.id }">
 	<div class="row form-inline">
 		<div class="form-group area-20">
 			<label>카테고리</label>
 		</div>
 	   	<div class="form-group mx-sm-3">
 			<select name="item_no" class="user-input" id="margin" required>  
-	        	<option>선택</option>
+	        	<option value = "0">선택</option>
 	      		<option value = "1">국내도서</option> 
 	        	<option value = "2">해외도서</option> 
 	   		</select> 
 	    </div>
 		<select name="head" class="user-input" id="right" required>  
-			<option>장르</option>
+			<option value = "0">장르</option>
 		   	<option value = "1">SF/판타지/무협</option> 
 		    <option value = "2">추리</option> 
 		    <option value = "3">로맨스</option> 
@@ -49,7 +98,6 @@
 			<input type="text" name="title" class="user-input area-90" required>
 		</div>
 	</div>
-
 	<div class="row form-inline">
 		<div class="form-group area-20" >
 			<label>책 검색</label>
@@ -73,16 +121,16 @@
 			<img id="image" src="http://placehold.it/120x120">
 		</div>
 		<div style="padding-left: 10px">
-			<h5 id="book_title" style="font-size: 15px">책제목</h5>
+			<h5 id="book_title" style="font-size: 15px; width:500px">책제목</h5>
 			<h5 id="author" style="font-size: 15px">저자</h5>
 			<h5 id="publisher" style="font-size: 15px">출판사</h5>
 			<h5 id="pubdate" style="font-size: 15px">출판일</h5>
 		</div>   
 	</div>
 
-	<input type="hidden" class="book_title" name="book_title"  required>
+	<input type="hidden" class="book_title" name="book_title">
 	<input type="hidden" class="image" name="image">
-	<input type="hidden" class="author" name="author"  required>
+	<input type="hidden" class="author" name="author">
 	<input type="hidden" class="publisher" name="publisher">
 	<input type="hidden" class="pubdate" name="pubdate">
    
@@ -101,15 +149,15 @@
 			oEditors.getById["ir1"].exec("UPDATE_CONTENTS_FIELD", []);
         	// 에디터의 내용에 대한 값 검증은 이곳에서 document.getElementById("ir1").value를 이용해서 처리하면 됩니다. 
         	try {
-   				elClickedObj.form.submit();
+   				//elClickedObj.form.submit();
        		} catch(e) {}
     		}
     	
 	</script>
 	<div class="align-right">
-		<input type="submit" class="btn" style="margin: 10px" value="글쓰기" onclick="submitContents(this)" />
-		<input type="button" class="btn" style="margin: 10px" value="미리보기"  onclick="formSubmit()"/>		
-		<input type="button" class="btn" style="margin: 10px" value="목록보기" onclick="location.href='list'"/>	
+		<input type="button" class="btn" style="margin: 10px" value="글쓰기" id="register" onclick="submitContents(this)" />
+		<input type="button" class="btn" style="margin: 10px" value="미리보기" id="preview" onclick="submitContents(this)"/>		
+		<input type="button" class="btn" style="margin: 10px" value="목록보기" onclick="location.href='list?item_no=${item_no}'"/>	
 	</div>
 	
 </form>
