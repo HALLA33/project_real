@@ -3,6 +3,8 @@ package spring.model.board;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import javax.servlet.http.HttpServletRequest;
+
 public class Board {
 	private int no;
 	private int item_no;
