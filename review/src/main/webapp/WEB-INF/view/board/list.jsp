@@ -8,7 +8,7 @@
 <%-- 컨테이너 영역 --%>
 
 <div class="container">
-	<h1>영화 게시판</h1>
+	<h1> 게시판</h1>
 	<br>
 	<div class="container">
 		<ul class="nav nav-tabs">
