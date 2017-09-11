@@ -112,12 +112,14 @@
 }
 
 #home_article{
-	background-image: url('img/sea1.png');
+	background-image: url('img/sea_crop_left.jpg');
 	opacity: 0.825;
 }
 aside{
 /* 	background-color: #e4e8f1; */
-		background: linear-gradient(#e3e7f0, #50b1d7);
+/* 		background: linear-gradient(#e3e7f0, #50b1d7); */
+	background-image: url('img/sea_crop_right.jpg');
+	opacity: 0.825;
 }
 
 .imgHeader{
