@@ -20,11 +20,10 @@
 				<div class="login-location">
 					<table border="2" class="login-location-tab">
 						<tr style="height: 57px;">
-							<td rowspan="2"><input type="submit" value="login" style="height: 53px;margin: 0 auto;
-	width: 55px;
-	height: 53px;
-	background-color: dodgerblue;
-	color: white; border-radius: 5px;"></td>
+							<td rowspan="2"><input type="submit" value="login" 
+							style="height: 53px;margin: 0 auto; width: 55px;
+							height: 53px; background-color: dodgerblue;
+							color: white; border-radius: 5px; cursor: pointer;"></td>
 						</tr>
 					</table>
 				</div>

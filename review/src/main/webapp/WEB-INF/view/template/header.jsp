@@ -131,7 +131,6 @@ aside{
 	height: 300px;
 	border: 0;
 	padding: 180 0 0 80;
-	cursor: pointer;
 }
 
 
@@ -211,7 +210,7 @@ aside{
 </head>
 <body>
 	<%-- header (상단) --%>
-	<header class="imgHeader" onclick="location.href='home'">
+	<header class="imgHeader">
 		<div class="menu-wrap">
 			<ul>
 				<li><a href="home">Home</a></li>
