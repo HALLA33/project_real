@@ -44,7 +44,7 @@
     <div style = "padding: 50px 100px 10px;">
         
    
-   <form class = "bs-example bs-example-form" role = "form">
+   <form class = "bs-example bs-example-form" role = "form" action="member" method="get">
       <div class = "row">
          
          <div class = "col-lg-6">
@@ -52,16 +52,15 @@
                <label class="search">
                 회원 검색&nbsp;&nbsp;&nbsp;
                 </label>
-                <select class="" name="">
-                    <option value="">선택</option>
-                    <option>아이디</option>
-                    <option>닉네임</option>
+                <select class="" name="smode">
+                    <option value="0">아이디</option>
+                    <option value="1">닉네임</option>
                 </select>
                 
-                <input type = "text" class = "form-control">
+                <input type = "text" class = "form-control" name = "key">
                
                <span class = "input-group-btn">
-                  <button class = "btn btn-default" type = "button">
+                  <button class = "btn btn-default" type = "submit">
                      검색
                   </button>
                </span>
@@ -132,6 +131,27 @@
    </tbody>
    
 </table>
+
+<%-- 페이지 이동 숫자 버튼 --%>
+<br><br>
+<c:if test="${startBlock > 1}">
+<a href="${url}&page=${startBlock-1}">[이전]</a>
+</c:if>
+
+<%-- 번호 출력(startBlock ~ endBlock) --%>
+<c:forEach var="i" begin="${startBlock}" end="${endBlock}" step="1">
+	<c:choose>
+		<c:when test="${i == pageNo}">${i}</c:when>
+		<c:otherwise>
+			<a href="${url}&page=${i}">${i}</a>
+		</c:otherwise>
+	</c:choose>
+</c:forEach>
+
+<c:if test="${endBlock < blockTotal}">
+<a href="${url}&page=${endBlock+1}">[다음]</a>
+</c:if>
+<br><br>
 </article>
       
 <%-- footer.jsp를 불러와서 배치하는 코드 --%>

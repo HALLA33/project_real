@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 public interface MemberDao {
 	
 	public boolean sign(Member member);
-	public List<Member> memberlist();
+	public int membercount();
 	public Member login(String id, String pw);
 	public String findid(String name, String email) throws Exception;
 	public void sendemail(String name, String id, String email, String token);
@@ -20,4 +20,8 @@ public interface MemberDao {
 	public boolean idcheck(String id);
 	public boolean nickcheck(String nick);
 	public boolean nickcheck(String id, String nick);
+	public int count(String smode, String key) throws Exception;
+	int singleSearchCount(String smode, String key) throws Exception;
+	public List<Member> memberlist(int start, int end);
+	public List<Member> memberlist(String smode, String key, int start, int end) throws Exception;
 }

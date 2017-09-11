@@ -73,14 +73,58 @@ public class MemberController {
 	
 	//관리자 전용 멤버리스트
 	@RequestMapping("/member")
-	public String memberlist(HttpServletRequest request, HttpServletRequest respons) {
+	public String memberlist(HttpServletRequest request, HttpSession session,
+													@RequestParam(value="smode", required=false) String smode,
+													@RequestParam(value="key", required=false) String key, 
+													@RequestParam(value="page", required=false) String page) throws Exception {
 		
-		List<Member> list = memberDao.memberlist();
+		Member member = (Member)session.getAttribute("member");
 		
-		request.setAttribute("list", list);
+		String power = member.getPower();
 		
-		return "member/member";
-		
+		log.info(power);
+		if(power.equals("관리자")) {
+			int pageno;
+			try {
+				pageno = Integer.parseInt(page);
+				if(pageno <= 0) throw new Exception();				
+			}catch(Exception e) {
+				pageno = 1;
+			}
+			
+			int membersize = 10;
+			
+			int membercount = memberDao.count(smode, key);
+			
+			int start = membersize * pageno - membersize + 1;
+			int end = start + membersize - 1;
+			if(end > membersize) end = membercount;
+			
+			List<Member> list = memberDao.memberlist(smode, key, start, end);
+			
+			int blockSize = 10;
+		 	int blockTotal = (membercount + membersize - 1) / membersize;
+		 	int startBlock = (pageno - 1) / blockSize * blockSize + 1;
+		 	int endBlock = startBlock + blockSize - 1;
+		 	if(endBlock > blockTotal) endBlock = blockTotal;
+		 	
+		 	String url = "member?";
+		 	if(smode != null && key != null)
+		 		url += "type="+smode+"&key="+key;
+		 	
+		 	request.setAttribute("list", list);
+		 	request.setAttribute("url", url);
+		 	request.setAttribute("startBlock", startBlock);
+		 	request.setAttribute("endBlock", endBlock);
+		 	request.setAttribute("pageNo", pageno);
+		 	request.setAttribute("blockTotal", blockTotal);
+		 	request.setAttribute("key", key);
+		 	request.setAttribute("type", smode);
+			
+			return "member/member";
+		}else {
+			throw new  Exception("권한 없음");
+		}
 	}
 	//로그인 처리
 	@RequestMapping(value = "login", method = RequestMethod.POST)
@@ -300,6 +344,40 @@ public class MemberController {
 			throw new Exception("아이디가있음");
 		}		
 	}
+//	@RequestMapping("/msearch")
+//	public String memsearch(@RequestParam String smode, @RequestParam String ids, 
+//													HttpSession session, HttpServletRequest request) throws Exception {
+//		
+//		Member member = (Member)session.getAttribute("member");
+//		
+//		String power = member.getPower();
+//		
+//		log.info(smode);
+//		log.info(ids);
+//		if(power.equals("관리자")) {
+//			
+//			if(smode.equals("0")) {
+//				
+//				List<Member> list = memberDao.sidlist(ids);
+//				
+//				request.setAttribute("list", list);
+//				
+//
+//			}else if(smode.equals("1")) {
+//				List<Member> list = memberDao.snicklist(ids);
+//				
+//				request.setAttribute("list", list);
+//				
+//			}
+//			return "member/member";
+//		}else {
+//			
+//			throw new  Exception("권한 없음");
+//		}
+//		
+//	}
+//	
+	
 	
 
 }
