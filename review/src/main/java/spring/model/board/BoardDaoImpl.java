@@ -1,5 +1,6 @@
 package spring.model.board;
 
+import java.sql.ResultSet;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
@@ -27,6 +29,13 @@ public class BoardDaoImpl implements BoardDao{
 		return new Book(rs);
 	};
 	
+	ResultSetExtractor<Board> extractor = (ResultSet arg0) -> {
+		if(arg0.next())
+			return new Board(arg0);
+		else 
+			return null;
+	};
+	
 	@Override
 	public List<Board> board_list(int start, int end, int item_no) {
 		String sql = "select * from "
@@ -34,7 +43,7 @@ public class BoardDaoImpl implements BoardDao{
 						+ "(select * from p_board where item_no=?) TMP) "
 						+ "where rn between ? and ?";
 		
-		Object[] args = {start, end, item_no};
+		Object[] args = {item_no, start, end};
 		
 	   return jdbcTemplate.query(sql, args, mapper);
 	}
@@ -44,9 +53,12 @@ public class BoardDaoImpl implements BoardDao{
 		Object[] args = {no};
 		List<Book> list = jdbcTemplate.query("select * from p_search where no=?", args, bmapper);
 		
-		Book book = list.get(0);
-		map.put(no, book);
-
+		for(Book book: list) {
+			map.put(no, book);
+		}
+		
+		//Book book = list.get(0);
+		
 		return map;
 	}
 
@@ -80,7 +92,7 @@ public class BoardDaoImpl implements BoardDao{
 	}
 	
 	@Override
-	public void write(Board board, int no) {
+	public int write(Board board, int no) {
 		String sql = "insert into p_board values(?, ?, ?, ?, ?, ?, ?, sysdate, 0, 0, 0, 0, ?, ?)";
 		
 		String seq = null;
@@ -103,15 +115,85 @@ public class BoardDaoImpl implements BoardDao{
 				};
 		
 		jdbcTemplate.update(sql, args);
+		
+		return seq_number;
 	}
 
 	@Override
-	public int count(int item) {		
+	public int count(int item_no) {		
 		String sql = "select count(*) from p_board where item_no=?";
-		Object[] args = {item};
 		
+		Object[] args = {item_no};
 		int count = jdbcTemplate.queryForObject(sql, args, Integer.class);
 		return count;
 	}
+
+	@Override
+	public String search_nickname(String id) {
+		String sql = "select nickname from p_member where id=?";
+		
+		Object[] args = {id};
+		return jdbcTemplate.queryForObject(sql, args, String.class );
+
+	}
+
+	@Override
+	public List<Book> exist_book(Book book) {
+		String sql = "select * from p_search where title=? and author=?";
+		
+		Object[] args = {book.getTitle(), book.getAuthor()};	
+		return jdbcTemplate.query(sql, args, bmapper);
+
+	}
+
+	@Override
+	public Book detail_book(int no) {
+		String sql = "select * from p_search where no=?";
+		
+		Object[] args = {no};
+		List<Book> list = jdbcTemplate.query(sql, args, bmapper);
+		
+		return list.get(0);
+	}
+
+	@Override
+	public Board detail_board(int no, int item_no) {
+		String sql = "select * from p_board where no=? and item_no=?";
+		
+		Object[] args = {no, item_no};
+		return jdbcTemplate.query(sql, args, extractor);
+	}
+	
+	@Override
+	public Board detail_board(int no, int item_no, String writer) {
+		String sql = "select * from p_board where no=? and item_no=? and writer=?";
+		
+		Object[] args = {no, item_no, writer};
+		return jdbcTemplate.query(sql, args, extractor);
+		
+		
+	}
+
+	@Override
+	public void update_board(Board board, Book book, int no, int item_no, String writer) {		
+		String sql = "update p_board set item_no=?, head=?, tag=?, title=?, detail=?, reg=sysdate, search_no=? where no=? and item_no=? and writer=?";
+		
+		Object[] args = {board.getItem_no(), board.getHead(), board.getTag(), board.getTitle(), board.getDetail(),
+							board.getSearch_no(), no, item_no, writer};
+		
+		jdbcTemplate.update(sql, args);
+	}
+
+	@Override
+	public void delete_board(int no, int item_no, String id) {
+		String sql = "delete from p_board where no=? and item_no=? and writer=?";
+		
+		Object[] args = {no, item_no, id};
+		
+		jdbcTemplate.update(sql, args);
+	}
+
+	
+
 
 }
