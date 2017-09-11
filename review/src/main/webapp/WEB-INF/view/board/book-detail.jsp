@@ -22,15 +22,8 @@
 
 <article>
 <%-- 컨테이너 영역 --%>
-<c:choose>
-	<c:when test="${mode eq 'write'}">
-		<h3>상세보기</h3>		        
-	</c:when>
-	<c:when test="${mode eq 'preview'}">
-		<h3>미리보기</h3>
-	</c:when>
-</c:choose>
-
+<h3>상세보기</h3>
+<h1>${board.no}</h1>
 <div class="container">
 	<table class="table table-bordered">
 	 	<thead></thead>
@@ -38,6 +31,10 @@
 			<tr class="form-inline">
 				<td class="area-20" style="border: none">제목</td>
 				<td class="area-20" style="border: none">${board.title}</td>
+			</tr>
+			<tr class="form-inline">
+				<td class="area-20" style="border: none">작성자</td>
+				<td class="area-20" style="border: none">${nickname}</td>
 			</tr>
 			<tr class="form-inline">
 				<td class="area-20" style="border: none">${board.b_item_no }</td>
@@ -74,66 +71,12 @@
 	<hr/>
 
 	<div class="align-right">
-		<c:choose>
-		    <c:when test="${mode eq 'write'}">
-		    	<input type="button" class="btn" onclick="location.href='${pageContext.request.contextPath}/book-write'" value="글쓰기">	        
-		    </c:when>
-		    <c:when test="${mode eq 'preview'}">
-		        <input type="button" class="btn" id="register" value="등록하기">
-		        <input type="button" class="btn" id="revise" value="수정하기">
-		    </c:when>
-		</c:choose>
-		<input type="button" class="btn" value="목록보기" onclick="location.href='${pageContext.request.contextPath}/list';"/>	
+		<input type="button" class="btn" onclick="location.href='${pageContext.request.contextPath}/book-write?item_no=${board.item_no }'" value="글쓰기">
+		<input type="button" class="btn" onclick="location.href='${pageContext.request.contextPath}/book-revise/${board.no }/${board.item_no }'" value="수정하기">
+		<input type="button" class="btn" onclick="location.href='${pageContext.request.contextPath}/book-delete/${board.no }/${board.item_no }'" value="삭제하기">
+		<input type="button" class="btn" value="목록보기" onclick="location.href='${pageContext.request.contextPath}/list?item_no=${board.item_no }';"/>
 	</div>
-	<script>
-		$('#register').on("click", function(){
-			 var $form = $('<form></form>');
-		     $form.attr('action', '${pageContext.request.contextPath}/book-write/write');
-		     $form.attr('method', 'post');
-		     $form.appendTo('body');
-		     
-		     form_hidden($form);
-		});
-		
-		$('#revise').on("click", function(){
-			 var $form = $('<form></form>');
-		     $form.attr('action', '${pageContext.request.contextPath}/book-revise');
-		     $form.attr('method', 'post');
-		     $form.appendTo('body');
-		     
-		     form_hidden($form);
-		});
-		
-		function form_hidden($form){
-			//book
-		     var image = $('<input type="hidden" value="${book.image}%" name="image">');
-		     var book_title = $('<input type="hidden" value="${book.title}" name="book_title">');
-		     var author = $('<input type="hidden" value="${book.author}" name="author">');
-		     var publisher = $('<input type="hidden" value="${book.publisher}" name="publisher">');
-		     var pubdate = $('<input type="hidden" value="${book.pubdate}" name="pubdate">');
-		     
-		     //board
-		     var item_no = $('<input type="hidden" value="${board.item_no}" name="item_no">');
-		     var head = $('<input type="hidden" value="${board.head}" name="head">');
-		     var writer = $('<input type="hidden" value="${board.writer}" name="writer">');
-		     var title = $('<input type="hidden" value="${board.title}" name="title">');
-		     var detail = $('<input type="hidden" value="${board.detail}" name="ir1">');
-		     
-		     $form.append(image).append(book_title).append(author).append(publisher).append(pubdate).
-		     				append(item_no).append(head).append(writer).append(title).append(detail);
-	     	 $form.submit();
-		}
-	</script>
-	
-    <div class="text-center">
-		<ul class="pagination  justify-content-center">
-			<li class="page-item"><a class="page-link" href="#">1</a></li>
-			<li class="page-item"><a class="page-link" href="#">2</a></li>
-			<li class="page-item"><a class="page-link" href="#">3</a></li>
-        	<li class="page-item"><a class="page-link" href="#">4</a></li>
-           	<li class="page-item"><a class="page-link" href="#">5</a></li>
-  		</ul>
-	</div>
+
 </div>
 
 </article>
