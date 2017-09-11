@@ -29,6 +29,7 @@ label{
 }
 .menu-wrap > ul > li{
 	display:inline-block;
+	padding:10px; 
 }
 
 /* 서브메뉴 스타일 */
@@ -41,9 +42,6 @@ label{
 	padding:0px;
 	flex: auto;
 }
-.menu-wrap li{
-	padding:10px;  
-}            
 .menu-wrap li:hover{
 }            
 .menu-wrap li:hover > ul{

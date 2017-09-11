@@ -61,6 +61,7 @@
 	list-style: none;
 	display: block;
 	margin-top: 10px; 
+	margin-left: -80px;
 }
 
 .menu-wrap>ul>li {
@@ -69,30 +70,35 @@
 
 .menu-wrap> ul > li > ul > li > a {
 	font-family: binggrae;
-	display: inline-block;
+ 	display: inline-block; 
 	font-weight: bold;
 	text-decoration: none;
-	
+	width: 100%;
+	padding:10px;
+	margin:0px;
 }
 
 /* 서브메뉴 스타일 */
 .menu-wrap li ul {
 	position: absolute;
-	display: none;
+  	display: none;  
 	width: 150px;
  	background: dodgerblue;
  	opacity: 0.825;
 	list-style: none;
 	margin-top: 10px;
-	margin-left: -10px;
+ 	margin-left: -10px; 
 	padding: 0px;
 	font-size: 15px;
 	border-radius: 5px;
 	z-index: 1000;/*항상위로*/
 }
 
-.menu-wrap li {
-	padding: 10px;
+.menu-wrap >ul>li {
+	padding: 10px 5px;
+}
+.menu-wrap > ul > li > a{
+	padding: 11px;
 }
 
 .menu-wrap li:hover {
@@ -264,8 +270,7 @@ aside{
 				<li><a href="#">자유게시판</a></li>
 				<li><a href="#">공지</a></li>
 				<li><a href="attend">출석체크</a></li>
-				<li>
-				</li>
+				
 			</ul>
 		</div>
 		<div style="margin-left: 600px;">
