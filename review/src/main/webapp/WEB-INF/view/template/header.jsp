@@ -209,6 +209,10 @@ aside{
    border: 2px solid lightblue;
 }
 
+#scrolldiv{
+	cursor: pointer;
+}
+
 /* write-view */
 
 
