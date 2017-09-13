@@ -4,13 +4,20 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -77,6 +84,7 @@ public class BoardController {
 			book = boardDao.book_list(b.getSearch_no());
 			b.setB_item_no(b.getItem_no());
 			b.setB_head(b.getHead());
+			replaceDetail(b);
 			nickname.put(b.getNo(), boardDao.search_nickname(b.getWriter()));
 		}
 		
@@ -92,6 +100,18 @@ public class BoardController {
 		model.addAttribute("item_no", item_no);
 		
 		return "board/list"; 
+	}
+	
+	public void replaceDetail(Board board) {
+		String detail = board.getDetail();
+
+		detail = detail.replaceAll("<(/)?([a-zA-Z]*)(\\s[a-zA-Z]*=[^>]*)?(\\s)*(/)?>", " ").replaceAll("&nbsp;", " ");
+		
+		if(detail.length() >= 100){
+			detail = detail.substring(0, 100) + "...";
+		}
+
+		board.setDetail(detail);
 	}
 	
 	@RequestMapping(value= {"/book-write"}, method=RequestMethod.GET)
@@ -179,12 +199,15 @@ public class BoardController {
 	}
 	
 	@RequestMapping("/book-detail")
-	public String bookDetail(Model model, @RequestParam(required=false) int no, @RequestParam(required=false) int item_no) {
+	public String bookDetail(Model model, @RequestParam(required=false) int no, @RequestParam(required=false) int item_no, HttpServletRequest request, HttpServletResponse response) {
+		plusCount(0, request, no, item_no, response);
+		
 		Board board = null;
 		Book book = null;
 		
 		board = boardDao.detail_board(no, item_no);
 		book = boardDao.detail_book(board.getSearch_no());
+		
 		
 		String nickname = boardDao.search_nickname(board.getWriter());
 
@@ -308,5 +331,64 @@ public class BoardController {
 		else return "/";
 	}
     
+    @RequestMapping(value= {"/goodCount"}, method=RequestMethod.POST)
+    public void goodCount(HttpServletRequest request, HttpServletResponse response) {
+    	int no = Integer.parseInt(request.getParameter("no"));
+    	int item_no = Integer.parseInt(request.getParameter("item_no"));
+
+    	plusCount(1, request, no, item_no, response);
+    }
     
+    @RequestMapping(value= {"/badCount"}, method=RequestMethod.POST)
+    public void badCount(HttpServletRequest request, HttpServletResponse response) {
+    	int no = Integer.parseInt(request.getParameter("no"));
+    	int item_no = Integer.parseInt(request.getParameter("item_no"));
+
+    	plusCount(1, request, no, item_no, response);
+    }
+    
+    public void plusCount(int flag, HttpServletRequest request, int no, int item_no, HttpServletResponse response) {
+		Cookie cookies[] = request.getCookies();
+		Map<String, String> mapCookie = new HashMap<>();
+		
+		//저장된 쿠키 불러오기
+		if(request.getCookies()!=null) {
+			for(int i=0; i<cookies.length; i++) {
+				Cookie obj = cookies[i];
+				mapCookie.put(obj.getName(), obj.getValue());
+			}
+		}
+		
+		String origin_cookie = null;
+		String new_cookie = null;
+		String cookie_name = null;
+		switch(flag) {
+		case 0:	//조회수 증가
+			origin_cookie = (String) mapCookie.get("read_count");
+			new_cookie = "{" + no + "&" + item_no + "}";
+			cookie_name="read_count";
+			break;
+		case 1:	//좋아요 증가
+			origin_cookie = (String) mapCookie.get("good_count");
+			new_cookie = "{" + no + "&" + item_no + "}";
+			cookie_name="good_count";
+			break;
+		case 2:	//싫어요 증가
+			origin_cookie = (String) mapCookie.get("bad_count");
+			new_cookie = "{" + no + "&" + item_no + "}";
+			cookie_name="bad_count";
+			break;
+		}
+		
+		//쿠키 검사
+		if(StringUtils.indexOfIgnoreCase(origin_cookie, new_cookie)==-1) {
+			//없으면 쿠키 생성
+			Cookie cookie = new Cookie(cookie_name, origin_cookie+new_cookie);
+			response.addCookie(cookie);
+			
+			//조회수 업데이트
+			boardDao.plusCount(flag, no, item_no);
+		}
+
+	}
 }
