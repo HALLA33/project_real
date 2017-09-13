@@ -4,7 +4,7 @@
 <%-- header.jsp를 불러와서 배치하는 코드 --%>
 <%@ include file="/WEB-INF/view/template/header.jsp" %>  
 
-<script>
+<script> 
     window.onload = function(){
         var all = document.querySelector("#all");
         var unit = document.querySelectorAll(".unit");

@@ -21,7 +21,7 @@
 	<mvc:view-controller path="/member" view-name="/member/member"/>
 	<mvc:view-controller path="/myedit" view-name="/member/myedit"/>
 	<mvc:view-controller path="/myinfo" view-name="/member/myinfo"/>
-	<mvc:view-controller path="/mywrite" view-name="/member/mywrite"/>
+	 <mvc:view-controller path="/mywrite" view-name="/member/mywrite"/>
 <!-- 	<mvc:view-controller path="/sign" view-name="/member/sign"/> -->
 <!-- 	<mvc:view-controller path="/tos" view-name="/member/tos"/> -->
 	

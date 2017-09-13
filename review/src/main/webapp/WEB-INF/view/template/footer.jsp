@@ -53,7 +53,7 @@
 					<input type="button" value="로그아웃" onclick="location.href='logout'" style="backgborder-radius: 5px; font-size: 8px; background-color: white;">
 				</div>
 			</div>
-			<a href="#">내가 쓴 글</a>
+			<a href="mywrite">내가 쓴 글</a>
 		</c:if>
 		</div>
 		<div>
