@@ -8,7 +8,7 @@
 <%-- 컨테이너 영역 --%>
 
 <div class="container">
-	<h1> 게시판</h1>
+	<h1>도서 게시판</h1>
 	<br>
 	<div class="container">
 		<ul class="nav nav-tabs">
@@ -38,7 +38,8 @@
 			       		<h5 style="font-size: 13px; padding-left:15px; padding-right:15px">&#124;</h5>
 			      		<h5 style="font-size: 13px">${board.reg}</h5>
 		      		</div>
-		    		<h5 style="font-size: 13px; text-overflow: ellipsis; white-space: nowrap;">${board.detail }</h5>
+		      		<div id="detail"></div>
+		    		<h5 id="detail" style="font-size: 13px;">${board.detail}</h5>
 					<div class="align-left">
 			       		<h5 style="font-size: 13px">${board.b_item_no}</h5>
 			       		<h5 style="font-size: 13px; padding-left:15px; padding-right:15px">&#124;</h5>
