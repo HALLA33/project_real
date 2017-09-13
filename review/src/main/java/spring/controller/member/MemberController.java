@@ -1,6 +1,7 @@
 package spring.controller.member;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.request;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.forwardedUrl;
 
 import java.util.List;
 
@@ -34,7 +35,6 @@ public class MemberController {
 	
 	@Autowired
 	private Generator generator;
-	
 	
 	//이용약관 뷰
 	@RequestMapping("/tos")
@@ -135,26 +135,37 @@ public class MemberController {
 		}
 	}
 	//로그인 처리
-	@RequestMapping(value = "login", method = RequestMethod.POST)
-	public String login(
-			@RequestParam String id,@RequestParam String pw, HttpSession session
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	public String login(HttpServletRequest request, 
+			@RequestParam(value="remember", required=false, defaultValue = "off") String remember,
+			HttpServletResponse response,@RequestParam String id,
+			@RequestParam String pw, HttpSession session
 			) {
 		
 		log.info("로그인 실행");
-		
 		Member member = memberDao.login(id, pw);
 		
-		log.info(member.getName());
+		if(remember.equals("on")) {
+			Cookie cookies = new Cookie("autologin", member.getId());
+			cookies.setMaxAge(60*60*24*7);
+			response.addCookie(cookies);
+		}else {
+			
+		}
 		
 		session.setAttribute("member", member);
 
 		return "redirect:/";
 	}
 	//로그아웃 처리
-	@RequestMapping("logout")
-	public String logout(HttpSession session) {
+	@RequestMapping("/logout")
+	public String logout(HttpSession session, HttpServletResponse response) {
 		
 		session.invalidate();
+		
+		Cookie c = new Cookie("autologin", null);
+		c.setMaxAge(0);
+		response.addCookie(c);
 		
 		return "redirect:/";
 	}
@@ -352,40 +363,36 @@ public class MemberController {
 			throw new Exception("아이디가있음");
 		}		
 	}
-//	@RequestMapping("/msearch")
-//	public String memsearch(@RequestParam String smode, @RequestParam String ids, 
-//													HttpSession session, HttpServletRequest request) throws Exception {
-//		
-//		Member member = (Member)session.getAttribute("member");
-//		
-//		String power = member.getPower();
-//		
-//		log.info(smode);
-//		log.info(ids);
-//		if(power.equals("관리자")) {
-//			
-//			if(smode.equals("0")) {
-//				
-//				List<Member> list = memberDao.sidlist(ids);
-//				
-//				request.setAttribute("list", list);
-//				
-//
-//			}else if(smode.equals("1")) {
-//				List<Member> list = memberDao.snicklist(ids);
-//				
-//				request.setAttribute("list", list);
-//				
-//			}
-//			return "member/member";
-//		}else {
-//			
-//			throw new  Exception("권한 없음");
-//		}
-//		
-//	}
-//	
-	
+	@RequestMapping(value = "/", method = RequestMethod.GET)
+	public String test(HttpServletRequest requset, HttpSession session) {
+
+		
+		Cookie[] cookies = requset.getCookies();
+		
+		String id =  null;
+		
+		if(cookies != null) {
+			
+			for(Cookie c : cookies) {
+				if(c.getName().equals("autologin")) {
+					id = c.getValue();
+					break;
+				}
+			}
+			
+			if(id != null) {
+				
+				String pw = memberDao.iterpw(id);
+				
+				Member member = memberDao.login(id, pw);
+				
+				session.setAttribute("member", member);
+			}
+			
+		}
+
+		return "home";
+	}
 	
 
 }

@@ -24,4 +24,5 @@ public interface MemberDao {
 	int singleSearchCount(String smode, String key) throws Exception;
 	public List<Member> memberlist(int start, int end);
 	public List<Member> memberlist(String smode, String key, int start, int end) throws Exception;
+	public String iterpw(String id);
 }

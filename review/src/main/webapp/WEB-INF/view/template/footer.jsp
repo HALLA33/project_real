@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-    
     <aside>
 		<div id="loginbar" style="font-family: bmjua; font-size: 13px;">
 		<c:if test="${sessionScope.member eq null}">
@@ -30,7 +29,7 @@
 				</div>
 			</div>
 			<br><br>
-			<input type="checkbox" id="remember" style="margin: 20 0 10 0; cursor: pointer;">
+			<input type="checkbox" id="remember" style="margin: 20 0 10 0; cursor: pointer;" name = "remember">
 			<label for="remember" style="font-size:13px; margin-left:0px; cursor: pointer;">로그인 유지</label>
 			<br>
 			<a href="tos">회원가입</a>&nbsp;&nbsp;
@@ -45,6 +44,11 @@
 			<div class="right">
 				<button class="edit-btn" onclick="location.href='myedit'">edit</button>
 			</div>
+			<c:if test = "${sessionScope.member.power == '관리자' }">
+			<div class="right">
+				<button class="edit-btn" onclick="location.href='member'">회원관리</button>
+			</div>
+			</c:if>
 			<div>
 				<div class="left">
 					포인트 : <a href="#" class="left">${sessionScope.member.point }</a>
@@ -53,7 +57,7 @@
 					<input type="button" value="로그아웃" onclick="location.href='logout'" style="backgborder-radius: 5px; font-size: 8px; background-color: white;">
 				</div>
 			</div>
-			<a href="mywrite">내가 쓴 글</a>
+			<a href="#">내가 쓴 글</a>
 		</c:if>
 		</div>
 		<div>
@@ -79,25 +83,5 @@
 	<footer>
 		footer
 	</footer>
-	
-	<div id="scrolldiv" style="position: fixed; bottom: 60%; right: 20px;">
-	<i title="top" class="xi-arrow-top xi-2x" onclick="$( 'html, body' ).stop().animate( { scrollTop : 0 }, 500)"></i>
-	</div>
-	
-	<div id="scrolldiv" style="position: fixed; bottom: 55%; right: 20px;">
-	<i title="up" class="xi-caret-up xi-2x" onclick="$( 'html, body' ).stop().animate( { scrollTop : '-=300' } , 300)"></i>
-	</div>
-	
-	<div id="scrolldiv" style="position: fixed; bottom:50%; right: 20px;">
-	<a href="home"><i title="home" class="xi-home-o xi-2x"></i></a>
-	</div>
-	
-	<div id="scrolldiv" style="position: fixed; bottom: 45%; right: 20px;">
-	<i title="down" class="xi-caret-down xi-2x" onclick="$( 'html, body' ).stop().animate( { scrollTop : '+=300' } , 300)"></i>
-	</div>
-	
-	<div id="scrolldiv" style="position: fixed; bottom: 40%; right: 20px;">
-	<i title="bottom" class="xi-arrow-bottom xi-2x" onclick="$( 'html, body' ).stop().animate( { scrollTop : (document.body.scrollHeight)}, 500)"></i>
-	</div>
 </body>
 </html>

@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.lang3.StringUtils;
+//import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -381,14 +381,14 @@ public class BoardController {
 		}
 		
 		//쿠키 검사
-		if(StringUtils.indexOfIgnoreCase(origin_cookie, new_cookie)==-1) {
-			//없으면 쿠키 생성
-			Cookie cookie = new Cookie(cookie_name, origin_cookie+new_cookie);
-			response.addCookie(cookie);
-			
-			//조회수 업데이트
-			boardDao.plusCount(flag, no, item_no);
-		}
+//		if(StringUtils.indexOfIgnoreCase(origin_cookie, new_cookie)==-1) {
+//			//없으면 쿠키 생성
+//			Cookie cookie = new Cookie(cookie_name, origin_cookie+new_cookie);
+//			response.addCookie(cookie);
+//			
+//			//조회수 업데이트
+//			boardDao.plusCount(flag, no, item_no);
+//		}
 
 	}
 }
