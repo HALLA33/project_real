@@ -9,6 +9,7 @@
 		<link rel="stylesheet" type="text/css" href="<c:url value="/css/design.css" />">
 		<link rel="stylesheet" type="text/css" href="<c:url value="/css/bootstrap/bootstrap.css" />">
 		<link rel="stylesheet" type="text/css" href="<c:url value="/css/bootstrap/bootstrap.min.css" />">
+		<script type="text/javascript" src="<c:url value="/smarteditor/js/service/HuskyEZCreator.js" />" charset="utf-8"></script>
 		<script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 		<title>미리보기</title>
 		<script>
@@ -19,8 +20,9 @@
 				t_detail.innerText = detail;
 					
 				function text_replace(text){
-					text = text.replace(/<br\/>/ig, "\n"); 
-					text = text.replace(/<(\/)?([a-zA-Z]*)(\s[a-zA-Z]*=[^>]*)?(\s)*(\/)?>/ig, "");
+					text = text.replace(/<br>/ig, "\n"); 
+					text = text.replace(/&nbsp;/ig, " "); 
+					
 					return text;
 				}
 					
