@@ -2,7 +2,9 @@
     pageEncoding="UTF-8"%>
    
 <%-- header.jsp를 불러와서 배치하는 코드 --%>
-<%@ include file="/WEB-INF/view/template/header.jsp" %>  
+<%@ include file="/WEB-INF/view/template/header.jsp" %> 
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 
 <script>
 	$(document).ready(function(){
@@ -12,11 +14,43 @@
 		t_detail.innerText = detail;
 		
 		function text_replace(text){
-			text = text.replace(/<br\/>/ig, "\n"); 
-			text = text.replace(/<(\/)?([a-zA-Z]*)(\s[a-zA-Z]*=[^>]*)?(\s)*(\/)?>/ig, "");
+			text = text.replace(/<br>/ig, "\n"); 
+			text = text.replace(/&nbsp;/ig, " "); 
 			return text;
 		}
 		
+		$("#good").on("click", function(){
+			var no = '${board.no}';
+			var item_no = '${board.item_no}';
+			var allData = {"no":no, "item_no":item_no};
+			
+			$.ajax({
+		        type: "POST", 
+		        url: "${pageContext.request.contextPath}/goodCount", 
+		        data: allData,
+		        success: //호출이 성공하면 호출되는 함수를 정의한다.
+		        function(){ //값을 data변수로 받아서 처리한다.
+		    		window.opener.location.reload();
+		        }
+		    });
+		});
+		
+		$("#bad").on("click", function(){
+			var no = '${board.no}';
+			var item_no = '${board.item_no}';
+			var allData = {"no":no, "item_no":item_no};
+			
+			$.ajax({
+		        type: "POST", 
+		        url: "${pageContext.request.contextPath}/badCount", 
+		        data: allData,
+		        success: //호출이 성공하면 호출되는 함수를 정의한다.
+		        function(){ //값을 data변수로 받아서 처리한다.
+		    		window.opener.location.reload();
+		        }
+		    });
+		});
+
 	});
 </script>
 
@@ -60,6 +94,44 @@
 	      		<td>
 	      			<textarea id="t_detail" class="nse_content" style="width:100%; height:412px; min-width:610px;" readonly></textarea>
 	      		</td>
+	 		</tr>
+	 		<tr>
+	 			<td>조회수 : ${board.read }</td>
+	 		</tr>
+	 		<tr>
+	 			<td>
+	 				<div class="form-inline">
+	 					<div class="align-left">                                                                            
+	 						<img src="<c:url value="img/good.png"/>" 
+	 							style="width:30px; height:30px; " >
+	 					</div>
+	 					<label style="font-size:20px; padding-right:20px">${board.good }개</label>
+	 					
+	 					<div class="align-left">                                                                            
+	 						<img src="<c:url value="img/bad.png"/>" 
+	 							style="width:30px; height:30px; " >
+	 					</div>
+	 					<label style="font-size:20px">${board.bad }개</label>
+	 				</div>
+	 			</td>
+	 		</tr>
+	 		<tr>
+	 			<td>
+	 				<div class="row form-inline">
+	 					<div class="align-left">  
+		 					<button id="good" style="background:white; border:none">
+		 						<img src="<c:url value="img/good.png"/>" style="align:left">	
+		 						<span>좋아요</span>
+		 					</button>
+		 				</div>
+		 				<div class="align-left">  
+		 					<button id="bad" style="background:white; border:none">
+		 						<img src="<c:url value="img/bad.png"/>" >	
+		 						<span>싫어요</span>
+		 					</button>
+		 				</div>
+	 				</div>	
+	 			</td>
 	 		</tr>
 	  		<tr>
 	     		<td>
