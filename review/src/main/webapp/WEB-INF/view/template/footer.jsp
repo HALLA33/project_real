@@ -83,5 +83,25 @@
 	<footer>
 		footer
 	</footer>
+	
+	<div id="scrolldiv" style="position: fixed; bottom: 60%; right: 20px;">
+ 		<i title="top" class="xi-arrow-top xi-2x" onclick="$( 'html, body' ).stop().animate( { scrollTop : 0 }, 500)"></i>
+ 	</div>
+ 	
+ 	<div id="scrolldiv" style="position: fixed; bottom: 55%; right: 20px;">
+ 		<i title="up" class="xi-caret-up xi-2x" onclick="$( 'html, body' ).stop().animate( { scrollTop : '-=300' } , 300)"></i>
+ 	</div>
+ 	
+ 	<div id="scrolldiv" style="position: fixed; bottom:50%; right: 20px;">
+ 		<a href="home"><i title="home" class="xi-home-o xi-2x"></i></a>
+ 	</div>
+ 	
+ 	<div id="scrolldiv" style="position: fixed; bottom: 45%; right: 20px;">
+ 		<i title="down" class="xi-caret-down xi-2x" onclick="$( 'html, body' ).stop().animate( { scrollTop : '+=300' } , 300)"></i>
+ 	</div>
+ 	
+ 	<div id="scrolldiv" style="position: fixed; bottom: 40%; right: 20px;">
+ 		<i title="bottom" class="xi-arrow-bottom xi-2x" onclick="$( 'html, body' ).stop().animate( { scrollTop : (document.body.scrollHeight)}, 500)"></i>
+ 	</div>
 </body>
 </html>
