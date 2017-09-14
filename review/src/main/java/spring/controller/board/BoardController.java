@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-//import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import spring.model.board.Board;
 import spring.model.board.BoardDao;
@@ -171,6 +172,8 @@ public class BoardController {
 		model.addAttribute("book", book);
 		model.addAttribute("board", board);
 		
+		log.info(board.toString());
+		
 		return "board/book-detail";
 	}
 	
@@ -200,7 +203,30 @@ public class BoardController {
 	
 	@RequestMapping("/book-detail")
 	public String bookDetail(Model model, @RequestParam(required=false) int no, @RequestParam(required=false) int item_no, HttpServletRequest request, HttpServletResponse response) {
-		plusCount(0, request, no, item_no, response);
+		plusCount(request, no, item_no, response);
+		Map<String, String> result = good_bad(request, no, item_no, response);
+		String good_img = null;
+		String good_text = null;
+		String bad_img = null;
+		String bad_text = null;
+		
+		if(result.get("good").equals("black")) {
+			good_img = "img/before_good.png";
+			good_text = "img/before_good_text.jpg";
+		}
+		else if(result.get("good").equals("blue")){
+			good_img = "img/after_good.png";
+			good_text = "img/after_good_text.jpg";
+		}
+		
+		if(result.get("bad").equals("black")) {
+			bad_img = "img/before_bad.png";
+			bad_text = "img/before_bad_text.jpg";
+		}
+		else if(result.get("bad").equals("blue")){
+			bad_img = "img/after_bad.png";
+			bad_text = "img/after_bad_text.jpg";
+		}
 		
 		Board board = null;
 		Book book = null;
@@ -208,13 +234,16 @@ public class BoardController {
 		board = boardDao.detail_board(no, item_no);
 		book = boardDao.detail_book(board.getSearch_no());
 		
-		
 		String nickname = boardDao.search_nickname(board.getWriter());
 
 		model.addAttribute("nickname", nickname);		
 		model.addAttribute("board", board);
 		model.addAttribute("book", book);
 		model.addAttribute("item", board.getItem_no());
+		model.addAttribute("good_img", good_img);
+		model.addAttribute("good_text", good_text);
+		model.addAttribute("bad_img", bad_img);
+		model.addAttribute("bad_text", bad_text);
 		
 		return "board/book-detail";
 	}
@@ -295,6 +324,7 @@ public class BoardController {
 			
 		board.setSearch_no(num);
 		boardDao.update_board(board, book, no, item_no, member.getId());
+		board = boardDao.detail_board(no, board.getItem_no());
 		
 		String nickname = boardDao.search_nickname(board.getWriter());
 		
@@ -332,11 +362,34 @@ public class BoardController {
 	}
     
     @RequestMapping(value= {"/goodCount"}, method=RequestMethod.POST)
-    public void goodCount(HttpServletRequest request, HttpServletResponse response) {
+    @ResponseBody
+    public Object goodCount(HttpServletRequest request, HttpServletResponse response) {
     	int no = Integer.parseInt(request.getParameter("no"));
     	int item_no = Integer.parseInt(request.getParameter("item_no"));
+    	Map<String, String> result = good_bad(request, no, item_no, response);
+    	Map<String, String> map = new HashMap<>();
+    	String good_img = null;
+		String good_text = null;
+		String bad_img = null;
+		String bad_text = null;
+		
+		if(result.get("good").equals("black")) {
+			good_img = "img/after_good.png";
+			good_text = "img/after_good_text.png";
+//			boardDao.plus_minus_Count(2, no, item_no);
+		}
+		else {
+			good_img = "img/before_good.png";
+			good_text = "img/before_good_text.png";
+			//boardDao.plus_minus_Count(3, no, item_no);
+		}
 
-    	plusCount(1, request, no, item_no, response);
+		map.put("good_img", good_img);
+		map.put("good_text", good_text);
+		map.put("bad_img", bad_img);
+		map.put("bad_text", bad_text);
+		log.info("함수 실행" );
+    	return map;
     }
     
     @RequestMapping(value= {"/badCount"}, method=RequestMethod.POST)
@@ -344,10 +397,10 @@ public class BoardController {
     	int no = Integer.parseInt(request.getParameter("no"));
     	int item_no = Integer.parseInt(request.getParameter("item_no"));
 
-    	plusCount(1, request, no, item_no, response);
+    	//plusCount(1, request, no, item_no, response);
     }
     
-    public void plusCount(int flag, HttpServletRequest request, int no, int item_no, HttpServletResponse response) {
+    public void plusCount(HttpServletRequest request, int no, int item_no, HttpServletResponse response) {
 		Cookie cookies[] = request.getCookies();
 		Map<String, String> mapCookie = new HashMap<>();
 		
@@ -359,36 +412,56 @@ public class BoardController {
 			}
 		}
 		
-		String origin_cookie = null;
-		String new_cookie = null;
-		String cookie_name = null;
-		switch(flag) {
-		case 0:	//조회수 증가
-			origin_cookie = (String) mapCookie.get("read_count");
-			new_cookie = "{" + no + "&" + item_no + "}";
-			cookie_name="read_count";
-			break;
-		case 1:	//좋아요 증가
-			origin_cookie = (String) mapCookie.get("good_count");
-			new_cookie = "{" + no + "&" + item_no + "}";
-			cookie_name="good_count";
-			break;
-		case 2:	//싫어요 증가
-			origin_cookie = (String) mapCookie.get("bad_count");
-			new_cookie = "{" + no + "&" + item_no + "}";
-			cookie_name="bad_count";
-			break;
-		}
-		
+		String origin_cookie = (String) mapCookie.get("read_count");
+		String new_cookie = "{" + no + "&" + item_no + "}";
+		String cookie_name = "read_count";
+
 		//쿠키 검사
-//		if(StringUtils.indexOfIgnoreCase(origin_cookie, new_cookie)==-1) {
-//			//없으면 쿠키 생성
-//			Cookie cookie = new Cookie(cookie_name, origin_cookie+new_cookie);
-//			response.addCookie(cookie);
-//			
-//			//조회수 업데이트
-//			boardDao.plusCount(flag, no, item_no);
-//		}
+		if(StringUtils.indexOfIgnoreCase(origin_cookie, new_cookie)==-1) {
+			//없으면 쿠키 생성
+			Cookie cookie = new Cookie(cookie_name, origin_cookie+new_cookie);
+			response.addCookie(cookie);
+			
+			//조회수 업데이트
+			boardDao.plus_minus_Count(1, no, item_no);
+		}
 
 	}
+    
+    public Map<String, String> good_bad(HttpServletRequest request, int no, int item_no, HttpServletResponse response) {
+    	Cookie cookies[] = request.getCookies();
+		Map<String, String> mapCookie = new HashMap<>();
+		Map<String, String> result = new HashMap<>();
+		
+		//저장된 쿠키 불러오기
+		if(request.getCookies()!=null) {
+			for(int i=0; i<cookies.length; i++) {
+				Cookie obj = cookies[i];
+				mapCookie.put(obj.getName(), obj.getValue());
+			}
+		}
+		
+		String good_cookie = (String) mapCookie.get("good_count");
+		String bad_cookie = (String) mapCookie.get("bad_count");
+		String cookie = "{" + no + "&" + item_no + "}";
+		
+		//쿠키 검사
+		if(StringUtils.indexOfIgnoreCase(good_cookie, cookie)==-1) {
+			//"좋아요" 쿠기가 없으면
+			result.put("good", "black");
+		}
+		else
+			result.put("good", "blue");
+		
+		//쿠키 검사
+		if(StringUtils.indexOfIgnoreCase(bad_cookie, cookie)==-1) {
+			//"좋아요" 쿠기가 없으면
+			result.put("bad", "black");
+		}
+		else
+			result.put("bad", "blue");
+		
+		return result;
+    }
+
 }
