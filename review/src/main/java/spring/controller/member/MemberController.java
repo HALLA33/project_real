@@ -3,6 +3,7 @@ package spring.controller.member;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.request;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.forwardedUrl;
 
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 import javax.servlet.http.Cookie;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import oracle.net.aso.s;
+import spring.model.member.Encryption;
 import spring.model.member.Generator;
 import spring.model.member.Member;
 import spring.model.member.MemberDao;
@@ -35,6 +37,9 @@ public class MemberController {
 	
 	@Autowired
 	private Generator generator;
+	
+	@Autowired
+	private Encryption encryption;
 	
 	//이용약관 뷰
 	@RequestMapping("/tos")
@@ -63,9 +68,17 @@ public class MemberController {
 			@ModelAttribute Member member, @RequestParam String rpw) throws Exception {
 		log.info("sign() 실행");
 		
-		if(!member.getPw().equals(rpw)) {
+		String pw = member.getPw();
+		log.info("pw : " + pw);
+		
+		String encryptpw = encryption.encryptPw(pw);
+		log.info("encryppw : " + encryptpw);
+		
+		member.setPw(encryptpw);
+		
+		if(!pw.equals(rpw)) {
 			throw new Exception("비밀번호와 확인비밀번호 불일치");
-		}else if(member.getPw().equals(rpw)) {
+		}else if(pw.equals(rpw)) {
 			boolean result = memberDao.sign(member);
 			
 			if(result) {
@@ -140,13 +153,15 @@ public class MemberController {
 			@RequestParam(value="remember", required=false, defaultValue = "off") String remember,
 			HttpServletResponse response,@RequestParam String id,
 			@RequestParam String pw, HttpSession session
-			) {
+			) throws NoSuchAlgorithmException {
+		
+		String encryptpw = encryption.encryptPw(pw);
 		
 		log.info("로그인 실행");
-		Member member = memberDao.login(id, pw);
+		Member member = memberDao.login(id, encryptpw);
 		
 		if(remember.equals("on")) {
-			Cookie cookies = new Cookie("autologin", member.getId());
+			Cookie cookies = new Cookie("autologin", encryptpw+id);
 			cookies.setMaxAge(60*60*24*7);
 			response.addCookie(cookies);
 		}else {
@@ -369,22 +384,25 @@ public class MemberController {
 		
 		Cookie[] cookies = requset.getCookies();
 		
-		String id =  null;
+		String cookieval = null;
 		
 		if(cookies != null) {
 			
 			for(Cookie c : cookies) {
 				if(c.getName().equals("autologin")) {
-					id = c.getValue();
+					cookieval = c.getValue();
 					break;
 				}
 			}
-			
-			if(id != null) {
+			if(cookieval != null) {
+				String pw = cookieval.substring(0, 64);
+				String id = cookieval.substring(64);
 				
-				String pw = memberDao.iterpw(id);
 				
-				Member member = memberDao.login(id, pw);
+				log.info(pw);
+				log.info(id);
+				
+			Member member = memberDao.login(id, pw);
 				
 				session.setAttribute("member", member);
 			}

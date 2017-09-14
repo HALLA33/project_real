@@ -271,17 +271,4 @@ public class MemberDaoImpl implements MemberDao {
 		return list;
 	}
 
-	@Override
-	public String iterpw(String id) {
-		
-		String sql = "select pw from p_member where id = ?";
-		
-		String pw = jdbcTemplate.queryForObject(sql, new Object[] {id}, String.class);
-		
-		log.info(pw);
-		
-		return pw;
-		
-	}
-
 }
