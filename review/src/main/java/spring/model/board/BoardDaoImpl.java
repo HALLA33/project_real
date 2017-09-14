@@ -193,6 +193,33 @@ public class BoardDaoImpl implements BoardDao{
 		jdbcTemplate.update(sql, args);
 	}
 
+	@Override
+	public void plus_minus_Count(int flag, int no, int item_no) {
+		String sql = null;
+		
+		switch(flag) {
+		case 0:
+			sql = "update p_board set read=read+1 where no=? and item_no=?";	//조회수 증가
+			break;
+		case 1:
+			sql = "update p_board set good=good+1 where no=? and item_no=?";	//좋아요 증가
+			break;
+		case 2:
+			sql = "update p_board set good=good-1 where no=? and item_no=?";	//좋아요 감소
+			break;
+		case 3:
+			sql = "update p_board set bad=bad+1 where no=? and item_no=?";		//싫어요 증가
+			break;
+		case 4:
+			sql = "update p_board set bad=bad-1 where no=? and item_no=?";		//싫어요 감소
+			break;
+		} 
+		
+		Object[] args = {no, item_no};
+		
+		jdbcTemplate.update(sql, args);
+	}
+
 	
 
 
