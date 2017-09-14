@@ -7,13 +7,15 @@
 <script>
 	$(document).ready(function(){
 		$("#preview").on("click", function(){
-				var msg = valid(form);
+			var msg = valid(form);
+			var text = tagRemove(form.ir1.value, 2);
 	
 			if(msg!=null)
 				alert(msg);
 			else{
 				var openWin = window.open("about:blank", "preview", "width=750, height=800");
 				form.action="${pageContext.request.contextPath}/book-preview";
+				form.ir1.value = text;
 				form.target="preview"
 				form.submit();
 			}
@@ -21,11 +23,13 @@
 		
 		$("#register").on("click", function(){
 			var msg = valid(form);
+			var text = tagRemove(form.ir1.value, 2);
 			
 			if(msg!=null)
 				alert(msg);
 			else{
 				form.action="${pageContext.request.contextPath}/book-revise/${board.no}/${board.item_no}";
+				form.ir1.value = text;
 				form.submit();
 			}
 		});
@@ -33,7 +37,7 @@
 	
 	function valid(form){
 		var msg = null;
-		var text = tagRemove(form.ir1.value);
+		var text = tagRemove(form.ir1.value, 1);
 		
 		if(text=='')
 			msg = "내용을 입력하세요";
@@ -45,18 +49,29 @@
 			msg = "장르를 선택하세요";
 		if(form.item_no.value==0)
 			msg = "카테고리를 선택하세요";
-	
+
 		return msg;
 	}
 	
-	function tagRemove(text){
-		var detail = text_replace(text);
-			
+	function tagRemove(text, flag){
+		if(flag==1)
+			var detail = text_replace(text);
+		else
+			var detail = tag_replace(text);
+		
 		return detail;
 			
 		function text_replace(text){
-			text = text.replace(/<br\/>/ig, "\n"); 
 			text = text.replace(/<(\/)?([a-zA-Z]*)(\s[a-zA-Z]*=[^>]*)?(\s)*(\/)?>/ig, "");
+
+			return text;
+		}
+		
+		function tag_replace(text){
+			//text = text.replace(/<(\/)?[Pp](\/)?>/g,"<br>");
+			text = text.replace(/<[Pp](\/)?>/g,"")
+			text = text.replace(/<(\/)[Pp](\/)?>/g,"<br>");
+
 			return text;
 		}
 	}
@@ -193,7 +208,7 @@
     	nhn.husky.EZCreator.createInIFrame({
 	       	oAppRef: oEditors,
 	       	elPlaceHolder: "ir1",
-	       	sSkinURI: "/review/smarteditor/SmartEditor2Skin.html",
+	       	sSkinURI: "/review_re/smarteditor/SmartEditor2Skin.html",
 	       	fCreator: "createSEditor2"
        	});
 
