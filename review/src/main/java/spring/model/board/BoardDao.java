@@ -19,4 +19,5 @@ public interface BoardDao {
 	Board detail_board(int no, int item_no);
 	void update_board(Board board, Book book, int no, int item_no, String writer);
 	void delete_board(int no, int item_no, String id);
+	void plus_minus_Count(int flag, int no, int item_no);
 }
