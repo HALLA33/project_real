@@ -11,7 +11,7 @@
 
    <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
    <script type="text/javascript" src="/review/smarteditor/js/service/HuskyEZCreator.js" charset="utf-8"></script>
-   <script type="text/javascript" src="<c:url value="/js/bootstrap.min.js"/>"></script>
+   <script type="text/javascript" src="<c:url value="/review/js/bootstrap.min.js"/>"></script>
 	<script>
 	$(document).ready(function(){
 		$(".sub-wrap").on("click", function(){
@@ -29,19 +29,19 @@
 <style>
 @font-face{
 	font-family: bmdohyeon;
-	src: url('font/BMDOHYEON_ttf.ttf')
+	src: url('${pageContext.request.contextPath}/font/BMDOHYEON_ttf.ttf')
 }
 @font-face{
 	font-family: binggrae;
-	src: url('font/Binggrae.ttf')
+	src: url('${pageContext.request.contextPath}/font/Binggrae.ttf')
 }
 @font-face{
 	font-family: bmjua;
-	src: url('font/BMJUA_ttf.ttf')
+	src: url('${pageContext.request.contextPath}/font/BMJUA_ttf.ttf')
 }
 @font-face{
 	font-family: hoonwhitecatr;
-	src: url('HoonWhitecatR.ttf')
+	src: url('${pageContext.request.contextPath}/font/HoonWhitecatR.ttf')
 }
 .menu-wrap>ul>li>a {
 	text-decoration: none;
@@ -118,18 +118,18 @@
 }
 
 #home_article{
-	background-image: url('img/sea_crop_left.jpg');
+	background-image: url('${pageContext.request.contextPath}/img/sea_crop_left.jpg');
 	opacity: 0.825;
 }
 aside{
 /* 	background-color: #e4e8f1; */
 /* 		background: linear-gradient(#e3e7f0, #50b1d7); */
-	background-image: url('img/sea_crop_right.jpg');
+	background-image: url('${pageContext.request.contextPath}/img/sea_crop_right.jpg');
 	opacity: 0.825;
 }
 
 .imgHeader{
-	background-image: url('img/pencil.jpg');
+	background-image: url('${pageContext.request.contextPath}/img/pencil.jpg');
 	color: white;
 	align-content: center;
 	margin: 0 auto;
@@ -223,7 +223,7 @@ aside{
 	<header class="imgHeader">
 		<div class="menu-wrap">
 			<ul>
-				<li><a href="home">Home</a></li>
+				<li><a href="${pageContext.request.contextPath}/home">Home</a></li>
 				<li><a href="list">국내영화</a>
 					<ul>
 						<li><a href="#">SF/판타지</a></li>

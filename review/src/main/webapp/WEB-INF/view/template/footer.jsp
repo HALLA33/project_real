@@ -32,21 +32,21 @@
 			<input type="checkbox" id="remember" style="margin: 20 0 10 0; cursor: pointer;" name = "remember">
 			<label for="remember" style="font-size:13px; margin-left:0px; cursor: pointer;">로그인 유지</label>
 			<br>
-			<a href="tos">회원가입</a>&nbsp;&nbsp;
-			<a href="forget">ID</a>&nbsp;/
-			<a href="forgetpw">PW 찾기</a>
+			<a href="${pageContext.request.contextPath}/tos">회원가입</a>&nbsp;&nbsp;
+			<a href="${pageContext.request.contextPath}/forget">ID</a>&nbsp;/
+			<a href="${pageContext.request.contextPath}/forgetpw">PW 찾기</a>
 		</form>		
 		</c:if>
 		<c:if test = "${sessionScope.member ne null }">
 			<div class="left">
-				닉네임 : <a href="myinfo">${sessionScope.member.nickname }&#40;${sessionScope.member.id}&#41;</a>
+				닉네임 : <a href="${pageContext.request.contextPath}/myinfo">${sessionScope.member.nickname }&#40;${sessionScope.member.id}&#41;</a>
 			</div>
 			<div class="right">
-				<button class="edit-btn" onclick="location.href='myedit'">edit</button>
+				<button class="edit-btn" onclick="location.href='${pageContext.request.contextPath}/myedit'">edit</button>
 			</div>
 			<c:if test = "${sessionScope.member.power == '관리자' }">
 			<div class="right">
-				<button class="edit-btn" onclick="location.href='member'">회원관리</button>
+				<button class="edit-btn" onclick="location.href='${pageContext.request.contextPath}/member'">회원관리</button>
 			</div>
 			</c:if>
 			<div>
@@ -54,7 +54,7 @@
 					포인트 : <a href="#" class="left">${sessionScope.member.point }</a>
 				</div>
 				<div class="right" style="margin-bottom: 10px;"> 
-					<input type="button" value="로그아웃" onclick="location.href='logout'" style="backgborder-radius: 5px; font-size: 8px; background-color: white;">
+					<input type="button" value="로그아웃" onclick="location.href='${pageContext.request.contextPath}/logout'" style="border-radius: 5px; font-size: 8px; background-color: white;">
 				</div>
 			</div>
 			<a href="mywrite">내가 쓴 글</a>
@@ -93,7 +93,7 @@
  	</div>
  	
  	<div id="scrolldiv" style="position: fixed; bottom:50%; right: 20px;">
- 		<a href="home"><i title="home" class="xi-home-o xi-2x"></i></a>
+ 		<a href="${pageContext.request.contextPath}/home"><i title="home" class="xi-home-o xi-2x"></i></a>
  	</div>
  	
  	<div id="scrolldiv" style="position: fixed; bottom: 45%; right: 20px;">
