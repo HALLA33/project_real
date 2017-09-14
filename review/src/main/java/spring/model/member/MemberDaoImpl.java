@@ -271,4 +271,16 @@ public class MemberDaoImpl implements MemberDao {
 		return list;
 	}
 
+	@Override
+	public boolean autologin(String id, String pw) {
+
+		String sql = "select * from p_member where id = ? and pw = ?";
+
+		List<Member> list = jdbcTemplate.query(sql, new Object[] { id, pw }, mapper);
+		
+		boolean result = !list.isEmpty();
+		
+		return result;
+	}
+
 }

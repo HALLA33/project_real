@@ -251,9 +251,11 @@ public class MemberController {
 		
 		session.invalidate();
 		
+		String encryptpw = encryption.encryptPw(pw);
+		
 		if(pw.equals(rpw)) {
 			
-			boolean result = memberDao.repwset(sessionEmail, sessionId, pw);
+			boolean result = memberDao.repwset(sessionEmail, sessionId, encryptpw);
 			
 			if(result) {
 				log.info("비밀번호 변경 완료");
@@ -287,14 +289,18 @@ public class MemberController {
 			if(pw.equals("")) {
 				pw =  member.getPw();
 				rpw = member.getPw();
+			}else {
+				pw = encryption.encryptPw(pw);
+				rpw = encryption.encryptPw(rpw);
 			}
 		log.info(pw);
 		log.info(rpw);
+		
 		if(!pw.equals(rpw)) {
 			throw new Exception("비밀번호 다름 발생");
 		}else {
 			member.setNickname(nickname);
-			memberDao.infoedit(id, pw, nickname, phone);
+			memberDao.infoedit(id, rpw, nickname, phone);
 			
 			log.info(member.getNickname());
 			
@@ -316,8 +322,9 @@ public class MemberController {
 	@RequestMapping(value = "/check", method = RequestMethod.POST)
 	public String check(@RequestParam String mode, @RequestParam String id,@RequestParam String pw) throws Exception {
 	
-		
-		boolean result = memberDao.check(id, pw);
+		String encryptpw = encryption.encryptPw(pw);
+
+		boolean result = memberDao.check(id, encryptpw);
 		
 		if(result) {
 			
@@ -379,7 +386,7 @@ public class MemberController {
 		}		
 	}
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String test(HttpServletRequest requset, HttpSession session) {
+	public String test(HttpServletRequest requset, HttpSession session, HttpServletResponse response) {
 
 		
 		Cookie[] cookies = requset.getCookies();
@@ -402,11 +409,18 @@ public class MemberController {
 				log.info(pw);
 				log.info(id);
 				
-			Member member = memberDao.login(id, pw);
+				boolean result = memberDao.autologin(id, pw);
 				
-				session.setAttribute("member", member);
+				if(result) {
+					Member member = memberDao.login(id, pw);
+					
+					session.setAttribute("member", member);
+				}else {
+					Cookie c = new Cookie("autologin", null);
+					c.setMaxAge(0);
+					response.addCookie(c);
+				}
 			}
-			
 		}
 
 		return "home";
