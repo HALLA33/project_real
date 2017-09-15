@@ -168,10 +168,23 @@ public class MemberController {
 			
 		}
 		
+		//쿠키테이블 검사하여 있으면 생성
+		cookie(id, response);
+		
 		session.setAttribute("member", member);
 
 		return "redirect:/";
 	}
+	
+	public void cookie(String id, HttpServletResponse response) {
+		List<Cookies> cookie = memberDao.check_cookie(id);
+		
+		for(Cookies c: cookie) {
+			Cookie cookies = new Cookie(c.getCookie_name(), c.getCookie_value());
+			response.addCookie(cookies);
+		}
+	}
+	
 	//로그아웃 처리
 	@RequestMapping("/logout")
 	public String logout(HttpSession session, HttpServletResponse response) {
@@ -182,8 +195,28 @@ public class MemberController {
 		c.setMaxAge(0);
 		response.addCookie(c);
 		
+		check_cookie(request, response, "read_count");
+		check_cookie(request, response, "good_count");
+		check_cookie(request, response, "bad_count");
+		
 		return "redirect:/";
 	}
+	
+	public void check_cookie(HttpServletRequest request, HttpServletResponse response, String cookie_name) {
+		Cookie cookies[] = request.getCookies();
+		
+		//저장된 쿠키 불러오기
+		if(request.getCookies()!=null) {
+			for(int i=0; i<cookies.length; i++) {
+				Cookie obj = cookies[i];
+				if(obj.getName().startsWith(cookie_name)) {
+					obj.setMaxAge(0);
+					response.addCookie(obj);
+				}
+			}
+		}
+	}
+	
 	//아이디 찾기 뷰
 	@RequestMapping("/forget")
 	public String findidview() {
