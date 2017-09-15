@@ -456,5 +456,20 @@ public class MemberController {
 		return "home";
 	}
 	
+	//내가쓴 글
+	@RequestMapping("/mycomment")
+	public String mycomment() {
+		return "member/mycomment";
+	}
+	
+	@RequestMapping("/mywrite")
+	public String mywrite() {
+		return "member/mywrite";
+	}
+	
+	@RequestMapping("/myboard")
+	public String myboard() {
+		return "member/myboard";
+	}
 
 }

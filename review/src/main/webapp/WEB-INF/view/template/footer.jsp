@@ -57,7 +57,7 @@
 					<input type="button" value="로그아웃" onclick="location.href='${pageContext.request.contextPath}/logout'" style="border-radius: 5px; font-size: 8px; background-color: white;">
 				</div>
 			</div>
-			<a href="mywrite">내가 쓴 글</a>
+			<a href="myboard">내가 쓴 글</a>
 		</c:if>
 		</div>
 		<div>
