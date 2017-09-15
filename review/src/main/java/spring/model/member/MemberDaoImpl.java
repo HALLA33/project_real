@@ -24,6 +24,11 @@ public class MemberDaoImpl implements MemberDao {
 		return new Member(rs);
 
 	};
+	
+	private RowMapper<Cookies> c_mapper = (rs, index) -> {
+		return new Cookies(rs);
+
+	};
 
 	@Autowired
 	private JavaMailSenderImpl mailsender;
@@ -281,6 +286,16 @@ public class MemberDaoImpl implements MemberDao {
 		boolean result = !list.isEmpty();
 		
 		return result;
+	}
+	
+	@Override
+	public List<Cookies> check_cookie(String writer) {
+		String sql = "select * from cookie where writer=?";
+		Object[] args = {writer};
+		
+		
+		return jdbcTemplate.query(sql, args, c_mapper);
+
 	}
 
 }
