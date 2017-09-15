@@ -16,7 +16,7 @@ import org.springframework.stereotype.Repository;
 @Repository("boardDao")
 public class BoardDaoImpl implements BoardDao{
 	private Logger log = LoggerFactory.getLogger(getClass());
-	private Map<Integer, Book> map = new HashMap<>();
+	private Map<Integer, Book> map = new HashMap<>(); 
 	
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
@@ -205,13 +205,21 @@ public class BoardDaoImpl implements BoardDao{
 			sql = "update p_board set good=good+1 where no=? and item_no=?";	//좋아요 증가
 			break;
 		case 2:
-			sql = "update p_board set good=good-1 where no=? and item_no=?";	//좋아요 감소
+			boolean check = zero_check(2, no, item_no);
+			if(check)
+				sql = "update p_board set good=good-1 where no=? and item_no=?";	//좋아요 감소
+			else
+				sql = "update p_board set good=0 where no=? and item_no=?";
 			break;
 		case 3:
 			sql = "update p_board set bad=bad+1 where no=? and item_no=?";		//싫어요 증가
 			break;
 		case 4:
-			sql = "update p_board set bad=bad-1 where no=? and item_no=?";		//싫어요 감소
+			check = zero_check(4, no, item_no);
+			if(check)
+				sql = "update p_board set bad=bad-1 where no=? and item_no=?";		//싫어요 감소
+			else
+				sql = "update p_board set bad=0 where no=? and item_no=?";
 			break;
 		} 
 		
@@ -220,7 +228,52 @@ public class BoardDaoImpl implements BoardDao{
 		jdbcTemplate.update(sql, args);
 	}
 
+	public boolean zero_check(int flag, int no, int item_no) {
+		String sql = null;
+		int number = 0;
+		
+		if(flag==2) {
+			sql = "select good from p_board where no=? and item_no=?";
+			Object[] args = {no, item_no};
+			
+			number = jdbcTemplate.queryForObject(sql, args, Integer.class);
+		}
+		else {
+			sql = "select bad from p_board where no=? and item_no=?";
+			Object[] args = {no, item_no};
+			
+			number = jdbcTemplate.queryForObject(sql, args, Integer.class);
+		}
+		
+		if(number<=0)
+			return false;
+		else
+			return true;
+	}
+
+	@Override
+	public void insert_cookie(int cookie_no, String cookie_name, String cookie_value, int board_no, int board_item_no, String writer) {
+		String sql = "insert into cookie values (cookie_seq.nextval, ?, ?, ?, ?, ?, ?)";
+		Object[] args = {cookie_no, cookie_name, cookie_value, board_no, board_item_no, writer};
+		
+		jdbcTemplate.update(sql, args);
+	}
 	
+	@Override
+	public void delete_cookie(int cookie_no, String writer) {
+		String sql = "delete from cookie where cookie_no=? and writer=?";
+		Object[] args = {cookie_no, writer};
+		
+		jdbcTemplate.update(sql, args);
+	}
+
+	@Override
+	public void board_delete_cookie(int board_no, int board_item_no) {
+		String sql = "delete from cookie where board_no=? and board_item_no=?";
+		Object[] args = {board_no, board_item_no};
+		
+		jdbcTemplate.update(sql, args);
+	}
 
 
 }
