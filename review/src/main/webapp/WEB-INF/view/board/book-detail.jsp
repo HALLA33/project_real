@@ -29,10 +29,14 @@
 		        url: "${pageContext.request.contextPath}/goodCount", 
 		        data: allData,
 		        success: //호출이 성공하면 호출되는 함수를 정의한다.
-		        function(){ //값을 data변수로 받아서 처리한다.
-		    		window.opener.location.reload();
+		        function(data){ //값을 data변수로 받아서 처리한다.	        	
+		        	console.log("좋아요 성공 : " + data.good_img);
+		        	console.log("좋아요 개수 : " + data.good_number);
+		        	$("#good_tag").attr("src", "${pageContext.request.contextPath}/"+data.good_img);
+		        	$("#good_number").text(data.good_number+"개");
 		        }
 		    });
+			
 		});
 		
 		$("#bad").on("click", function(){
@@ -45,10 +49,14 @@
 		        url: "${pageContext.request.contextPath}/badCount", 
 		        data: allData,
 		        success: //호출이 성공하면 호출되는 함수를 정의한다.
-		        function(){ //값을 data변수로 받아서 처리한다.
-		    		window.opener.location.reload();
+		        function(result){ //값을 data변수로 받아서 처리한다.
+		        	console.log("싫어요 성공 : " + result.bad_img)
+		        	console.log("좋아요 개수 : " + result.bad_number);
+		        	$("#bad_tag").attr("src", "${pageContext.request.contextPath}/"+result.bad_img);
+		        	$("#bad_number").text(result.bad_number+"개");
 		        }
 		    });
+			
 		});
 
 	});
@@ -57,7 +65,7 @@
 <article>
 <%-- 컨테이너 영역 --%>
 <h3>상세보기</h3>
-<h1>${board.no}</h1>
+<h3>${board.no }</h3>
 <div class="container">
 	<table class="table table-bordered">
 	 	<thead></thead>
@@ -102,32 +110,31 @@
 	 			<td>
 	 				<div class="form-inline">
 	 					<div class="align-left">                                                                            
-	 						<img src="<c:url value="img/good.png"/>" 
+	 						<img src="${pageContext.request.contextPath}/img/good.png" 
 	 							style="width:30px; height:30px; " >
 	 					</div>
-	 					<label style="font-size:20px; padding-right:20px">${board.good }개</label>
+	 					<label id="good_number" style="font-size:20px; padding-right:20px">${board.good }개</label>
 	 					
 	 					<div class="align-left">                                                                            
-	 						<img src="<c:url value="img/bad.png"/>" 
+	 						<img src="${pageContext.request.contextPath}/img/bad.png" 
 	 							style="width:30px; height:30px; " >
 	 					</div>
-	 					<label style="font-size:20px">${board.bad }개</label>
+	 					<label id="bad_number" style="font-size:20px">${board.bad }개</label>
 	 				</div>
 	 			</td>
 	 		</tr>
 	 		<tr>
-	 			<td>
+	 			<td><!-- vertical-align:middle; -->
 	 				<div class="row form-inline">
-	 					<div class="align-left">  
+	 					<div class="align-left" style="padding-right:30px; padding-left:20px">  
 		 					<button id="good" style="background:white; border:none">
-		 						<img src="<c:url value="img/good.png"/>" style="align:left">	
-		 						<span>좋아요</span>
-		 					</button>
+		 						<img id="good_tag" src="${good_img }" style="align:left;">
+		 					</button>​
 		 				</div>
+		 				
 		 				<div class="align-left">  
 		 					<button id="bad" style="background:white; border:none">
-		 						<img src="<c:url value="img/bad.png"/>" >	
-		 						<span>싫어요</span>
+		 						<img id="bad_tag" src="${bad_img }" style="align:left;">
 		 					</button>
 		 				</div>
 	 				</div>	
