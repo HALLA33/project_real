@@ -1,8 +1,5 @@
 package spring.controller.member;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.request;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.forwardedUrl;
-
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
@@ -21,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import oracle.net.aso.s;
+import spring.model.member.Cookies;
 import spring.model.member.Encryption;
 import spring.model.member.Generator;
 import spring.model.member.Member;
@@ -187,7 +184,7 @@ public class MemberController {
 	
 	//로그아웃 처리
 	@RequestMapping("/logout")
-	public String logout(HttpSession session, HttpServletResponse response) {
+	public String logout(HttpSession session, HttpServletResponse response, HttpServletRequest request) {
 		
 		session.invalidate();
 		

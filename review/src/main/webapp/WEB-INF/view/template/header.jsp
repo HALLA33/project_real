@@ -11,7 +11,7 @@
 
    <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
    <script type="text/javascript" src="/review/smarteditor/js/service/HuskyEZCreator.js" charset="utf-8"></script>
-   <script type="text/javascript" src="<c:url value="/review/js/bootstrap.min.js"/>"></script>
+   <script type="text/javascript" src="<c:url value="/js/bootstrap.min.js"/>"></script>
 	<script>
 	$(document).ready(function(){
 		$(".sub-wrap").on("click", function(){
