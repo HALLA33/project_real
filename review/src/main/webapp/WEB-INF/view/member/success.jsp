@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-중복확인
+ajax작동
 </body>
 </html>

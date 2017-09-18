@@ -398,7 +398,7 @@ public class MemberController {
 			throw new Exception("아이디가있음");
 		}		
 	}
-	
+	//나의 정보 수정(닉네임체크)
 	@RequestMapping(value = "/nickcheck2", method = RequestMethod.POST)
 	public String nickcheck2(@RequestParam String nick, @RequestParam String id) throws Exception {
 		
@@ -415,6 +415,7 @@ public class MemberController {
 			throw new Exception("아이디가있음");
 		}		
 	}
+	//자동로그인
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String test(HttpServletRequest requset, HttpSession session, HttpServletResponse response) {
 
@@ -470,6 +471,40 @@ public class MemberController {
 	@RequestMapping("/myboard")
 	public String myboard() {
 		return "member/myboard";
+	}
+	//회원등급 변경
+	@RequestMapping(value = "/chengepower", method = RequestMethod.POST)
+	public String ChengePower(@RequestParam String[] userid, @RequestParam String power) throws Exception {
+		
+		switch(power) {
+		
+		case "normal" : power = "일반"; break;
+		case "staff" : power = "스탭"; break;
+		
+		}
+		
+		for(int i =0; i < userid.length; i++) {
+			
+			boolean result = memberDao.chengepower(power, userid[i]);
+			
+			if(!result) {
+				throw new Exception("비정상적 권한 변경 발생");
+			}
+		}
+		
+		return "member/success";	
+	}
+	//강제 회원탈퇴
+	@RequestMapping(value = "unsign", method = RequestMethod.POST)
+	public String unsign(@RequestParam String[] userid) {
+		
+		for(int i =0; i < userid.length; i++) {
+
+			memberDao.manageunsign(userid[i]);
+			
+		}
+
+		return "member/success";	
 	}
 
 }

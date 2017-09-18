@@ -22,7 +22,6 @@ public class MemberDaoImpl implements MemberDao {
 
 	private RowMapper<Member> mapper = (rs, index) -> {
 		return new Member(rs);
-
 	};
 	
 	private RowMapper<Cookies> c_mapper = (rs, index) -> {
@@ -298,4 +297,29 @@ public class MemberDaoImpl implements MemberDao {
 
 	}
 
+	@Override
+	public boolean chengepower(String power, String id) {
+
+		String sql = "update p_member set power = ? where id = ?";
+		
+		int result = jdbcTemplate.update(sql, new Object[] {power, id});
+		
+		return result>0;
+	}
+
+	@Override
+	public void manageunsign(String id) {
+
+		String sql = "delete p_member where id = ?";
+		
+		jdbcTemplate.update(sql, new Object[] {id});
+		
+	}
+	
+	@Override
+	public void unsigned(String id, String pw) {
+		// TODO Auto-generated method stub
+		
+		
+	}
 }

@@ -26,4 +26,7 @@ public interface MemberDao {
 	public List<Member> memberlist(String smode, String key, int start, int end) throws Exception;
 	public boolean autologin(String id, String pw);
 	List<Cookies> check_cookie(String writer);
+	public boolean chengepower(String power, String id);
+	public void manageunsign(String id);
+	public void unsigned(String id, String pw);
 }
