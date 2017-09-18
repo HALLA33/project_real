@@ -328,8 +328,10 @@ public class MemberDaoImpl implements MemberDao {
 	
 	@Override
 	public void unsigned(String id, String pw) {
-		// TODO Auto-generated method stub
 		
+		String sql = "delete p_member where id = ? and pw = ?";
 		
+		jdbcTemplate.update(sql, new Object[] {id, pw});
+			
 	}
 }

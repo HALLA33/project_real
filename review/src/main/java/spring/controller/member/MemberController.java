@@ -350,7 +350,8 @@ public class MemberController {
 	
 	//비밀번호 체크
 	@RequestMapping(value = "/check", method = RequestMethod.POST)
-	public String check(@RequestParam String mode, @RequestParam String id,@RequestParam String pw) throws Exception {
+	public String check(@RequestParam String mode, @RequestParam String id,
+			@RequestParam String pw, HttpSession session) throws Exception {
 	
 		String encryptpw = encryption.encryptPw(pw);
 
@@ -360,6 +361,10 @@ public class MemberController {
 			
 			if(mode.equals("edit")) {
 				return "redirect:myedit";
+			}else if(mode.equals("unsign")) {
+				memberDao.unsigned(id, encryptpw);
+				session.invalidate();
+				return "redirect:/";
 			}else {
 				throw new Exception("없는 모드");
 			}
@@ -496,7 +501,7 @@ public class MemberController {
 	}
 	//강제 회원탈퇴
 	@RequestMapping(value = "unsign", method = RequestMethod.POST)
-	public String unsign(@RequestParam String[] userid) {
+	public String manageunsign(@RequestParam String[] userid) {
 		
 		for(int i =0; i < userid.length; i++) {
 
@@ -506,5 +511,5 @@ public class MemberController {
 
 		return "member/success";	
 	}
-
+	
 }
