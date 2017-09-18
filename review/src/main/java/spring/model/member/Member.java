@@ -24,7 +24,20 @@ public class Member {
 	private int writenumber;
 	private int replynumber;
 	private String enabled;
+	private String visitflag;
 	
+public String getVisitflag() {
+		return visitflag;
+	}
+
+
+
+	public void setVisitflag(String visitflag) {
+		this.visitflag = visitflag;
+	}
+
+
+
 public Member() {
 		super();
 	}
@@ -264,6 +277,7 @@ public void setEnabled(String enabled) {
 		this.setWritenumber(rs.getInt("writenumber"));
 		this.setReplynumber(rs.getInt("replynumber"));
 		this.setEnabled(rs.getString("enabled"));
+		this.setVisitflag(rs.getString("visitflag"));
 	}
 	@Override
 	public String toString() {

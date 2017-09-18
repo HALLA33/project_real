@@ -417,10 +417,10 @@ public class MemberController {
 	}
 	//자동로그인
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String test(HttpServletRequest requset, HttpSession session, HttpServletResponse response) {
+	public String test(HttpServletRequest request, HttpSession session, HttpServletResponse response) {
 
 		
-		Cookie[] cookies = requset.getCookies();
+		Cookie[] cookies = request.getCookies();
 		
 		String cookieval = null;
 		

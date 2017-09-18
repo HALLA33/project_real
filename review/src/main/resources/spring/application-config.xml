@@ -1,47 +1,78 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:context="http://www.springframework.org/schema/context"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
-		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+   xmlns:context="http://www.springframework.org/schema/context"
+   xmlns:batch="http://www.springframework.org/schema/batch"
+   xmlns:p="http://www.springframework.org/schema/p"
+   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+      http://www.springframework.org/schema/batch http://www.springframework.org/schema/batch/spring-batch.xml
+      http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
    
 <!-- apache-dbcp를 적용하여 dataSource를 생성 -->
-	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource">
-		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
-		<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe"/>
-		<property name="username" value="sw1"/>
-		<property name="password" value="sw1"/>
-		
-		<property name="maxTotal" value="20"/>
-		<property name="maxIdle" value="10"/>
-		<property name="maxWaitMillis" value="-1"/>
-	</bean>
-	
-	<!-- jdbcTemplate에 dataSource를 주입 -->
-	
-	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
-		<property name="dataSource" ref="dataSource"></property>
-	</bean>
-	
-	<!-- JavaMailSender를 이곳에 등록 -->
-	<bean id="mailsender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
-		<property name="host" value="smtp.gmail.com"/>
-		<property name="port" value="587"/>
-		<property name="username" value="####@gmail.com"/>
-		<property name="password" value="#######"/>
-		<property name="javaMailProperties">
-			<props>
-				<prop key="mail.transport.protocol">smtp</prop>
-				<prop key="mail.smtp.auth">true</prop>
-				<prop key="mail.smtp.starttls.enable">true</prop>
-				<prop key="mail.debug">true</prop>
-			</props>
-		</property>
-	</bean>	
-	
+   <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource">
+      <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
+      <property name="url" value="jdbc:oracle:thin:@localhost:1521:xe"/>
+      <property name="username" value="sw1"/>
+      <property name="password" value="sw1"/>
+      
+      <property name="maxTotal" value="20"/>
+      <property name="maxIdle" value="10"/>
+      <property name="maxWaitMillis" value="-1"/>
+   </bean>
+   
+   <!-- jdbcTemplate에 dataSource를 주입 -->
+   
+   <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+      <property name="dataSource" ref="dataSource"></property>
+   </bean>
+   
+   <!-- JavaMailSender를 이곳에 등록 -->
+   <bean id="mailsender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+      <property name="host" value="smtp.gmail.com"/>
+      <property name="port" value="587"/>
+      <property name="username" value="#####@gmail.com"/>
+      <property name="password" value="#######"/>
+      <property name="javaMailProperties">
+         <props>
+            <prop key="mail.transport.protocol">smtp</prop>
+            <prop key="mail.smtp.auth">true</prop>
+            <prop key="mail.smtp.starttls.enable">true</prop>
+            <prop key="mail.debug">true</prop>
+         </props>
+      </property>
+   </bean>   
+   
+   <!-- Quartz Scheduler -->
+    <bean id="visit" class="spring.scheduler.quartz.Visit" />
+<!--    <bean id="hello" class="spring.scheduler.quartz.Hello" /> -->
+   
+   <bean name="myJob" class="org.springframework.scheduling.quartz.JobDetailFactoryBean"
+           p:jobClass="spring.scheduler.quartz.MyJobBean"
+           p:durability="true">
+       <property name="jobDataAsMap">
+         <map>
+           <entry key="visit" value-ref="visit"  />
+         </map>
+       </property>
+     </bean>
+     
+     <bean id="cronTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean"
+           p:jobDetail-ref="myJob"
+           p:startDelay="1000"
+           p:cronExpression="0 58 20 * * ?" />
 
-	<context:component-scan base-package="spring.model.*"/>
-	
-	
+     <bean id="schedulerFactoryBean" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+       <property name="triggers">
+         <list>
+           <ref bean="cronTrigger" />
+         </list>
+       </property>
+     </bean>
+   
+
+   <context:component-scan base-package="spring.model.*"/>
+   <context:component-scan base-package="spring.scheduler.quartz"/>
+   
+   
 
 </beans>

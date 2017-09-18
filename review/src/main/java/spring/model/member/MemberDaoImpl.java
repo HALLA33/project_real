@@ -48,7 +48,7 @@ public class MemberDaoImpl implements MemberDao {
 		log.info(member.getPhone());
 
 		String test = "test";
-		String sql = "insert into p_member values(p_member_seq.nextval, ?, ?, ? , ?, ? , ? , ? , ? , ?, '일반', 0, sysdate, sysdate, 1, 0, 0, 'true')";
+		String sql = "insert into p_member values(p_member_seq.nextval, ?, ?, ? , ?, ? , ? , ? , ? , ?, '일반', 0, sysdate, sysdate, 0, 0, 0, 'true', 'true')";
 
 		Object[] args = new Object[] { member.getId(), member.getPw(), member.getNickname(), member.getEmail(),
 				member.getName(), member.getGender(), member.getBirth(), member.getTelecom(), member.getPhone() };
@@ -76,11 +76,21 @@ public class MemberDaoImpl implements MemberDao {
 
 		List<Member> list = jdbcTemplate.query(sql, new Object[] { id, pw }, mapper);
 
+		Member member = list.get(0);
+		
+		String visitflag = member.getVisitflag();
+		
+		log.info(visitflag);
+		
+		if(visitflag.equals("true")) {
+			sql = "update p_member set visitnumber = visitnumber +1, visitflag = 'false' where id = ?";
+			jdbcTemplate.update(sql, new Object[] {id});
+		}
+		
 		sql = "update p_member set lastvisit = sysdate where id = ?";
 
 		jdbcTemplate.update(sql, new Object[] { id });
 
-		Member member = list.get(0);
 
 		return member;
 
