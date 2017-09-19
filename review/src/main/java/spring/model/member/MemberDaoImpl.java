@@ -48,7 +48,7 @@ public class MemberDaoImpl implements MemberDao {
 		log.info(member.getPhone());
 
 		String test = "test";
-		String sql = "insert into p_member values(p_member_seq.nextval, ?, ?, ? , ?, ? , ? , ? , ? , ?, '일반', 0, sysdate, sysdate, 0, 0, 0, 'true', 'true')";
+		String sql = "insert into p_member values(p_member_seq.nextval, ?, ?, ? , ?, ? , ? , ? , ? , ?, '일반', 0, sysdate, sysdate, 0, 0, 0, 'true', 0, 0)";
 
 		Object[] args = new Object[] { member.getId(), member.getPw(), member.getNickname(), member.getEmail(),
 				member.getName(), member.getGender(), member.getBirth(), member.getTelecom(), member.getPhone() };
@@ -78,13 +78,13 @@ public class MemberDaoImpl implements MemberDao {
 
 		Member member = list.get(0);
 		
-		String visitflag = member.getVisitflag();
+		int flag = member.getFlag();
 		int point = 0;
 		
-		log.info(visitflag);
+		System.out.println("flag : " + flag);
 		
-		if(visitflag.equals("true")) {
-			sql = "update p_member set visitnumber = visitnumber +1, visitflag = 'false', point = point+10 where id = ?";
+		if(flag == 0) {
+			sql = "update p_member set visitnumber = visitnumber +1, flag = 1, point = point+10 where id = ?";
 			jdbcTemplate.update(sql, new Object[] {id});
 			sql = "select point from p_member where id = ?";
 			point = jdbcTemplate.queryForObject(sql,new Object[] {id}, Integer.class);

@@ -117,7 +117,7 @@ public class BoardController {
 	}
 
 	@RequestMapping(value= {"/book-write"}, method=RequestMethod.POST)
-	public String write_post(Model model, HttpServletRequest request) {
+	public String write_post(Model model, HttpServletRequest request, HttpSession session) {
 		Book book = new Book();
 		book.setImage(request.getParameter("image"));
 		book.setTitle(request.getParameter("book_title"));
@@ -133,6 +133,8 @@ public class BoardController {
 		board.setWriter(request.getParameter("writer"));
 		board.setTitle(request.getParameter("title"));
 		board.setDetail(request.getParameter("ir1"));
+		
+		Member member =(Member)session.getAttribute("member");
 		
 		//String notice = request.getParameter("notice");
 		String notice = "false";
@@ -161,7 +163,10 @@ public class BoardController {
 		board = boardDao.detail_board(no, board.getItem_no());
 		
 		String nickname = boardDao.search_nickname(board.getWriter());
+		int point = boardDao.getpoint(nickname);
+		member.setPoint(point);
 		
+		session.setAttribute("member", member);
 		model.addAttribute("nickname", nickname);
 		model.addAttribute("book", book);
 		model.addAttribute("board", board);

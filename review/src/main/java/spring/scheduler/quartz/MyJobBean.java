@@ -10,16 +10,16 @@ import org.springframework.scheduling.quartz.QuartzJobBean;
 public class MyJobBean extends QuartzJobBean {
 
     private Hello hello;
-    private Visit visit;
+    private Flag flag;
     @Override
     protected void executeInternal(JobExecutionContext jobExecutionContext) throws JobExecutionException {
-        visit.Visitstatus();
+    	flag.status();
     }
 
     public void setHello(Hello hello){
         this.hello = hello;
     }
-	public void setVisit(Visit visit) {
-		this.visit = visit;
+	public void setFlag(Flag flag) {
+		this.flag = flag;
 	}
 }

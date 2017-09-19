@@ -43,7 +43,7 @@
    </bean>   
    
    <!-- Quartz Scheduler -->
-    <bean id="visit" class="spring.scheduler.quartz.Visit" />
+    <bean id="flag" class="spring.scheduler.quartz.Flag" />
 <!--    <bean id="hello" class="spring.scheduler.quartz.Hello" /> -->
    
    <bean name="myJob" class="org.springframework.scheduling.quartz.JobDetailFactoryBean"
@@ -51,7 +51,7 @@
            p:durability="true">
        <property name="jobDataAsMap">
          <map>
-           <entry key="visit" value-ref="visit"  />
+           <entry key="flag" value-ref="flag"  />
          </map>
        </property>
      </bean>
@@ -59,7 +59,7 @@
      <bean id="cronTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean"
            p:jobDetail-ref="myJob"
            p:startDelay="1000"
-           p:cronExpression="30 12 16 * * ?" />
+           p:cronExpression="30 22 20 * * ?" />
 
      <bean id="schedulerFactoryBean" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
        <property name="triggers">

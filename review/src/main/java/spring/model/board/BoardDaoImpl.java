@@ -94,7 +94,6 @@ public class BoardDaoImpl implements BoardDao{
 	@Override
 	public int write(Board board, int no) {
 		String sql = "insert into p_board values(?, ?, ?, ?, ?, ?, ?, sysdate, 0, 0, 0, 0, ?, ?)";
-		
 		String seq = null;
 		switch(board.getItem_no()) {
 		case 0 : seq = "p_board_notice_seq"; break;
@@ -108,6 +107,8 @@ public class BoardDaoImpl implements BoardDao{
 		}
 		
 		int seq_number = seq_number(seq);
+		String nickname = board.getWriter();
+		
 		
 		Object[] args = {
 				seq_number, board.getItem_no(), board.getHead(), board.getTag(), 
@@ -115,6 +116,14 @@ public class BoardDaoImpl implements BoardDao{
 				};
 		
 		jdbcTemplate.update(sql, args);
+
+		sql = "select todaywrite from p_member where id  = ?";
+		int todaywrite = jdbcTemplate.queryForObject(sql, new Object[] {nickname}, Integer.class);
+		
+		if(todaywrite < 3) {
+			sql = "update p_member set point = point +10, todaywrite = todaywrite + 1 where id = ?";
+			jdbcTemplate.update(sql, new Object[] {nickname});
+		}
 		
 		return seq_number;
 	}
@@ -159,7 +168,6 @@ public class BoardDaoImpl implements BoardDao{
 	@Override
 	public Board detail_board(int no, int item_no) {
 		String sql = "select * from p_board where no=? and item_no=?";
-		
 		Object[] args = {no, item_no};
 		return jdbcTemplate.query(sql, args, extractor);
 	}
@@ -169,6 +177,7 @@ public class BoardDaoImpl implements BoardDao{
 		String sql = "select * from p_board where no=? and item_no=? and writer=?";
 		
 		Object[] args = {no, item_no, writer};
+		
 		return jdbcTemplate.query(sql, args, extractor);
 		
 		
@@ -273,6 +282,17 @@ public class BoardDaoImpl implements BoardDao{
 		Object[] args = {board_no, board_item_no};
 		
 		jdbcTemplate.update(sql, args);
+	}
+	@Override
+	public int getpoint(String nickname) {
+		
+		log.info(nickname);
+		
+		String sql = "select point from p_member where nickname = ?";
+		int point  = jdbcTemplate.queryForObject(sql, new Object[] {nickname}, Integer.class);
+		System.out.println("point : " + point);
+		
+		return point;
 	}
 
 

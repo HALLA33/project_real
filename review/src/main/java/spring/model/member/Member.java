@@ -24,19 +24,22 @@ public class Member {
 	private int writenumber;
 	private int replynumber;
 	private String enabled;
-	private String visitflag;
+	private int flag;
+	private int todaywrite;
 	
-public String getVisitflag() {
-		return visitflag;
+	
+	public int getTodaywrite() {
+		return todaywrite;
 	}
-
-
-
-	public void setVisitflag(String visitflag) {
-		this.visitflag = visitflag;
+	public void setTodaywrite(int todaywrite) {
+		this.todaywrite = todaywrite;
 	}
-
-
+	public int getFlag() {
+		return flag;
+	}
+	public void setFlag(int flag) {
+		this.flag = flag;
+	}
 
 public Member() {
 		super();
@@ -277,7 +280,8 @@ public void setEnabled(String enabled) {
 		this.setWritenumber(rs.getInt("writenumber"));
 		this.setReplynumber(rs.getInt("replynumber"));
 		this.setEnabled(rs.getString("enabled"));
-		this.setVisitflag(rs.getString("visitflag"));
+		this.setFlag(rs.getInt("flag"));
+		this.setTodaywrite(rs.getInt("todaywrite"));
 	}
 	@Override
 	public String toString() {

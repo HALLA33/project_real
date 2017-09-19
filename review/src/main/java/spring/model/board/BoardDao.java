@@ -23,4 +23,5 @@ public interface BoardDao {
 	void insert_cookie(int cookie_no, String cookie_name, String cookie_value, int board_no, int board_item_no, String writer);
 	void delete_cookie(int cookie_no, String writer);
 	void board_delete_cookie(int board_no, int board_item_no);
+	int getpoint(String nickname);
 }

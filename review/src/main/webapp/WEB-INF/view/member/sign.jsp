@@ -58,7 +58,7 @@
 			var charcase2 = /^[가-힣]*[가-힣]/g;
 			
 			var nickcheck1 = /^[A-Za-z0-9]{2,20}$/g;
-			var nickcheck2 = /^[가-힣]{1,10}$/g;
+			var nickcheck2 = /^[가-힣0-9]{1,10}$/g;
 			
 			if(charcase.test(nickinput.val())){
 				if(!nickcheck1.test(nickinput.val())){
