@@ -79,14 +79,18 @@ public class MemberDaoImpl implements MemberDao {
 		Member member = list.get(0);
 		
 		String visitflag = member.getVisitflag();
+		int point = 0;
 		
 		log.info(visitflag);
 		
 		if(visitflag.equals("true")) {
-			sql = "update p_member set visitnumber = visitnumber +1, visitflag = 'false' where id = ?";
+			sql = "update p_member set visitnumber = visitnumber +1, visitflag = 'false', point = point+10 where id = ?";
 			jdbcTemplate.update(sql, new Object[] {id});
+			sql = "select point from p_member where id = ?";
+			point = jdbcTemplate.queryForObject(sql,new Object[] {id}, Integer.class);
+			member.setPoint(point);
 		}
-		
+		System.out.println("point : " + point);
 		sql = "update p_member set lastvisit = sysdate where id = ?";
 
 		jdbcTemplate.update(sql, new Object[] { id });

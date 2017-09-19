@@ -59,7 +59,7 @@
      <bean id="cronTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean"
            p:jobDetail-ref="myJob"
            p:startDelay="1000"
-           p:cronExpression="0 58 20 * * ?" />
+           p:cronExpression="30 12 16 * * ?" />
 
      <bean id="schedulerFactoryBean" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
        <property name="triggers">
