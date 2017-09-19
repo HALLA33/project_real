@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+ <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <article>
 
 <div id="mywrite-wrap">
@@ -16,26 +17,14 @@
    </thead>
    
    <tbody>
-       <tr>
-        <td id="check"><input type="checkbox" class="unit"></td>
-           <td>안녕안녕</td>
-         <td>2017/08/30</td>
-          <td>0</td>
-      </tr>
-       
-      <tr>
-          <td id="check"><input type="checkbox" class="unit"></td>
-          <td>ㅎㅇ</td>
-         <td>2017/08/30</td>
-          <td>0</td>
-      </tr>
-      
-      <tr>
-          <td id="check"><input type="checkbox" class="unit"></td>
-          <td>ㅋㅋㅋ</td>
-         <td>2017/08/30</td>
-          <td>0</td>
-      </tr>
+       <c:forEach var = "list" items = "${list}">
+   		<tr>
+   			<td id="check"><input type="checkbox" class="unit"></td>
+   			<td>${list.title}</td> 
+   			<td>${list.reg}</td>
+   			<td>${list.read}</td>
+   		</tr>
+   </c:forEach>
        
    </tbody>
    

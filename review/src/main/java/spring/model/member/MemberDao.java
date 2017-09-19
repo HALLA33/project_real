@@ -6,6 +6,8 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Repository;
 
+import spring.model.board.Board;
+
 @Repository
 public interface MemberDao {
 	
@@ -29,4 +31,6 @@ public interface MemberDao {
 	public boolean chengepower(String power, String id);
 	public void manageunsign(String id);
 	public void unsigned(String id, String pw);
+	List<Board> mywrite(String id);
+	public boolean mydelete(String writeno, String id);
 }

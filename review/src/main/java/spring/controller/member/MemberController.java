@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import spring.model.board.Board;
 import spring.model.member.Cookies;
 import spring.model.member.Encryption;
 import spring.model.member.Generator;
@@ -469,12 +470,28 @@ public class MemberController {
 	}
 	
 	@RequestMapping("/mywrite")
-	public String mywrite() {
+	public String mywrite(HttpSession session, HttpServletRequest request) {
+		
+		Member member = (Member)session.getAttribute("member");
+		String id  = member.getId();
+		
+		List<Board> list = memberDao.mywrite(id);
+		
+		request.setAttribute("list", list);
+		
 		return "member/mywrite";
 	}
 	
 	@RequestMapping("/myboard")
-	public String myboard() {
+	public String myboard(HttpSession session, HttpServletRequest request) {
+		
+		Member member = (Member)session.getAttribute("member");
+		String id  = member.getId();
+		
+		List<Board> list = memberDao.mywrite(id);
+		
+		request.setAttribute("list", list);
+		
 		return "member/myboard";
 	}
 	//회원등급 변경
@@ -510,6 +527,21 @@ public class MemberController {
 		}
 
 		return "member/success";	
+	}
+	
+	//내가 쓴글 삭제
+	@RequestMapping(value = "mydelete", method = RequestMethod.POST)
+	public String mydelete(@RequestParam String[] writeno, HttpSession session) {
+		
+		Member member = (Member)session.getAttribute("member");
+		String id = member.getId();
+		
+		for(int i =0; i < writeno.length; i++) {
+			
+			memberDao.mydelete(writeno[i], id);
+			
+		}
+		return "member/success";
 	}
 	
 }

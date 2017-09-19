@@ -13,6 +13,8 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.stereotype.Repository;
 
+import spring.model.board.Board;
+
 @Repository("memberDao")
 public class MemberDaoImpl implements MemberDao {
 
@@ -22,6 +24,10 @@ public class MemberDaoImpl implements MemberDao {
 
 	private RowMapper<Member> mapper = (rs, index) -> {
 		return new Member(rs);
+	};
+	
+	private RowMapper<Board> mapper2 = (rs, index) -> {
+		return new Board(rs);
 	};
 	
 	private RowMapper<Cookies> c_mapper = (rs, index) -> {
@@ -337,5 +343,23 @@ public class MemberDaoImpl implements MemberDao {
 		
 		jdbcTemplate.update(sql, new Object[] {id, pw});
 			
+	}
+
+	@Override
+	public List<Board> mywrite(String id) {
+		
+		String sql = "select * from p_board where writer = ? order by reg desc";
+		
+		return jdbcTemplate.query(sql, new Object[] {id}, mapper2);
+	}
+
+	@Override
+	public boolean mydelete(String writeno, String id) {
+		
+		String sql = "delete p_board where no = ? and writer = ?";
+		
+		int result = jdbcTemplate.update(sql, new Object[] {writeno, id});
+		
+		return result > 0;
 	}
 }

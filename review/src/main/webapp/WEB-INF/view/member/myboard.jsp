@@ -8,30 +8,57 @@
 <script> 
     window.onload = function(){
        
-        
-        //'전체선택' 체크하면 전체 체크
-        var allcheck = function(){
-        	 var all = document.querySelector("#all");
-             var unit = document.querySelectorAll(".unit");
-        	 all.addEventListener("click", function(){
-                 for(var i=0; i<unit.length; i++){
-                     unit[i].checked = this.checked;
-                 };
-             });
-        };
-        
-        //하나라도 해제되면 '전체선택' 체크박스 해제
-        var allclear = function(){
-        	 var all = document.querySelector("#all");
-             var unit = document.querySelectorAll(".unit");
-             for(var i=0; i<unit.length; i++){
-                 unit[i].addEventListener("click", function(){
-                     if(!this.checked){
-                         all.checked = false;
-                     }
-                 });
-   			  };
-        };
+    	var all = document.querySelector("#all");
+		var unit = document.querySelectorAll(".unit");
+		var writeno = [];
+		 
+		var allcheck= function () {
+			$(all).change(function () {
+				
+				if(this.checked){
+					writeno = [];
+					for (var i = 0; i < unit.length; i++) {
+						unit[i].checked = this.checked;
+						writeno.push($(unit[i]).val());
+						console.log(writeno);
+					};
+				}else if(!this.checked){
+					for (var i = 0; i < unit.length; i++) {
+						unit[i].checked = this.checked;
+						writeno = [];
+						console.log(writeno);
+					}
+				}
+			});	
+		};
+		
+		
+		//하나라도 해제되면 '전체선택' 체크박스 해제
+		
+		var alldischeck= function () {
+			for (var i = 0; i < unit.length; i++) {
+				unit[i].addEventListener("click", function() {
+					if (!this.checked) {
+						all.checked = false;
+						writeno.splice(writeno.indexOf($(unit[i]).val()), 1);
+						console.log(writeno);
+					}
+				});
+			};
+		};
+			
+		var change= function () {
+				$(unit).change(function() {
+				
+				if (this.checked) {
+					writeno.push($(this).val());
+					console.log(writeno);
+				} else if (!this.checked) {
+					writeno.splice(writeno.indexOf($(this).val()), 1);
+					console.log(writeno);
+				}
+			});
+		};
         
         
         
@@ -43,7 +70,8 @@
            		 //$.getScript( '${pageContext.request.contextPath}/js/my.js' );
                  $("#mywrite-wrap").html(res);
                  allcheck();
-                 allclear();
+          		alldischeck();
+          		change();
               }
            });
         });
@@ -56,13 +84,34 @@
                  //$.getScript( '${pageContext.request.contextPath}/js/my.js' );
                  $("#mywrite-wrap").html(res);
                  allcheck();
-                 allclear();
+         		alldischeck();
+         		change();
               }
            });
         });
         
+        $("#mydelete").on("click", function () {
+		
+        	jQuery.ajaxSettings.traditional = true;
+        	
+        	$.ajax({
+        		
+        		url:"mydelete",
+        		type:"post",
+        		data:{
+        			"writeno" : writeno
+        		},
+        		success: function(){
+        			alert("선택한 글을 삭제하였습니다");
+        			location.reload();
+        		}
+
+        	});
+        	
+		});   
         allcheck();
-        allclear();
+		alldischeck();
+		change();
         
         }
         
@@ -74,7 +123,7 @@
     <div style = "padding: 0px 100px 10px;">
         <small><a href="#" id="mywrite">작성 게시글</a></small>&nbsp;&nbsp;
         <small><a href="#" id="mycomment">작성 댓글</a></small>&nbsp;&nbsp;
-        <small><a href="#">선택한 글 삭제</a></small>
+        <small><a href="#" id = "mydelete">선택한 글 삭제</a></small>
     </div>
     
     <div id="mywrite-wrap">
@@ -91,26 +140,14 @@
    </thead>
    
    <tbody>
-       <tr>
-        <td id="check"><input type="checkbox" class="unit"></td>
-           <td>안녕안녕</td>
-         <td>2017/08/30</td>
-          <td>0</td>
-      </tr>
-       
-      <tr>
-          <td id="check"><input type="checkbox" class="unit"></td>
-          <td>ㅎㅇ</td>
-         <td>2017/08/30</td>
-          <td>0</td>
-      </tr>
-      
-      <tr>
-          <td id="check"><input type="checkbox" class="unit"></td>
-          <td>ㅋㅋㅋ</td>
-         <td>2017/08/30</td>
-          <td>0</td>
-      </tr>
+   <c:forEach var = "list" items = "${list}">
+   		<tr>
+   			<td id="check"><input type="checkbox" class="unit" value = "${list.no}"></td>
+   			<td><a href="${pageContext.request.contextPath}/book-detail?no=${list.no}&item_no=${list.item_no}">${list.title}</a></td> 
+   			<td>${list.reg}</td>
+   			<td>${list.read}</td>
+   		</tr>
+   </c:forEach>
        
    </tbody>
    
