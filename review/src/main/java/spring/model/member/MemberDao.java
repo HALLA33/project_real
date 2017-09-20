@@ -2,8 +2,6 @@ package spring.model.member;
 
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.stereotype.Repository;
 
 import spring.model.board.Board;
@@ -33,4 +31,5 @@ public interface MemberDao {
 	public void unsigned(String id, String pw);
 	List<Board> mywrite(String id);
 	public boolean mydelete(String writeno, String id);
+	public List<Member> memberRank();
 }

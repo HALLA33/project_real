@@ -71,9 +71,11 @@
 			<br><br>
 			</div>
 			<div id="rankbar">
-				<h2>랭킹</h2>
-				랭킹이미지?<br>
-				<img src="http://placehold.it/200x200">
+				<h2>랭킹</h2><br><br>
+<!-- 				<img src="http://placehold.it/200x200"> -->
+				<c:forEach items="${list}" var="list">
+								<small>${list.nickname } ${list.point }</small><br>
+							</c:forEach>
 				<br><br>
 			</div>
 		</div>
