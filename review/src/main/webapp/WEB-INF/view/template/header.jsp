@@ -239,6 +239,7 @@ aside{
 	color: white;
 	margin-left:0;
 	margin-bottom: 0;
+	border-radius: 5px;
 }
 /* write-view */
 
