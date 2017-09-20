@@ -1,5 +1,6 @@
 package spring.model.member;
 
+import java.text.ParseException;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -34,4 +35,7 @@ public interface MemberDao {
 	List<Board> mywrite(String id);
 	public boolean mydelete(String itemno, String writeno, String id);
 	public List<Member> memberRank();
+	public void test(String start, String end) throws ParseException;
+	public List<Attendance> attendance();
+	public boolean insertattend(String greetings, String nick, int point);
 }

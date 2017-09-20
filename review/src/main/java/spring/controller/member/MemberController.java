@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import spring.model.board.Board;
+import spring.model.member.Attendance;
 import spring.model.member.Cookies;
 import spring.model.member.Encryption;
 import spring.model.member.Generator;
@@ -542,10 +543,27 @@ public class MemberController {
 				
 			}
 			
-		}
-		
-		
+		}	
 		return "member/success";
 	}
+	
+	@RequestMapping("/attend")
+	public String Login_attendanceview(HttpServletRequest request) {
+		
+		List<Attendance> list = memberDao.attendance();
+
+	    request.setAttribute("at_list", list);
+		
+		return "member/attend";
+	}
+	
+	@RequestMapping(value="login_attendance", method=RequestMethod.POST)
+	   public String Login_attendance(
+	         @RequestParam String nick, @RequestParam String greetings, @RequestParam int point, HttpServletRequest request) {
+	      
+	      boolean result = memberDao.insertattend(greetings, nick, point);
+	      
+	      return "member/attend";
+	   }
 	
 }

@@ -4,6 +4,32 @@
 <%-- header.jsp를 불러와서 배치하는 코드 --%>
 <%@ include file="/WEB-INF/view/template/header.jsp" %>  
 
+<script>
+   $(document).ready(function() {
+      var nick = "${sessionScope.member.nickname }";
+      var point = "${sessionScope.member.point }";
+      $("#stamp").on("click", function() {
+         $.ajax({
+            url:"login_attendance",
+//             url:"attend",
+            type:"post",
+            data:{
+               "nick":nick, 
+               "greetings":$("#greetings").val(),
+               "point":point
+            },
+            success:function() {
+               console.log(nick);
+               console.log(point);
+               console.log($("#greetings").val());
+               location.reload();
+               alert("출석완료!!");
+            }
+         });
+      });   
+   });
+</script>
+
 <article>
 <%-- 컨테이너 영역 --%>
 <div>
@@ -83,9 +109,16 @@
                         <img src="http://placehold.it/15x15">미출석</span>
                     <span class="right"> ** 이전달은 가입일까지 열람이 가능합니다.</span>
                 </div>
-                <div class="login-view">
-                    로그인을 하지 않았습니다
-                </div>
+                <c:if test="${sessionScope.member eq null}">
+                   <div class="login-view">
+                          로그인을 하지 않았습니다
+                   </div>
+                </c:if>
+                <c:if test = "${sessionScope.member ne null }">
+                   <div class="login-view">
+                          출석도장 찍으세요&nbsp;<input type="text" value="=ㅅ=" id="greetings"><input type="button" value="출석" id="stamp">
+                   </div>
+                </c:if>
             </div>
             <table border="0" id="line">
                 <tr>
@@ -97,33 +130,17 @@
                     <td>개근</td>
                     <td>총 출석일</td>
                 </tr>
-                <tr>
-                    <td>3</td>
-                    <td>21:01:31</td>
-                    <td>좋은 하루 되세요~!!</td>
-                    <td>야랄랄라</td>
-                    <td>230</td>
-                    <td>25 일째</td>
-                    <td>30 일</td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>21:00:01</td>
-                    <td>좋은 하루 되세요~!!</td>
-                    <td>저세상</td>
-                    <td>77</td>
-                    <td>13 일째</td>
-                    <td>13 일</td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>20:59:51</td>
-                    <td>좋은 하루 되세요~!!</td>
-                    <td>dulie</td>
-                    <td>30</td>
-                    <td>3 일째</td>
-                    <td>10 일</td>
-                </tr>
+                <c:forEach var="list_a" items="${at_list}">
+               <tr>
+                  <td>${list_a.rank}</td>
+                  <td>${list_a.reg_check}</td>
+                  <td>${list_a.greetings}</td>
+                  <td>${list_a.nick}</td>
+                  <td>${list_a.point}</td>
+                  <td>${list_a.opening}</td>
+                  <td>${list_a.total_check}</td>
+               </tr>
+            </c:forEach>
             </table>
             <div class="row">
                  <div class="paging-wrap">
