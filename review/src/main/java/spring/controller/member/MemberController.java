@@ -1,7 +1,6 @@
 package spring.controller.member;
 
 import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.Cookie;
@@ -427,10 +426,12 @@ public class MemberController {
 	public String test(HttpServletRequest request, HttpSession session, HttpServletResponse response) {
 
 		List<Member> list = memberDao.memberRank();
-		List<String> listNick = new ArrayList<>();
-		List<Integer> listPoint = new ArrayList<>();
 		
-		session.setAttribute("list", list);
+		for(int i=0;i<list.size();i++) {
+			list.get(i).setNo(i+1);//임시 리스트에 no를 번호 대신에 랭킹 순위로 넣음
+		}
+		
+		session.setAttribute("rankList", list);
 		
 		
 		Cookie[] cookies = request.getCookies();

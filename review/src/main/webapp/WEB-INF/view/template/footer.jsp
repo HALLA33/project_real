@@ -76,9 +76,9 @@
 						<div>
 							<table id="rankTable" style=" border: 1px solid; ">
 								<tbody>
-									<c:forEach items="${sessionScope.list}" var="list">
+									<c:forEach items="${sessionScope.rankList}" var="list">
 										<tr style="width:180px !important;">
-											<td id=rankUnit><label id="rankLabel">1</label>&nbsp;${list.nickname }</td>
+											<td id=rankUnit><label id="rankLabel">${list.no}</label>&nbsp;${list.nickname }</td>
 											<td style="width:50px; font-size: 12px; text-align:right">${list.point }</td>
 										</tr>
 									</c:forEach>
