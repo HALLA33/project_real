@@ -1,6 +1,7 @@
 package spring.controller.member;
 
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.Cookie;
@@ -421,10 +422,16 @@ public class MemberController {
 			throw new Exception("아이디가있음");
 		}		
 	}
-	//자동로그인
+	//자동로그인, 포인트 랭킹
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String test(HttpServletRequest request, HttpSession session, HttpServletResponse response) {
 
+		List<Member> list = memberDao.memberRank();
+		List<String> listNick = new ArrayList<>();
+		List<Integer> listPoint = new ArrayList<>();
+		
+		 request.setAttribute("list", list);
+		
 		
 		Cookie[] cookies = request.getCookies();
 		

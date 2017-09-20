@@ -1,9 +1,6 @@
 package spring.model.member;
 
 import java.util.List;
-
-import javax.servlet.http.HttpSession;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -361,5 +358,21 @@ public class MemberDaoImpl implements MemberDao {
 		int result = jdbcTemplate.update(sql, new Object[] {itemno, writeno, id});
 		
 		return result > 0;
+	}
+	
+	@Override
+	 public List<Member> memberRank() {
+		
+	 int num = membercount();
+	 
+	 if(num > 5) num = 5;
+	 
+	 String sql = "select * from "
+	 + "(select rownum rn, A.* from "
+	 + "(select * from p_member order by point desc)A) "
+	 + "where rn between 1 and ?";		
+	 List<Member> list = jdbcTemplate.query(sql, new Object[] {num},  mapper);	
+	 
+	 return list;
 	}
 }

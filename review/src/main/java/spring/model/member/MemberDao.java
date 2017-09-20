@@ -33,4 +33,5 @@ public interface MemberDao {
 	public void unsigned(String id, String pw);
 	List<Board> mywrite(String id);
 	public boolean mydelete(String itemno, String writeno, String id);
+	public List<Member> memberRank();
 }
