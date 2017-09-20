@@ -7,25 +7,31 @@
 
 <script> 
     window.onload = function(){
-       
+    	
     	var all = document.querySelector("#all");
 		var unit = document.querySelectorAll(".unit");
+		var item = $(".item");
 		var writeno = [];
-		 
+		var itemno = [];
+
 		var allcheck= function () {
 			$(all).change(function () {
 				
 				if(this.checked){
 					writeno = [];
+					itemno = [];
 					for (var i = 0; i < unit.length; i++) {
 						unit[i].checked = this.checked;
 						writeno.push($(unit[i]).val());
+						itemno.push($(item[i]).val());
 						console.log(writeno);
+						console.log(itemno);
 					};
 				}else if(!this.checked){
 					for (var i = 0; i < unit.length; i++) {
 						unit[i].checked = this.checked;
 						writeno = [];
+						itemno = [];
 						console.log(writeno);
 					}
 				}
@@ -41,6 +47,7 @@
 					if (!this.checked) {
 						all.checked = false;
 						writeno.splice(writeno.indexOf($(unit[i]).val()), 1);
+						itemno.splice(itemno.indexOf($(item[i]).val()), 1);
 						console.log(writeno);
 					}
 				});
@@ -52,46 +59,19 @@
 				
 				if (this.checked) {
 					writeno.push($(this).val());
+					itemno.push($(this).siblings().val());
 					console.log(writeno);
+					console.log(itemno);
 				} else if (!this.checked) {
 					writeno.splice(writeno.indexOf($(this).val()), 1);
+					itemno.splice(itemno.indexOf($(this).siblings().val()), 1);
 					console.log(writeno);
+					console.log(itemno);
 				}
 			});
 		};
         
-        
-        
-        $("#mycomment").on("click", function(){
-           $.ajax({
-              url:"mycomment",
-              type: "post",
-              success: function(res){
-           		 //$.getScript( '${pageContext.request.contextPath}/js/my.js' );
-                 $("#mywrite-wrap").html(res);
-                 allcheck();
-          		alldischeck();
-          		change();
-              }
-           });
-        });
-        
-        $("#mywrite").on("click", function(){
-           $.ajax({
-              url:"mywrite",
-              type: "post",
-              success: function(res){
-                 //$.getScript( '${pageContext.request.contextPath}/js/my.js' );
-                 $("#mywrite-wrap").html(res);
-                 allcheck();
-         		alldischeck();
-         		change();
-              }
-           });
-        });
-        
         $("#mydelete").on("click", function () {
-		
         	jQuery.ajaxSettings.traditional = true;
         	
         	$.ajax({
@@ -99,7 +79,7 @@
         		url:"mydelete",
         		type:"post",
         		data:{
-        			"writeno" : writeno
+        			"writeno" : writeno, "itemno" : itemno
         		},
         		success: function(){
         			alert("선택한 글을 삭제하였습니다");
@@ -121,8 +101,8 @@
     <div class="empty-row"></div>
     
     <div style = "padding: 0px 100px 10px;">
-        <small><a href="#" id="mywrite">작성 게시글</a></small>&nbsp;&nbsp;
-        <small><a href="#" id="mycomment">작성 댓글</a></small>&nbsp;&nbsp;
+        <small><a href="myboard">작성 게시글</a></small>&nbsp;&nbsp;
+        <small><a href="mycomment">작성 댓글</a></small>&nbsp;&nbsp;
         <small><a href="#" id = "mydelete">선택한 글 삭제</a></small>
     </div>
     
@@ -140,9 +120,11 @@
    </thead>
    
    <tbody>
-   <c:forEach var = "list" items = "${list}">
+   <c:forEach var = "list" items = "${lists}">
    		<tr>
-   			<td id="check"><input type="checkbox" class="unit" value = "${list.no}"></td>
+   			<td id="check"><input type="checkbox" class="unit" value = "${list.no}">
+   				<input type="hidden" class="item" value = "${list.item_no}">
+   			</td>
    			<td><a href="${pageContext.request.contextPath}/book-detail?no=${list.no}&item_no=${list.item_no}">${list.title}</a></td> 
    			<td>${list.reg}</td>
    			<td>${list.read}</td>

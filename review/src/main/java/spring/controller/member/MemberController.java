@@ -1,7 +1,6 @@
 package spring.controller.member;
 
 import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.Cookie;
@@ -422,15 +421,10 @@ public class MemberController {
 			throw new Exception("아이디가있음");
 		}		
 	}
-	//자동로그인, 포인트랭킹
+	//자동로그인
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String test(HttpServletRequest request, HttpSession session, HttpServletResponse response) {
 
-		List<Member> list = memberDao.memberRank();
-		List<String> listNick = new ArrayList<>();
-		List<Integer> listPoint = new ArrayList<>();
-		
-		request.setAttribute("list", list);
 		
 		Cookie[] cookies = request.getCookies();
 		
@@ -475,19 +469,6 @@ public class MemberController {
 		return "member/mycomment";
 	}
 	
-	@RequestMapping("/mywrite")
-	public String mywrite(HttpSession session, HttpServletRequest request) {
-		
-		Member member = (Member)session.getAttribute("member");
-		String id  = member.getId();
-		
-		List<Board> list = memberDao.mywrite(id);
-		
-		request.setAttribute("list", list);
-		
-		return "member/mywrite";
-	}
-	
 	@RequestMapping("/myboard")
 	public String myboard(HttpSession session, HttpServletRequest request) {
 		
@@ -496,7 +477,7 @@ public class MemberController {
 		
 		List<Board> list = memberDao.mywrite(id);
 		
-		request.setAttribute("list", list);
+		request.setAttribute("lists", list);
 		
 		return "member/myboard";
 	}
@@ -537,16 +518,25 @@ public class MemberController {
 	
 	//내가 쓴글 삭제
 	@RequestMapping(value = "mydelete", method = RequestMethod.POST)
-	public String mydelete(@RequestParam String[] writeno, HttpSession session) {
+	public String mydelete(@RequestParam String[] itemno,
+			@RequestParam String[] writeno, HttpSession session) {
 		
 		Member member = (Member)session.getAttribute("member");
 		String id = member.getId();
 		
-		for(int i =0; i < writeno.length; i++) {
+		for(int a = 0; a < itemno.length; a++) {
 			
-			memberDao.mydelete(writeno[i], id);
+			String itemnum = itemno[a];
+			
+			for(int i =0; i < writeno.length; i++) {
+				
+				memberDao.mydelete(itemnum, writeno[i], id);
+				
+			}
 			
 		}
+		
+		
 		return "member/success";
 	}
 	
