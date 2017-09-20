@@ -225,7 +225,7 @@ aside{
 	display: inline-block;
 	font-size: 13px;
 	text-align: left;
-	width: 120px;
+	width: 110px;
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
