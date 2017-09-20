@@ -73,9 +73,18 @@
 			<div id="rankbar">
 				<h2>랭킹</h2><br><br>
 <!-- 				<img src="http://placehold.it/200x200"> -->
-				<c:forEach items="${list}" var="list">
-								<small>${list.nickname } ${list.point }</small><br>
-							</c:forEach>
+						<div>
+							<table id="rankTable" style=" border: 1px solid; ">
+								<tbody>
+									<c:forEach items="${sessionScope.list}" var="list">
+										<tr style="width:180px !important;">
+											<td id=rankUnit><label id="rankLabel">1</label>&nbsp;${list.nickname }</td>
+											<td style="width:50px; font-size: 12px; text-align:right">${list.point }</td>
+										</tr>
+									</c:forEach>
+								</tbody>
+							</table>
+						</div>
 				<br><br>
 			</div>
 		</div>

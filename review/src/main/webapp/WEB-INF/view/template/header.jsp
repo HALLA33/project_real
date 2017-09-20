@@ -83,7 +83,7 @@
 	position: absolute;
   	display: none;  
 	width: 150px;
- 	background: dodgerblue;
+ 	background: #C5DDE9;
  	opacity: 0.825;
 	list-style: none;
 	margin-top: 10px;
@@ -213,6 +213,33 @@ aside{
 	cursor: pointer;
 }
 
+#rankbar{
+	width: 200px;
+}
+#rankTable{
+	margin: 0 auto;
+	padding: 0;
+	background-color: #C5DDE9;
+}
+#rankUnit{
+	display: inline-block;
+	font-size: 13px;
+	text-align: left;
+	width: 120px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	padding: 1px;
+}
+#rankLabel{
+	width:15px;
+	background-color: red;
+	text-align: center;
+	font-size: 12px;
+	color: white;
+	margin-left:0;
+	margin-bottom: 0;
+}
 /* write-view */
 
 

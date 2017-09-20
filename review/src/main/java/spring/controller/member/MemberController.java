@@ -430,7 +430,7 @@ public class MemberController {
 		List<String> listNick = new ArrayList<>();
 		List<Integer> listPoint = new ArrayList<>();
 		
-		 request.setAttribute("list", list);
+		session.setAttribute("list", list);
 		
 		
 		Cookie[] cookies = request.getCookies();
