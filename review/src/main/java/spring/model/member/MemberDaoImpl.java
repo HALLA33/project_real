@@ -1,5 +1,7 @@
 package spring.model.member;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -83,16 +85,6 @@ public class MemberDaoImpl implements MemberDao {
 
 	@Override
 	public Member login(String id, String pw) {
-		
-		String start = "2013-08-31";
-		String end = "2013-09-01";
-		
-		try {
-			test(start, end);
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 
 		String sql = "select * from p_member where id = ? and pw = ?";
 
@@ -394,20 +386,6 @@ public class MemberDaoImpl implements MemberDao {
 	 
 	 return list;
 	}
-	@Override
-	public void test(String start, String end) throws ParseException {
-		
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd");
-		
-		Date beginDate = formatter.parse(start);
-		Date endDate = formatter.parse(end);
-		
-		long diff = endDate.getTime() - beginDate.getTime();
-		long diffDays = diff / (24 * 60 * 60 * 1000);
-		
-		System.out.println("차이 : " + diffDays);
-		
-	}
 	
 	@Override
 	   public List<Attendance> attendance() {
@@ -424,7 +402,13 @@ public class MemberDaoImpl implements MemberDao {
 	      
 	      Object[] args = new Object[] {  greetings, nick, point };
 	      
-	      return jdbcTemplate.update(sql, args) > 0;
+	      int result = jdbcTemplate.update(sql, args);
+	      
+	      sql = "update attendance set opening = opening +1 where nick = ?";
+	      
+	      jdbcTemplate.update(sql, new Object[] {nick});
+	      
+	      return result > 0;
 		
 	}
 	 

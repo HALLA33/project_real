@@ -14,6 +14,7 @@ public class MyJobBean extends QuartzJobBean {
     @Override
     protected void executeInternal(JobExecutionContext jobExecutionContext) throws JobExecutionException {
     	flag.status();
+    	flag.reset();
     }
 
     public void setHello(Hello hello){
