@@ -3,19 +3,32 @@
    
 <%-- header.jsp를 불러와서 배치하는 코드 --%>
 <%@ include file="/WEB-INF/view/template/header.jsp" %>  
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <script>
 	$(document).ready(function(){
+		var power = '${sessionScope.member.power}';
+		if(power=='관리자'){
+			$("#item_no_notice").show();
+			$("#head_notice").show();
+		}
+		else{
+			$("#item_no_notice").hide();
+			$("#head_notice").hide();
+		}
+		
+		var head = '${board.head}';
+		$("#head").val(head);
+		
 		$("#preview").on("click", function(){
 			var msg = valid(form);
-			var text = tagRemove(form.ir1.value, 2);
+			var text = tagRemove(form.ir1.value);
 	
 			if(msg!=null)
 				alert(msg);
 			else{
 				var openWin = window.open("about:blank", "preview", "width=750, height=800");
 				form.action="${pageContext.request.contextPath}/book-preview";
-				form.ir1.value = text;
 				form.target="preview"
 				form.submit();
 			}
@@ -23,13 +36,12 @@
 		
 		$("#register").on("click", function(){
 			var msg = valid(form);
-			var text = tagRemove(form.ir1.value, 2);
+			var text = tagRemove(form.ir1.value);
 			
 			if(msg!=null)
 				alert(msg);
 			else{
 				form.action="${pageContext.request.contextPath}/book-revise/${board.no}/${board.item_no}";
-				form.ir1.value = text;
 				form.submit();
 			}
 		});
@@ -45,19 +57,16 @@
 			msg = "책을 검색하세요";
 		if(form.title.value=='')
 			msg = "제목을 입력하세요";
-		if(form.head.value==0)
+		if(form.head.value==-1)
 			msg = "장르를 선택하세요";
-		if(form.item_no.value==0)
+		if(form.item_no.value==-1)
 			msg = "카테고리를 선택하세요";
 
 		return msg;
 	}
 	
 	function tagRemove(text, flag){
-		if(flag==1)
-			var detail = text_replace(text);
-		else
-			var detail = tag_replace(text);
+		var detail = text_replace(text);
 		
 		return detail;
 			
@@ -67,13 +76,6 @@
 			return text;
 		}
 		
-		function tag_replace(text){
-			//text = text.replace(/<(\/)?[Pp](\/)?>/g,"<br>");
-			text = text.replace(/<[Pp](\/)?>/g,"")
-			text = text.replace(/<(\/)[Pp](\/)?>/g,"<br>");
-
-			return text;
-		}
 	}
 	
 </script>
@@ -89,51 +91,24 @@
 		</div>
 	   	<div class="form-group mx-sm-3">
 	   		<select name="item_no" class="user-input" id="margin">
-		   		<c:choose>
-		   			<c:when test="${item_no==1}">
-		   				 <option>선택</option>
-						 <option value = "1" selected>국내도서</option>
-						 <option value = "2">해외도서</option>       
-					</c:when>
-					<c:when test="${item_no==2}">
-						<option>선택</option>
-						<option value = "1">국내도서</option>
-						<option value = "2" selected>해외도서</option>  
-					</c:when>
-				</c:choose>		
+	   			<option value="-1">선택</option>
+	   			<option id="item_no_notice" value = "0">공지</option>
+				<option value = "1">국내도서</option>
+				<option value = "2" selected>해외도서</option>  
 	   		</select> 
 	    </div>
-		<select name="head" class="user-input" id="right">  
-			<option>장르</option>
-			<c:choose>
-				<c:when test="${board.head==1}">
-					<option value = "1" selected>SF/판타지/무협</option>       
-				</c:when>
-				<c:when test="${board.head==2}">
-					<option value = "2" selected>추리</option>  
-				</c:when>
-				<c:when test="${board.head==3}">
-					<option value = "3" selected>로맨스</option> 
-				</c:when>
-				<c:when test="${board.head==4}">
-					<option value = "4" selected>공포/스릴러</option>
-				</c:when>
-				<c:when test="${board.head==5}">
-					<option value = "5" selected>역사</option> 
-				</c:when>
-				<c:when test="${board.head==6}">
-					<option value = "6" selected>시/에세이</option> 
-				</c:when>
-				<c:when test="${board.head==7}">
-					<option value = "7" selected>철학/종교</option> 
-				</c:when>
-				<c:when test="${board.head==8}">
-					<option value = "8" selected>과학</option> 
-				</c:when>
-				<c:when test="${board.head==99}">
-					<option value = "99" selected>기타</option> 
-				</c:when>
-			</c:choose>	
+		<select name="head" id="head" class="user-input" id="right">  
+			<option value="-1">장르</option>
+			<option id="head_notice" value = "0">공지</option>
+			<option value = "1" >SF/판타지/무협</option>  
+			<option value = "2" >추리</option>  
+			<option value = "3" >로맨스</option> 
+			<option value = "4" >공포/스릴러</option>
+			<option value = "5" >역사</option>
+			<option value = "6" >시/에세이</option> 
+			<option value = "7" >철학/종교</option>
+			<option value = "8" >과학</option> 
+			<option value = "99" >기타</option> 
 		  </select> 
 	</div>
 	<div class="row form-inline">
@@ -222,6 +197,14 @@
     		}
     	
 	</script>
+	
+	<div class="row form-inline">
+		<div class="form-group area-10">
+			<label>태그</label>
+		</div>
+		<input id="tag" type="text" name="tag" style="width:400px" placeholder="태그는 쉼표로 구분하며, 5개까지 입력할 수 있습니다" value="${board.tag }">
+	</div>
+	
 	<div class="align-right">
 		<input type="button" class="btn" style="margin: 10px" value="글쓰기" id="register" onclick="submitContents(this)" />
 		<input type="button" class="btn" style="margin: 10px" value="미리보기" id="preview" onclick="submitContents(this)"/>		
