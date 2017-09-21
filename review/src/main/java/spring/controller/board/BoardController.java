@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -588,19 +589,21 @@ public class BoardController {
     		try {
     			MultipartRequest multi=new MultipartRequest(request, path, 15*1024*1024, "UTF-8", new DefaultFileRenamePolicy());
     			
-    			java.text.SimpleDateFormat formatter2 = new java.text.SimpleDateFormat ("yyyy_MM_dd_HHmmss", java.util.Locale.KOREA);
-    			String upfile = (multi.getFilesystemName("Filedata"));
+    			// uuid 생성(Universal Unique IDentifier, 범용 고유 식별자)
+    	        UUID uuid = UUID.randomUUID();
+    			
+    	        String upfile = (multi.getFilesystemName("Filedata"));
+    	        
     			if (!upfile.equals("")) {
-    				String dateString = formatter2.format(new java.util.Date());
-    				String moveFileName = dateString + upfile.substring(upfile.lastIndexOf(".") );
+    				String moveFileName = uuid.toString()+"_"+upfile;	// 랜덤생성+파일이름 저장
     				File sourceFile = new File(path + File.separator + upfile);
     				File targetFile = new File(path + File.separator + moveFileName);
     				sourceFile.renameTo(targetFile);
     				filename = moveFileName;
-    				System.out.println("upfile : " + upfile);
-    				System.out.println("targetFile : " + targetFile);
-    				System.out.println("moveFileName : " + moveFileName);
-    				System.out.println("filename : " + filename);
+    				System.out.println("upfile : " + upfile);				//실제 이름
+    				System.out.println("targetFile : " + targetFile);		//저장될 경로
+    				System.out.println("moveFileName : " + moveFileName);	//변경된 이름
+    				System.out.println("filename : " + filename);			//변경된 이름
     				System.out.println("moveFileName : " + moveFileName);
     				
     				sourceFile.delete();
@@ -622,5 +625,6 @@ public class BoardController {
     	
     	return file;
     }
+
 
 }
