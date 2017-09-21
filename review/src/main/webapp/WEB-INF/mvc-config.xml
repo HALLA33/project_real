@@ -25,7 +25,7 @@
 <!-- 	<mvc:view-controller path="/tos" view-name="/member/tos"/> -->
 	
     <mvc:resources location="/resources/css/" mapping="/css/**"></mvc:resources>
-    <mvc:resources location="/resources/smarteditor/" mapping="/smarteditor/**"></mvc:resources>
+    <mvc:resources location="/resources/smarteditors/" mapping="/smarteditors/**"></mvc:resources>
     <mvc:resources location="/resources/js/" mapping="/js/**"></mvc:resources>
     <mvc:resources location="/resources/img/" mapping="/img/**"></mvc:resources>
     <mvc:resources location="/resources/font/" mapping="/font/**"></mvc:resources>
