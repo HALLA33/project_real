@@ -8,16 +8,8 @@
 
 <script>
 	$(document).ready(function(){
-		var text = '${board.detail}'
-		var detail = text_replace(text);
-		
-		t_detail.innerText = detail;
-		
-		function text_replace(text){
-			text = text.replace(/<br>/ig, "\n"); 
-			text = text.replace(/&nbsp;/ig, " "); 
-			return text;
-		}
+		var detail = '${board.detail}';
+		$("#detail").append(detail);
 		
 		$("#good").on("click", function(){
 			var no = '${board.no}';
@@ -73,16 +65,20 @@
 			<tr class="form-inline">
 				<td class="area-20" style="border: none">제목</td>
 				<td class="area-20" style="border: none">${board.title}</td>
+				<td style="border: none">&#91;</td>
+				<td style="border: none">${board.b_item_no }</td>
+				<td style="border: none">&#124;</td>
+				<td style="border: none">${board.b_head }</td>	
+				<td style="border: none">&#93;</td>
 			</tr>
 			<tr class="form-inline">
 				<td class="area-20" style="border: none">작성자</td>
 				<td class="area-20" style="border: none">${nickname}</td>
-			</tr>
-			<tr class="form-inline">
-				<td class="area-20" style="border: none">${board.b_item_no }</td>
-				<td style="border: none">${board.b_head }</td>
-				<td style="border: none">${board.tag }</td>	
 			</tr>			
+			<tr class="form-inline">
+				<td class="area-20" style="border: none">태그</td>
+				<td class="area-20" style="border: none">${board.tag}</td>
+			</tr>	
 			<tr>
 				<td>
 					<div class="row form-inline" style="border: 1px; margin:10px">
@@ -100,7 +96,7 @@
 	      	</tr>
 	    	<tr>
 	      		<td>
-	      			<textarea id="t_detail" class="nse_content" style="width:100%; height:412px; min-width:610px;" readonly></textarea>
+	      			<div id="detail" style="height: auto; min-height: 200px; "></div>
 	      		</td>
 	 		</tr>
 	 		<tr>
