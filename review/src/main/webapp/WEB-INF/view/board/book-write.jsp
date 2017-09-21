@@ -3,42 +3,50 @@
    
 <%-- header.jsp를 불러와서 배치하는 코드 --%>
 <%@ include file="/WEB-INF/view/template/header.jsp" %>  
-<script src="<c:url value="/js/whizzywig63.js"/>"></script>
+
 <script>
-	$(document).ready(function(){
+	$(document).ready(function(){	
+		var power = '${sessionScope.member.power}';
+		if(power=='관리자'){
+			$("#item_no_notice").show();
+			$("#head_notice").show();
+		}
+		else{
+			$("#item_no_notice").hide();
+			$("#head_notice").hide();
+		}
+		
 		$("#preview").on("click", function(){
  			var msg = valid(form);
- 			var text = tagRemove(form.ir1.value, 2);
+ 			var text = tagRemove(form.ir1.value);
 
 			if(msg!=null)
 				alert(msg);
 			else{
-				var openWin = window.open("about:blank", "preview", "width=750, height=800");
+				window.open("", "preview", "width=750, height=800");
 				form.action="book-preview";
-				form.ir1.value = text;
-				form.target="preview"
+ 				form.target="preview";
 				form.submit();
 			}
 		});
 		
 		$("#register").on("click", function(){
 			var msg = valid(form);
-			var text = tagRemove(form.ir1.value, 2);
+			var text = tagRemove(form.ir1.value);
 
 			if(msg!=null)
 				alert(msg);
-			else{				
+			else{
 				form.action="book-write";
-				form.ir1.value = text;
 				form.submit();
 			}
-			
 		});
+
 	});
 	
 	function valid(form){
 		var msg = null;
-		var text = tagRemove(form.ir1.value, 1);
+		var text = tagRemove(form.ir1.value);
 		
 		if(text=='')
 			msg = "내용을 입력하세요";
@@ -46,19 +54,25 @@
 			msg = "책을 검색하세요";
 		if(form.title.value=='')
 			msg = "제목을 입력하세요";
-		if(form.head.value==0)
+		if(form.head.value==null)
 			msg = "장르를 선택하세요";
-		if(form.item_no.value==0)
+		if(form.item_no.value==null)
 			msg = "카테고리를 선택하세요";
-
+		if(form.tag.value!=null){
+			var number = 0;
+		    var tags = form.tag.value.split( ',' );
+		    for (var i in tags ) {
+		   		number++;
+		    }
+		    if(number>5)
+		    	console.log("태그는 5개까지 입력해주세요");
+		}
+		
 		return msg;
 	}
 	
-	function tagRemove(text, flag){
-		if(flag==1)
-			var detail = text_replace(text);
-		else
-			var detail = tag_replace(text);
+	function tagRemove(text){
+		var detail = text_replace(text);
 		
 		return detail;
 			
@@ -67,16 +81,11 @@
 
 			return text;
 		}
-		
-		function tag_replace(text){
-			//text = text.replace(/<(\/)?[Pp](\/)?>/g,"<br>");
-			text = text.replace(/<[Pp](\/)?>/g,"")
-			text = text.replace(/<(\/)[Pp](\/)?>/g,"<br>");
 
-			return text;
-		}
 	}
+
 </script>
+
 <article>
 <%-- 컨테이너 영역 --%>
 <h3>도서 게시판</h3>
@@ -88,13 +97,15 @@
 		</div>
 	   	<div class="form-group mx-sm-3">
 			<select name="item_no" class="user-input" id="margin" required>  
-	        	<option value = "0">선택</option>
+	        	<option >선택</option>
+	        	<option id="item_no_notice" value = "0">공지</option>
 	      		<option value = "1">국내도서</option> 
 	        	<option value = "2">해외도서</option> 
 	   		</select> 
 	    </div>
 		<select name="head" class="user-input" id="right" required>  
-			<option value = "0">장르</option>
+			<option >장르</option>
+			<option id="head_notice" value = "0">공지</option>
 		   	<option value = "1">SF/판타지/무협</option> 
 		    <option value = "2">추리</option> 
 		    <option value = "3">로맨스</option> 
@@ -156,7 +167,8 @@
     	nhn.husky.EZCreator.createInIFrame({
 	       	oAppRef: oEditors,
 	       	elPlaceHolder: "ir1",
-	       	sSkinURI: "/review/smarteditor/SmartEditor2Skin.html",
+	       	sSkinURI: "/review_re/smarteditor/SmartEditor2Skin.html",
+	       	bUseToolbar: true,
 	       	fCreator: "createSEditor2"
        	});
 
@@ -167,12 +179,38 @@
         	try {
    				//elClickedObj.form.submit();
        		} catch(e) {}
-    		}
+    	}
+    	
+    	// textArea에 이미지 첨부
+    	function pasteHTML(filename){
+    		console.log(filename);
+    		
+//     		$.ajax({
+//    		        url: "${pageContext.request.contextPath}/image-down", 
+//    		        data: {"filename":filename},
+//    		        success: //호출이 성공하면 호출되는 함수를 정의한다.
+//    		        function(data){ //값을 data변수로 받아서 처리한다.	        	
+//    		        	console.log("다운로드 성공");
+//    		        }
+//    		    });
+    		
+    		var sHTML = '<img src="${pageContext.request.contextPath}/image/'+filename+'">';
+    		//var sHTML = '<img src="${pageContext.request.contextPath}/resources/img/after_bads.png">';
+    	    oEditors.getById["ir1"].exec("PASTE_HTML", [sHTML]);
+    	}
     	
 	</script>
+
+	<div class="row form-inline">
+		<div class="form-group area-10">
+			<label>태그</label>
+		</div>
+		<input id="tag" type="text" name="tag" style="width:400px" placeholder="태그는 쉼표로 구분하며, 5개까지 입력할 수 있습니다">
+	</div>
+		
 	<div class="align-right">
 		<input type="button" class="btn" style="margin: 10px" value="글쓰기" id="register" onclick="submitContents(this)" />
-		<input type="button" class="btn" style="margin: 10px" value="미리보기" id="preview" onclick="submitContents(this)"/>		
+		<input type="button" class="btn" style="margin: 10px" id="preview" value="미리보기" onclick="submitContents(this)"/>		
 		<input type="button" class="btn" style="margin: 10px" value="목록보기" onclick="location.href='list?item_no=${item_no}'"/>	
 	</div>
 	
