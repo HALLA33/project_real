@@ -564,5 +564,59 @@ public class BoardController {
 		}
 		return result;
     }
+	
+	@RequestMapping("/photo_uploader")
+    public String photo_uploader() {
+    	return "board/photo_uploader";
+    }
+    
+    @RequestMapping("/file_uploader")
+    @ResponseBody
+    public Map<String,String> file_uploader(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    	String path = request.getSession().getServletContext().getRealPath("/resources/image"); // 이미지가 저장될 주소
+
+    	String filename = "";
+    	boolean flag = true;
+    	
+    	if(request.getContentLength() > 10*1024*1024 ){
+    		flag = false;
+    	} else {
+    		try {
+    			MultipartRequest multi=new MultipartRequest(request, path, 15*1024*1024, "UTF-8", new DefaultFileRenamePolicy());
+    			
+    			java.text.SimpleDateFormat formatter2 = new java.text.SimpleDateFormat ("yyyy_MM_dd_HHmmss", java.util.Locale.KOREA);
+    			String upfile = (multi.getFilesystemName("Filedata"));
+    			if (!upfile.equals("")) {
+    				String dateString = formatter2.format(new java.util.Date());
+    				String moveFileName = dateString + upfile.substring(upfile.lastIndexOf(".") );
+    				File sourceFile = new File(path + File.separator + upfile);
+    				File targetFile = new File(path + File.separator + moveFileName);
+    				sourceFile.renameTo(targetFile);
+    				filename = moveFileName;
+    				System.out.println("upfile : " + upfile);
+    				System.out.println("targetFile : " + targetFile);
+    				System.out.println("moveFileName : " + moveFileName);
+    				System.out.println("filename : " + filename);
+    				System.out.println("moveFileName : " + moveFileName);
+    				
+    				sourceFile.delete();
+    				
+    			}
+    		} catch (Exception e) {
+    			System.out.println("e : " + e.getMessage());
+    		}
+    	}
+    	
+    	Map<String, String> file = new HashMap<>();
+    	if(flag)
+    		file.put("flag","true");
+    	else
+    		file.put("flag", "false");
+    	
+    	file.put("filename", filename);
+    	file.put("path", path);
+    	
+    	return file;
+    }
 
 }
