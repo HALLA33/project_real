@@ -10,7 +10,7 @@
 <!-- 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> -->
 
    <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
-   <script type="text/javascript" src="/review/smarteditors/js/service/HuskyEZCreator.js" charset="utf-8"></script>
+   <script type="text/javascript" src="<c:url value="/smarteditors/js/HuskyEZCreator.js"/>" charset="utf-8"></script>
    <script type="text/javascript" src="<c:url value="/js/bootstrap.min.js"/>"></script>
 	<script>
 	$(document).ready(function(){
