@@ -161,10 +161,16 @@
 		   	       	    data: formData,
 		   	       	    type: 'POST',
 		   	       	    success: function(result1){
-		   	       	    	//console.log("filename : " + result1.filename);
-		   	       	    	//console.log("path : " + result1.path);
-		   	       	    	console.log("submit1 업로드 성공!!");
-		   	       	    }
+		   	       	    	var filepath = result1.path;
+ 			   	       	  	var filename = result1.filename;
+ 			   	       	  	console.log(filepath);
+ 			   	       	  	console.log(filename);
+							window.opener.pasteHTML(filename);
+ 		   	       	    	window.close();
+		   	       	    },
+					 error:function(e){
+		   	       			console.log("에러");
+		   	       		}
 		   	       	});
 			});
 			
