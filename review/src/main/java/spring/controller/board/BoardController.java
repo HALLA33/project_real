@@ -117,7 +117,7 @@ public class BoardController {
 	}
 
 	@RequestMapping(value= {"/book-write"}, method=RequestMethod.POST)
-	public String write_post(Model model, HttpServletRequest request, HttpSession session) {
+	public String write_post(HttpServletRequest request, HttpSession session) {
 		Book book = new Book();
 		book.setImage(request.getParameter("image"));
 		book.setTitle(request.getParameter("book_title"));
@@ -130,24 +130,24 @@ public class BoardController {
 		board.setB_item_no(board.getItem_no());
 		board.setHead(Integer.parseInt(request.getParameter("head")));
 		board.setB_head(board.getHead());
+		board.setTag(request.getParameter("tag"));
 		board.setWriter(request.getParameter("writer"));
 		board.setTitle(request.getParameter("title"));
 		board.setDetail(request.getParameter("ir1"));
 		
 		Member member =(Member)session.getAttribute("member");
 		
-		//String notice = request.getParameter("notice");
-		String notice = "false";
-		notice = (notice.equals("true")) ? "true" : "false";
-		
+		String notice = "false";		
+		if(board.getItem_no()==0 || board.getHead()==0)
+			notice = "true";
 		board.setNotice(notice);
 		
-		String tag = request.getParameter("tag");
-		if(tag!=null) {
-			tag.replaceAll(" ", "");//공백제거
-			tag.replaceAll(",", "#");
-		}
-		board.setTag(tag);
+		String tag = board.getTag();
+		String convert_tag = null;
+		if(tag.length()>0) {
+			convert_tag = "#"+ tag.trim().replace(",", "#");
+		}	
+		board.setTag(convert_tag);
 		
 		int num = 0;
 		List<Book> list = boardDao.exist_book(book);
@@ -167,15 +167,10 @@ public class BoardController {
 		member.setPoint(point);
 		
 		session.setAttribute("member", member);
-		model.addAttribute("nickname", nickname);
-		model.addAttribute("book", book);
-		model.addAttribute("board", board);
-		model.addAttribute("good_img", "img/before_goods.png");
-		model.addAttribute("bad_img", "img/before_bads.png");
 		
 		log.info(board.toString());
 		
-		return "board/book-detail";
+		return "redirect:/book-detail?no="+board.getNo()+"&item_no="+board.getItem_no();
 	}
 	
 	@RequestMapping(value= {"/book-preview"}, method=RequestMethod.POST)
@@ -192,9 +187,17 @@ public class BoardController {
 		board.setB_item_no(board.getItem_no());
 		board.setHead(Integer.parseInt(request.getParameter("head")));
 		board.setB_head(board.getHead());
+		board.setTag(request.getParameter("tag"));
 		board.setWriter(request.getParameter("writer"));
 		board.setTitle(request.getParameter("title"));
 		board.setDetail(request.getParameter("ir1"));
+		
+		String tag = board.getTag();
+		String convert_tag = null;
+		if(tag.length()>0) {
+			convert_tag = "#"+ tag.trim().replace(",", "#");
+		}	
+		board.setTag(convert_tag);
 		
 		model.addAttribute("board", board);
 		model.addAttribute("book", book);
@@ -239,6 +242,8 @@ public class BoardController {
 		
 		board = boardDao.detail_board(no, item_no);
 		book = boardDao.detail_book(board.getSearch_no());
+		board.setB_item_no(board.getItem_no());
+		board.setB_head(board.getHead());
 		
 		String nickname = boardDao.search_nickname(board.getWriter());
 
@@ -274,6 +279,22 @@ public class BoardController {
 		board = boardDao.detail_board(no, item_no, member.getId());	
 		book = boardDao.detail_book(board.getSearch_no());
 		
+		String tag = board.getTag();
+		String convert_tag = null;
+
+		if(tag!=null) {
+			String[] tag_split = tag.split("#");
+			for(int i=0; i<tag_split.length; i++) {
+				if(i==0)
+					convert_tag = tag_split[i]+",";
+				else if(i==tag_split.length-1)
+					convert_tag = tag_split[i];
+				else
+					convert_tag += tag_split[i]+",";
+			}
+		}
+		board.setTag(convert_tag);
+		
 		String nickname = boardDao.search_nickname(member.getId());
 
 		model.addAttribute("nickname", nickname);		
@@ -307,18 +328,18 @@ public class BoardController {
 		board.setTitle(request.getParameter("title"));
 		board.setDetail(request.getParameter("ir1"));
 		
-		//String notice = request.getParameter("notice");
-		String notice = "false";
-		notice = (notice.equals("true")) ? "true" : "false";
+		String notice = "false";		
+		if(board.getItem_no()==0 || board.getHead()==0)
+			notice = "true";
 		
 		board.setNotice(notice);
 		
-		String tag = request.getParameter("tag");
+		String tag = board.getTag();
+		String convert_tag = null;
 		if(tag!=null) {
-			tag.replaceAll(" ", "");//공백제거
-			tag.replaceAll(",", "#");
+			convert_tag ="#" + tag.trim().replace(",", "#");
 		}
-		board.setTag(tag);
+		board.setTag(convert_tag);
 		
 		int num = 0;
 		List<Book> list = boardDao.exist_book(book);
