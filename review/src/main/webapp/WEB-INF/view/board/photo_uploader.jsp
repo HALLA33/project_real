@@ -7,7 +7,7 @@
 <head>
 	<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
 	<script src="http://malsup.github.com/jquery.form.js"></script> 
-   	<script type="text/javascript" src="<c:url value="/smarteditors/js/service/HuskyEZCreator.js" />" charset="utf-8"></script>
+   	<script type="text/javascript" src="<c:url value="/smarteditors/js/HuskyEZCreator.js" />" charset="utf-8"></script>
    	<script type="text/javascript" src="<c:url value="/js/bootstrap.min.js"/> "></script>
 	<script type="text/javascript" src="<c:url value="/smarteditors/photo_uploader/popup/jindo.min.js" />" charset="utf-8"></script>
 	<script type="text/javascript" src="<c:url value="/smarteditors/photo_uploader/popup/jindo.fileuploader.js" />" charset="utf-8"></script>
@@ -77,7 +77,7 @@
 		top:0;left:0;
 		width:341px;
 		height:129px;
-		background:#fdfdfd url(/review_re/smarteditors/img/photoQuickPopup/bg_drag_image.png) 0 0 no-repeat
+		background:#fdfdfd url(/review/smarteditors/img/photoQuickPopup/bg_drag_image.png) 0 0 no-repeat
 	}
 	.pop_container .nobg{
 		background:none
@@ -236,8 +236,8 @@
 			<div id="pop_footer">
 			    <div class="btn_area">
 <!-- 		            <a href="javascript:fn_imageUp();"><img src="/review_re/smarteditor/img/photoQuickPopup/btn_confirm.png" width="49" height="28" alt="확인" id="btn_confirm"></a> -->
-		            <a href="#" id="submit1"><img src="/review_re/smarteditors/img/photoQuickPopup/btn_confirm.png" width="49" height="28" alt="확인" id="btn_confirm"></a>
-		            <a href="#"><img src="/review_re/smarteditors/img/photoQuickPopup/btn_cancel.png" width="48" height="28" alt="취소" id="btn_cancel"></a>
+		            <a href="#" id="submit1"><img src="/review/smarteditors/img/photoQuickPopup/btn_confirm.png" width="49" height="28" alt="확인" id="btn_confirm"></a>
+		            <a href="#"><img src="/review/smarteditors/img/photoQuickPopup/btn_cancel.png" width="48" height="28" alt="취소" id="btn_cancel"></a>
 		        </div>
 	    	</div>
 	        <!-- //content -->
@@ -268,8 +268,8 @@
 			<div id="pop_footer">
 		    <div class="btn_area">
 <!-- 	            <a href="javascript:fn_imageUp5();"><img src="/review_re/smarteditor/img/photoQuickPopup/btn_confirm2.png" width="49" height="28" alt="확인" id="btn_confirm"></a> -->
-	            <a href="#" id="submit2"><img src="/review_re/smarteditors/img/photoQuickPopup/btn_confirm2.png" width="49" height="28" alt="확인" id="btn_confirm"></a>
-	            <a href="#"><img src="/review_re/smarteditors/img/photoQuickPopup/btn_cancel.png" width="48" height="28" alt="취소" id="btn_cancel"></a>
+	            <a href="#" id="submit2"><img src="/review/smarteditors/img/photoQuickPopup/btn_confirm2.png" width="49" height="28" alt="확인" id="btn_confirm"></a>
+	            <a href="#"><img src="/review/smarteditors/img/photoQuickPopup/btn_cancel.png" width="48" height="28" alt="취소" id="btn_cancel"></a>
 	        </div>
 	    </div>
 	        <!-- //content -->
