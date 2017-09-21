@@ -7,7 +7,6 @@
 <script>
    $(document).ready(function() {
       var nick = "${sessionScope.member.nickname }";
-      var point = "${sessionScope.member.point }";
       $("#stamp").on("click", function() {
          $.ajax({
             url:"login_attendance",
@@ -16,11 +15,9 @@
             data:{
                "nick":nick, 
                "greetings":$("#greetings").val(),
-               "point":point
             },
             success:function() {
                console.log(nick);
-               console.log(point);
                console.log($("#greetings").val());
                location.reload();
                alert("출석완료!!");

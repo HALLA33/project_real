@@ -396,16 +396,16 @@ public class MemberDaoImpl implements MemberDao {
 	   }
 	
 	@Override
-	public boolean insertattend(String greetings, String nick, int point) {
+	public boolean insertattend(String greetings, String nick) {
 		
 		String sql = "select count(*) from attendance";
 		
 		int rank = jdbcTemplate.queryForObject(sql, Integer.class)+1;
 		
 		
-		sql = "insert into attendance values(?, sysdate, ?, ?, ?, 0, 0)";
+		sql = "insert into attendance values(?, sysdate, ?, ?, 0, 0, 0)";
 		
-		Object[] args = new Object[] {rank, greetings, nick, point};
+		Object[] args = new Object[] {rank, greetings, nick};
 		
 		int result = jdbcTemplate.update(sql, args);
 		
@@ -419,15 +419,17 @@ public class MemberDaoImpl implements MemberDao {
 		default : sql = "update p_member set point = point + 10, opening = opening +1  where nickname = ?";
 		jdbcTemplate.update(sql, new Object[] {nick}); break;
 			}
+		
+		
 		sql = "select opening from p_member where nickname = ?";
 		
 		int openning = jdbcTemplate.queryForObject(sql, new Object[] {nick}, Integer.class);
 		
-		System.out.println(openning);
+		int point = getpoint(nick);
 
-	     sql = "update attendance set opening = ? where nick = ?";
+	     sql = "update attendance set opening = ?, point = ? where nick = ?";
 	     
-	     jdbcTemplate.update(sql, new Object[] {openning, nick});
+	     jdbcTemplate.update(sql, new Object[] {openning, point, nick});
 	      
 	     return result > 0;
 		

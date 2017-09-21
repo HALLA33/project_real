@@ -559,17 +559,17 @@ public class MemberController {
 	
 	@RequestMapping(value="login_attendance", method=RequestMethod.POST)
 	   public String Login_attendance(HttpSession session,@RequestParam String nick, 
-			   @RequestParam String greetings, @RequestParam int point, HttpServletRequest request) {
+			   @RequestParam String greetings, HttpServletRequest request) {
 	      
 		 Member member = (Member)session.getAttribute("member");
 		
-	      boolean result = memberDao.insertattend(greetings, nick, point);
+	      boolean result = memberDao.insertattend(greetings, nick);
 	      
 	      int point2 = memberDao.getpoint(nick);
 	      
 	      member.setPoint(point2);
 	      
-	      session.setAttribute("member", member);
+	      session.setAttribute("member", member); // 우측 상태창 실시간 포인트 갱신
 	      
 	      return "member/attend";
 	   }
