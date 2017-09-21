@@ -46,11 +46,22 @@ public class Flag {
 			sql = "update attendance set opening = 0 where "
 					+ "(SELECT TO_DATE(TO_CHAR(SYSDATE, 'YY/MM/DD')) "
 					+ "- TO_DATE((select reg_check from attendance where nick = ?))  FROM DUAL) > 1";
-			jdbcTemplate.update(sql, new Object[] {list.get(i).getNick()});
+			int result = jdbcTemplate.update(sql, new Object[] {list.get(i).getNick()});
 			
-			log.info(list.get(i) + "초기화 됨");
+			boolean result2 = result > 0;
 			
+			if(result2) {
+				sql = "update p_member set opening = 0 where nickname = ?";
+				
+				jdbcTemplate.update(sql, new Object[] {list.get(i).getNick()});
+			
+				log.info(list.get(i).getNick() + "초기화 됨");
+			}
+		
 		}
+		sql = "truncate table attendance";
+		
+		jdbcTemplate.update(sql);
 		
 	}
 

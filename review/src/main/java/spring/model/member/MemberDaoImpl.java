@@ -62,7 +62,7 @@ public class MemberDaoImpl implements MemberDao {
 		log.info(member.getPhone());
 
 		String test = "test";
-		String sql = "insert into p_member values(p_member_seq.nextval, ?, ?, ? , ?, ? , ? , ? , ? , ?, '일반', 0, sysdate, sysdate, 0, 0, 0, 'true', 0, 0)";
+		String sql = "insert into p_member values(p_member_seq.nextval, ?, ?, ? , ?, ? , ? , ? , ? , ?, '일반', 0, sysdate, sysdate, 0, 0, 0, 'true', 0, 0, 0)";
 
 		Object[] args = new Object[] { member.getId(), member.getPw(), member.getNickname(), member.getEmail(),
 				member.getName(), member.getGender(), member.getBirth(), member.getTelecom(), member.getPhone() };
@@ -397,18 +397,28 @@ public class MemberDaoImpl implements MemberDao {
 	
 	@Override
 	public boolean insertattend(String greetings, String nick, int point) {
-
+		
 		String sql = "insert into attendance values(0, sysdate, ?, ?, ?, 0, 0)";
+		
+		Object[] args = new Object[] {  greetings, nick, point};
+		
+		int result = jdbcTemplate.update(sql, args);
+		
+		sql = "update p_member set opening = opening +1 where nickname = ?";
+		
+		jdbcTemplate.update(sql, new Object[] {nick});
+		
+		sql = "select opening from p_member where nickname = ?";
+		
+		int openning = jdbcTemplate.queryForObject(sql, new Object[] {nick}, Integer.class);
+		
+		System.out.println(openning);
+
+	     sql = "update attendance set opening = ? where nick = ?";
+	     
+	     jdbcTemplate.update(sql, new Object[] {openning, nick});
 	      
-	      Object[] args = new Object[] {  greetings, nick, point };
-	      
-	      int result = jdbcTemplate.update(sql, args);
-	      
-	      sql = "update attendance set opening = opening +1 where nick = ?";
-	      
-	      jdbcTemplate.update(sql, new Object[] {nick});
-	      
-	      return result > 0;
+	     return result > 0;
 		
 	}
 	 
