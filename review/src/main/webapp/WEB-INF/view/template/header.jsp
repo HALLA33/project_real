@@ -65,6 +65,7 @@
 }
 
 .menu-wrap>ul>li {
+	border-radius: 5px;
 	display: inline-block;
 }
 
