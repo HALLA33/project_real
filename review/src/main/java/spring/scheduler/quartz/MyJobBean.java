@@ -4,9 +4,7 @@ import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.springframework.scheduling.quartz.QuartzJobBean;
 
-/**
- * Created by red on 2014. 10. 27..
- */
+
 public class MyJobBean extends QuartzJobBean {
 
     private Hello hello;

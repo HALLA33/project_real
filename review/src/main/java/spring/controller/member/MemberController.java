@@ -548,27 +548,34 @@ public class MemberController {
 	}
 	
 	@RequestMapping("/attend")
-	public String Login_attendanceview(HttpServletRequest request) {
+	public String Login_attendanceview(HttpServletRequest request, HttpSession session) {
 		
 		List<Attendance> list = memberDao.attendance();
 
 	    request.setAttribute("at_list", list);
+	    
+	    Member member = (Member)session.getAttribute("member");
+	    
+	    String nickname = member.getNickname();
+	    
+	    member = memberDao.getmember(nickname);
+	    
+	    session.setAttribute("member", member);
 		
 		return "member/attend";
 	}
 	
 	@RequestMapping(value="login_attendance", method=RequestMethod.POST)
-	   public String Login_attendance(HttpSession session,@RequestParam String nick, 
+	   public String Login_attendance(HttpSession session,
+			   @RequestParam String point,@RequestParam String nick, 
 			   @RequestParam String greetings, HttpServletRequest request) {
-	      
-		 Member member = (Member)session.getAttribute("member");
+	      	
+		int point2 = Integer.parseInt(point);
 		
-	      boolean result = memberDao.insertattend(greetings, nick);
+	      boolean result = memberDao.insertattend(greetings, nick, point2);
 	      
-	      int point2 = memberDao.getpoint(nick);
-	      
-	      member.setPoint(point2);
-	      
+	      Member member = memberDao.getmember(nick);
+
 	      session.setAttribute("member", member); // 우측 상태창 실시간 포인트 갱신
 	      
 	      return "member/attend";

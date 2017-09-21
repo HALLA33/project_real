@@ -36,6 +36,7 @@ public interface MemberDao {
 	public boolean mydelete(String itemno, String writeno, String id);
 	public List<Member> memberRank();
 	public List<Attendance> attendance();
-	public boolean insertattend(String greetings, String nick);
+	public boolean insertattend(String greetings, String nick, int point);
 	public int getpoint(String nickname);
+	public Member getmember(String nickname);
 }

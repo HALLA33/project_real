@@ -13,8 +13,10 @@ import org.springframework.jdbc.core.RowMapper;
 import spring.model.member.Attendance;
 
 public class Flag {
+	
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
+	
 	private Logger log = LoggerFactory.getLogger(getClass());
 	
 	public void status() {
@@ -57,8 +59,11 @@ public class Flag {
 			
 				log.info(list.get(i).getNick() + "초기화 됨");
 			}
-		
 		}
+		sql = "update p_member set checkflag = 'true'";
+		
+		jdbcTemplate.update(sql);
+		
 		sql = "truncate table attendance";
 		
 		jdbcTemplate.update(sql);

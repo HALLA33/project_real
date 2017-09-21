@@ -26,8 +26,14 @@ public class Member {
 	private String enabled;
 	private int flag;
 	private int todaywrite;
-	
-	
+	private String checkflag;
+
+	public String getCheckflag() {
+		return checkflag;
+	}
+	public void setCheckflag(String checkflag) {
+		this.checkflag = checkflag;
+	}
 	public int getTodaywrite() {
 		return todaywrite;
 	}
@@ -282,6 +288,7 @@ public void setEnabled(String enabled) {
 		this.setEnabled(rs.getString("enabled"));
 		this.setFlag(rs.getInt("flag"));
 		this.setTodaywrite(rs.getInt("todaywrite"));
+		this.setCheckflag(rs.getString("checkflag"));
 	}
 	@Override
 	public String toString() {

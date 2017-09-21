@@ -7,6 +7,7 @@
 <script>
    $(document).ready(function() {
       var nick = "${sessionScope.member.nickname }";
+      var point = "${sessionScope.member.point}"
       $("#stamp").on("click", function() {
          $.ajax({
             url:"login_attendance",
@@ -14,6 +15,7 @@
             type:"post",
             data:{
                "nick":nick, 
+               "point" : point,
                "greetings":$("#greetings").val(),
             },
             success:function() {
@@ -24,9 +26,27 @@
             }
          });
       });   
+      
+      setInterval(getTime, 100);
+      
+      function getTime(){
+          var date = new Date();
+          var year = date.getFullYear();
+          var month = date.getMonth()+1;
+          var day = date.getDate();
+          var ho = date.getHours();
+          var min = date.getMinutes();
+          var sec = date.getSeconds();
+          var text = year+"년 "+month+"월 "+day+"일 "+ho+"시 "+min+"분 "+sec+"초";
+          
+          var target = document.querySelector("#target");
+          target.innerHTML = text;
+          
+      }
+      
    });
 </script>
-
+	
 <article>
 <%-- 컨테이너 영역 --%>
 <div>
@@ -34,15 +54,7 @@
                 <ul>
                 <li>출석부</li>
                 </ul>
-                <div>
-                    <span class="left">
-                        <input class="date-btn" type="button" value="2017년 8월 30일 20시 20분 20초">
-                    </span>
-                    <span class="right">
-                        <input class="none-btn" type="button" value="<<이전달">
-                        <input class="date-btn" type="button" value="이번달">
-                        <input class="none-btn" type="button" value="다음달>>">
-                    </span>
+                <div id = "target" align = "center">
                 </div>
                 <table border="1" class="c-table" style="width: 700px !important; margin:0 auto;">
                     <tr>
@@ -82,29 +94,7 @@
                         </th>
                     </tr>
                 </table>
-                <table>
-                    <tr align="center">
-                        <td><span>1<br><input type="checkbox"/></span></td>
-                        <td>
-                            <span>2</span><br><input type="checkbox"/>
-                        </td>
-                        <td>
-                            ....
-                        </td>
-                        <td>
-                            <span>30</span><br><input type="checkbox"/>
-                        </td>
-                        <td>
-                            <span>31</span><br><input type="checkbox"/>
-                        </td>
-                    </tr>
-                </table>
                 <div>
-                    <span class="left">
-                        <img src="http://placehold.it/15x15">결석 
-                        <img src="http://placehold.it/15x15">출석 
-                        <img src="http://placehold.it/15x15">미출석</span>
-                    <span class="right"> ** 이전달은 가입일까지 열람이 가능합니다.</span>
                 </div>
                 <c:if test="${sessionScope.member eq null}">
                    <div class="login-view">
@@ -112,9 +102,16 @@
                    </div>
                 </c:if>
                 <c:if test = "${sessionScope.member ne null }">
-                   <div class="login-view">
-                          출석도장 찍으세요&nbsp;<input type="text" value="=ㅅ=" id="greetings"><input type="button" value="출석" id="stamp">
+                	<c:if test = "${sessionScope.member.checkflag eq false }">
+                	<div class="login-view">
+                          오늘은 이미 출석하셨습니다
                    </div>
+                	</c:if>
+                	<c:if test = "${sessionScope.member.checkflag eq true }">
+                   <div class="login-view">
+                          출석도장 찍으세요&nbsp;<input type="text" id="greetings"><input type="button" value="출석" id="stamp">
+                   </div>
+                	</c:if>
                 </c:if>
             </div>
             <table border="0" id="line">
