@@ -183,7 +183,7 @@
     	nhn.husky.EZCreator.createInIFrame({
 	       	oAppRef: oEditors,
 	       	elPlaceHolder: "ir1",
-	       	sSkinURI: "/review_re/smarteditor/SmartEditor2Skin.html",
+	       	sSkinURI: "/review_re/smarteditors/SmartEditor2Skin.html",
 	       	fCreator: "createSEditor2"
        	});
 
@@ -195,6 +195,14 @@
    				//elClickedObj.form.submit();
        		} catch(e) {}
     		}
+		
+	// textArea에 이미지 첨부
+    	function pasteHTML(filename){
+    		console.log(filename);
+    		
+    		var sHTML = '<img src="${pageContext.request.contextPath}/image/'+filename+'">';
+    	    oEditors.getById["ir1"].exec("PASTE_HTML", [sHTML]);
+    	}
     	
 	</script>
 	
