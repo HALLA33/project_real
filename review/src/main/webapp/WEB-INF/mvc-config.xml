@@ -29,6 +29,7 @@
     <mvc:resources location="/resources/js/" mapping="/js/**"></mvc:resources>
     <mvc:resources location="/resources/img/" mapping="/img/**"></mvc:resources>
     <mvc:resources location="/resources/font/" mapping="/font/**"></mvc:resources>
+	 <mvc:resources location="/resources/image/" mapping="/image/**"></mvc:resources>
     
     <context:component-scan base-package="spring.controller/*"/>
     <context:component-scan base-package="spring.service"/>
