@@ -167,7 +167,7 @@
     	nhn.husky.EZCreator.createInIFrame({
 	       	oAppRef: oEditors,
 	       	elPlaceHolder: "ir1",
-	       	sSkinURI: "/review/smarteditor/SmartEditor2Skin.html",
+	       	sSkinURI: "/review/smarteditors/SmartEditor2Skin.html",
 	       	bUseToolbar: true,
 	       	fCreator: "createSEditor2"
        	});
@@ -185,17 +185,7 @@
     	function pasteHTML(filename){
     		console.log(filename);
     		
-//     		$.ajax({
-//    		        url: "${pageContext.request.contextPath}/image-down", 
-//    		        data: {"filename":filename},
-//    		        success: //호출이 성공하면 호출되는 함수를 정의한다.
-//    		        function(data){ //값을 data변수로 받아서 처리한다.	        	
-//    		        	console.log("다운로드 성공");
-//    		        }
-//    		    });
-    		
     		var sHTML = '<img src="${pageContext.request.contextPath}/image/'+filename+'">';
-    		//var sHTML = '<img src="${pageContext.request.contextPath}/resources/img/after_bads.png">';
     	    oEditors.getById["ir1"].exec("PASTE_HTML", [sHTML]);
     	}
     	
