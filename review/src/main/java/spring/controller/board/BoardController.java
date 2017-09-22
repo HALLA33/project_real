@@ -1,6 +1,10 @@
 package spring.controller.board;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,10 +26,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
+import net.sf.jmimemagic.Magic;
+import net.sf.jmimemagic.MagicException;
+import net.sf.jmimemagic.MagicMatchNotFoundException;
+import net.sf.jmimemagic.MagicParseException;
 import spring.model.board.Board;
 import spring.model.board.BoardDao;
 import spring.model.board.Book;
@@ -390,7 +400,12 @@ public class BoardController {
     @RequestMapping(value= {"/book-delete/{no}/{item_no}"}, method=RequestMethod.GET)
     public String bookDelete(Model model, @PathVariable int no, @PathVariable int item_no, HttpSession session, HttpServletRequest request, HttpServletResponse reponse) {
     	Member member = (Member)session.getAttribute("member");
-    	boardDao.delete_board(no, item_no, member.getId());
+
+    	if(member.getPower().equals("일반")) {
+    		boardDao.delete_board(no, item_no, member.getId());    		
+    	}else if(member.getPower().equals("관리자") || member.getPower().equals("스탭")) {
+    		boardDao.delete_board(no, item_no);
+    	}
 		
     	boardDao.board_delete_cookie(no, item_no);
     	

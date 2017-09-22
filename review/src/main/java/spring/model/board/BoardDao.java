@@ -19,6 +19,7 @@ public interface BoardDao {
 	Board detail_board(int no, int item_no);
 	void update_board(Board board, Book book, int no, int item_no, String writer);
 	void delete_board(int no, int item_no, String id);
+	void delete_board(int no, int item_no);
 	void plus_minus_Count(int flag, int no, int item_no);
 	void insert_cookie(int cookie_no, String cookie_name, String cookie_value, int board_no, int board_item_no, String writer);
 	void delete_cookie(int cookie_no, String writer);

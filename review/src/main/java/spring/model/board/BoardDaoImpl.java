@@ -318,5 +318,17 @@ public class BoardDaoImpl implements BoardDao{
 		return point;
 	}
 
+	@Override
+	public void delete_board(int no, int item_no) {
+		String sql = "delete from p_board where no=? and item_no=?";
+		
+		Object[] args = {no, item_no};
+		
+		jdbcTemplate.update(sql, args);	
+		
+	}
+	
+	
+
 
 }
