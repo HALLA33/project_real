@@ -128,9 +128,16 @@ public class MemberController {
 		 	int endBlock = startBlock + blockSize - 1;
 		 	if(endBlock > blockTotal) endBlock = blockTotal;
 		 	
+		 	
+		 	log.info(smode);
+		 	log.info(key);
+		 	for(int i = 0; i < list.size(); i++) {
+		 		log.info(list.get(i).getId());
+		 	}
+		 	
 		 	String url = "member?";
 		 	if(smode != null && key != null)
-		 		url += "type="+smode+"&key="+key;
+		 		url += "smode="+smode+"&key="+key;
 		 	
 		 	request.setAttribute("list", list);
 		 	request.setAttribute("url", url);
