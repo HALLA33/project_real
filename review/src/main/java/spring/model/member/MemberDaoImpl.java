@@ -62,7 +62,7 @@ public class MemberDaoImpl implements MemberDao {
 		log.info(member.getPhone());
 
 		String test = "test";
-		String sql = "insert into p_member values(p_member_seq.nextval, ?, ?, ? , ?, ? , ? , ? , ? , ?, '일반', 0, sysdate, sysdate, 0, 0, 0, 'true', 0, 0, 0, 'true')";
+		String sql = "insert into p_member values(p_member_seq.nextval, ?, ?, ? , ?, ? , ? , ? , ? , ?, '일반', 0, sysdate, sysdate, 0, 0, 0, 'true', 0, 0, 0, 0, 'true')";
 
 		Object[] args = new Object[] { member.getId(), member.getPw(), member.getNickname(), member.getEmail(),
 				member.getName(), member.getGender(), member.getBirth(), member.getTelecom(), member.getPhone() };
@@ -387,14 +387,6 @@ public class MemberDaoImpl implements MemberDao {
 	 return list;
 	}
 	
-//	@Override
-//	   public List<Attendance> attendance() {
-//	      
-//	      String sql = "select * from attendance order by rank desc";
-//	      
-//	      return jdbcTemplate.query(sql, mapper3);
-//	   }
-	
 	@Override
 	public boolean insertattend(String greetings, String nick, int point) {
 		
@@ -411,16 +403,16 @@ public class MemberDaoImpl implements MemberDao {
 		
 		switch(rank) {
 		case 1: sql = "update p_member set point = point + 40, opening = opening +1, "
-				+ "checkflag = 'false' where nickname = ?"; 
+				+ "checkflag = 'false' totalcheck = totalcheck + 1 where nickname = ?"; 
 		jdbcTemplate.update(sql, new Object[] {nick}); break;
 		case 2: sql = "update p_member set point = point + 30, opening = opening +1,  "
-				+ "checkflag = 'false' where nickname = ?";
+				+ "checkflag = 'false' totalcheck = totalcheck + 1 where nickname = ?";
 		jdbcTemplate.update(sql, new Object[] {nick}); break;
 		case 3: sql = "update p_member set point = point + 20, opening = opening +1,  "
-				+ "checkflag = 'false' where nickname = ?";
+				+ "checkflag = 'false' totalcheck = totalcheck + 1 where nickname = ?";
 		jdbcTemplate.update(sql, new Object[] {nick}); break;
 		default : sql = "update p_member set point = point + 10, opening = opening +1,  "
-				+ "checkflag = 'false' where nickname = ?";
+				+ "checkflag = 'false', totalcheck = totalcheck + 1 where nickname = ?";
 		jdbcTemplate.update(sql, new Object[] {nick}); break;
 			} 
 
@@ -428,11 +420,13 @@ public class MemberDaoImpl implements MemberDao {
 		
 		int openning = jdbcTemplate.queryForObject(sql, new Object[] {nick}, Integer.class);
 		
+		int totalcheck = jdbcTemplate.queryForObject("select totalcheck from p_member where nickname = ?", new Object[] {nick}, Integer.class);
+		
 		point = getpoint(nick);
 
-	     sql = "update attendance set opening = ?, point = ? where nick = ?";
+	     sql = "update attendance set opening = ?, point = ?, total_check = ? where nick = ?";
 	     
-	     jdbcTemplate.update(sql, new Object[] {openning, point, nick});
+	     jdbcTemplate.update(sql, new Object[] {openning, point, totalcheck, nick});
 	      
 	     return result > 0;
 		

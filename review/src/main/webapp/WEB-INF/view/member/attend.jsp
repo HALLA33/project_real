@@ -157,20 +157,6 @@
 			</c:if>
 			<br> <br>
 				 </div>
-			<!--                  <div class="paging-wrap"> -->
-			<!--                      <div class="paging-unit"><a href="#">&lt;</a></div> -->
-			<!--                      <div class="paging-unit active"><a href="#">1</a></div> -->
-			<!--                      <div class="paging-unit"><a href="#">2</a></div> -->
-			<!--                      <div class="paging-unit"><a href="#">3</a></div> -->
-			<!--                      <div class="paging-unit"><a href="#">4</a></div> -->
-			<!--                      <div class="paging-unit"><a href="#">5</a></div> -->
-			<!--                      <div class="paging-unit"><a href="#">6</a></div> -->
-			<!--                      <div class="paging-unit"><a href="#">7</a></div> -->
-			<!--                      <div class="paging-unit"><a href="#">8</a></div> -->
-			<!--                      <div class="paging-unit"><a href="#">9</a></div> -->
-			<!--                      <div class="paging-unit"><a href="#">10</a></div> -->
-			<!--                      <div class="paging-unit"><a href="#">&gt;</a></div> -->
-			<!--                  </div> -->
 		</div>
 	</div>
 </article>
