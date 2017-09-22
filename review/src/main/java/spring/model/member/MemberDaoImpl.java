@@ -387,13 +387,13 @@ public class MemberDaoImpl implements MemberDao {
 	 return list;
 	}
 	
-	@Override
-	   public List<Attendance> attendance() {
-	      
-	      String sql = "select * from attendance order by rank desc";
-	      
-	      return jdbcTemplate.query(sql, mapper3);
-	   }
+//	@Override
+//	   public List<Attendance> attendance() {
+//	      
+//	      String sql = "select * from attendance order by rank desc";
+//	      
+//	      return jdbcTemplate.query(sql, mapper3);
+//	   }
 	
 	@Override
 	public boolean insertattend(String greetings, String nick, int point) {
@@ -458,6 +458,28 @@ public class MemberDaoImpl implements MemberDao {
 		Member member = list.get(0);
 		
 		return member;
+	}
+
+	@Override
+	public int attendrcount() {
+		String sql = "select count(*) from attendance";
+		int count = jdbcTemplate.queryForObject(sql, Integer.class);
+		
+		System.out.println(count);
+
+		return count;
+	}
+
+	@Override
+	public List<Attendance> attendlist(int start, int end) {
+		String sql = "select * from "
+				+ "(select rownum rn, A.* from "
+				+ "(select * from attendance order by rank desc)A) "
+				+ "where rn between ? and ?";
+		
+		List<Attendance> list = jdbcTemplate.query(sql, new Object[] {start, end}, mapper3);	
+		
+		return list;
 	}
 	
 }

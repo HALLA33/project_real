@@ -127,14 +127,7 @@ public class MemberController {
 		 	int startBlock = (pageno - 1) / blockSize * blockSize + 1;
 		 	int endBlock = startBlock + blockSize - 1;
 		 	if(endBlock > blockTotal) endBlock = blockTotal;
-		 	
-		 	
-		 	log.info(smode);
-		 	log.info(key);
-		 	for(int i = 0; i < list.size(); i++) {
-		 		log.info(list.get(i).getId());
-		 	}
-		 	
+
 		 	String url = "member?";
 		 	if(smode != null && key != null)
 		 		url += "smode="+smode+"&key="+key;
@@ -555,19 +548,46 @@ public class MemberController {
 	}
 	
 	@RequestMapping("/attend")
-	public String Login_attendanceview(HttpServletRequest request, HttpSession session) {
+	public String Login_attendanceview(HttpServletRequest request, HttpSession session,
+			@RequestParam(value="page", required=false) String page) {
 		
-		List<Attendance> list = memberDao.attendance();
+		Member member = (Member)session.getAttribute("member");
+		int pageno;
+		try {
+			pageno = Integer.parseInt(page);
+			if(pageno <= 0) throw new Exception();				
+		}catch(Exception e) {
+			pageno = 1;
+		}
+		
+		int attendsize = 10;
+		
+		int attendcount = memberDao.attendrcount();
+		
+		int start = attendsize * pageno - attendsize + 1;
+		int end = start + attendsize - 1;
+		if(end > attendsize) end = attendcount;
+		
+		List<Attendance> list = memberDao.attendlist(start, end);
+		
+		int blockSize = 10;
+	 	int blockTotal = (attendcount + attendsize - 1) / attendsize;
+	 	int startBlock = (pageno - 1) / blockSize * blockSize + 1;
+	 	int endBlock = startBlock + blockSize - 1;
+	 	if(endBlock > blockTotal) endBlock = blockTotal;
 
-	    request.setAttribute("at_list", list);
-	    
-	    Member member = (Member)session.getAttribute("member");
-	    
+	 	String url = "attend?";
 	    String nickname = member.getNickname();
 	    
 	    member = memberDao.getmember(nickname);
-	    
-	    session.setAttribute("member", member);
+	 	
+	 	session.setAttribute("member", member); // 실시간 상태 갱신
+	 	request.setAttribute("at_list", list);
+	 	request.setAttribute("url", url);
+	 	request.setAttribute("startBlock", startBlock);
+	 	request.setAttribute("endBlock", endBlock);
+	 	request.setAttribute("pageNo", pageno);
+	 	request.setAttribute("blockTotal", blockTotal);
 		
 		return "member/attend";
 	}

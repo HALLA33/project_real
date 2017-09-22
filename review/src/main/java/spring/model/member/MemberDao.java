@@ -14,6 +14,7 @@ public interface MemberDao {
 	
 	public boolean sign(Member member);
 	public int membercount();
+	public int attendrcount();
 	public Member login(String id, String pw);
 	public String findid(String name, String email) throws Exception;
 	public void sendemail(String name, String id, String email, String token);
@@ -25,6 +26,7 @@ public interface MemberDao {
 	public boolean nickcheck(String id, String nick);
 	public int count(String smode, String key) throws Exception;
 	int singleSearchCount(String smode, String key) throws Exception;
+	public List<Attendance> attendlist(int start, int end);
 	public List<Member> memberlist(int start, int end);
 	public List<Member> memberlist(String smode, String key, int start, int end) throws Exception;
 	public boolean autologin(String id, String pw);
@@ -35,7 +37,6 @@ public interface MemberDao {
 	List<Board> mywrite(String id);
 	public boolean mydelete(String itemno, String writeno, String id);
 	public List<Member> memberRank();
-	public List<Attendance> attendance();
 	public boolean insertattend(String greetings, String nick, int point);
 	public int getpoint(String nickname);
 	public Member getmember(String nickname);
