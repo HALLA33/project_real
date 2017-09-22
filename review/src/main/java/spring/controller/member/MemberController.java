@@ -551,7 +551,16 @@ public class MemberController {
 	public String Login_attendanceview(HttpServletRequest request, HttpSession session,
 			@RequestParam(value="page", required=false) String page) {
 		
-		Member member = (Member)session.getAttribute("member");
+		if(session.getAttribute("member") != null) {
+			Member member = (Member)session.getAttribute("member");
+			
+			String nickname = member.getNickname();
+		    
+		    member = memberDao.getmember(nickname);
+		 	
+		 	session.setAttribute("member", member); // 실시간 상태 갱신
+		}
+		
 		int pageno;
 		try {
 			pageno = Integer.parseInt(page);
@@ -577,11 +586,7 @@ public class MemberController {
 	 	if(endBlock > blockTotal) endBlock = blockTotal;
 
 	 	String url = "attend?";
-	    String nickname = member.getNickname();
 	    
-	    member = memberDao.getmember(nickname);
-	 	
-	 	session.setAttribute("member", member); // 실시간 상태 갱신
 	 	request.setAttribute("at_list", list);
 	 	request.setAttribute("url", url);
 	 	request.setAttribute("startBlock", startBlock);
