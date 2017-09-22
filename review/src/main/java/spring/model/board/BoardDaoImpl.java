@@ -1,6 +1,7 @@
 package spring.model.board;
 
 import java.sql.ResultSet;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -37,15 +38,37 @@ public class BoardDaoImpl implements BoardDao{
 	};
 	
 	@Override
-	public List<Board> board_list(int start, int end, int item_no) {
-		String sql = "select * from "
-						+ "(select rownum rn, TMP.* from "
-						+ "(select * from p_board where item_no=?) TMP) "
-						+ "where rn between ? and ?";
+	public List<Board> board_list(int start, int end, int item_no, int head, int align) {
 		
-		Object[] args = {item_no, start, end};
+		System.out.println("sql head="+head);
+		System.out.println("sql align="+align);
 		
-	   return jdbcTemplate.query(sql, args, mapper);
+		String headPlus = "";
+		if(head < 7) {headPlus = "& head=? ";}
+		
+		String boardAlign = "reg ";
+		if(align!=0) {
+			boardAlign = "read ";
+		}
+		
+		String sql = "select * from (select rownum rn, TMP.* from "
+							+ "(select * from p_board where item_no=? "
+							+headPlus+"order by "+boardAlign+"desc) TMP) "
+							+ "where rn between ? and ?";
+		
+						System.out.println("sql = "+sql);
+						System.out.println("item_no="+item_no+", boardAlign="+boardAlign);
+						System.out.println("s="+start+", e="+end);
+		
+						if(head > 6) {
+							Object[] args = {item_no, start, end};
+							System.out.println("args = "+Arrays.toString(args));
+							return jdbcTemplate.query(sql, args, mapper);
+						}else {
+							Object[] args = {item_no, head,  start, end};
+							System.out.println("args = "+Arrays.toString(args));
+							return jdbcTemplate.query(sql, args, mapper);
+						}
 	}
 	
 	@Override

@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface BoardDao {
-	List<Board> board_list(int start, int end, int item_no);
+	List<Board> board_list(int start, int end, int item_no, int head, int align);
 	Map<Integer, Book> book_list(int no);
 	int write(Board board, int no);
 	int search_write(Book book);

@@ -48,7 +48,8 @@ public class BoardController {
 	}
 	
 	@RequestMapping("/list")
-	public String list(Model model, HttpServletRequest request, @RequestParam(required=false) int item_no) {
+	public String list(Model model, HttpServletRequest request, 
+			@RequestParam(required=false) int item_no, @RequestParam(defaultValue="100")int headVal, @RequestParam(defaultValue="0")int alignVal) {
 		String pageStr = request.getParameter("page");
 		int pageNo;
 		
@@ -77,7 +78,14 @@ public class BoardController {
 		
 		String url = "list?a=1";
 		
-		List<Board> board = boardDao.board_list(start, end, item_no);
+		int head = (int)headVal;
+		int align = (int)alignVal;
+		
+		System.out.println("controller head ="+head);
+		System.out.println("controller align = "+align);
+		
+		List<Board> board = boardDao.board_list(start, end, item_no, head, align);
+		
 		Map<Integer, String> nickname = new HashMap<>();	
 		Map<Integer, Book> book = null;
 		for(Board b: board) {
@@ -98,6 +106,8 @@ public class BoardController {
 		model.addAttribute("url", url);
 		model.addAttribute("pageNo", pageNo);
 		model.addAttribute("item_no", item_no);
+		model.addAttribute("head", head);
+		model.addAttribute("align", align);
 		
 		return "board/list"; 
 	}
