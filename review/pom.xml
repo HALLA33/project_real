@@ -215,6 +215,20 @@
 	    <version>05Nov2002</version>
 	</dependency>
 		
+	<!-- commons-fileuploads -->
+	<dependency>
+		<groupId>commons-fileupload</groupId>
+		<artifactId>commons-fileupload</artifactId>
+		<version>1.2.2</version> 
+	</dependency>
+      
+      	<!-- https://mvnrepository.com/artifact/net.sf.jmimemagic/jmimemagic -->
+	<dependency>
+		<groupId>net.sf.jmimemagic</groupId>
+		<artifactId>jmimemagic</artifactId>
+		<version>0.1.4</version>
+	</dependency>
+		
 	</dependencies>	
 	
 </project>
