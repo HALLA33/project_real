@@ -144,7 +144,7 @@
 			<%-- 번호 출력(startBlock ~ endBlock) --%>
 			<c:forEach var="i" begin="${startBlock}" end="${endBlock}" step="1">
 				<c:choose>
-					<c:when test="${i == pageNo}"><div class="paging-unit">${i}</div></c:when>
+					<c:when test="${i == pageNo}"><div class="paging-unit active">${i}</div></c:when>
 					<c:otherwise>
 						<div class="paging-unit"><a href="${url}&page=${i}">${i}</a></div>
 <%-- 						<a href="${url}&page=${i}">${i}</a> --%>
