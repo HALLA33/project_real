@@ -403,15 +403,15 @@ public class MemberDaoImpl implements MemberDao {
 		
 		switch(rank) {
 		case 1: sql = "update p_member set point = point + 40, opening = opening +1, "
-				+ "checkflag = 'false' totalcheck = totalcheck + 1 where nickname = ?"; 
+				+ "checkflag = 'false', totalcheck = totalcheck + 1 where nickname = ?"; 
 		jdbcTemplate.update(sql, new Object[] {nick}); break;
-		case 2: sql = "update p_member set point = point + 30, opening = opening +1,  "
-				+ "checkflag = 'false' totalcheck = totalcheck + 1 where nickname = ?";
+		case 2: sql = "update p_member set point = point + 30, opening = opening +1, "
+				+ "checkflag = 'false', totalcheck = totalcheck + 1 where nickname = ?";
 		jdbcTemplate.update(sql, new Object[] {nick}); break;
-		case 3: sql = "update p_member set point = point + 20, opening = opening +1,  "
-				+ "checkflag = 'false' totalcheck = totalcheck + 1 where nickname = ?";
+		case 3: sql = "update p_member set point = point + 20, opening = opening +1, "
+				+ "checkflag = 'false', totalcheck = totalcheck + 1 where nickname = ?";
 		jdbcTemplate.update(sql, new Object[] {nick}); break;
-		default : sql = "update p_member set point = point + 10, opening = opening +1,  "
+		default : sql = "update p_member set point = point + 10, opening = opening +1, "
 				+ "checkflag = 'false', totalcheck = totalcheck + 1 where nickname = ?";
 		jdbcTemplate.update(sql, new Object[] {nick}); break;
 			} 

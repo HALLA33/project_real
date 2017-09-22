@@ -10,7 +10,62 @@
 <%-- 컨테이너 영역 --%>
 
 <div class="container">
-   <h1>도서 게시판</h1>
+	<c:choose>
+		<c:when test="${item_no eq 0 }"><h1>공지사항</h1></c:when>
+		<c:when test="${item_no eq 1 }"><h1>국내 도서 게시판
+			<c:choose>
+				<c:when test="${head eq 1 }">&#40;SF/판타지/무협&#41;</c:when>
+				<c:when test="${head eq 2 }">&#40;추리&#41;</c:when>
+				<c:when test="${head eq 3 }">&#40;로맨스&#41;</c:when>
+				<c:when test="${head eq 4 }">&#40;공포/스릴러&#41;</c:when>
+				<c:when test="${head eq 5 }">&#40;역사&#41;</c:when>
+				<c:when test="${head eq 6 }">&#40;시/에세이&#41;</c:when>
+				<c:when test="${head eq 7 }">&#40;철학/종교&#41;</c:when>
+				<c:when test="${head eq 8 }">&#40;과학&#41;</c:when>
+				<c:when test="${head eq 9 }">&#40;기타&#41;</c:when>
+			</c:choose>
+		</h1></c:when>
+		<c:when test="${item_no eq 2 }"><h1>해외 도서 게시판
+			<c:choose>
+				<c:when test="${head eq 1 }">&#40;SF/판타지/무협&#41;</c:when>
+				<c:when test="${head eq 2 }">&#40;추리&#41;</c:when>
+				<c:when test="${head eq 3 }">&#40;로맨스&#41;</c:when>
+				<c:when test="${head eq 4 }">&#40;공포/스릴러&#41;</c:when>
+				<c:when test="${head eq 5 }">&#40;역사&#41;</c:when>
+				<c:when test="${head eq 6 }">&#40;시/에세이&#41;</c:when>
+				<c:when test="${head eq 7 }">&#40;철학/종교&#41;</c:when>
+				<c:when test="${head eq 8 }">&#40;과학&#41;</c:when>
+				<c:when test="${head eq 9 }">&#40;기타&#41;</c:when>
+			</c:choose>
+		</h1></c:when>
+		<c:when test="${item_no eq 3 }"><h1>국내 영화 게시판
+			<c:choose>
+				<c:when test="${head eq 101 }">&#40;SF/판타지&#41;</c:when>
+				<c:when test="${head eq 102 }">&#40;드라마&#41;</c:when>
+				<c:when test="${head eq 103 }">&#40;로맨스&#41;</c:when>
+				<c:when test="${head eq 104 }">&#40;미스터리/스릴러&#41;</c:when>
+				<c:when test="${head eq 105 }">&#40;애니메이션&#41;</c:when>
+				<c:when test="${head eq 106 }">&#40;코미디&#41;</c:when>
+				<c:when test="${head eq 107 }">&#40;액션/느와르&#41;</c:when>
+				<c:when test="${head eq 108 }">&#40;기타&#41;</c:when>
+			</c:choose>
+		</h1></c:when>
+		<c:when test="${item_no eq 4 }"><h1>해외 영화 게시판
+		<c:choose>
+				<c:when test="${head eq 101 }">&#40;SF/판타지&#41;</c:when>
+				<c:when test="${head eq 102 }">&#40;드라마&#41;</c:when>
+				<c:when test="${head eq 103 }">&#40;로맨스&#41;</c:when>
+				<c:when test="${head eq 104 }">&#40;미스터리/스릴러&#41;</c:when>
+				<c:when test="${head eq 105 }">&#40;애니메이션&#41;</c:when>
+				<c:when test="${head eq 106 }">&#40;코미디&#41;</c:when>
+				<c:when test="${head eq 107 }">&#40;액션/느와르&#41;</c:when>
+				<c:when test="${head eq 108 }">&#40;기타&#41;</c:when>
+			</c:choose>
+			</h1></c:when>
+		<c:when test="${item_no eq 5 }"><h1>기타 리뷰 게시판</h1></c:when>
+		<c:when test="${item_no eq 6 }"><h1>자유 게시판</h1></c:when>
+	</c:choose>
+   
    <br>
    <div class="container">
       <ul class="nav nav-tabs" id="listSubtitle">
@@ -18,7 +73,7 @@
             <a class="nav-link active"  >최신순</a>
          </li>
          <li class="nav-item" value="1">
-               <a class="nav-link " href="${pageContext.request.contextPath}/list_read?item_no=${item_no}&headVal=${head}&alignVal=1">조회수순</a>
+               <a class="nav-link " href="${pageContext.request.contextPath}/list_read?item_no=${item_no}&head=${head}&alignVal=1">조회수순</a>
              </li>            
         </ul>
       <br>

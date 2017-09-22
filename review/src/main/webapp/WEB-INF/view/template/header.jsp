@@ -13,28 +13,29 @@
    <script type="text/javascript" src="<c:url value="/smarteditors/js/HuskyEZCreator.js"/>" charset="utf-8"></script>
    <script type="text/javascript" src="<c:url value="/js/bootstrap.min.js"/>"></script>
    <script>
-   $(document).ready(function(){
-      $(".menu-name > li").on("click", function(){
-         //console.log("첫번째 = "+$(this).val());
-      });
-      $(".menu-name > li > ul > li").on("click", function(){
-         console.log("카테고리 = "+$(this).val());
-         console.log("소제목 = "+$(this).parent().parent().val());
-         var item_no = $(this).parent().parent().val();
-         var head = $(this).val();
-            $.ajax({
-                url:"list",
-                type:"post",
-                data:{
-                   "item_no":item_no, 
-                   "head" : head,
-                },
-                success:function() {
-                   console.log("데이터 전송 완료");
-                }
-             });         
-      });
-   });
+//    $(document).ready(function(){
+//       $(".menu-name > li").on("click", function(){
+//          //console.log("첫번째 = "+$(this).val());
+//       });
+//       $(".menu-name > li > ul > li").on("click", function(){
+//          console.log("카테고리 = "+$(this).val());
+//          console.log("소제목 = "+$(this).parent().parent().val());
+//          var item_no = $(this).parent().parent().val();
+//          var head = $(this).val();
+//             $.ajax({
+//                 url:"list",
+//                 type:"post",
+//                 data:{
+//                    "item_no":item_no, 
+//                    "head" : head,
+//                 },
+//                 success:function() {
+//                 	log.console(head);
+//                    console.log("데이터 전송 완료");
+//                 }
+//              });         
+//       });
+//    });
    
    
    </script>

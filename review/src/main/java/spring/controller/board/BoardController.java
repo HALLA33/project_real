@@ -59,10 +59,9 @@ public class BoardController {
 	
 	@RequestMapping(value= {"/list", "/list_read"})
 	public String list(Model model, HttpServletRequest request, 
-			@RequestParam(required=false) int item_no, @RequestParam(defaultValue="100")int headVal, @RequestParam(defaultValue="0")int alignVal) {
+			@RequestParam(required=false) int item_no, @RequestParam(defaultValue="-1")int head, @RequestParam(defaultValue="0")int alignVal) {
 		String pageStr = request.getParameter("page");
 		int pageNo;
-		
 		try{
 			pageNo = Integer.parseInt(pageStr);
 			if(pageNo <= 0) throw new Exception();
@@ -88,8 +87,12 @@ public class BoardController {
 		
 		String url = "list?a=1";
 		
-		int head = (int)headVal;
+//		int head = (int)headVal;
 		int align = (int)alignVal;
+		
+		log.info("item_no:" + item_no);
+		log.info("align:" + alignVal);
+		log.info("head:" + head);
 		
 		System.out.println("controller head ="+head);
 		System.out.println("controller align = "+align);

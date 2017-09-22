@@ -40,11 +40,11 @@ public class BoardDaoImpl implements BoardDao{
 	@Override
 	public List<Board> board_list(int start, int end, int item_no, int head, int align) {
 		
-		System.out.println("sql head="+head);
-		System.out.println("sql align="+align);
+//		System.out.println("sql head="+head);
+//		System.out.println("sql align="+align);
 		
 		String headPlus = "";
-		if(head < 7) {headPlus = "& head=? ";}
+		if(head >= 0) {headPlus = "and head=? ";}
 		
 		String boardAlign = "reg ";
 		if(align!=0) {
@@ -57,16 +57,16 @@ public class BoardDaoImpl implements BoardDao{
 							+ "where rn between ? and ?";
 		
 						System.out.println("sql = "+sql);
-						System.out.println("item_no="+item_no+", boardAlign="+boardAlign);
-						System.out.println("s="+start+", e="+end);
+//						System.out.println("item_no="+item_no+", boardAlign="+boardAlign);
+//						System.out.println("s="+start+", e="+end);
 		
-						if(head > 6) {
+						if(head == -1) {
 							Object[] args = {item_no, start, end};
-							System.out.println("args = "+Arrays.toString(args));
+//							System.out.println("args = "+Arrays.toString(args));
 							return jdbcTemplate.query(sql, args, mapper);
 						}else {
 							Object[] args = {item_no, head,  start, end};
-							System.out.println("args = "+Arrays.toString(args));
+//							System.out.println("args = "+Arrays.toString(args));
 							return jdbcTemplate.query(sql, args, mapper);
 						}
 	}
