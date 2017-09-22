@@ -585,56 +585,127 @@ public class BoardController {
     	return "board/photo_uploader";
     }
     
-    @RequestMapping("/file_uploader")
-    @ResponseBody
-    public Map<String,String> file_uploader(HttpServletRequest request, HttpServletResponse response) throws Exception {
-    	String path = request.getSession().getServletContext().getRealPath("/resources/image"); // 이미지가 저장될 주소
+    private String[] typeFilter = new String[] {
+			"image/png", "image/jpeg", "image/gif", "image/bmp"
+	};
+	
+	@RequestMapping("/file_uploader")
+	@ResponseBody
+	public Map<String,String> file_uploader(MultipartHttpServletRequest mRequest) {
+		MultipartFile file = mRequest.getFile("Filedata");
+		Map<String, String> map = new HashMap<>();
 
-    	String filename = "";
-    	boolean flag = true;
-    	
-    	if(request.getContentLength() > 10*1024*1024 ){
-    		flag = false;
-    	} else {
-    		try {
-    			MultipartRequest multi=new MultipartRequest(request, path, 15*1024*1024, "UTF-8", new DefaultFileRenamePolicy());
-    			
-    			// uuid 생성(Universal Unique IDentifier, 범용 고유 식별자)
-    	        UUID uuid = UUID.randomUUID();
-    			
-    	        String upfile = (multi.getFilesystemName("Filedata"));
-    	        
-    			if (!upfile.equals("")) {
-    				String moveFileName = uuid.toString()+"_"+upfile;	// 랜덤생성+파일이름 저장
-    				File sourceFile = new File(path + File.separator + upfile);
-    				File targetFile = new File(path + File.separator + moveFileName);
-    				sourceFile.renameTo(targetFile);
-    				filename = moveFileName;
-    				System.out.println("upfile : " + upfile);				//실제 이름
-    				System.out.println("targetFile : " + targetFile);		//저장될 경로
-    				System.out.println("moveFileName : " + moveFileName);	//변경된 이름
-    				System.out.println("filename : " + filename);			//변경된 이름
-    				System.out.println("moveFileName : " + moveFileName);
-    				
-    				sourceFile.delete();
-    				
-    			}
-    		} catch (Exception e) {
-    			System.out.println("e : " + e.getMessage());
-    		}
-    	}
-    	
-    	Map<String, String> file = new HashMap<>();
-    	if(flag)
-    		file.put("flag","true");
-    	else
-    		file.put("flag", "false");
-    	
-    	file.put("filename", filename);
-    	file.put("path", path);
-    	
-    	return file;
-    }
+		String filename = file.getOriginalFilename();	//파일 이름
+		long filesize = file.getSize();	//파일 크기
+		String msg = null;
+		boolean flag = true;
+		String filetype = null;
+		
+		
+		try {
+			filetype = Magic.getMagicMatch(file.getBytes()).getMimeType(); //파일 유형		
+			
+			if(filesize > 10*1024*1024 ){
+				flag = false;
+				msg = "10M이하의 이미지 파일을 선택하세요";
+				map.put("msg", msg);
+				map.put("flag", "false");
+				return map;
+			} 
+			else {
+				// uuid 생성(Universal Unique IDentifier, 범용 고유 식별자)
+				UUID uuid = UUID.randomUUID();
+				String moveFileName = uuid.toString()+"_"+filename;	// 랜덤생성+파일이름 저장
+				
+				Arrays.sort(typeFilter);
+				if(Arrays.binarySearch(typeFilter, filetype) < 0) {
+					log.info("GIF, JPEG, PNG, BMP만 업로드 가능합니다.");
+				}
+				
+				String savePath = mRequest.getServletContext().getRealPath("/resources/image");
+				File targetPath = new File(savePath);
+				File copyPath = new File("E:\\sw\\image");
+				
+				File path = new File(savePath, "");
+
+				if(!path.exists()) {
+					log.info("실제경로가 존재하지 않습니다");
+					
+					//서버를 clean하면 업로드한 사진들은 없어지기 때문에 copyPath에 있는 사진들을 다시 다운
+					copy(copyPath, targetPath);
+				}
+
+				File target = new File(path, moveFileName);
+				file.transferTo(target);
+				
+				//서버를 clean하면 업로드한 사진들은 없어지기 때문에 copyPath에 사진 업로드
+				copy(targetPath, copyPath);
+				
+				filename = moveFileName;
+				
+				map.put("path", savePath);
+				
+				map.put("filename", filename);
+				map.put("flag", "true");
+				log.info("결과 : " + flag);
+				
+				
+			}
+		} catch (MagicParseException e) {
+			log.info(e.getMessage());
+		} catch (MagicMatchNotFoundException e) {
+			flag = false;
+			msg = "GIF, JPEG, PNG, BMP만 업로드 가능합니다.";
+			map.put("msg", msg);
+			map.put("flag", "false");
+			return map;
+		} catch (MagicException e) {
+			log.info(e.getMessage());
+		} catch (IOException e) {
+			log.info(e.getMessage());
+		} 
+
+		
+		return map;
+	 }
+
+	public void copy(File origin, File target){
+		
+		if(origin.isFile()){
+			log.info(origin + "을" + target + "으로 복사");
+			try(
+				FileInputStream in = new FileInputStream(origin);
+				FileOutputStream out = new FileOutputStream(target);
+			){
+				//if(!target.exists()) target.createNewFile();
+				byte[] buffer = new byte[1024];
+				while(true){
+					int size = in.read(buffer);
+					if(size==-1) break;
+					out.write(buffer, 0, size);
+				}
+
+			} catch(IOException e){
+				System.out.println("에러 : " + e.getMessage());
+			}
+
+		}
+		else if(origin.isDirectory()){
+			//[1] target 생성
+			target.mkdirs();
+			
+			//[2] origin의 구성요소 추출
+			File[] list = origin.listFiles();	
+			if(list==null) return;
+			
+			//[3] 하나씩 복사
+			for(File file : list){
+				File newTarget = new File(target, file.getName());
+				copy(file, newTarget);							
+			}
+		
+		}
+	}
 
 
 }
