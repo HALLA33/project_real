@@ -23,7 +23,11 @@ public class Flag {
 		
 		log.info("true로 바꿈");
 		
-		String sql = "update p_member set flag = 0, todaywrite = 0";
+		String sql = "update p_member set flag = 0, todaywrite = 0, checkflag = 'true'";
+		
+		jdbcTemplate.update(sql);
+		
+		sql = "truncate table attendance";
 		
 		jdbcTemplate.update(sql);
 		
@@ -60,13 +64,6 @@ public class Flag {
 				log.info(list.get(i).getNick() + "초기화 됨");
 			}
 		}
-		sql = "update p_member set checkflag = 'true'";
-		
-		jdbcTemplate.update(sql);
-		
-		sql = "truncate table attendance";
-		
-		jdbcTemplate.update(sql);
 		
 	}
 

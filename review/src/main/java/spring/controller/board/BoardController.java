@@ -57,7 +57,7 @@ public class BoardController {
 		return "board/text";
 	}
 	
-	@RequestMapping("/list")
+	@RequestMapping(value= {"/list", "/list_read"})
 	public String list(Model model, HttpServletRequest request, 
 			@RequestParam(required=false) int item_no, @RequestParam(defaultValue="100")int headVal, @RequestParam(defaultValue="0")int alignVal) {
 		String pageStr = request.getParameter("page");
@@ -119,7 +119,13 @@ public class BoardController {
 		model.addAttribute("head", head);
 		model.addAttribute("align", align);
 		
-		return "board/list"; 
+		if(align == 0) {
+			return "board/list";
+		}else {
+			return "board/list_read";
+		}
+		
+		 
 	}
 	
 	public void replaceDetail(Board board) {
