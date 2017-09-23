@@ -6,6 +6,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,8 +42,10 @@ public class MemberDaoImpl implements MemberDao {
 		return new Attendance(rs);
 	};
 	
+	private RowMapper<Tags> mapper4 = (rs, index) -> {
+		return new Tags(rs);
+	};
 	
-
 	@Autowired
 	private JavaMailSenderImpl mailsender;
 
@@ -472,6 +475,19 @@ public class MemberDaoImpl implements MemberDao {
 				+ "where rn between ? and ?";
 		
 		List<Attendance> list = jdbcTemplate.query(sql, new Object[] {start, end}, mapper3);	
+		
+		return list;
+	}
+
+	@Override
+	public List<Tags> taglist() {
+		
+		String sql = "select * from "
+				+ "(select rownum rn, A.* from "
+				+ "(select * from tags order by no desc)A) "
+				+ "where rn between 1 and 10";
+		
+		List<Tags> list = jdbcTemplate.query(sql, mapper4);
 		
 		return list;
 	}

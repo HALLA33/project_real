@@ -40,4 +40,5 @@ public interface MemberDao {
 	public boolean insertattend(String greetings, String nick, int point);
 	public int getpoint(String nickname);
 	public Member getmember(String nickname);
+	public List<Tags> taglist();
 }

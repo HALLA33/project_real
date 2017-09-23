@@ -13,7 +13,7 @@
    <div class="container">
       <ul class="nav nav-tabs" id="listSubtitle">
          <li class="nav-item" value="0">
-            <a class="nav-link" href="${pageContext.request.contextPath}/list?item_no=${item_no}&headVal=${head}&alignVal=0">최신순</a>
+            <a class="nav-link" href="${pageContext.request.contextPath}/list?item_no=${item_no}&head=${head}&alignVal=0&tag=${tag}">최신순</a>
          </li>
          <li class="nav-item" value="1">
                <a class="nav-link active">조회수순</a>

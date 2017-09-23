@@ -22,7 +22,7 @@
 				<c:when test="${head eq 6 }">&#40;시/에세이&#41;</c:when>
 				<c:when test="${head eq 7 }">&#40;철학/종교&#41;</c:when>
 				<c:when test="${head eq 8 }">&#40;과학&#41;</c:when>
-				<c:when test="${head eq 9 }">&#40;기타&#41;</c:when>
+				<c:when test="${head eq 99 }">&#40;기타&#41;</c:when>
 			</c:choose>
 		</h1></c:when>
 		<c:when test="${item_no eq 2 }"><h1>해외 도서 게시판
@@ -35,7 +35,7 @@
 				<c:when test="${head eq 6 }">&#40;시/에세이&#41;</c:when>
 				<c:when test="${head eq 7 }">&#40;철학/종교&#41;</c:when>
 				<c:when test="${head eq 8 }">&#40;과학&#41;</c:when>
-				<c:when test="${head eq 9 }">&#40;기타&#41;</c:when>
+				<c:when test="${head eq 99 }">&#40;기타&#41;</c:when>
 			</c:choose>
 		</h1></c:when>
 		<c:when test="${item_no eq 3 }"><h1>국내 영화 게시판
@@ -47,7 +47,7 @@
 				<c:when test="${head eq 105 }">&#40;애니메이션&#41;</c:when>
 				<c:when test="${head eq 106 }">&#40;코미디&#41;</c:when>
 				<c:when test="${head eq 107 }">&#40;액션/느와르&#41;</c:when>
-				<c:when test="${head eq 108 }">&#40;기타&#41;</c:when>
+				<c:when test="${head eq 199 }">&#40;기타&#41;</c:when>
 			</c:choose>
 		</h1></c:when>
 		<c:when test="${item_no eq 4 }"><h1>해외 영화 게시판
@@ -59,7 +59,7 @@
 				<c:when test="${head eq 105 }">&#40;애니메이션&#41;</c:when>
 				<c:when test="${head eq 106 }">&#40;코미디&#41;</c:when>
 				<c:when test="${head eq 107 }">&#40;액션/느와르&#41;</c:when>
-				<c:when test="${head eq 108 }">&#40;기타&#41;</c:when>
+				<c:when test="${head eq 199 }">&#40;기타&#41;</c:when>
 			</c:choose>
 			</h1></c:when>
 		<c:when test="${item_no eq 5 }"><h1>기타 리뷰 게시판</h1></c:when>
@@ -73,7 +73,7 @@
             <a class="nav-link active"  >최신순</a>
          </li>
          <li class="nav-item" value="1">
-               <a class="nav-link " href="${pageContext.request.contextPath}/list_read?item_no=${item_no}&head=${head}&alignVal=1">조회수순</a>
+               <a class="nav-link " href="${pageContext.request.contextPath}/list_read?item_no=${item_no}&head=${head}&alignVal=1&tag=${tag}">조회수순</a>
              </li>            
         </ul>
       <br>

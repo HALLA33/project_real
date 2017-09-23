@@ -25,6 +25,7 @@ import spring.model.member.Encryption;
 import spring.model.member.Generator;
 import spring.model.member.Member;
 import spring.model.member.MemberDao;
+import spring.model.member.Tags;
 
 @Controller
 public class MemberController {
@@ -432,6 +433,9 @@ public class MemberController {
 			list.get(i).setNo(i+1);//임시 리스트에 no를 번호 대신에 랭킹 순위로 넣음
 		}
 		
+		List<Tags> taglist = memberDao.taglist();
+		
+		session.setAttribute("tags", taglist);
 		session.setAttribute("rankList", list);
 		
 		

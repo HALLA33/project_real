@@ -87,6 +87,22 @@
 						</div>
 				<br><br>
 			</div>
+			<div id="rankbar">
+				<h2>태그</h2><br><br>
+<!-- 				<img src="http://placehold.it/200x200"> -->
+						<div>
+							<table id="rankTable" >
+								<tbody>
+									<c:forEach items="${sessionScope.tags}" var="tags">
+										<tr style="width:180px !important;">
+											<td id=rankUnit><a href="${pageContext.request.contextPath}/list?item_no=8&head=0&tag=${tags.tag}">#${tags.tag}</a></td>
+										</tr>
+									</c:forEach>
+								</tbody>
+							</table>
+						</div>
+				<br><br>
+			</div>
 		</div>
 	</aside>
 	</div>

@@ -38,14 +38,15 @@ public class BoardDaoImpl implements BoardDao{
 	};
 	
 	@Override
-	public List<Board> board_list(int start, int end, int item_no, int head, int align) {
+	public List<Board> board_list(int start, int end, int item_no, int head, int align, String tag) {
 		
 //		System.out.println("sql head="+head);
 //		System.out.println("sql align="+align);
-		
+		tag = "#"+tag;
+		String realtag = "";
+		System.out.println("tag : "+ tag);
 		String headPlus = "";
-		if(head >= 0) {headPlus = "and head=? ";}
-		
+		if(head > 0) {headPlus = "and head=? ";}
 		String boardAlign = "reg ";
 		if(align!=0) {
 			boardAlign = "read ";
@@ -56,6 +57,28 @@ public class BoardDaoImpl implements BoardDao{
 							+headPlus+"order by "+boardAlign+"desc) TMP) "
 							+ "where rn between ? and ?";
 		
+		if(item_no == 8 &&head == 0) {
+					sql = "select * from p_board where tag is not null";
+					
+					List<Board> list = jdbcTemplate.query(sql, mapper);
+
+					for(int i = 0; i < list.size(); i++){						
+						 String[] tags = list.get(i).getTag().split("/");
+						 System.out.println("length" + tags.length);
+						 for(String s : tags){
+							 if(s.equals(tag)) {
+								 log.info(tag);
+								 System.out.println("start : " + start);
+								 System.out.println("end : " + end);
+									sql = "select * from (select rownum rn, TMP.* from "
+											+ "(select * from p_board where tag like '%'||?||'%' "
+											+"order by "+boardAlign+"desc) TMP) "
+											+ "where rn between ? and 10";
+							 }
+						 }
+					}
+				}
+		
 						System.out.println("sql = "+sql);
 //						System.out.println("item_no="+item_no+", boardAlign="+boardAlign);
 //						System.out.println("s="+start+", e="+end);
@@ -64,13 +87,16 @@ public class BoardDaoImpl implements BoardDao{
 							Object[] args = {item_no, start, end};
 //							System.out.println("args = "+Arrays.toString(args));
 							return jdbcTemplate.query(sql, args, mapper);
+						}else if(head == 0){
+							Object[] args = {tag, start};
+							return jdbcTemplate.query(sql, args, mapper);
 						}else {
 							Object[] args = {item_no, head,  start, end};
 //							System.out.println("args = "+Arrays.toString(args));
 							return jdbcTemplate.query(sql, args, mapper);
 						}
-	}
-	
+
+}
 	@Override
 	public Map<Integer, Book> book_list(int no) {
 		Object[] args = {no};
@@ -139,15 +165,29 @@ public class BoardDaoImpl implements BoardDao{
 				};
 		
 		jdbcTemplate.update(sql, args);
-
-		sql = "select todaywrite from p_member where id  = ?";
-		int todaywrite = jdbcTemplate.queryForObject(sql, new Object[] {nickname}, Integer.class);
 		
+		if(board.getTag() != null) {
+			
+			String[] tags = board.getTag().replace("#", "").split("/");
+			
+			for(String s : tags) {
+				
+				sql = "insert into tags values(tags_seq.nextval, ?, ? ,?)";
+				
+				jdbcTemplate.update(sql, new Object[] {s, board.getNo(), board.getItem_no()});
+				
+			}
+			
+		}
+		sql = "select todaywrite from p_member where id  = ?";
+		
+		int todaywrite = jdbcTemplate.queryForObject(sql, new Object[] {nickname}, Integer.class);
+	
 		if(todaywrite < 3) {
 			sql = "update p_member set point = point +10, todaywrite = todaywrite + 1 where id = ?";
+			
 			jdbcTemplate.update(sql, new Object[] {nickname});
 		}
-		
 		return seq_number;
 	}
 
@@ -156,6 +196,14 @@ public class BoardDaoImpl implements BoardDao{
 		String sql = "select count(*) from p_board where item_no=?";
 		
 		Object[] args = {item_no};
+		int count = jdbcTemplate.queryForObject(sql, args, Integer.class);
+		return count;
+	}
+	
+	public int count2(String tag) {		
+		String sql = "select count(*) from tags where tag=?";
+		
+		Object[] args = {tag};
 		int count = jdbcTemplate.queryForObject(sql, args, Integer.class);
 		return count;
 	}

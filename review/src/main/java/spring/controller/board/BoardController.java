@@ -59,8 +59,11 @@ public class BoardController {
 	
 	@RequestMapping(value= {"/list", "/list_read"})
 	public String list(Model model, HttpServletRequest request, 
-			@RequestParam(required=false) int item_no, @RequestParam(defaultValue="-1")int head, @RequestParam(defaultValue="0")int alignVal) {
-		String pageStr = request.getParameter("page");
+			@RequestParam(required=false) int item_no, @RequestParam(defaultValue="-1")int head, @RequestParam(defaultValue="0")int alignVal,
+			@RequestParam(value = "tag", required=false) String tag
+			) {
+		log.info(tag);
+		String pageStr = request.getParameter("page") ;
 		int pageNo;
 		try{
 			pageNo = Integer.parseInt(pageStr);
@@ -70,7 +73,13 @@ public class BoardController {
 		}
 		
 		int boardSize = 10;
-		int boardCount = boardDao.count(item_no); 
+		int boardCount = 0;
+		
+		if(tag == null) {
+			boardCount = boardDao.count(item_no); 	
+		}else {
+			boardCount = boardDao.count2(tag); 	
+		}
 		
 		int start = boardSize * pageNo - boardSize + 1;
 		int end = start + boardSize - 1;
@@ -87,7 +96,6 @@ public class BoardController {
 		
 		String url = "list?a=1";
 		
-//		int head = (int)headVal;
 		int align = (int)alignVal;
 		
 		log.info("item_no:" + item_no);
@@ -97,7 +105,7 @@ public class BoardController {
 		System.out.println("controller head ="+head);
 		System.out.println("controller align = "+align);
 		
-		List<Board> board = boardDao.board_list(start, end, item_no, head, align);
+		List<Board> board = boardDao.board_list(start, end, item_no, head, align, tag);
 		
 		Map<Integer, String> nickname = new HashMap<>();	
 		Map<Integer, Book> book = null;
@@ -117,6 +125,7 @@ public class BoardController {
 		model.addAttribute("blockTotal", blockTotal);
 		model.addAttribute("boardCount", boardCount);
 		model.addAttribute("url", url);
+		model.addAttribute("tag", tag);
 		model.addAttribute("pageNo", pageNo);
 		model.addAttribute("item_no", item_no);
 		model.addAttribute("head", head);
@@ -179,7 +188,7 @@ public class BoardController {
 		String tag = board.getTag();
 		String convert_tag = null;
 		if(tag.length()>0) {
-			convert_tag = "#"+ tag.trim().replace(",", "#");
+			convert_tag = "#"+ tag.trim().replace(",", "/#").replaceAll(" ", "");
 		}	
 		board.setTag(convert_tag);
 		
@@ -278,6 +287,13 @@ public class BoardController {
 		book = boardDao.detail_book(board.getSearch_no());
 		board.setB_item_no(board.getItem_no());
 		board.setB_head(board.getHead());
+		
+//		String[] tags = board.getTag().split("/");
+//		
+//		for(String s : tags) {
+//			log.info("tag : " + s);
+//		}
+//		
 		
 		String nickname = boardDao.search_nickname(board.getWriter());
 
@@ -406,14 +422,15 @@ public class BoardController {
 		return "board/book-detail";
     }
     
-    @RequestMapping(value= {"/book-delete/{no}/{item_no}"}, method=RequestMethod.GET)
-    public String bookDelete(Model model, @PathVariable int no, @PathVariable int item_no, HttpSession session, HttpServletRequest request, HttpServletResponse reponse) {
+    @RequestMapping(value= {"/book-delete/{no}/{item_no}/{tag}"}, method=RequestMethod.GET)
+    public String bookDelete(Model model, @PathVariable int no, @PathVariable int item_no, HttpSession session, 
+    		@PathVariable String tag, HttpServletRequest request, HttpServletResponse reponse) {
     	Member member = (Member)session.getAttribute("member");
 
     	if(member.getPower().equals("일반")) {
     		boardDao.delete_board(no, item_no, member.getId());    		
     	}else if(member.getPower().equals("관리자") || member.getPower().equals("스탭")) {
-    		boardDao.delete_board(no, item_no);
+    		boardDao.delete_board(no, item_no, tag);
     	}
 		
     	boardDao.board_delete_cookie(no, item_no);
