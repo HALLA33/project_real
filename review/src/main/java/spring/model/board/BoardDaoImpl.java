@@ -14,6 +14,8 @@ import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
+import spring.model.member.Tags;
+
 @Repository("boardDao")
 public class BoardDaoImpl implements BoardDao{
 	private Logger log = LoggerFactory.getLogger(getClass());
@@ -24,6 +26,10 @@ public class BoardDaoImpl implements BoardDao{
 	
 	private RowMapper<Board> mapper = (rs, index)->{
 		return new Board(rs);
+	};
+	
+	private RowMapper<Tags> mapper2 = (rs, index) -> {
+		return new Tags(rs);
 	};
 	
 	private RowMapper<Book> bmapper = (rs, index)->{
@@ -174,7 +180,7 @@ public class BoardDaoImpl implements BoardDao{
 				
 				sql = "insert into tags values(tags_seq.nextval, ?, ? ,?)";
 				
-				jdbcTemplate.update(sql, new Object[] {s, board.getNo(), board.getItem_no()});
+				jdbcTemplate.update(sql, new Object[] {s, seq_number, board.getItem_no()});
 				
 			}
 			
@@ -265,12 +271,25 @@ public class BoardDaoImpl implements BoardDao{
 	}
 
 	@Override
-	public void delete_board(int no, int item_no, String id) {
+	public void delete_board(int no, int item_no, String id, String tag) {
 		String sql = "delete from p_board where no=? and item_no=? and writer=?";
 		
 		Object[] args = {no, item_no, id};
 		
 		jdbcTemplate.update(sql, args);
+		
+		if(tag != null) {
+			
+			String[] tags = tag.replace("#", "").split("/");
+			
+			for(String s : tags) {
+				sql = "delete from tags where write_no = ? and item_no = ? and tag = ? ";
+				
+				jdbcTemplate.update(sql, new Object[] {no, item_no, s});
+			}
+			
+		}
+		
 	}
 
 	@Override
@@ -367,13 +386,36 @@ public class BoardDaoImpl implements BoardDao{
 	}
 
 	@Override
-	public void delete_board(int no, int item_no) {
+	public void delete_board(int no, int item_no, String tag) {
 		String sql = "delete from p_board where no=? and item_no=?";
 		
 		Object[] args = {no, item_no};
 		
 		jdbcTemplate.update(sql, args);	
 		
+		if(tag != null) {
+			
+			String[] tags = tag.replace("#", "").split("/");
+			
+			for(String s : tags) {
+				sql = "delete from tags where write_no = ? and item_no = ? and tag = ? ";
+				
+				jdbcTemplate.update(sql, new Object[] {no, item_no, s});
+			}
+			
+		}
+		
+	}
+	@Override
+	public List<Tags> taglist() {
+		String sql = "select * from "
+				+ "(select rownum rn, A.* from "
+				+ "(select * from tags order by no desc)A) "
+				+ "where rn between 1 and 10";
+		
+		List<Tags> list = jdbcTemplate.query(sql, mapper2);
+		
+		return list;
 	}
 	
 	

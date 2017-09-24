@@ -14,6 +14,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.sound.midi.MidiDevice.Info;
 
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -40,6 +41,7 @@ import spring.model.board.Board;
 import spring.model.board.BoardDao;
 import spring.model.board.Book;
 import spring.model.member.Member;
+import spring.model.member.Tags;
 import spring.service.NaverBookService;
 
 @Controller
@@ -60,7 +62,7 @@ public class BoardController {
 	@RequestMapping(value= {"/list", "/list_read"})
 	public String list(Model model, HttpServletRequest request, 
 			@RequestParam(required=false) int item_no, @RequestParam(defaultValue="-1")int head, @RequestParam(defaultValue="0")int alignVal,
-			@RequestParam(value = "tag", required=false) String tag
+			@RequestParam(value = "tag", required=false) String tag, HttpSession session
 			) {
 		log.info(tag);
 		String pageStr = request.getParameter("page") ;
@@ -116,6 +118,10 @@ public class BoardController {
 			replaceDetail(b);
 			nickname.put(b.getNo(), boardDao.search_nickname(b.getWriter()));
 		}
+		
+		List<Tags> taglist = boardDao.taglist();
+		
+		session.setAttribute("tags", taglist);
 		
 		model.addAttribute("nickname", nickname);
 		model.addAttribute("board", board);
@@ -422,13 +428,15 @@ public class BoardController {
 		return "board/book-detail";
     }
     
-    @RequestMapping(value= {"/book-delete/{no}/{item_no}/{tag}"}, method=RequestMethod.GET)
+    @RequestMapping(value= {"/book-delete/{no}/{item_no}"}, method=RequestMethod.GET)
     public String bookDelete(Model model, @PathVariable int no, @PathVariable int item_no, HttpSession session, 
-    		@PathVariable String tag, HttpServletRequest request, HttpServletResponse reponse) {
+    		@RequestParam(value = "tag", required=false) String tag, HttpServletRequest request, HttpServletResponse reponse) {
     	Member member = (Member)session.getAttribute("member");
-
+    	
+    	log.info("실행됨"  + tag);
+    	
     	if(member.getPower().equals("일반")) {
-    		boardDao.delete_board(no, item_no, member.getId());    		
+    		boardDao.delete_board(no, item_no, member.getId(), tag);    		
     	}else if(member.getPower().equals("관리자") || member.getPower().equals("스탭")) {
     		boardDao.delete_board(no, item_no, tag);
     	}
