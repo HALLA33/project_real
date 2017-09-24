@@ -159,8 +159,12 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value= {"/book-write"}, method=RequestMethod.GET)
-	public String book_write(Model model, @RequestParam(required=false) int item_no){
+	public String book_write(Model model, @RequestParam(required=false) int item_no, HttpSession session){
 		model.addAttribute("item_no", item_no);
+		
+		List<Tags> taglist = boardDao.taglist();
+		
+		session.setAttribute("tags", taglist);
 		
 		return "board/book-write";
 	}
@@ -214,6 +218,10 @@ public class BoardController {
 		String nickname = boardDao.search_nickname(board.getWriter());
 		int point = boardDao.getpoint(nickname);
 		member.setPoint(point);
+		
+		List<Tags> taglist = boardDao.taglist();
+		
+		session.setAttribute("tags", taglist);
 		
 		session.setAttribute("member", member);
 		
@@ -442,6 +450,10 @@ public class BoardController {
     	}
 		
     	boardDao.board_delete_cookie(no, item_no);
+    	
+    	List<Tags> taglist = boardDao.taglist();
+		
+		session.setAttribute("tags", taglist);
     	
     	return "redirect:/list?item_no="+item_no;
     }
