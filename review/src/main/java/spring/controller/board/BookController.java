@@ -78,7 +78,7 @@ public class BookController {
 		int boardSize = 10;
 		int boardCount = 0;
 		
-		if(tag == null) {
+		if(tag == null || tag.equals("")) {
 			boardCount = bookDao.count(item_no); 	
 		}else {
 			boardCount = bookDao.count2(tag); 	
