@@ -29,4 +29,7 @@ public interface BoardDao {
 	void board_delete_cookie(int board_no, int board_item_no);
 	int getpoint(String nickname);
 	public List<Tags> taglist();
+	void upload_image(int board_no, int board_item_no, String originFileName, String moveFileName);
+	List<Image> delete_image(int board_no, int board_item_no);
+	List<Image> detail_board_image(int board_no, int board_item_no);
 }
