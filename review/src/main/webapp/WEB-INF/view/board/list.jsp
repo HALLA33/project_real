@@ -105,7 +105,7 @@
        </c:forEach>
       
       <div class="align-right">
-         <button type="button" class="btn " onclick="location.href='book-write?item_no=${item_no}'">글쓰기</button>
+         <button type="button" class="btn " onclick="location.href='book-write?item_no=${item_no}&head=${head }''">글쓰기</button>
       </div>
       
       <div class="text-center">
