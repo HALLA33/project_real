@@ -185,7 +185,7 @@
     	nhn.husky.EZCreator.createInIFrame({
 	       	oAppRef: oEditors,
 	       	elPlaceHolder: "ir1",
-	       	sSkinURI: "/review_re/smarteditors/SmartEditor2Skin.html",
+	       	sSkinURI: "/review/smarteditors/SmartEditor2Skin.html",
 	       	fCreator: "createSEditor2"
        	});
 
