@@ -31,6 +31,9 @@
 		var head = '${board.head}';
 		$("#head").val(head);
 		
+		var item_no = '${board.item_no}';
+		$("#item_no").val(item_no);
+		
 		$("#preview").on("click", function(){
 			var msg = valid(form);
 			var text = tagRemove(form.ir1.value);
@@ -151,7 +154,7 @@
 	   		<select name="item_no" class="user-input" id="margin">
 	   			<option value="-1">선택</option>
 	   			<option id="item_no_notice" value = "0">공지</option>
-	   			<option value = "1" selected>국내도서</option>
+	   			<option value = "1">국내도서</option>
 				<option value = "2" >해외도서</option>  
 	   		</select> 
 	    </div>
@@ -247,7 +250,7 @@
 		<div class="form-group area-20" >
 			<c:choose>
 				<c:when test="${book.image==null }">
-					<img id="image" src="http://placehold.it/120x120">
+					<img id="image" src="${pageContext.request.contextPath}/img/noImage.PNG" width="120" height="120">
 				</c:when>
 				<c:otherwise>
 					<img id="image" src="${book.image }">
