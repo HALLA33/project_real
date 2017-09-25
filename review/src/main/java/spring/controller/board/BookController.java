@@ -47,17 +47,16 @@ import spring.service.NaverBookService;
 @Controller
 public class BoardController {
 	private Logger log = LoggerFactory.getLogger(getClass());
+	private List<Image> imageList = new ArrayList<>();
 	
 	@Autowired
     private NaverBookService service; 
 	
 	@Autowired
-	private BoardDao boardDao;
+	private BookDao bookDao;
 	
-	@RequestMapping("/text")
-	public String test() {
-		return "board/text";
-	}
+	@Autowired
+	private ReplyDao replyDao;
 	
 	@RequestMapping(value= {"/list", "/list_read"})
 	public String list(Model model, HttpServletRequest request, 
@@ -138,9 +137,9 @@ public class BoardController {
 		model.addAttribute("align", align);
 		
 		if(align == 0) {
-			return "board/list";
+			return "board/book/list";
 		}else {
-			return "board/list_read";
+			return "board/book/list_read";
 		}
 		
 		 
@@ -166,7 +165,7 @@ public class BoardController {
 		
 		session.setAttribute("tags", taglist);
 		
-		return "board/book-write";
+		return "board/book/book-write";
 	}
 
 	@RequestMapping(value= {"/book-write"}, method=RequestMethod.POST)
@@ -215,6 +214,12 @@ public class BoardController {
 		int no = boardDao.write(board, num);
 		board = boardDao.detail_board(no, board.getItem_no());
 		
+		for(Image i: imageList) {
+			log.info("originfilename : " + i.getOriginFileName());
+			log.info("movefilename : " + i.getMoveFileName());
+			bookDao.upload_image(no, board.getItem_no(), i.getOriginFileName(), i.getMoveFileName());
+		}
+		
 		String nickname = boardDao.search_nickname(board.getWriter());
 		int point = boardDao.getpoint(nickname);
 		member.setPoint(point);
@@ -226,6 +231,14 @@ public class BoardController {
 		session.setAttribute("member", member);
 		
 		log.info(board.toString());
+		
+		//서버를 clean하면 업로드한 사진들은 없어지기 때문에 copyPath에 사진 업로드 
+		//글쓰기 할 때 저장
+		String savePath = request.getServletContext().getRealPath("/resources/image");
+		File targetPath = new File(savePath);
+		File copyPath = new File("E:\\sw\\image");		
+		copy(targetPath, copyPath);
+		imageList.clear();
 		
 		return "redirect:/book-detail?no="+board.getNo()+"&item_no="+board.getItem_no();
 	}
@@ -259,7 +272,7 @@ public class BoardController {
 		model.addAttribute("board", board);
 		model.addAttribute("book", book);
 		
-		return "board/book-preview";
+		return "board/book/book-preview";
 	}
 	
 	public Map<String, String> image_check(HttpServletRequest request, int no, int item_no, HttpServletResponse response, HttpSession session){
@@ -308,6 +321,18 @@ public class BoardController {
 //			log.info("tag : " + s);
 //		}
 //		
+		List<Image> list = bookDao.detail_board_image(no, item_no);
+		List<String> imageName = new ArrayList<>();
+		for(Image image: list) {
+			imageName.add(image.getMoveFileName());
+		}
+		
+		Map<Integer, String> replyNickname = new HashMap<>();	
+		List<Reply> listReply = replyDao.reply_list(no, item_no);
+		
+		for(Reply r: listReply) {
+			replyNickname.put(r.getNo(), bookDao.search_nickname(r.getWriter()));
+		}
 		
 		String nickname = boardDao.search_nickname(board.getWriter());
 
@@ -317,8 +342,11 @@ public class BoardController {
 		model.addAttribute("item", board.getItem_no());
 		model.addAttribute("good_img", result.get("good_img"));
 		model.addAttribute("bad_img", result.get("bad_img"));
+		model.addAttribute("imageName", imageName);
+		model.addAttribute("listReply", listReply);
+		model.addAttribute("replyNickname", replyNickname);
 		
-		return "board/book-detail";
+		return "board/book/book-detail";
 	}
 	
 	//키워드가 있을때도 있고 없을때도있음 
@@ -331,7 +359,7 @@ public class BoardController {
             model.addAttribute("keyword", keyword);
         }
         
-        return "board/bookList";
+        return "board/book/bookList";
     }
     
 	@RequestMapping(value= {"/book-revise/{no}/{item_no}"}, method=RequestMethod.GET)
@@ -367,7 +395,7 @@ public class BoardController {
 		model.addAttribute("item_no", board.getItem_no());
 		
 		
-		return "board/book-revise";
+		return "board/book/book-revise";
 	}
 	
     @RequestMapping(value= {"/book-revise/{no}/{item_no}"}, method=RequestMethod.POST)
@@ -419,21 +447,32 @@ public class BoardController {
 		boardDao.update_board(board, book, no, item_no, member.getId());
 		board = boardDao.detail_board(no, board.getItem_no());
 		
-		String nickname = boardDao.search_nickname(board.getWriter());
-		
-		model.addAttribute("nickname", nickname);
-		model.addAttribute("book", book);
-		model.addAttribute("board", board);
-		model.addAttribute("good_img", result.get("good_img"));
-		model.addAttribute("bad_img", result.get("bad_img"));
-		log.info("수정 후 board : " + board.toString());
-		
 		if(item_no!=0)
 			model.addAttribute("item", item_no);
 		else
 			model.addAttribute("item", board.getItem_no());
 		
-		return "board/book-detail";
+		List<Image> imageName = bookDao.delete_image(no, item_no);
+		
+		for(Image i: imageName) {
+			String savePath = request.getServletContext().getRealPath("/resources/image");
+			File targetPath = new File(savePath, i.getOriginFileName());
+			File copyPath = new File("E:\\sw\\image", i.getOriginFileName());
+			delete(targetPath);
+			delete(copyPath);
+		}
+		
+		for(Image i: imageList) {
+			bookDao.upload_image(no, board.getItem_no(), i.getOriginFileName(), i.getMoveFileName());
+		}
+		
+		String savePath = request.getServletContext().getRealPath("/resources/image");
+		File tPath = new File(savePath);
+		File cPath = new File("E:\\sw\\image");		
+		copy(tPath, cPath);
+		imageList.clear();
+		
+		return "redirect:/book-detail?no="+board.getNo()+"&item_no="+board.getItem_no();
     }
     
     @RequestMapping(value= {"/book-delete/{no}/{item_no}"}, method=RequestMethod.GET)
@@ -454,6 +493,20 @@ public class BoardController {
     	List<Tags> taglist = boardDao.taglist();
 		
 		session.setAttribute("tags", taglist);
+	    
+	List<Image> imageName = bookDao.delete_image(no, item_no);
+    	for(Image i: imageName) {
+			String savePath = request.getServletContext().getRealPath("/resources/image");
+			File targetPath = new File(savePath, i.getOriginFileName());
+			File copyPath = new File("E:\\sw\\image", i.getOriginFileName());
+			delete(targetPath);
+			delete(copyPath);
+		}
+
+    	String savePath = request.getServletContext().getRealPath("/resources/image");
+		File tPath = new File(savePath);
+		File cPath = new File("E:\\sw\\image");		
+		copy(tPath, cPath);
     	
     	return "redirect:/list?item_no="+item_no;
     }
@@ -699,8 +752,16 @@ public class BoardController {
 				File target = new File(path, moveFileName);
 				file.transferTo(target);
 				
-				//서버를 clean하면 업로드한 사진들은 없어지기 때문에 copyPath에 사진 업로드
-				copy(targetPath, copyPath);
+				BufferedImage bi = ImageIO.read( target );
+				int width = bi.getWidth();
+				int height = bi.getHeight();
+				log.info("폭 : " + width);
+				log.info("길이 : " + height);
+				
+				Image image = new Image();
+				image.setOriginFileName(filename);
+				image.setMoveFileName(moveFileName);
+				imageList.add(image);
 				
 				filename = moveFileName;
 				
@@ -708,6 +769,9 @@ public class BoardController {
 				
 				map.put("filename", filename);
 				map.put("flag", "true");
+				map.put("width", String.valueOf(width));
+				map.put("height", String.valueOf(height));
+
 				log.info("결과 : " + flag);
 				
 				
@@ -768,5 +832,20 @@ public class BoardController {
 		}
 	}
 
-
+	public void delete(File file){		
+		if(file.isFile()){
+			file.delete();
+			System.out.println(file.getAbsolutePath()+" 삭제");
+		}
+		else if(file.isDirectory()){
+			File[] list = file.listFiles();
+			if(list == null) return;
+			for(File target : list){
+				delete(target);
+			}
+				
+			file.delete();
+			System.out.println(file.getAbsolutePath()+" 삭제");
+		}
+	}
 }
