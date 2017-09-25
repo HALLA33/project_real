@@ -1,7 +1,6 @@
 package spring.model.board;
 
 import java.sql.ResultSet;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,8 +15,8 @@ import org.springframework.stereotype.Repository;
 
 import spring.model.member.Tags;
 
-@Repository("boardDao")
-public class BoardDaoImpl implements BookDao{
+@Repository("bookDao")
+public class BookDaoImpl implements BookDao{
 	private Logger log = LoggerFactory.getLogger(getClass());
 	private Map<Integer, Book> map = new HashMap<>(); 
 	

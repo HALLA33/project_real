@@ -1,20 +1,22 @@
 package spring.controller.board;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import javax.imageio.ImageIO;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.sound.midi.MidiDevice.Info;
 
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -30,22 +32,22 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import com.oreilly.servlet.MultipartRequest;
-import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
-
 import net.sf.jmimemagic.Magic;
 import net.sf.jmimemagic.MagicException;
 import net.sf.jmimemagic.MagicMatchNotFoundException;
 import net.sf.jmimemagic.MagicParseException;
 import spring.model.board.Board;
-import spring.model.board.BoardDao;
 import spring.model.board.Book;
+import spring.model.board.BookDao;
+import spring.model.board.Image;
+import spring.model.board.Reply;
+import spring.model.board.ReplyDao;
 import spring.model.member.Member;
 import spring.model.member.Tags;
 import spring.service.NaverBookService;
 
 @Controller
-public class BoardController {
+public class BookController {
 	private Logger log = LoggerFactory.getLogger(getClass());
 	private List<Image> imageList = new ArrayList<>();
 	
@@ -77,9 +79,9 @@ public class BoardController {
 		int boardCount = 0;
 		
 		if(tag == null) {
-			boardCount = boardDao.count(item_no); 	
+			boardCount = bookDao.count(item_no); 	
 		}else {
-			boardCount = boardDao.count2(tag); 	
+			boardCount = bookDao.count2(tag); 	
 		}
 		
 		int start = boardSize * pageNo - boardSize + 1;
@@ -106,19 +108,19 @@ public class BoardController {
 		System.out.println("controller head ="+head);
 		System.out.println("controller align = "+align);
 		
-		List<Board> board = boardDao.board_list(start, end, item_no, head, align, tag);
+		List<Board> board = bookDao.board_list(start, end, item_no, head, align, tag);
 		
 		Map<Integer, String> nickname = new HashMap<>();	
 		Map<Integer, Book> book = null;
 		for(Board b: board) {
-			book = boardDao.book_list(b.getSearch_no());
+			book = bookDao.book_list(b.getSearch_no());
 			b.setB_item_no(b.getItem_no());
 			b.setB_head(b.getHead());
 			replaceDetail(b);
-			nickname.put(b.getNo(), boardDao.search_nickname(b.getWriter()));
+			nickname.put(b.getNo(), bookDao.search_nickname(b.getWriter()));
 		}
 		
-		List<Tags> taglist = boardDao.taglist();
+		List<Tags> taglist = bookDao.taglist();
 		
 		session.setAttribute("tags", taglist);
 		
@@ -137,9 +139,9 @@ public class BoardController {
 		model.addAttribute("align", align);
 		
 		if(align == 0) {
-			return "board/book/list";
+			return "board/list";
 		}else {
-			return "board/book/list_read";
+			return "board/list_read";
 		}
 		
 		 
@@ -161,7 +163,7 @@ public class BoardController {
 	public String book_write(Model model, @RequestParam(required=false) int item_no, HttpSession session){
 		model.addAttribute("item_no", item_no);
 		
-		List<Tags> taglist = boardDao.taglist();
+		List<Tags> taglist = bookDao.taglist();
 		
 		session.setAttribute("tags", taglist);
 		
@@ -202,17 +204,17 @@ public class BoardController {
 		board.setTag(convert_tag);
 		
 		int num = 0;
-		List<Book> list = boardDao.exist_book(book);
+		List<Book> list = bookDao.exist_book(book);
 		for(Book b:list) {
 			num = b.getNo();
 		}
 
 		//책이 존재하지 않으면 새로 저장
 		if(num==0) 
-			num = boardDao.search_write(book);
+			num = bookDao.search_write(book);
 
-		int no = boardDao.write(board, num);
-		board = boardDao.detail_board(no, board.getItem_no());
+		int no = bookDao.write(board, num);
+		board = bookDao.detail_board(no, board.getItem_no());
 		
 		for(Image i: imageList) {
 			log.info("originfilename : " + i.getOriginFileName());
@@ -220,11 +222,11 @@ public class BoardController {
 			bookDao.upload_image(no, board.getItem_no(), i.getOriginFileName(), i.getMoveFileName());
 		}
 		
-		String nickname = boardDao.search_nickname(board.getWriter());
-		int point = boardDao.getpoint(nickname);
+		String nickname = bookDao.search_nickname(board.getWriter());
+		int point = bookDao.getpoint(nickname);
 		member.setPoint(point);
 		
-		List<Tags> taglist = boardDao.taglist();
+		List<Tags> taglist = bookDao.taglist();
 		
 		session.setAttribute("tags", taglist);
 		
@@ -310,8 +312,8 @@ public class BoardController {
 		Board board = null;
 		Book book = null;
 		
-		board = boardDao.detail_board(no, item_no);
-		book = boardDao.detail_book(board.getSearch_no());
+		board = bookDao.detail_board(no, item_no);
+		book = bookDao.detail_book(board.getSearch_no());
 		board.setB_item_no(board.getItem_no());
 		board.setB_head(board.getHead());
 		
@@ -334,7 +336,7 @@ public class BoardController {
 			replyNickname.put(r.getNo(), bookDao.search_nickname(r.getWriter()));
 		}
 		
-		String nickname = boardDao.search_nickname(board.getWriter());
+		String nickname = bookDao.search_nickname(board.getWriter());
 
 		model.addAttribute("nickname", nickname);		
 		model.addAttribute("board", board);
@@ -368,8 +370,8 @@ public class BoardController {
 		Board board = null;
 		Book book = null;
 		log.info("아이디 : " + member.getId());
-		board = boardDao.detail_board(no, item_no, member.getId());	
-		book = boardDao.detail_book(board.getSearch_no());
+		board = bookDao.detail_board(no, item_no, member.getId());	
+		book = bookDao.detail_book(board.getSearch_no());
 		
 		String tag = board.getTag();
 		String convert_tag = null;
@@ -387,7 +389,7 @@ public class BoardController {
 		}
 		board.setTag(convert_tag);
 		
-		String nickname = boardDao.search_nickname(member.getId());
+		String nickname = bookDao.search_nickname(member.getId());
 
 		model.addAttribute("nickname", nickname);		
 		model.addAttribute("board", board);
@@ -434,18 +436,18 @@ public class BoardController {
 		board.setTag(convert_tag);
 		
 		int num = 0;
-		List<Book> list = boardDao.exist_book(book);
+		List<Book> list = bookDao.exist_book(book);
 		for(Book b:list) {
 			num = b.getNo();
 		}
 		
 		//책이 존재하지 않으면 새로 저장
 		if(num==0) 
-			num = boardDao.search_write(book);
+			num = bookDao.search_write(book);
 			
 		board.setSearch_no(num);
-		boardDao.update_board(board, book, no, item_no, member.getId());
-		board = boardDao.detail_board(no, board.getItem_no());
+		bookDao.update_board(board, book, no, item_no, member.getId());
+		board = bookDao.detail_board(no, board.getItem_no());
 		
 		if(item_no!=0)
 			model.addAttribute("item", item_no);
@@ -483,14 +485,14 @@ public class BoardController {
     	log.info("실행됨"  + tag);
     	
     	if(member.getPower().equals("일반")) {
-    		boardDao.delete_board(no, item_no, member.getId(), tag);    		
+    		bookDao.delete_board(no, item_no, member.getId(), tag);    		
     	}else if(member.getPower().equals("관리자") || member.getPower().equals("스탭")) {
-    		boardDao.delete_board(no, item_no, tag);
+    		bookDao.delete_board(no, item_no, tag);
     	}
 		
-    	boardDao.board_delete_cookie(no, item_no);
+    	bookDao.board_delete_cookie(no, item_no);
     	
-    	List<Tags> taglist = boardDao.taglist();
+    	List<Tags> taglist = bookDao.taglist();
 		
 		session.setAttribute("tags", taglist);
 	    
@@ -532,14 +534,14 @@ public class BoardController {
 		
 		if(result.get("good").equals("black")) {
 			good_img = "img/after_goods.png";
-			boardDao.plus_minus_Count(1, no, item_no);
+			bookDao.plus_minus_Count(1, no, item_no);
 		}
 		else {
 			good_img = "img/before_goods.png";
-			boardDao.plus_minus_Count(2, no, item_no);
+			bookDao.plus_minus_Count(2, no, item_no);
 		}
 
-		Board board = boardDao.detail_board(no, item_no);
+		Board board = bookDao.detail_board(no, item_no);
 		//board.getGood()
 		
 		map.put("good_img", good_img);
@@ -559,14 +561,14 @@ public class BoardController {
 		
 		if(result.get("bad").equals("black")) {
 			bad_img = "img/after_bads.png";
-			boardDao.plus_minus_Count(3, no, item_no);
+			bookDao.plus_minus_Count(3, no, item_no);
 		}
 		else {
 			bad_img = "img/before_bads.png";
-			boardDao.plus_minus_Count(4, no, item_no);
+			bookDao.plus_minus_Count(4, no, item_no);
 		}
 
-		Board board = boardDao.detail_board(no, item_no);
+		Board board = bookDao.detail_board(no, item_no);
 		
 		map.put("bad_img", bad_img);
 		map.put("bad_number", String.valueOf(board.getBad()));
@@ -598,9 +600,9 @@ public class BoardController {
 			response.addCookie(cookie);
 			
 			//조회수 업데이트
-			boardDao.plus_minus_Count(0, no, item_no);
+			bookDao.plus_minus_Count(0, no, item_no);
 			//쿠키 테이블에 추가
-			boardDao.insert_cookie(1, cookie_name, new_cookie, no, item_no, member.getId());
+			bookDao.insert_cookie(1, cookie_name, new_cookie, no, item_no, member.getId());
 		}
 
 	}
@@ -656,7 +658,7 @@ public class BoardController {
 				response.addCookie(c_cookie);
 				
 				//쿠키 테이블에 등록
-				boardDao.insert_cookie(2, good_cookie_name, cookie, no, item_no, member.getId());
+				bookDao.insert_cookie(2, good_cookie_name, cookie, no, item_no, member.getId());
 			}
 			else {
 				result.put("good", "blue");
@@ -666,7 +668,7 @@ public class BoardController {
 			    response.addCookie(r_cookie) ;
 			    
 			    //쿠키 테이블에서 삭제
-			    boardDao.delete_cookie(2, member.getId());
+			    bookDao.delete_cookie(2, member.getId());
 			}
 		}
 		else if(flag == 2) {
@@ -678,7 +680,7 @@ public class BoardController {
 				Cookie c_cookie = new Cookie(bad_cookie_name, cookie);
 				response.addCookie(c_cookie);
 				//쿠키 테이블에 등록
-				boardDao.insert_cookie(3, bad_cookie_name, cookie, no, item_no, member.getId());
+				bookDao.insert_cookie(3, bad_cookie_name, cookie, no, item_no, member.getId());
 			}
 			else {
 				result.put("bad", "blue");
@@ -688,7 +690,7 @@ public class BoardController {
 			    response.addCookie(r_cookie) ;
 			    
 			    //쿠키 테이블에서 삭제
-			    boardDao.delete_cookie(3, member.getId());
+			    bookDao.delete_cookie(3, member.getId());
 			}
 		}
 		return result;

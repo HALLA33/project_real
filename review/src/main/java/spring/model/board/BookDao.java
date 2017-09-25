@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import spring.model.member.Tags;
 
 @Repository
-public interface BoardDao {
+public interface BookDao {
 	List<Board> board_list(int start, int end, int item_no, int head, int align, String tag);
 	Map<Integer, Book> book_list(int no);
 	int write(Board board, int no);
