@@ -103,6 +103,6 @@ nhn.husky.SE2M_AttachQuickPhoto = jindo.$Class({
 		return sTag;
 	}
 });
-function pasteHTML(filepath){ 
-	parent.pasteHTML(filepath);
-} 	
+function pasteHTML(filepath, width, height){ 
+	parent.pasteHTML(filepath, width, height);
+} 		
