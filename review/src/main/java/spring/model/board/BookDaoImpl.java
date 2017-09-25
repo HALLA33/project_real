@@ -109,7 +109,7 @@ public class BookDaoImpl implements BookDao{
 	@Override
 	public Map<Integer, Book> book_list(int no) {
 		Object[] args = {no};
-		List<Book> list = jdbcTemplate.query("select * from p_search where no=?", args, bmapper);
+		List<Book> list = jdbcTemplate.query("select * from p_search_book where no=?", args, bmapper);
 		
 		for(Book book: list) {
 			map.put(no, book);
@@ -121,7 +121,7 @@ public class BookDaoImpl implements BookDao{
 	}
 
 	public int search_no() {
-		String sql = "select p_search_seq.nextval from dual";
+		String sql = "select p_search_book_seq.nextval from dual";
 		int no = jdbcTemplate.queryForObject(sql, Integer.class);
 		
 		return no;
@@ -131,7 +131,7 @@ public class BookDaoImpl implements BookDao{
 	public int search_write(Book book) {
 		int no = search_no();
 		
-		String sql = "insert into p_search values(?, ?, ?, ?, ?, ?)";
+		String sql = "insert into p_search_book values(?, ?, ?, ?, ?, ?)";
 		Object[] args = {no, book.getTitle(), book.getImage(), book.getAuthor(), book.getPublisher(), book.getPubdate()};
 		
 		log.info("search_write실행", book.toString());
@@ -230,7 +230,7 @@ public class BookDaoImpl implements BookDao{
 
 	@Override
 	public List<Book> exist_book(Book book) {
-		String sql = "select * from p_search where title=? and author=?";
+		String sql = "select * from p_search_book where title=? and author=?";
 		
 		Object[] args = {book.getTitle(), book.getAuthor()};	
 		return jdbcTemplate.query(sql, args, bmapper);
@@ -239,7 +239,7 @@ public class BookDaoImpl implements BookDao{
 
 	@Override
 	public Book detail_book(int no) {
-		String sql = "select * from p_search where no=?";
+		String sql = "select * from p_search_book where no=?";
 		
 		Object[] args = {no};
 		List<Book> list = jdbcTemplate.query(sql, args, bmapper);
