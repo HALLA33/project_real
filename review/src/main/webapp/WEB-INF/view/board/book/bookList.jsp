@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <html>
 <head>
@@ -22,13 +23,24 @@
 
 		$(opener.document).find("#book_name").val(title);
 		
-		$(opener.document).find("#image").attr('src',image);
+		var imageSize = image.length;
+		if(imageSize<=0){
+			$(opener.document).find("#image").attr('src',"${pageContext.request.contextPath}/img/noImage.PNG");
+			$(opener.document).find("#image").attr('width',"120");
+			$(opener.document).find("#image").attr('height',"120");
+			$(opener.document).find(".image").val("${pageContext.request.contextPath}/img/noImage.PNG");
+		}
+		else{
+			$(opener.document).find("#image").attr('src',image);
+			$(opener.document).find(".image").val(image);
+		}
+		
 		$(opener.document).find("#book_title").text(title);
 		$(opener.document).find("#author").text(author);
 		$(opener.document).find("#publisher").text(publisher);
 		$(opener.document).find("#pubdate").text(pubdate);
 		
-		$(opener.document).find(".image").val(image);
+		
 		$(opener.document).find(".book_title").val(title);
 		$(opener.document).find(".author").val(author);
 		$(opener.document).find(".publisher").val(publisher);
@@ -56,7 +68,14 @@
 				<li style="border:1px solid #bcbcbc; padding: 10px; width:650px;">
 					<div class="row form-inline">
 						<div class="form-group area-20" >
-							<img id="b_image" src="${b.image}">
+							<c:choose>
+								<c:when test="${fn:length(b.image) == 0 }">
+									<img id="b_image" src="${pageContext.request.contextPath}/img/noImage.PNG" width="120" height="120">
+								</c:when>
+								<c:otherwise>
+									<img id="b_image" src="${b.image }">
+								</c:otherwise>
+							</c:choose>
 						</div>
 						<div style="padding-left: 10px;">
 							<h5 style="font-size:14px; width: 500px">${b.title }</h5>
