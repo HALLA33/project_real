@@ -15,6 +15,13 @@
 		var session = '${sessionScope.member.id}';
 		replyCheck(session);
 		
+		var img = '${book.image}'
+		if(img.length==0){
+			$("#image").attr("src", "${pageContext.request.contextPath}/img/noImage.PNG");
+			$("#image").attr("width", "120");
+			$("#image").attr("height", "120");
+		}
+		
 		$("#good").on("click", function(){
 			var no = '${board.no}';
 			var item_no = '${board.item_no}';
