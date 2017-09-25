@@ -56,7 +56,7 @@
 				form.submit();
 			}
 		});
-	});
+	
 	
 	//-- 버튼 클릭시 버튼을 클릭한 위치 근처에 레이어 생성 --//
 	$("#icon").on("click", function(e) {
@@ -79,7 +79,7 @@
 	     , "position": "absolute"
 	 }).show();
 	});
-
+	});
 	
 	function valid(form){
 		var msg = null;
@@ -126,7 +126,14 @@
 		weaLabel.innerHTML = "<input type='hidden'  name='weather' value='"+img.name+"'>"+img.name;
 		weatherSelector.style.display = "none";
 	}
-	
+	function emoDel(){
+		var emoLabel = document.querySelector("#emoLabel");
+		emoLabel.innerHTML = "";
+	}
+	function weaDel(){
+		var weaLabel = document.querySelector("#weaLabel");
+		weaLabel.innerHTML = "";
+	}
 </script>
 
 <article>
@@ -177,7 +184,8 @@
 			<input type="button"  name="weather" id="weather" value="날씨 이모티콘 넣기">
 		</div>
 	</div>
-	<label id="emoLabel"></label>&nbsp;&nbsp;<label id=weaLabel></label>
+	<label id="emoLabel"><input type="hidden"  name="emotion" value="${emotion}"></label>&nbsp;&nbsp;
+	<label id=weaLabel><input type="hidden"  name="weather" value="${weather}"></label>
 	
 	<!-- 감정 이모티콘 레이어  -->
 	<div id="emotionSelector">
