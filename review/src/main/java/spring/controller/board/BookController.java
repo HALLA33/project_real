@@ -378,8 +378,10 @@ public class BookController {
 		book = bookDao.detail_book(board.getSearch_no());
 		
 		String tag = board.getTag();
-		
-		tag = tag.replace("#", "").replace("/", ",");
+		if(tag != null) {
+			tag = tag.replace("#", "").replace("/", ",");
+		}
+			
 
 		board.setTag(tag);
 		
