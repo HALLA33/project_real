@@ -357,7 +357,7 @@ public class MovieController {
 			num = movieDao.search_write(movie);
 			
 		board.setSearch_no(num);
-		bookDao.update_board(board, no, item_no, member.getId());
+		bookDao.update_board(board, no, item_no, member.getId(), tag);
 		board = bookDao.detail_board(no, board.getItem_no());
 		
 		if(item_no!=0)

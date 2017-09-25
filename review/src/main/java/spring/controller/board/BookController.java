@@ -158,7 +158,7 @@ public class BookController {
 	}
 	
 	@RequestMapping(value= {"/book-write"}, method=RequestMethod.GET)
-	public String book_write(Model model, @RequestParam(required=false) int item_no, @RequestParam(required=false) int head, HttpSession session){
+	public String book_write(Model model, @RequestParam(required=false) int item_no, @RequestParam(defaultValue="-1") int head, HttpSession session){
 		model.addAttribute("item_no", item_no);
 		model.addAttribute("head", head);
 		
@@ -449,7 +449,7 @@ public class BookController {
 			num = bookDao.search_write(book);
 			
 		board.setSearch_no(num);
-		bookDao.update_board(board, book, no, item_no, member.getId(), tag);
+		bookDao.update_board(board, no, item_no, member.getId(), tag);
 		board = bookDao.detail_board(no, board.getItem_no());
 		
 		if(item_no!=0)
