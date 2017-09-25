@@ -151,14 +151,14 @@
 			<label>카테고리</label>
 		</div>
 	   	<div class="form-group mx-sm-3">
-	   		<select name="item_no" class="user-input" id="margin">
+	   		<select name="item_no" class="user-input" id="item_no">
 	   			<option value="-1">선택</option>
 	   			<option id="item_no_notice" value = "0">공지</option>
 	   			<option value = "1">국내도서</option>
 				<option value = "2" >해외도서</option>  
 	   		</select> 
 	    </div>
-		<select name="head" id="head" class="user-input" id="right">  
+		<select name="head" id="head" class="user-input" id="head">  
 			<option value="-1">장르</option>
 			<option id="head_notice" value = "0">공지</option>
 			<option value = "1" >SF/판타지/무협</option>  
