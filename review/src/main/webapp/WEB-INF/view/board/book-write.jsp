@@ -3,6 +3,17 @@
    
 <%-- header.jsp를 불러와서 배치하는 코드 --%>
 <%@ include file="/WEB-INF/view/template/header.jsp" %>  
+<style>
+#iconSelector, #weatherSelector {
+	 position:absolute;
+	 display:none;
+	 background-color:#b0c4de;
+	 border:solid 2px #d0d0d0;
+	 width:200px;
+	 height:150px;
+	 padding:10px;
+}
+</style>
 
 <script>
 	$(document).ready(function(){	
@@ -40,6 +51,28 @@
 				form.action="book-write";
 				form.submit();
 			}
+		});
+		
+		//-- 버튼 클릭시 버튼을 클릭한 위치 근처에 레이어 생성 --//
+		$("#icon").on("click", function(e) {
+		 var divTop = e.clientY + 10; //상단 좌표
+		 var divLeft = e.clientX + 10; //좌측 좌표
+		 $('#iconSelector').css({
+		     "top": divTop
+		     ,"left": divLeft
+		     , "position": "absolute"
+		 }).show();
+		});
+		
+		//-- 버튼 클릭시 버튼을 클릭한 위치 근처에 레이어 생성 --//
+		$("#weather").on("click", function(e) {
+		 var divTop = e.clientY + 10; //상단 좌표
+		 var divLeft = e.clientX + 10; //좌측 좌표
+		 $('#weatherSelector').css({
+		     "top": divTop
+		     ,"left": divLeft
+		     , "position": "absolute"
+		 }).show();
 		});
 
 	});
@@ -84,6 +117,9 @@
 
 	}
 
+	function iconClick(img){
+		console.log(img.name);
+	}
 </script>
 
 <article>
@@ -125,6 +161,52 @@
 			<input type="text" name="title" class="user-input area-90" required>
 		</div>
 	</div>
+	
+	<div class="row form-inline">
+		<div class="form-group area-20">
+			<input type="button" name="icon" id="icon" value="감정 이모티콘 넣기">
+		</div>
+		<div class="form-group mx-sm-3">
+			<input type="button"  name="weather" id="weather" value="날씨 이모티콘 넣기">
+		</div>
+	</div>
+	
+	<!-- 감정 이모티콘 레이어  -->
+	<div id="iconSelector">
+	        <div style="position:absolute;top:5px;right:5px">
+	        <span onClick="javascript:document.getElementById('iconSelector').style.display='none'" style="cursor:pointer;font-size:1.5em" title="닫기">X</span>
+	        </div> 
+	        <img id="love" name="love" src="<c:url value="/img/icon_love.png"/>"  onclick="iconClick(this)" width="50" height="50">
+	        <img id="good" name="good" src="<c:url value="/img/icon_good.png"/>" onclick="iconClick(this)" width="50" height="50">
+	        <img id="sogood" name="sogood" src="<c:url value="/img/icon_sogood.png"/>" onclick="iconClick(this)" width="50" height="50"> <br>
+	        <img id="funny" name="funny" src="<c:url value="/img/icon_funny.png"/>" onclick="iconClick(this)" width="50" height="50">
+	        <img id="fighting" name="fighting" src="<c:url value="/img/icon_fighting.png"/>" onclick="iconClick(this)" width="50" height="50">
+	        <img id="angry" name="angry" src="<c:url value="/img/icon_angry.png"/>" onclick="iconClick(this)" width="50" height="50"> <br>
+	        <img id="bad" name="bad" src="<c:url value="/img/icon_bad.png"/>" onclick="iconClick(this)" width="50" height="50">
+	        <img id="shock" name="shock" src="<c:url value="/img/icon_shock.png"/>" onclick="iconClick(this)" width="50" height="50">
+	        <img id="sobad" name="sobad" src="<c:url value="/img/icon_sobad.png"/>" onclick="iconClick(this)" width="50" height="50">
+	        <img id="tired" name="tired" src="<c:url value="/img/icon_tired.png"/>" onclick="iconClick(this)" width="50" height="50">
+	</div>
+	<!-- //감정 이모티콘 레이어  -->
+	
+	<!-- 날씨 이모티콘 레이어  -->
+	<div id="weatherSelector">
+	        <div style="position:absolute;top:5px;right:5px">
+	        <span onClick="javascript:document.getElementById('weatherSelector').style.display='none'" style="cursor:pointer;font-size:1.5em" title="닫기">X</span>
+	        </div> 
+	         <img id="sunny" name="sunny" src="<c:url value="/img/sunny.png"/>"  onclick="iconClick(this)" width="50" height="50">
+	        <img id="sunny_cloudy" name="sunny_cloudy" src="<c:url value="/img/isunny_cloudy.png"/>" onclick="iconClick(this)" width="50" height="50">
+	        <img id="rainy" name="rainy" src="<c:url value="/img/irainy.png"/>" onclick="iconClick(this)" width="50" height="50"> <br>
+	        <img id="cloudy" name="cloudy" src="<c:url value="/img/cloudy.png"/>" onclick="iconClick(this)" width="50" height="50">
+	        <img id="night" name="night" src="<c:url value="/img/night.png"/>" onclick="iconClick(this)" width="50" height="50">
+	        <img id="heavy_rain" name="heavy_rain" src="<c:url value="/img/heavy_rain.png"/>" onclick="iconClick(this)" width="50" height="50"> <br>
+	        <img id="snow_rainy" name="snow_rainy" src="<c:url value="/img/snow_rainy.png"/>" onclick="iconClick(this)" width="50" height="50">
+	        <img id="thunder" name="thunder" src="<c:url value="/img/thunder.png"/>" onclick="iconClick(this)" width="50" height="50">
+	        <img id="packed_weather" name="packed_weather" src="<c:url value="/img/packed_weather.png"/>" onclick="iconClick(this)" width="50" height="50">
+	        <img id="snowy" name="snowy" src="<c:url value="/img/snowy.png"/>" onclick="iconClick(this)" width="50" height="50">
+	</div>
+	<!-- //날씨 이모티콘 레이어  -->
+	
 	<div class="row form-inline">
 		<div class="form-group area-20" >
 			<label>책 검색</label>
@@ -182,10 +264,20 @@
     	}
     	
     	// textArea에 이미지 첨부
-    	function pasteHTML(filename){
+    	function pasteHTML(filename, width, height){
     		console.log(filename);
+    		console.log(parseInt(width));
+    		console.log(parseInt(height));
+    		var sHTML;
     		
-    		var sHTML = '<img src="${pageContext.request.contextPath}/image/'+filename+'">';
+    		if(width>=500){
+    			console.log("이상")
+    			sHTML = '<img src="${pageContext.request.contextPath}/image/'+filename+'" style="width:700px">';
+    		}
+    		else{
+    			console.log("이하")
+    			sHTML = '<img src="${pageContext.request.contextPath}/image/'+filename+'">';
+    		}
     	    oEditors.getById["ir1"].exec("PASTE_HTML", [sHTML]);
     	}
     	
