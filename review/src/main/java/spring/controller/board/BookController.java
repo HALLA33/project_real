@@ -40,6 +40,8 @@ import spring.model.board.Board;
 import spring.model.board.Book;
 import spring.model.board.BookDao;
 import spring.model.board.Image;
+import spring.model.board.Movie;
+import spring.model.board.MovieDao;
 import spring.model.board.Reply;
 import spring.model.board.ReplyDao;
 import spring.model.member.Member;
@@ -56,6 +58,9 @@ public class BookController {
 	
 	@Autowired
 	private BookDao bookDao;
+	
+	@Autowired
+	private MovieDao movieDao;
 	
 	@Autowired
 	private ReplyDao replyDao;
@@ -110,8 +115,10 @@ public class BookController {
 		
 		Map<Integer, String> nickname = new HashMap<>();	
 		Map<Integer, Book> book = null;
+		Map<Integer, Movie> movie = null;
 		for(Board b: board) {
 			book = bookDao.book_list(b.getSearch_no());
+			movie = movieDao.movie_list(b.getSearch_no());
 			b.setB_item_no(b.getItem_no());
 			b.setB_head(b.getHead());
 			replaceDetail(b);
@@ -125,6 +132,7 @@ public class BookController {
 		model.addAttribute("nickname", nickname);
 		model.addAttribute("board", board);
 		model.addAttribute("book", book);
+		model.addAttribute("movie", movie);
 		model.addAttribute("startBlock", startBlock);
 		model.addAttribute("endBlock", endBlock);
 		model.addAttribute("blockTotal", blockTotal);
