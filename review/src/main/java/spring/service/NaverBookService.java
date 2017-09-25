@@ -20,7 +20,7 @@ import org.xmlpull.v1.XmlPullParserFactory;
 import spring.model.board.Book;
  
  
-@Service
+@Service("naverBookService")
 public class NaverBookService {
 	private Logger log = LoggerFactory.getLogger(getClass());
 	
