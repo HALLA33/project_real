@@ -142,16 +142,8 @@
 	   		<select name="item_no" class="user-input" id="margin">
 	   			<option value="-1">선택</option>
 	   			<option id="item_no_notice" value = "0">공지</option>
-	   			<c:choose>
-	   				<c:when test="${item_no} eq 1">
-	   					<option value = "1" selected>국내도서</option>
-						<option value = "2" >해외도서</option>  
-	   				</c:when>
-	   				<c:when test="${item_no} eq 2">
-	   					<option value = "1">국내도서</option>
-						<option value = "2" selected>해외도서</option>
-	   				</c:when>
-	   			</c:choose>
+	   			<option value = "1" selected>국내도서</option>
+				<option value = "2" >해외도서</option>  
 	   		</select> 
 	    </div>
 		<select name="head" id="head" class="user-input" id="right">  

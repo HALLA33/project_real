@@ -382,7 +382,6 @@ public class BookController {
 			tag = tag.replace("#", "").replace("/", ",");
 		}
 			
-
 		board.setTag(tag);
 		
 		String nickname = bookDao.search_nickname(member.getId());
@@ -391,6 +390,8 @@ public class BookController {
 		model.addAttribute("board", board);
 		model.addAttribute("book", book);
 		model.addAttribute("item_no", board.getItem_no());
+		model.addAttribute("emotion", board.getEmotion());
+		model.addAttribute("weather", board.getWeather());
 		
 		
 		return "board/book/book-revise";

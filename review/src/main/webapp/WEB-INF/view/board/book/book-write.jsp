@@ -131,6 +131,14 @@
 		weaLabel.innerHTML = "<input type='hidden'  name='weather' value='"+img.name+"'>"+img.name;
 		weatherSelector.style.display = "none";
 	}
+	function emoDel(){
+		var emoLabel = document.querySelector("#emoLabel");
+		emoLabel.innerHTML = "";
+	}
+	function weaDel(){
+		var weaLabel = document.querySelector("#weaLabel");
+		weaLabel.innerHTML = "";
+	}
 </script>
 
 <article>
@@ -197,6 +205,7 @@
 	        <img class="icon" id="shock" name="shock" src="<c:url value="/img/icon_shock.PNG"/>" onclick="emoClick(this)" width="40" height="30">
 	        <img class="icon" id="sobad" name="sobad" src="<c:url value="/img/icon_sobad.PNG"/>" onclick="emoClick(this)" width="40" height="30">
 	        <img class="icon" id="tired" name="tired" src="<c:url value="/img/icon_tired.PNG"/>" onclick="emoClick(this)" width="40" height="30">
+	        <label style="margin-left: 0;" width="130" height="30" onclick="emoDel()">삭제하기</label>
 	</div>
 	<!-- //감정 이모티콘 레이어  -->
 	
@@ -214,6 +223,7 @@
 	        <img class="icon" id="thunder" name="thunder" src="<c:url value="/img/thunder.PNG"/>" onclick="weaClick(this)" width="40" height="30">
 	        <img class="icon" id="packed_weather" name="packed_weather" src="<c:url value="/img/packed_weather.PNG"/>" onclick="weaClick(this)" width="40" height="30">
 	        <img class="icon" id="snowy" name="snowy" src="<c:url value="/img/snowy.PNG"/>" onclick="weaClick(this)" width="40" height="30">
+	        <label style="margin-left: 0;" width="130" height="30" onclick="weaDel()">삭제하기</label>
 	</div>
 	<!-- //날씨 이모티콘 레이어  -->
 	
