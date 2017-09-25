@@ -430,10 +430,8 @@ public class BookDaoImpl implements BookDao{
 	}
 	@Override
 	public List<Tags> taglist() {
-		String sql = "select * from "
-				+ "(select rownum rn, A.* from "
-				+ "(select * from tags order by no desc)A) "
-				+ "where rn between 1 and 10";
+		String sql = "select * from (select rownum rn, A.* from (select distinct tag, min(no) from "
+				+ "tags group by tag order by min(no) desc, tag)A) where rn between 1 and 10";
 		
 		List<Tags> list = jdbcTemplate.query(sql, mapper2);
 		
