@@ -169,9 +169,9 @@ public class BookController {
 		if(item_no==1 || item_no==2)
 			return "board/book/book-write";
 		else if(item_no==3 || item_no==4)
-			return "board/movie/movie-write";
+			return "redirect:/movie/movie-write";
 		else
-			return "board/movie/movie-write";
+			return "redirect:/movie/movie-write";
 	}
 
 	@RequestMapping(value= {"/book-write"}, method=RequestMethod.POST)
