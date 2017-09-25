@@ -16,7 +16,11 @@
 		replyCheck(session);
 		
 		var img = '${movie.image}';
-		console.log("길이 : " + img.length);
+		if(img.length==0){
+			$("#image").attr("src", "${pageContext.request.contextPath}/img/noImage.PNG");
+			$("#image").attr("width", "120");
+			$("#image").attr("height", "120");
+		}
 		
 		$("#good").on("click", function(){
 			var no = '${board.no}';
@@ -177,14 +181,7 @@
 				<td>
 					<div class="row form-inline" style="border: 1px; margin:10px">
 						<div class="form-group area-20" >
-							<c:choose>
-								<c:when test="${book[board.search_no].image==null }">
-									<img id="image" src="${pageContext.request.contextPath}/img/noImage.PNG" width="80" height="100">
-								</c:when>
-								<c:otherwise>
-									<img style="width:80px; height:100px" src="${book[board.search_no].image }">
-								</c:otherwise>
-							</c:choose>
+							<img id="image" src="${movie.image }">
 						</div>
 						<div style="padding-left: 10px">
 							<h5 style="font-size: 15px; width: 500px">${movie.title }</h5>
