@@ -266,7 +266,7 @@ public class BookDaoImpl implements BookDao{
 	}
 
 	@Override
-	public void update_board(Board board, Book book, int no, int item_no, String writer, String tag) {		
+	public void update_board(Board board, int no, int item_no, String writer, String tag) {		
 		String sql = "update p_board set item_no=?, head=?, tag=?, title=?, detail=?, reg=sysdate, search_no=?, emotion=?, weather=? where no=? and item_no=? and writer=?";
 		
 		Object[] args = {board.getItem_no(), board.getHead(), board.getTag(), board.getTitle(), board.getDetail(),
