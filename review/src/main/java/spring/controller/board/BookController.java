@@ -52,7 +52,7 @@ public class BookController {
 	private List<Image> imageList = new ArrayList<>();
 	
 	@Autowired
-    private NaverBookService service; 
+    private NaverBookService naverBookService; 
 	
 	@Autowired
 	private BookDao bookDao;
@@ -158,14 +158,20 @@ public class BookController {
 	}
 	
 	@RequestMapping(value= {"/book-write"}, method=RequestMethod.GET)
-	public String book_write(Model model, @RequestParam(required=false) int item_no, HttpSession session){
+	public String book_write(Model model, @RequestParam(required=false) int item_no, @RequestParam(required=false) int head, HttpSession session){
 		model.addAttribute("item_no", item_no);
+		model.addAttribute("head", head);
 		
 		List<Tags> taglist = bookDao.taglist();
 		
 		session.setAttribute("tags", taglist);
 		
-		return "board/book/book-write";
+		if(item_no==1 || item_no==2)
+			return "board/book/book-write";
+		else if(item_no==3 || item_no==4)
+			return "board/movie/movie-write";
+		else
+			return "board/movie/movie-write";
 	}
 
 	@RequestMapping(value= {"/book-write"}, method=RequestMethod.POST)
@@ -361,7 +367,7 @@ public class BookController {
     public String bookList(Model model, @RequestParam(required=false)String keyword){        
         if(keyword !=null)
         {
-        	model.addAttribute("bookList", service.searchBook(keyword,10,1));
+        	model.addAttribute("bookList", naverBookService.searchBook(keyword,10,1));
             model.addAttribute("keyword", keyword);
         }
         
@@ -509,16 +515,6 @@ public class BookController {
     	
     	return "redirect:/list?item_no="+item_no;
     }
-    
-    @RequestMapping(value =  {"/movie-write", "/show-write"}, method=RequestMethod.GET)
-	public String write_get(HttpServletRequest request,HttpSession session) {
-		session.getAttribute("nickname");
-		
-		String servletPath  = (String)request.getServletPath();
-		if(servletPath.equals("/movie-write")) return "board/movie-write";
-		else if(servletPath.equals("/show-write")) return "/show-write";
-		else return "/";
-	}
     
     @RequestMapping(value= {"/goodCount"}, method=RequestMethod.POST)
     @ResponseBody
