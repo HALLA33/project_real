@@ -44,7 +44,7 @@
 				alert(msg);
 			else{
 				window.open("", "preview", "width=750, height=800");
-				form.action="movie/movie-preview";
+				form.action="movie-preview";
  				form.target="preview";
 				form.submit();
 			}
@@ -57,7 +57,7 @@
 			if(msg!=null)
 				alert(msg);
 			else{
-				form.action="movie/movie-write";
+				form.action="movie-write";
 				form.submit();
 			}
 		});
