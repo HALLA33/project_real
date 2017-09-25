@@ -129,10 +129,12 @@
 	function emoDel(){
 		var emoLabel = document.querySelector("#emoLabel");
 		emoLabel.innerHTML = "";
+		emotionSelector.style.display = "none";
 	}
 	function weaDel(){
 		var weaLabel = document.querySelector("#weaLabel");
 		weaLabel.innerHTML = "";
+		weatherSelector.style.display = "none";
 	}
 </script>
 
