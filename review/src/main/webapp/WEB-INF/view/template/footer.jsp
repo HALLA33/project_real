@@ -64,8 +64,8 @@
 			<div id="recommandbar">
 			<h2>추천</h2>
 			<form action="#" method="post">
-			<select name="item_no" style="width:160px !important" id="margin" required>카테고리
-	        	<option >선택</option>
+			<select name="item_no" style="width:160px !important" id="margin" required>
+	        	<option >카테고리 선택</option>
 	      		<option value = "1">국내도서</option> 
 	        	<option value = "2">해외도서</option>
 	        	<option value = "3">국내영화</option>
@@ -73,8 +73,8 @@
 	        	<option value = "5">기타</option>
 	   		</select><br>
 	   		
-	   		<select name="emotion" style="width:160px !important" id="margin" required>감정
-	        	<option >선택</option>
+	   		<select name="emotion" style="width:160px !important" id="margin" required>
+	        	<option >감정 선택</option>
 	      		<option value = "1">love</option> 
 	        	<option value = "2">good</option>
 	        	<option value = "3">sogood</option>
@@ -86,8 +86,8 @@
 	        	<option value = "9">tired</option>
 	   		</select><br>
 	   		
-	   		<select name="wether" style="width:160px !important" id="margin" required>날씨
-	        	<option >선택</option>
+	   		<select name="wether" style="width:160px !important" id="margin" required>
+	        	<option >날씨 선택</option>
 	      		<option value = "1">sunny</option> 
 	        	<option value = "2">sunny_cloudy</option>
 	        	<option value = "3">rainy</option>
