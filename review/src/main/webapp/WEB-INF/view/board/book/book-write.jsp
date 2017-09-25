@@ -27,6 +27,12 @@
 			$("#head_notice").hide();
 		}
 		
+		var item_no = '${item_no}';
+		$("#item_no").val(item_no);
+		
+		var head = '${head}';
+		$("#head").val(head);
+		
 		$("#preview").on("click", function(){
  			var msg = valid(form);
  			var text = tagRemove(form.ir1.value);
@@ -153,15 +159,15 @@
 			<label>카테고리</label>
 		</div>
 	   	<div class="form-group mx-sm-3">
-			<select name="item_no" class="user-input" id="margin" required>  
-	        	<option >선택</option>
+			<select name="item_no" class="user-input" id="item_no" required>  
+	        	<option value="-1" >선택</option>
 	        	<option id="item_no_notice" value = "0">공지</option>
 	      		<option value = "1">국내도서</option> 
 	        	<option value = "2">해외도서</option> 
 	   		</select> 
 	    </div>
-		<select name="head" class="user-input" id="right" required>  
-			<option >장르</option>
+		<select name="head" class="user-input" id="head" required>  
+			<option value="-1" >장르</option>
 			<option id="head_notice" value = "0">공지</option>
 		   	<option value = "1">SF/판타지/무협</option> 
 		    <option value = "2">추리</option> 
