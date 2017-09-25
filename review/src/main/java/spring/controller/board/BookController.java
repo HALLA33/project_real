@@ -419,6 +419,8 @@ public class BookController {
 		board.setWriter(request.getParameter("writer"));
 		board.setTitle(request.getParameter("title"));
 		board.setDetail(request.getParameter("ir1"));
+		board.setEmotion(request.getParameter("emotion"));
+		board.setWeather(request.getParameter("weather"));
 		
 		String notice = "false";		
 		if(board.getItem_no()==0 || board.getHead()==0)
