@@ -63,12 +63,45 @@
 		<div>
 			<div id="recommandbar">
 			<h2>추천</h2>
-			오늘의 추천 영화<br>
-			<img src="http://placehold.it/80x40">
+			<form action="#" method="post">
+			<select name="item_no" style="width:160px !important" id="margin" required>카테고리
+	        	<option >선택</option>
+	      		<option value = "1">국내도서</option> 
+	        	<option value = "2">해외도서</option>
+	        	<option value = "3">국내영화</option>
+	        	<option value = "4">해외영화</option>
+	        	<option value = "5">기타</option>
+	   		</select><br>
+	   		
+	   		<select name="emotion" style="width:160px !important" id="margin" required>감정
+	        	<option >선택</option>
+	      		<option value = "1">love</option> 
+	        	<option value = "2">good</option>
+	        	<option value = "3">sogood</option>
+	        	<option value = "4">fighting</option>
+	        	<option value = "5">angry</option>
+	        	<option value = "6">bad</option>
+	        	<option value = "7">shock</option>
+	        	<option value = "8">sobad</option>
+	        	<option value = "9">tired</option>
+	   		</select><br>
+	   		
+	   		<select name="wether" style="width:160px !important" id="margin" required>날씨
+	        	<option >선택</option>
+	      		<option value = "1">sunny</option> 
+	        	<option value = "2">sunny_cloudy</option>
+	        	<option value = "3">rainy</option>
+	        	<option value = "4">cloudy</option>
+	        	<option value = "5">night</option>
+	        	<option value = "6">heavy_rain</option>
+	        	<option value = "7">thunder</option>
+	        	<option value = "8">packed_weather</option>
+	        	<option value = "9">snowy</option>
+	   		</select><br>
+	   		
+	   		<input type="submit" value="검색">
 			<br><br>
-			오늘의 추천 도서<br>
-			<img src="http://placehold.it/80x40">
-			<br><br>
+			</form>
 			</div>
 			<div id="rankbar">
 				<h2>랭킹</h2><br><br>

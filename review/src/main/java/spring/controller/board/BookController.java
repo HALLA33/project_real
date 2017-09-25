@@ -5,7 +5,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.Reader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -187,6 +186,8 @@ public class BookController {
 		board.setWriter(request.getParameter("writer"));
 		board.setTitle(request.getParameter("title"));
 		board.setDetail(request.getParameter("ir1"));
+		board.setEmotion(request.getParameter("emotion"));
+		board.setWeather(request.getParameter("weather"));
 		
 		Member member =(Member)session.getAttribute("member");
 		

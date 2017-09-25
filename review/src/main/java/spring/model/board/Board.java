@@ -3,8 +3,6 @@ package spring.model.board;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import javax.servlet.http.HttpServletRequest;
-
 public class Board {
 	private int no;
 	private int item_no;
@@ -22,6 +20,8 @@ public class Board {
 	private int bad;
 	private String notice;
 	private int search_no;
+	private String emotion;
+	private String weather;
 	
 	public Board() {}
 	
@@ -40,6 +40,8 @@ public class Board {
 		setBad(rs.getInt("bad"));
 		setNotice(rs.getString("notice"));
 		setSearch_no(rs.getInt("search_no"));
+		setEmotion(rs.getString("emotion"));
+		setWeather(rs.getString("weather"));
 	}
 	
 	
@@ -222,6 +224,23 @@ public class Board {
 	}
 	public void setNotice(String notice) {
 		this.notice = notice;
+	}
+
+	
+	public String getEmotion() {
+		return emotion;
+	}
+
+	public void setEmotion(String emotion) {
+		this.emotion = emotion;
+	}
+
+	public String getWeather() {
+		return weather;
+	}
+
+	public void setWeather(String weather) {
+		this.weather = weather;
 	}
 
 	@Override

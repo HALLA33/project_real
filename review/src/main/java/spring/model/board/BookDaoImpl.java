@@ -151,7 +151,7 @@ public class BookDaoImpl implements BookDao{
 	
 	@Override
 	public int write(Board board, int no) {
-		String sql = "insert into p_board values(?, ?, ?, ?, ?, ?, ?, sysdate, 0, 0, 0, 0, ?, ?)";
+		String sql = "insert into p_board values(?, ?, ?, ?, ?, ?, ?, sysdate, 0, 0, 0, 0, ?, ?, ?, ?)";
 		String seq = null;
 		switch(board.getItem_no()) {
 		case 0 : seq = "p_board_notice_seq"; break;
@@ -170,7 +170,8 @@ public class BookDaoImpl implements BookDao{
 		
 		Object[] args = {
 				seq_number, board.getItem_no(), board.getHead(), board.getTag(), 
-				board.getWriter(), board.getTitle(), board.getDetail(), board.getNotice(), no
+				board.getWriter(), board.getTitle(), board.getDetail(), board.getNotice(), no, 
+				board.getEmotion(), board.getWeather()
 				};
 		
 		jdbcTemplate.update(sql, args);
