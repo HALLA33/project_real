@@ -20,7 +20,7 @@ public interface BookDao {
 	Book detail_book(int no);
 	Board detail_board(int no, int item_no, String writer);
 	Board detail_board(int no, int item_no);
-	void update_board(Board board, Book book, int no, int item_no, String writer);
+	void update_board(Board board, Book book, int no, int item_no, String writer, String tag);
 	void delete_board(int no, int item_no, String id, String tag);
 	void delete_board(int no, int item_no, String tag);
 	void plus_minus_Count(int flag, int no, int item_no);

@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.Reader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -65,7 +66,6 @@ public class BookController {
 			@RequestParam(required=false) int item_no, @RequestParam(defaultValue="-1")int head, @RequestParam(defaultValue="0")int alignVal,
 			@RequestParam(value = "tag", required=false) String tag, HttpSession session
 			) {
-		log.info(tag);
 		String pageStr = request.getParameter("page") ;
 		int pageNo;
 		try{
@@ -74,7 +74,6 @@ public class BookController {
 		} catch(Exception e){
 			pageNo = 1;
 		}
-		
 		int boardSize = 10;
 		int boardCount = 0;
 		
@@ -83,7 +82,7 @@ public class BookController {
 		}else {
 			boardCount = bookDao.count2(tag); 	
 		}
-		
+		log.info("보드 카운트 :" + boardCount);
 		int start = boardSize * pageNo - boardSize + 1;
 		int end = start + boardSize - 1;
 		if(end > boardCount)
@@ -337,6 +336,10 @@ public class BookController {
 		}
 		
 		String nickname = bookDao.search_nickname(board.getWriter());
+		
+		List<Tags> taglist = bookDao.taglist();
+		
+		session.setAttribute("tags", taglist);
 
 		model.addAttribute("nickname", nickname);		
 		model.addAttribute("board", board);
@@ -374,20 +377,10 @@ public class BookController {
 		book = bookDao.detail_book(board.getSearch_no());
 		
 		String tag = board.getTag();
-		String convert_tag = null;
+		
+		tag = tag.replace("#", "").replace("/", ",");
 
-		if(tag!=null) {
-			String[] tag_split = tag.split("#");
-			for(int i=0; i<tag_split.length; i++) {
-				if(i==0)
-					convert_tag = tag_split[i]+",";
-				else if(i==tag_split.length-1)
-					convert_tag = tag_split[i];
-				else
-					convert_tag += tag_split[i]+",";
-			}
-		}
-		board.setTag(convert_tag);
+		board.setTag(tag);
 		
 		String nickname = bookDao.search_nickname(member.getId());
 
@@ -401,7 +394,11 @@ public class BookController {
 	}
 	
     @RequestMapping(value= {"/book-revise/{no}/{item_no}"}, method=RequestMethod.POST)
-    public String bookRevise(Model model, HttpServletRequest request, HttpServletResponse response, @PathVariable int no, @PathVariable int item_no, HttpSession session) {
+    public String bookRevise(Model model, HttpServletRequest request, HttpServletResponse response, @PathVariable int no, @PathVariable int item_no, 
+    		HttpSession session, @RequestParam(value = "tag", required=false) String tag) {
+    	
+    	log.info("tag : " + tag);
+    	tag = "#" + tag.replace(",", "/#").replaceAll(" ", "");
     	plusCount(request, no, item_no, response, session);
 		Map<String, String> result = image_check(request, no, item_no, response, session);
 		
@@ -427,13 +424,8 @@ public class BookController {
 			notice = "true";
 		
 		board.setNotice(notice);
-		
-		String tag = board.getTag();
-		String convert_tag = null;
-		if(tag!=null) {
-			convert_tag ="#" + tag.trim().replace(",", "#");
-		}
-		board.setTag(convert_tag);
+
+		board.setTag(tag);
 		
 		int num = 0;
 		List<Book> list = bookDao.exist_book(book);
@@ -446,7 +438,7 @@ public class BookController {
 			num = bookDao.search_write(book);
 			
 		board.setSearch_no(num);
-		bookDao.update_board(board, book, no, item_no, member.getId());
+		bookDao.update_board(board, book, no, item_no, member.getId(), tag);
 		board = bookDao.detail_board(no, board.getItem_no());
 		
 		if(item_no!=0)

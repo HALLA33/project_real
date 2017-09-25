@@ -66,7 +66,7 @@ public class BookDaoImpl implements BookDao{
 							+headPlus+"order by "+boardAlign+"desc) TMP) "
 							+ "where rn between ? and ?";
 		
-		if(item_no == 8 &&head == 0) {
+		if(item_no == 8 && head == 0) {
 					sql = "select * from p_board where tag is not null";
 					
 					List<Board> list = jdbcTemplate.query(sql, mapper);
@@ -82,22 +82,22 @@ public class BookDaoImpl implements BookDao{
 									sql = "select * from (select rownum rn, TMP.* from "
 											+ "(select * from p_board where tag like '%'||?||'%' "
 											+"order by "+boardAlign+"desc) TMP) "
-											+ "where rn between ? and 10";
+											+ "where rn between ? and ?";
 							 }
 						 }
 					}
 				}
 		
 						System.out.println("sql = "+sql);
-//						System.out.println("item_no="+item_no+", boardAlign="+boardAlign);
-//						System.out.println("s="+start+", e="+end);
+						System.out.println("item_no="+item_no+", boardAlign="+boardAlign);
+						System.out.println("s="+start+", e="+end);
 		
 						if(head == -1) {
 							Object[] args = {item_no, start, end};
 //							System.out.println("args = "+Arrays.toString(args));
 							return jdbcTemplate.query(sql, args, mapper);
 						}else if(head == 0){
-							Object[] args = {tag, start};
+							Object[] args = {tag, start, end};
 							return jdbcTemplate.query(sql, args, mapper);
 						}else {
 							Object[] args = {item_no, head,  start, end};
@@ -264,13 +264,28 @@ public class BookDaoImpl implements BookDao{
 	}
 
 	@Override
-	public void update_board(Board board, Book book, int no, int item_no, String writer) {		
+	public void update_board(Board board, Book book, int no, int item_no, String writer, String tag) {		
 		String sql = "update p_board set item_no=?, head=?, tag=?, title=?, detail=?, reg=sysdate, search_no=? where no=? and item_no=? and writer=?";
 		
 		Object[] args = {board.getItem_no(), board.getHead(), board.getTag(), board.getTitle(), board.getDetail(),
 							board.getSearch_no(), no, item_no, writer};
 		
 		jdbcTemplate.update(sql, args);
+		
+		sql = "delete from tags where write_no = ? and item_no = ?";
+		
+		jdbcTemplate.update(sql, new Object[] {no, item_no});
+
+		if(tag != null) {
+			
+			String[] tags = tag.replace("#", "").split("/");
+			
+			for(String s : tags) {
+				sql = "insert into tags values(tags_seq.nextval, ?, ? ,?)";
+				
+				jdbcTemplate.update(sql, new Object[] {s, no, item_no});
+			}
+		}
 	}
 
 	@Override
