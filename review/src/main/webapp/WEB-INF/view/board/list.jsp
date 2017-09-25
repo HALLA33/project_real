@@ -81,11 +81,21 @@
       <c:forEach items="${board}" var ="board">
          <div class="row form-inline" style="height:90px" id="testing">
             <div class="form-group area-20" style="border: 1px darkseagreen ;">
-                <img style="width:80px; height:100px" src="${book[board.search_no].image }">
+            	<c:if test="${item_no==1 or item_no==2 }">
+                	<img style="width:80px; height:100px" src="${book[board.search_no].image }">
+                </c:if>
+                <c:if test="${item_no==3 or item_no==4 }">
+                	<img style="width:80px; height:100px" src="${movie[board.search_no].image }">
+                </c:if>
              </div>
              <div class="area-80"> 
                 <div style="padding-top:10px">
-                   <a href="<c:url value="book-detail?no=${board.no }&item_no=${board.item_no }" />" style="font-size: 13px; width:600px; margin-top:10px " id="block" >${book[board.search_no].title}</a>
+                	<c:if test="${item_no==1 or item_no==2 }">
+                		<a href="<c:url value="book-detail?no=${board.no }&item_no=${board.item_no }" />" style="font-size: 13px; width:600px; margin-top:10px " id="block" >${book[board.search_no].title}</a>
+                	</c:if>
+                   <c:if test="${item_no==3 or item_no==4 }">
+                		<a href="<c:url value="/movie/movie-detail?no=${board.no }&item_no=${board.item_no }" />" style="font-size: 13px; width:600px; margin-top:10px " id="block" >${movie[board.search_no].title}</a>
+                	</c:if>
                   </div>
                   <div class="align-left">
                       <h5 style="font-size: 13px">${nickname[board.no]}</h5>
