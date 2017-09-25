@@ -166,7 +166,8 @@ public class BookDaoImpl implements BookDao{
 		
 		int seq_number = seq_number(seq);
 		String nickname = board.getWriter();
-		
+		if(board.getEmotion()==null) board.setEmotion("없음");
+		if(board.getWeather()==null) board.setWeather("없음");
 		
 		Object[] args = {
 				seq_number, board.getItem_no(), board.getHead(), board.getTag(), 
@@ -272,6 +273,8 @@ public class BookDaoImpl implements BookDao{
 							board.getSearch_no(), board.getEmotion(), board.getWeather(),no, item_no, writer};
 		
 		jdbcTemplate.update(sql, args);
+		
+		if(tag.equals("#")) tag = null;
 		
 		sql = "delete from tags where write_no = ? and item_no = ?";
 		

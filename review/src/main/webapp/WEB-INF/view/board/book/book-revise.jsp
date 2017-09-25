@@ -184,8 +184,8 @@
 			<input type="button"  name="weather" id="weather" value="날씨 이모티콘 넣기">
 		</div>
 	</div>
-	<label id="emoLabel"><input type="hidden"  name="emotion" value="${emotion}"></label>&nbsp;&nbsp;
-	<label id=weaLabel><input type="hidden"  name="weather" value="${weather}"></label>
+	<label id="emoLabel"><input type="hidden"  name="emotion" value="${board.emotion}">${board.emotion}</label>&nbsp;&nbsp;
+	<label id=weaLabel><input type="hidden"  name="weather" value="${board.weather}">${board.weather}</label>
 	
 	<!-- 감정 이모티콘 레이어  -->
 	<div id="emotionSelector">

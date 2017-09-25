@@ -390,9 +390,6 @@ public class BookController {
 		model.addAttribute("board", board);
 		model.addAttribute("book", book);
 		model.addAttribute("item_no", board.getItem_no());
-		model.addAttribute("emotion", board.getEmotion());
-		model.addAttribute("weather", board.getWeather());
-		
 		
 		return "board/book/book-revise";
 	}
@@ -402,7 +399,9 @@ public class BookController {
     		HttpSession session, @RequestParam(value = "tag", required=false) String tag) {
     	
     	log.info("tag : " + tag);
-    	tag = "#" + tag.replace(",", "/#").replaceAll(" ", "");
+    	if(tag != null) {
+    		tag = "#" + tag.replace(",", "/#").replaceAll(" ", "");
+    	}
     	plusCount(request, no, item_no, response, session);
 		Map<String, String> result = image_check(request, no, item_no, response, session);
 		
