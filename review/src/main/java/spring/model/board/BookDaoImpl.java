@@ -17,7 +17,7 @@ import org.springframework.stereotype.Repository;
 import spring.model.member.Tags;
 
 @Repository("boardDao")
-public class BoardDaoImpl implements BoardDao{
+public class BoardDaoImpl implements BookDao{
 	private Logger log = LoggerFactory.getLogger(getClass());
 	private Map<Integer, Book> map = new HashMap<>(); 
 	
@@ -34,6 +34,10 @@ public class BoardDaoImpl implements BoardDao{
 	
 	private RowMapper<Book> bmapper = (rs, index)->{
 		return new Book(rs);
+	};
+	
+	private RowMapper<Image> imapper = (rs, index)->{
+		return new Image(rs);
 	};
 	
 	ResultSetExtractor<Board> extractor = (ResultSet arg0) -> {
@@ -418,7 +422,36 @@ public class BoardDaoImpl implements BoardDao{
 		return list;
 	}
 	
-	
+	@Override
+	public void upload_image(int board_no, int board_item_no, String originFileName, String moveFileName) {
+		String sql = "insert into uploadImage values (uploadImage_seq.nextval, ?, ?, ?, ?)";
+		
+		Object[] args = {board_no, board_item_no, originFileName, moveFileName};
+		
+		jdbcTemplate.update(sql, args);
+	}
+
+	@Override
+	public List<Image> delete_image(int board_no, int board_item_no) {
+		List<Image> image_name = detail_board_image(board_no, board_item_no);
+		
+		String sql = "delete from uploadImage where board_no=? and board_item_no=?";
+		Object[] arg = {board_no, board_item_no};
+		
+		jdbcTemplate.update(sql, arg);
+		
+		return image_name;
+	}
+
+	@Override
+	public List<Image> detail_board_image(int board_no, int board_item_no) {
+		String sql = "select * from uploadImage where board_no=? and board_item_no=?";
+		Object[] args = {board_no, board_item_no};
+		
+		List<Image> image_name = jdbcTemplate.query(sql, args, imapper);
+		
+		return image_name;
+	}
 
 
 }
