@@ -176,16 +176,15 @@
 	        <div style="position:absolute;top:5px;right:5px">
 	        <span onClick="javascript:document.getElementById('iconSelector').style.display='none'" style="cursor:pointer;font-size:1.5em" title="닫기">X</span>
 	        </div> 
-	        <img id="love" name="love" src="<c:url value="/img/icon_love.png"/>"  onclick="iconClick(this)" width="50" height="50">
-	        <img id="good" name="good" src="<c:url value="/img/icon_good.png"/>" onclick="iconClick(this)" width="50" height="50">
-	        <img id="sogood" name="sogood" src="<c:url value="/img/icon_sogood.png"/>" onclick="iconClick(this)" width="50" height="50"> <br>
-	        <img id="funny" name="funny" src="<c:url value="/img/icon_funny.png"/>" onclick="iconClick(this)" width="50" height="50">
-	        <img id="fighting" name="fighting" src="<c:url value="/img/icon_fighting.png"/>" onclick="iconClick(this)" width="50" height="50">
-	        <img id="angry" name="angry" src="<c:url value="/img/icon_angry.png"/>" onclick="iconClick(this)" width="50" height="50"> <br>
-	        <img id="bad" name="bad" src="<c:url value="/img/icon_bad.png"/>" onclick="iconClick(this)" width="50" height="50">
-	        <img id="shock" name="shock" src="<c:url value="/img/icon_shock.png"/>" onclick="iconClick(this)" width="50" height="50">
-	        <img id="sobad" name="sobad" src="<c:url value="/img/icon_sobad.png"/>" onclick="iconClick(this)" width="50" height="50">
-	        <img id="tired" name="tired" src="<c:url value="/img/icon_tired.png"/>" onclick="iconClick(this)" width="50" height="50">
+	        <img class="icon" id="love" name="love" src="<c:url value="/img/icon_love.PNG"/>"  onclick="iconClick(this)" width="40" height="30">
+	        <img class="icon" id="good" name="good" src="<c:url value="/img/icon_good.PNG"/>" onclick="iconClick(this)" width="40" height="30">
+	        <img class="icon" id="sogood" name="sogood" src="<c:url value="/img/icon_sogood.PNG"/>" onclick="iconClick(this)" width="40" height="30"> <br>
+	        <img class="icon" id="fighting" name="fighting" src="<c:url value="/img/icon_fighting.PNG"/>" onclick="iconClick(this)" width="40" height="30">
+	        <img class="icon" id="angry" name="angry" src="<c:url value="/img/icon_angry.PNG"/>" onclick="iconClick(this)" width="40" height="30"> 
+	        <img class="icon" id="bad" name="bad" src="<c:url value="/img/icon_bad.PNG"/>" onclick="iconClick(this)" width="40" height="30"> <br>
+	        <img class="icon" id="shock" name="shock" src="<c:url value="/img/icon_shock.PNG"/>" onclick="iconClick(this)" width="40" height="30">
+	        <img class="icon" id="sobad" name="sobad" src="<c:url value="/img/icon_sobad.PNG"/>" onclick="iconClick(this)" width="40" height="30">
+	        <img class="icon" id="tired" name="tired" src="<c:url value="/img/icon_tired.PNG"/>" onclick="iconClick(this)" width="40" height="30">
 	</div>
 	<!-- //감정 이모티콘 레이어  -->
 	
@@ -194,16 +193,15 @@
 	        <div style="position:absolute;top:5px;right:5px">
 	        <span onClick="javascript:document.getElementById('weatherSelector').style.display='none'" style="cursor:pointer;font-size:1.5em" title="닫기">X</span>
 	        </div> 
-	         <img id="sunny" name="sunny" src="<c:url value="/img/sunny.png"/>"  onclick="iconClick(this)" width="50" height="50">
-	        <img id="sunny_cloudy" name="sunny_cloudy" src="<c:url value="/img/isunny_cloudy.png"/>" onclick="iconClick(this)" width="50" height="50">
-	        <img id="rainy" name="rainy" src="<c:url value="/img/irainy.png"/>" onclick="iconClick(this)" width="50" height="50"> <br>
-	        <img id="cloudy" name="cloudy" src="<c:url value="/img/cloudy.png"/>" onclick="iconClick(this)" width="50" height="50">
-	        <img id="night" name="night" src="<c:url value="/img/night.png"/>" onclick="iconClick(this)" width="50" height="50">
-	        <img id="heavy_rain" name="heavy_rain" src="<c:url value="/img/heavy_rain.png"/>" onclick="iconClick(this)" width="50" height="50"> <br>
-	        <img id="snow_rainy" name="snow_rainy" src="<c:url value="/img/snow_rainy.png"/>" onclick="iconClick(this)" width="50" height="50">
-	        <img id="thunder" name="thunder" src="<c:url value="/img/thunder.png"/>" onclick="iconClick(this)" width="50" height="50">
-	        <img id="packed_weather" name="packed_weather" src="<c:url value="/img/packed_weather.png"/>" onclick="iconClick(this)" width="50" height="50">
-	        <img id="snowy" name="snowy" src="<c:url value="/img/snowy.png"/>" onclick="iconClick(this)" width="50" height="50">
+	        <img class="icon" id="sunny" name="sunny" src="<c:url value="/img/sunny.PNG"/>"  onclick="iconClick(this)" width="40" height="30">
+	        <img class="icon" id="sunny_cloudy" name="sunny_cloudy" src="<c:url value="/img/sunny_cloudy.PNG"/>" onclick="iconClick(this)" width="40" height="30">
+	        <img class="icon" id="rainy" name="rainy" src="<c:url value="/img/rainy.PNG"/>" onclick="iconClick(this)" width="40" height="30"> <br>
+	        <img class="icon" id="cloudy" name="cloudy" src="<c:url value="/img/cloudy.PNG"/>" onclick="iconClick(this)" width="40" height="30">
+	        <img class="icon" id="night" name="night" src="<c:url value="/img/night.PNG"/>" onclick="iconClick(this)" width="40" height="30">
+	        <img class="icon" id="heavy_rain" name="heavy_rain" src="<c:url value="/img/heavy_rain.PNG"/>" onclick="iconClick(this)" width="40" height="30"> <br>
+	        <img class="icon" id="thunder" name="thunder" src="<c:url value="/img/thunder.PNG"/>" onclick="iconClick(this)" width="40" height="30">
+	        <img class="icon" id="packed_weather" name="packed_weather" src="<c:url value="/img/packed_weather.PNG"/>" onclick="iconClick(this)" width="40" height="30">
+	        <img class="icon" id="snowy" name="snowy" src="<c:url value="/img/snowy.PNG"/>" onclick="iconClick(this)" width="40" height="30">
 	</div>
 	<!-- //날씨 이모티콘 레이어  -->
 	
