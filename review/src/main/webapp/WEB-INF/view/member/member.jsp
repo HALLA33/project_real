@@ -152,20 +152,20 @@
 	</div>
 
 
-	<table class="table-hover member">
+	<table class="table-hover" width = "100%">
 
 		<thead>
 			<tr>
 				<th><input type="checkbox" id="all"></th>
-				<th>번호</th>
+<!-- 				<th>번호</th> -->
 				<th>닉네임(아이디)</th>
-				<th>메일주소</th>
+<!-- 				<th>메일주소</th> -->
 				<th>이름</th>
-				<th>성별</th>
-				<th>생일</th>
+<!-- 				<th>성별</th> -->
+<!-- 				<th>생일</th> -->
 				<th>등급</th>
 				<th>포인트</th>
-				<th>가입일</th>
+<!-- 				<th>가입일</th> -->
 				<th>최종방문일</th>
 				<th>방문수</th>
 				<th>게시글수</th>
@@ -178,15 +178,15 @@
 			<c:forEach var="list" items="${list}">
 				<tr>
 					<td><input type="checkbox" class="unit" value="${list.id}"></td>
-					<td>${list.no}</td>
-					<td>${list.nickname}(${list.id})</td>
-					<td>${list.email}</td>
+<%-- 					<td>${list.no}</td> --%>
+					<td><a href = "userinfo?id=${list.id}">${list.nickname}(${list.id})</a></td>
+<%-- 					<td>${list.email}</td> --%>
 					<td>${list.name}</td>
-					<td>${list.gender}</td>
-					<td>${list.birth}</td>
+<%-- 					<td>${list.gender}</td> --%>
+<%-- 					<td>${list.birth}</td> --%>
 					<td>${list.power}</td>
 					<td>${list.point}</td>
-					<td>${list.reg}</td>
+<%-- 					<td>${list.reg}</td> --%>
 					<td>${list.lastvisit}</td>
 					<td>${list.visitnumber}</td>
 					<td>${list.writenumber}</td>

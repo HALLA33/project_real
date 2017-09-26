@@ -617,4 +617,32 @@ public class MemberController {
 	      return "member/attend";
 	   }
 	
+	@RequestMapping("/myinfo")
+	public String myinfo(HttpSession session) {
+		
+		if(session.getAttribute("member") == null) {
+			try {
+				throw new Exception("로그인하셈");
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		return "member/myinfo";
+	}
+	
+	@RequestMapping("/userinfo")
+	public String userinfo(@RequestParam String id, Model model) {
+		
+		log.info("id : " + id);
+		
+		List<Member> list = memberDao.userinfo(id);
+		
+		model.addAttribute("u_list", list);
+		
+		return "member/userinfo";
+		
+	}
+	
 }

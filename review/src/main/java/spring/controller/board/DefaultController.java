@@ -27,7 +27,7 @@ public class DefaultController {
 	@Autowired
 	private MovieDao movieDao;
 	
-	@RequestMapping("/recommend")
+	@RequestMapping(value = {"/recommend", "/movie/recommend"})
 	public String recommend(Model model, String emo, String wea) {
 		
 		System.out.println("컨트롤러 emo="+emo+", wea="+wea);

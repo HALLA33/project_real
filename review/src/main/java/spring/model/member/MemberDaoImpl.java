@@ -488,5 +488,15 @@ public class MemberDaoImpl implements MemberDao {
 		
 		return list;
 	}
+
+	@Override
+	public List<Member> userinfo(String id) {
+		
+		String sql = "select * from p_member where id = ?";
+		
+		List<Member> list = jdbcTemplate.query(sql, new Object[] {id},mapper);
+		
+		return list;
+	}
 	
 }

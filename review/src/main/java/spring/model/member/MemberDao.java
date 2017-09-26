@@ -41,4 +41,5 @@ public interface MemberDao {
 	public int getpoint(String nickname);
 	public Member getmember(String nickname);
 	public List<Tags> taglist();
+	public List<Member> userinfo(String id);
 }
