@@ -130,7 +130,7 @@
 		    var imgTag = '<img src="${pageContext.request.contextPath}/img/'+extention+'" style="width:40px; height:40px">'; 
 			emoLabel.innerHTML = "<input type='hidden'  name='emotion' value='"+icon+"'>"+ imgTag;
 		}
-		if(weather!='없음')
+		if(weather!='없음'){
 			$("#weaLabel").css("display", "block");
 			$("#weaDiv").css("border", "1px solid #b0c4de");
 			$("#weaDiv").css("border-radius", "10px")
@@ -140,6 +140,7 @@
 			var extention = weather + ".PNG";
 		    var imgTag = '<img src="${pageContext.request.contextPath}/img/'+extention+'" style="width:40px; height:40px">'; 
 			weaLabel.innerHTML = "<input type='hidden'  name='weather' value='"+weather+"'>"+imgTag;
+		}
 	}
 	
 	function emoClick(img){
