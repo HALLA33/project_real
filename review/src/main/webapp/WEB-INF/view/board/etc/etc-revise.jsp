@@ -89,7 +89,16 @@
 			msg = "제목을 입력하세요";
 		if(form.item_no.value==-1)
 			msg = "카테고리를 선택하세요";
-
+		if(form.tag.value!=null){
+			var number = 0;
+		    var tags = form.tag.value.split( ',' );
+		    for (var i in tags ) {
+		   		number++;
+		    }
+		    if(number>5)
+		    	console.log("태그는 5개까지 입력해주세요");
+		}
+		
 		return msg;
 	}
 	
@@ -134,7 +143,7 @@
 
 <article>
 <%-- 컨테이너 영역 --%>
-<h3>영화 게시판</h3>
+<h3> 게시판</h3>
 <form action="${pageContext.request.contextPath}/etc/etc-revise?no=${board.no}" method="post" name="form">
 	<input type="hidden" name="writer" value="${sessionScope.member.id }">
 	<div class="row form-inline">
@@ -218,7 +227,7 @@
     	nhn.husky.EZCreator.createInIFrame({
 	       	oAppRef: oEditors,
 	       	elPlaceHolder: "ir1",
-	       	sSkinURI: "/review_re/smarteditors/SmartEditor2Skin.html",
+	       	sSkinURI: "/review/smarteditors/SmartEditor2Skin.html",
 	       	fCreator: "createSEditor2"
        	});
 
