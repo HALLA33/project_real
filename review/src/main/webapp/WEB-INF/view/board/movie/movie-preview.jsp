@@ -17,7 +17,7 @@
 				var detail = '${board.detail}';
 				$("#detail").append(detail);
 					
-				var img = '${book.image}'
+				var img = '${movie.image}'
 				if(img.length==0){
 					$("#image").attr("src", "${pageContext.request.contextPath}/img/noImage.PNG");
 					$("#image").attr("width", "120");
