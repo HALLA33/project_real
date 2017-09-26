@@ -21,57 +21,85 @@
         </ul>
       <br>
       
-      <c:forEach items="${board}" var ="board">
-         <div class="row form-inline" style="height:90px" id="testing">
-            <div class="form-group area-20" style="border: 1px darkseagreen ;">
-            	<c:if test="${item_no==1 or item_no==2 }">
-                	<img style="width:80px; height:100px" src="${book[board.search_no].image }">
-                </c:if>
-                <c:if test="${item_no==3 or item_no==4 }">
-                	<img style="width:80px; height:100px" src="${movie[board.search_no].image }">
-                </c:if>
-              <c:if test="${item_no==8 or item_no == 9}">
-                	<c:if test = "${board.item_no == 1 or  board.item_no == 2}">
-                		<img style="width:80px; height:100px" src="${book[board.search_no].image }">
-                	</c:if>
-                	<c:if test = "${board.item_no == 3 or  board.item_no == 4}">
-                		<img style="width:80px; height:100px" src="${movie[board.search_no].image }">
-                	</c:if>
-                </c:if>
-             </div>
-             <div class="area-80"> 
-                <div style="padding-top:10px">
-                	<c:if test="${item_no==1 or item_no==2 }">
-                		<a href="<c:url value="book-detail?no=${board.no }&item_no=${board.item_no }" />" style="font-size: 13px; width:600px; margin-top:10px " id="block" >${book[board.search_no].title}</a>
-                	</c:if>
-                   <c:if test="${item_no==3 or item_no==4 }">
-                		<a href="<c:url value="/movie/movie-detail?no=${board.no }&item_no=${board.item_no }" />" style="font-size: 13px; width:600px; margin-top:10px " id="block" >${movie[board.search_no].title}</a>
-                	</c:if>
-                	<c:if test = "${item_no == 8 or item_no == 9}">
-                		<c:if test = "${board.item_no == 1 or board.item_no ==2 }">
-                			<a href="<c:url value="book-detail?no=${board.no }&item_no=${board.item_no }" />" style="font-size: 13px; width:600px; margin-top:10px " id="block" >${book[board.search_no].title}</a>
-                		</c:if>
-                		<c:if test = "${board.item_no == 3 or board.item_no ==4 }">
-                			<a href="<c:url value="/movie/movie-detail?no=${board.no }&item_no=${board.item_no }" />" style="font-size: 13px; width:600px; margin-top:10px " id="block" >${movie[board.search_no].title}</a>
-                		</c:if>
-                	</c:if>
-                  </div>
-                  <div class="align-left">
-                      <h5 style="font-size: 13px">${nickname[board.no]}</h5>
-                      <h5 style="font-size: 13px; padding-left:15px; padding-right:15px">&#124;</h5>
-                     <h5 style="font-size: 13px">${board.reg}</h5>
-                  </div>
-                  <div id="detail"></div>
-                <h5 id="detail" style="font-size: 13px;">${board.detail}</h5>
-               <div class="align-left">
-                      <h5 style="font-size: 13px">${board.b_item_no}</h5>
-                      <h5 style="font-size: 13px; padding-left:15px; padding-right:15px">&#124;</h5>
-                     <h5 style="font-size: 13px">${board.b_head}</h5>
-                  </div>
-              </div>
-         </div>
-      <hr/>
-       </c:forEach>
+      <c:choose>
+      	<c:when test="${item_no==5 or item_no==6 or item_no==7 }">
+      		<table class="table table-hover">
+      			<tr>
+	      			<th>번호</th>
+	      			<th>장르</th>
+	      			<th>제목</th>
+	      			<th>작성자</th>
+	      			<th>작성일</th>
+	      		</tr>
+	      		<c:forEach items="${board}" var ="board">
+	      			<tr>
+	      				<td>${board.no }</td>
+	      				<td>&#91;${board.b_item_no}&#93;</td>
+	      				<td>
+	      					<a href="<c:url value="etc/etc-detail?no=${board.no }&item_no=${board.item_no }" />">
+	      						${board.title }
+	      					</a>
+	      				</td>
+	      				<td>${nickname[board.no]}</td>
+	      				<td>${board.reg}</td>
+	      			</tr>
+	       		</c:forEach>
+       		</table>
+      	</c:when>
+      	<c:otherwise>
+      		<c:forEach items="${board}" var ="board">
+      			<div class="row form-inline" style="height:90px" id="testing">
+		            <div class="form-group area-20" style="border: 1px darkseagreen ;">
+		            	<c:if test="${item_no==1 or item_no==2 }">
+		                	<img style="width:80px; height:100px" src="${book[board.search_no].image }">
+		                </c:if>
+		                <c:if test="${item_no==3 or item_no==4 }">
+		                	<img style="width:80px; height:100px" src="${movie[board.search_no].image }">
+		                </c:if>
+		              <c:if test="${item_no==8 or item_no == 9}">
+		                	<c:if test = "${board.item_no == 1 or  board.item_no == 2}">
+		                		<img style="width:80px; height:100px" src="${book[board.search_no].image }">
+		                	</c:if>
+		                	<c:if test = "${board.item_no == 3 or  board.item_no == 4}">
+		                		<img style="width:80px; height:100px" src="${movie[board.search_no].image }">
+		                	</c:if>
+		                </c:if>
+		             </div>
+		             <div class="area-80"> 
+		                <div style="padding-top:10px">
+		                	<c:if test="${item_no==1 or item_no==2 }">
+		                		<a href="<c:url value="book-detail?no=${board.no }&item_no=${board.item_no }" />" style="font-size: 13px; width:600px; margin-top:10px " id="block" >${book[board.search_no].title}</a>
+		                	</c:if>
+		                   <c:if test="${item_no==3 or item_no==4 }">
+		                		<a href="<c:url value="/movie/movie-detail?no=${board.no }&item_no=${board.item_no }" />" style="font-size: 13px; width:600px; margin-top:10px " id="block" >${movie[board.search_no].title}</a>
+		                	</c:if>
+		                	<c:if test = "${item_no == 8 or item_no == 9}">
+		                		<c:if test = "${board.item_no == 1 or board.item_no ==2 }">
+		                			<a href="<c:url value="book-detail?no=${board.no }&item_no=${board.item_no }" />" style="font-size: 13px; width:600px; margin-top:10px " id="block" >${book[board.search_no].title}</a>
+		                		</c:if>
+		                		<c:if test = "${board.item_no == 3 or board.item_no ==4 }">
+		                			<a href="<c:url value="/movie/movie-detail?no=${board.no }&item_no=${board.item_no }" />" style="font-size: 13px; width:600px; margin-top:10px " id="block" >${movie[board.search_no].title}</a>
+		                		</c:if>
+		                	</c:if>
+		                  </div>
+		                  <div class="align-left">
+		                      <h5 style="font-size: 13px">${nickname[board.no]}</h5>
+		                      <h5 style="font-size: 13px; padding-left:15px; padding-right:15px">&#124;</h5>
+		                     <h5 style="font-size: 13px">${board.reg}</h5>
+		                  </div>
+		                  <div id="detail"></div>
+		                <h5 id="detail" style="font-size: 13px;">${board.detail}</h5>
+		               <div class="align-left">
+		                      <h5 style="font-size: 13px">${board.b_item_no}</h5>
+		                      <h5 style="font-size: 13px; padding-left:15px; padding-right:15px">&#124;</h5>
+		                     <h5 style="font-size: 13px">${board.b_head}</h5>
+		                  </div>
+		              </div>
+		         </div>
+		      <hr/>
+		    </c:forEach>
+      		</c:otherwise>
+      </c:choose>
       
       <div class="align-right">
          <button type="button" class="btn " onclick="location.href='book-write?item_no=${item_no}'">글쓰기</button>
