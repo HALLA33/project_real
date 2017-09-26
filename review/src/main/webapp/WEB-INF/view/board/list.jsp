@@ -62,8 +62,8 @@
 				<c:when test="${head eq 199 }">&#40;기타&#41;</c:when>
 			</c:choose>
 			</h1></c:when>
-		<c:when test="${item_no eq 5 }"><h1>기타 리뷰 게시판</h1></c:when>
-		<c:when test="${item_no eq 6 }"><h1>자유 게시판</h1></c:when>
+		<c:when test="${item_no eq 5 or item_no eq 6}"><h1>기타 리뷰 게시판</h1></c:when>
+		<c:when test="${item_no eq 7 }"><h1>자유 게시판</h1></c:when>
 	</c:choose>
    
    <br>
