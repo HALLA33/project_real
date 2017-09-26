@@ -99,6 +99,8 @@ public class MovieController {
 		board.setWriter(request.getParameter("writer"));
 		board.setTitle(request.getParameter("title"));
 		board.setDetail(request.getParameter("ir1"));
+		board.setEmotion(request.getParameter("emotion"));
+		board.setWeather(request.getParameter("weather"));
 		
 		Member member =(Member)session.getAttribute("member");
 		
@@ -164,6 +166,10 @@ public class MovieController {
 		movie.setDirector(request.getParameter("director"));
 		movie.setActor(request.getParameter("actor"));
 		movie.setPubDate(request.getParameter("pubDate"));
+		
+		String[] director = movie.getDirector().split("|");
+		movie.setDirector(director[0]);
+		log.info(movie.getDirector());
 		
 		Board board = new Board();
 		board.setItem_no(Integer.parseInt(request.getParameter("item_no")));
@@ -249,6 +255,10 @@ public class MovieController {
 		
 		String nickname = bookDao.search_nickname(board.getWriter());
 
+		List<Tags> taglist = bookDao.taglist();
+		
+		session.setAttribute("tags", taglist);
+		
 		model.addAttribute("nickname", nickname);		
 		model.addAttribute("board", board);
 		model.addAttribute("movie", movie);
@@ -285,20 +295,11 @@ public class MovieController {
 		movie = movieDao.detail_movie(board.getSearch_no());
 		
 		String tag = board.getTag();
-		String convert_tag = null;
-
-		if(tag!=null) {
-			String[] tag_split = tag.split("#");
-			for(int i=0; i<tag_split.length; i++) {
-				if(i==0)
-					convert_tag = tag_split[i]+",";
-				else if(i==tag_split.length-1)
-					convert_tag = tag_split[i];
-				else
-					convert_tag += tag_split[i]+",";
-			}
+		if(tag != null) {
+			tag = tag.replace("#", "").replace("/", ",");
 		}
-		board.setTag(convert_tag);
+			
+		board.setTag(tag);
 		
 		String nickname = bookDao.search_nickname(member.getId());
 
@@ -312,8 +313,13 @@ public class MovieController {
 	}
 	
     @RequestMapping(value= {"/movie-revise/{no}/{item_no}"}, method=RequestMethod.POST)
-    public String movieRevise(Model model, HttpServletRequest request, HttpServletResponse response, @PathVariable int no, @PathVariable int item_no, HttpSession session) {
-    	plusCount(request, no, item_no, response, session);
+    public String movieRevise(Model model, HttpServletRequest request, HttpServletResponse response, @PathVariable int no, @PathVariable int item_no, 
+    		HttpSession session, @RequestParam(value = "tag", required=false) String tag) {
+    	log.info("tag : " + tag);
+    	if(tag != null) {
+    		tag = "#" + tag.replace(",", "/#").replaceAll(" ", "");
+    	}
+	    plusCount(request, no, item_no, response, session);
 		Map<String, String> result = image_check(request, no, item_no, response, session);
 		
     	Member member = (Member)session.getAttribute("member");
@@ -339,12 +345,7 @@ public class MovieController {
 		
 		board.setNotice(notice);
 		
-		String tag = board.getTag();
-		String convert_tag = null;
-		if(tag!=null) {
-			convert_tag ="#" + tag.trim().replace(",", "#");
-		}
-		board.setTag(convert_tag);
+		board.setTag(tag);
 		
 		int num = 0;
 		List<Movie> list = movieDao.exist_movie(movie);
