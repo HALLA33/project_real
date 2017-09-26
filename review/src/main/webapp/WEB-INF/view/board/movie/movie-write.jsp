@@ -18,6 +18,7 @@
 <script>
 	$(document).ready(function(){	
 		var power = '${sessionScope.member.power}';
+		
 		if(power=='관리자'){
 			$("#item_no_notice").show();
 			$("#head_notice").show();
@@ -263,7 +264,6 @@
 			<h5 id="pubDate" style="font-size: 15px">제작년도</h5>
 		</div>   
 	</div>
-
 	<input type="hidden" class="movie_title" name="movie_title">
 	<input type="hidden" class="image" name="image">
 	<input type="hidden" class="director" name="director">
@@ -276,7 +276,7 @@
     	nhn.husky.EZCreator.createInIFrame({
 	       	oAppRef: oEditors,
 	       	elPlaceHolder: "ir1",
-	       	sSkinURI: "/review_re/smarteditors/SmartEditor2Skin.html",
+	       	sSkinURI: "/review/smarteditors/SmartEditor2Skin.html",
 	       	bUseToolbar: true,
 	       	fCreator: "createSEditor2"
        	});

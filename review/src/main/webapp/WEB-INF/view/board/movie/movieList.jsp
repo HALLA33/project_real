@@ -45,6 +45,8 @@
 		$(opener.document).find(".actor").val(actor);
 		$(opener.document).find(".pubDate").val(pubDate);
 
+		//console.log($(".director").text());
+		//console.log("director : " + director);
 		window.close();
 	}
 	
@@ -78,7 +80,7 @@
 						</div>
 						<div style="padding-left: 10px;">
 							<h5 style="font-size:14px; width: 500px">${m.title }</h5>
-							<h5 style="font-size:14px">${m.director }</h5>
+							<h5 class="director" style="font-size:14px">${m.director }</h5>
 							<h5 style="font-size:14px; width: 500px">${m.actor }</h5>
 							<h5 style="font-size:14px">${m.pubDate }</h5>
 							<button type="button" onclick="add_movie('${m.image}','${m.title}','${m.director}','${m.actor}','${m.pubDate}')" id="block" style="width:50px; height:30px">넣기</button>
