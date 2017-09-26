@@ -39,23 +39,25 @@
 		</c:if>
 		<c:if test = "${sessionScope.member ne null }">
 			<div class="left">
-				닉네임 : <a href="${pageContext.request.contextPath}/myinfo">${sessionScope.member.nickname }&#40;${sessionScope.member.id}&#41;</a>
+				<a href="${pageContext.request.contextPath}/myinfo">${sessionScope.member.nickname }&#40;${sessionScope.member.id}&#41;</a>
 			</div>
 			<div class="right">
 				<button class="edit-btn" onclick="location.href='${pageContext.request.contextPath}/myedit'">edit</button>
 			</div>
 			<c:if test = "${sessionScope.member.power == '관리자' }">
 			<div class="right">
-				<button class="edit-btn" onclick="location.href='${pageContext.request.contextPath}/member'">회원관리</button>
+				<button style="width:50px !important"; class="edit-btn" onclick="location.href='${pageContext.request.contextPath}/member'">회원관리</button>
 			</div>
 			</c:if>
+			<div class="right" style="margin-bottom: 10px;"> 
+				<input type="button" value="로그아웃" onclick="location.href='${pageContext.request.contextPath}/logout'" style="border-radius: 5px; font-size: 8px; background-color: white;">
+			</div>
+			
 			<div>
 				<div class="left">
 					포인트 : <a href="#" class="left">${sessionScope.member.point }</a>
 				</div>
-				<div class="right" style="margin-bottom: 10px;"> 
-					<input type="button" value="로그아웃" onclick="location.href='${pageContext.request.contextPath}/logout'" style="border-radius: 5px; font-size: 8px; background-color: white;">
-				</div>
+				
 			</div>
 			<a href="myboard">내가 쓴 글</a>
 		</c:if>
