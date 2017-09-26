@@ -142,7 +142,7 @@
 
 <article>
 <%-- 컨테이너 영역 --%>
-<h3>도서 게시판</h3>
+<h3>기타 게시판</h3>
 <form method="post" name="form">
 	<input type="hidden" name="writer" value="${sessionScope.member.id }">
 	<input type="hidden" name="head" value="0">
@@ -225,7 +225,7 @@
     	nhn.husky.EZCreator.createInIFrame({
 	       	oAppRef: oEditors,
 	       	elPlaceHolder: "ir1",
-	       	sSkinURI: "/review_re/smarteditors/SmartEditor2Skin.html",
+	       	sSkinURI: "/review/smarteditors/SmartEditor2Skin.html",
 	       	bUseToolbar: true,
 	       	fCreator: "createSEditor2"
        	});
