@@ -21,8 +21,6 @@ import spring.model.board.MovieDao;
 public class DefaultController {
 	private Logger log = LoggerFactory.getLogger(getClass());
 	
-	private BookController bcon;
-	
 	@Autowired
 	private BookDao bookDao;
 	
@@ -46,7 +44,7 @@ public class DefaultController {
 			movie = movieDao.movie_list(b.getSearch_no());
 			b.setB_item_no(b.getItem_no());
 			b.setB_head(b.getHead());
-			bcon.replaceDetail(b);
+			replaceDetail(b);
 			nickname.put(b.getNo(), bookDao.search_nickname(b.getWriter()));
 		}
 		
@@ -55,7 +53,7 @@ public class DefaultController {
 			movie = movieDao.movie_list(b.getSearch_no());
 			b.setB_item_no(b.getItem_no());
 			b.setB_head(b.getHead());
-			bcon.replaceDetail(b);
+			replaceDetail(b);
 			nickname.put(b.getNo(), bookDao.search_nickname(b.getWriter()));
 		}
 		
@@ -64,7 +62,7 @@ public class DefaultController {
 			movie = movieDao.movie_list(b.getSearch_no());
 			b.setB_item_no(b.getItem_no());
 			b.setB_head(b.getHead());
-			bcon.replaceDetail(b);
+			replaceDetail(b);
 			nickname.put(b.getNo(), bookDao.search_nickname(b.getWriter()));
 		}
 		
@@ -76,6 +74,18 @@ public class DefaultController {
 		model.addAttribute("movie", movie);
 		
 		return "board/recommend";
+	}
+	
+	public void replaceDetail(Board board) {
+		String detail = board.getDetail();
+
+		detail = detail.replaceAll("<(/)?([a-zA-Z]*)(\\s[a-zA-Z]*=[^>]*)?(\\s)*(/)?>", " ").replaceAll("&nbsp;", " ");
+		
+		if(detail.length() >= 100){
+			detail = detail.substring(0, 100) + "...";
+		}
+
+		board.setDetail(detail);
 	}
 	
 	@RequestMapping("/home")
