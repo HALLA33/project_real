@@ -476,6 +476,23 @@ public class BookDaoImpl implements BookDao{
 		
 		return image_name;
 	}
-
+	@Override
+	public List<Board> recomTwo(String emo, String wea) {
+		String sql = "select * from p_board where emotion=? and weather=? order by read desc";
+		Object[] args = {emo, wea};
+		return jdbcTemplate.query(sql, args, mapper);
+	}
+	@Override
+	public List<Board> recomEmo(String emo, String wea) {
+		String sql = "select * from p_board where emotion=? and weather!=? order by read desc";
+		Object[] args = {emo, wea};
+		return jdbcTemplate.query(sql, args, mapper);
+	}
+	@Override
+	public List<Board> recomWea(String emo, String wea) {
+		String sql = "select * from p_board where emotion!=? and weather=? order by read desc";
+		Object[] args = {emo, wea};
+		return jdbcTemplate.query(sql, args, mapper);
+	}
 
 }

@@ -62,44 +62,37 @@
 		</div>
 		<div>
 			<div id="recommandbar">
-			<h2>추천</h2>
-			<form action="#" method="post">
-			<select name="item_no" style="width:160px !important" id="margin" required>
-	        	<option >카테고리 선택</option>
-	      		<option value = "1">국내도서</option> 
-	        	<option value = "2">해외도서</option>
-	        	<option value = "3">국내영화</option>
-	        	<option value = "4">해외영화</option>
-	        	<option value = "5">기타</option>
-	   		</select><br>
+			<h2>일치 검색</h2>
+			<form action="recommend" method="post">
 	   		
-	   		<select name="emotion" style="width:160px !important" id="margin" required>
+	   		<select name="emo" style="width:160px !important" id="margin" required>
 	        	<option >감정 선택</option>
-	      		<option value = "1">love</option> 
-	        	<option value = "2">good</option>
-	        	<option value = "3">sogood</option>
-	        	<option value = "4">fighting</option>
-	        	<option value = "5">angry</option>
-	        	<option value = "6">bad</option>
-	        	<option value = "7">shock</option>
-	        	<option value = "8">sobad</option>
-	        	<option value = "9">tired</option>
+	      		<option value = "love">love</option> 
+	        	<option value = "good">good</option>
+	        	<option value = "sogood">sogood</option>
+	        	<option value = "fighting">fighting</option>
+	        	<option value = "angry">angry</option>
+	        	<option value = "bad">bad</option>
+	        	<option value = "shock">shock</option>
+	        	<option value = "sobad">sobad</option>
+	        	<option value = "tired">tired</option>
 	   		</select><br>
-	   		
-	   		<select name="wether" style="width:160px !important" id="margin" required>
+	   		<div style="height:5px;"></div>
+	   		<select name="wea" style="width:160px !important" id="margin" required>
 	        	<option >날씨 선택</option>
-	      		<option value = "1">sunny</option> 
-	        	<option value = "2">sunny_cloudy</option>
-	        	<option value = "3">rainy</option>
-	        	<option value = "4">cloudy</option>
-	        	<option value = "5">night</option>
-	        	<option value = "6">heavy_rain</option>
-	        	<option value = "7">thunder</option>
-	        	<option value = "8">packed_weather</option>
-	        	<option value = "9">snowy</option>
+	      		<option value = "sunny">sunny</option> 
+	        	<option value = "sunny_cloudy">sunny_cloudy</option>
+	        	<option value = "rainy">rainy</option>
+	        	<option value = "cloudy">cloudy</option>
+	        	<option value = "night">night</option>
+	        	<option value = "heavy_rain">heavy_rain</option>
+	        	<option value = "thunder">thunder</option>
+	        	<option value = "packed_weather">packed_weather</option>
+	        	<option value = "snowy">snowy</option>
 	   		</select><br>
-	   		
-	   		<input type="submit" value="검색">
+	   		<div style="height:5px;"></div>
+	   		<input type="submit" value="추천받기" style="background-color: dodgerblue;
+						color: white; border-radius: 5px; cursor: pointer;">
 			<br><br>
 			</form>
 			</div>

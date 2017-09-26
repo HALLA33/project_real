@@ -32,4 +32,7 @@ public interface BookDao {
 	void upload_image(int board_no, int board_item_no, String originFileName, String moveFileName);
 	List<Image> delete_image(int board_no, int board_item_no);
 	List<Image> detail_board_image(int board_no, int board_item_no);
+	List<Board> recomTwo(String emo, String wea);
+	List<Board> recomEmo(String emo, String wea);
+	List<Board> recomWea(String emo, String wea);
 }
