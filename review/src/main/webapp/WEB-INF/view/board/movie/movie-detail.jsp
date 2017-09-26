@@ -172,7 +172,15 @@
 			<tr class="form-inline">
 				<td class="area-20" style="border: none">작성자</td>
 				<td class="area-20" style="border: none">${nickname}</td>
-			</tr>			
+			</tr>		
+			<tr class="form-inline">
+				<td class="area-20" style="border: none">감정</td>
+				<td class="area-20" style="border: none">${board.emotion}</td>
+			</tr>	
+			<tr class="form-inline">
+				<td class="area-20" style="border: none">날씨</td>
+				<td class="area-20" style="border: none">${board.weather}</td>
+			</tr>		
 			<tr class="form-inline">
 				<td class="area-20" style="border: none">태그</td>
 				<td class="area-20" style="border: none">${board.tag}</td>
