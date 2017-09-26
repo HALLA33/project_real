@@ -143,11 +143,11 @@
 	<div class="row form-inline">
 		<div class="form-group area-20" >
 			<c:choose>
-				<c:when test="${book.image==null }">
+				<c:when test="${movie.image==null }">
 					<img id="image" src="${pageContext.request.contextPath}/img/noImage.PNG" width="120" height="120">
 				</c:when>
 				<c:otherwise>
-					<img id="image" src="${book.image }">
+					<img id="image" src="${movie.image }">
 				</c:otherwise>
 			</c:choose>
 		</div>
