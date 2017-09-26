@@ -98,6 +98,15 @@
 			msg = "장르를 선택하세요";
 		if(form.item_no.value==-1)
 			msg = "카테고리를 선택하세요";
+		if(form.tag.value!=null){
+			var number = 0;
+		    var tags = form.tag.value.split( ',' );
+		    for (var i in tags ) {
+		   		number++;
+		    }
+		    if(number>5)
+		    	console.log("태그는 5개까지 입력해주세요");
+		}
 
 		return msg;
 	}
