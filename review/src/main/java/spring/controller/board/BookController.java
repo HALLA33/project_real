@@ -506,15 +506,16 @@ public class BookController {
     
     @RequestMapping(value= {"/book-delete/{no}/{item_no}"}, method=RequestMethod.GET)
     public String bookDelete(Model model, @PathVariable int no, @PathVariable int item_no, HttpSession session, 
-    		@RequestParam(value = "tag", required=false) String tag, HttpServletRequest request, HttpServletResponse reponse) {
+    		@RequestParam(value = "tag", required=false) String tag, 
+    		HttpServletRequest request, HttpServletResponse reponse, @RequestParam(value = "writer", required=false) String nickname) {
     	Member member = (Member)session.getAttribute("member");
     	
-    	log.info("실행됨"  + tag);
+    	log.info("실행됨"  + nickname);
     	
     	if(member.getPower().equals("일반")) {
     		bookDao.delete_board(no, item_no, member.getId(), tag);    		
     	}else if(member.getPower().equals("관리자") || member.getPower().equals("스탭")) {
-    		bookDao.delete_board(no, item_no, tag);
+    		bookDao.delete_board(no, item_no, nickname, tag);
     	}
 		
     	bookDao.board_delete_cookie(no, item_no);

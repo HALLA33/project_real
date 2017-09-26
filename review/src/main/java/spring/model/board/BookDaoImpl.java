@@ -185,6 +185,10 @@ public class BookDaoImpl implements BookDao{
 		
 		jdbcTemplate.update(sql, args);
 		
+		sql = "update p_member set writenumber = writenumber +1 where id = ?";
+		
+		jdbcTemplate.update(sql, new Object[] {nickname});
+		
 		if(board.getTag() != null) {
 			
 			String[] tags = board.getTag().replace("#", "").split("/");
@@ -307,6 +311,12 @@ public class BookDaoImpl implements BookDao{
 		Object[] args = {no, item_no, id};
 		
 		jdbcTemplate.update(sql, args);
+		
+		log.info("딜리트 id : " + id);
+		
+		sql = "update p_member set writenumber = writenumber -1 where id = ?";
+				
+		jdbcTemplate.update(sql, new Object[] {id});	
 		
 		if(tag != null) {
 			

@@ -299,7 +299,7 @@
 		<input type="button" class="btn" onclick="location.href='${pageContext.request.contextPath}/movie/movie-write?item_no=${board.item_no }&head=${board.head }'" value="글쓰기">
 		<input type="button" class="btn" onclick="location.href='${pageContext.request.contextPath}/movie/movie-revise/${board.no }/${board.item_no }'" value="수정하기">
 		<c:if test="${sessionScope.member.power eq '관리자' || sessionScope.member.power eq '스탭' || nickname eq sessionScope.member.nickname}">
-		<input type="button" class="btn" onclick="location.href='${pageContext.request.contextPath}/movie/movie-delete/${board.no }/${board.item_no }?tag=${board.tag.replace('#', '') }'" value="삭제하기">
+		<input type="button" class="btn" onclick="location.href='${pageContext.request.contextPath}/book-delete/${board.no }/${board.item_no }?tag=${board.tag.replace('#', '') }&writer=${board.writer}'" value="삭제하기">
 		</c:if>
 		<input type="button" class="btn" value="목록보기" onclick="location.href='${pageContext.request.contextPath}/list?item_no=${board.item_no }';"/>
 	</div>

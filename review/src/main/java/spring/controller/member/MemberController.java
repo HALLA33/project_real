@@ -627,6 +627,16 @@ public class MemberController {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+		}else {
+			
+			Member member = (Member)session.getAttribute("member");
+			
+			String nickname = member.getNickname();
+			
+			member = memberDao.getmember(nickname);
+			
+			session.setAttribute("member", member); //실시간 갱신ㄴ
+			
 		}
 		
 		return "member/myinfo";
