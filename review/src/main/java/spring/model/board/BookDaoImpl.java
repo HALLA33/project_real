@@ -47,7 +47,7 @@ public class BookDaoImpl implements BookDao{
 	};
 	
 	@Override
-	public List<Board> board_list(int start, int end, int item_no, int head, int align, String tag) {
+	public List<Board> board_list(int start, int end, int item_no, int head, int align, String tag, String word) {
 		
 //		System.out.println("sql head="+head);
 //		System.out.println("sql align="+align);
@@ -87,6 +87,14 @@ public class BookDaoImpl implements BookDao{
 						 }
 					}
 				}
+			if(item_no == 9) {
+				System.out.println("검색");
+				Object[] args = {word, word};
+				sql = "select * from p_board where detail like '%'||?||'%' or title like '%'||?||'%'";
+				System.out.println("item_no:9 = " + sql);
+				System.out.println(jdbcTemplate.query(sql, args, mapper).isEmpty());
+				return jdbcTemplate.query(sql, args, mapper);
+			}
 		
 						System.out.println("sql = "+sql);
 						System.out.println("item_no="+item_no+", boardAlign="+boardAlign);

@@ -9,7 +9,7 @@ import spring.model.member.Tags;
 
 @Repository
 public interface BookDao {
-	List<Board> board_list(int start, int end, int item_no, int head, int align, String tag);
+	List<Board> board_list(int start, int end, int item_no, int head, int align, String tag, String word);
 	Map<Integer, Book> book_list(int no);
 	int write(Board board, int no);
 	int search_write(Book book);

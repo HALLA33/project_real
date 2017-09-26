@@ -67,11 +67,12 @@ public class BookController {
 	
 	@RequestMapping(value= {"/list", "/list_read"})
 	public String list(Model model, HttpServletRequest request, 
-			@RequestParam(required=false) int item_no, @RequestParam(defaultValue="-1")int head, @RequestParam(defaultValue="0")int alignVal,
-			@RequestParam(value = "tag", required=false) String tag, HttpSession session
+			@RequestParam(defaultValue="9") int item_no, @RequestParam(defaultValue="-1")int head, @RequestParam(defaultValue="0")int alignVal,
+			@RequestParam(value = "tag", required=false) String tag, HttpSession session, @RequestParam(value="word", required=false) String word
 			) {
 		String pageStr = request.getParameter("page") ;
 		int pageNo;
+		String status;
 		try{
 			pageNo = Integer.parseInt(pageStr);
 			if(pageNo <= 0) throw new Exception();
@@ -111,7 +112,7 @@ public class BookController {
 		System.out.println("controller head ="+head);
 		System.out.println("controller align = "+align);
 		
-		List<Board> board = bookDao.board_list(start, end, item_no, head, align, tag);
+		List<Board> board = bookDao.board_list(start, end, item_no, head, align, tag, word);
 		
 		Map<Integer, String> nickname = new HashMap<>();	
 		Map<Integer, Book> book = null;
