@@ -166,12 +166,16 @@
 			</tr>		
 			<tr class="form-inline">
 				<td class="area-20" style="border: none">감정</td>
-				<td class="area-20" style="border: none">${board.emotion}</td>
+				<td class="area-20" style="border: none">
+					<img src="${pageContext.request.contextPath}/img/icon_${board.emotion}.PNG" width="40px" height="30px"> 
+				</td>
 			</tr>	
 			<tr class="form-inline">
 				<td class="area-20" style="border: none">날씨</td>
-				<td class="area-20" style="border: none">${board.weather}</td>
-			</tr>		
+				<td class="area-20" style="border: none">
+					<img src="${pageContext.request.contextPath}/img/${board.weather}.PNG" width="40px" height="30px"> 
+				</td>
+			</tr>	
 			<tr class="form-inline">
 				<td class="area-20" style="border: none">태그</td>
 				<td class="area-20" style="border: none">${board.tag}</td>
