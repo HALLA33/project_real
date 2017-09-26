@@ -112,6 +112,9 @@ public class Board {
 		case 6:
 			b_item_no = "기타";
 			break;
+		case 7:
+			b_item_no = "자유";
+			break;
 		}
 	}
 	public int getHead() {
