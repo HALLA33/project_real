@@ -222,7 +222,7 @@
 		<script type="text/javascript">
 			function bookname(){
 				var book_name = $("#book_name").val();
-	            var openWin = window.open("bookList?keyword="+book_name, "도서 찾기", "width=750, height=800");
+	            var openWin = window.open("${pageContext.request.contextPath}/bookList?keyword="+book_name, "도서 찾기", "width=750, height=800");
 			}
 		</script>
 	</div>
