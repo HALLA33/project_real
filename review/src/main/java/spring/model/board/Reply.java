@@ -8,6 +8,7 @@ import java.util.Date;
 import javax.servlet.http.HttpServletRequest;
 
 public class Reply {
+	private String title;
 	private int no;
 	private String writer;
 	private String ninkname;
@@ -24,6 +25,7 @@ public class Reply {
 	}
 	
 	public Reply(HttpServletRequest request) {
+		setTitle(request.getParameter("title"));
 		setWriter(request.getParameter("writer"));
 		setDetail(request.getParameter("detail"));
 		setBoard_no(Integer.parseInt(request.getParameter("board_no")));
@@ -34,6 +36,7 @@ public class Reply {
 	}
 	
 	public Reply(ResultSet rs) throws SQLException {
+		setTitle(rs.getString("title"));
 		setNo(rs.getInt("no"));
 		setWriter(rs.getString("writer"));
 		setDetail(rs.getString("detail"));
@@ -43,6 +46,16 @@ public class Reply {
 		setGno(rs.getInt("gno"));
 		setGseq(rs.getInt("gseq"));
 		setDepth(rs.getInt("depth"));
+	}
+	
+	
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 	public int getNo() {

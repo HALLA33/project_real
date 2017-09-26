@@ -17,6 +17,7 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.stereotype.Repository;
 
 import spring.model.board.Board;
+import spring.model.board.Reply;
 
 @Repository("memberDao")
 public class MemberDaoImpl implements MemberDao {
@@ -44,6 +45,10 @@ public class MemberDaoImpl implements MemberDao {
 	
 	private RowMapper<Tags> mapper4 = (rs, index) -> {
 		return new Tags(rs);
+	};
+	
+	private RowMapper<Reply> mapper5 = (rs, index) -> {
+		return new Reply(rs);
 	};
 	
 	@Autowired
@@ -495,6 +500,24 @@ public class MemberDaoImpl implements MemberDao {
 		String sql = "select * from p_member where id = ?";
 		
 		List<Member> list = jdbcTemplate.query(sql, new Object[] {id},mapper);
+		
+		return list;
+	}
+	
+	@Override
+	public List<Reply> mycomment(String id, String mode) {
+		
+		String sql = null;
+		
+		if(mode.equals("new")) {
+			sql = "select * from p_reply where writer = ? order by reg desc";		
+		}else if(mode.equals("old")) {
+			sql = "select * from p_reply where writer = ? order by reg";	
+		}
+		
+		List<Reply> list = jdbcTemplate.query(sql, new Object[] {id}, mapper5);
+		
+		sql = "select title from p_board where no = ? and item_no = ?";
 		
 		return list;
 	}

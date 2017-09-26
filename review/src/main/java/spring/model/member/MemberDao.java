@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Repository;
 
 import spring.model.board.Board;
+import spring.model.board.Reply;
 
 @Repository
 public interface MemberDao {
@@ -42,4 +43,5 @@ public interface MemberDao {
 	public Member getmember(String nickname);
 	public List<Tags> taglist();
 	public List<Member> userinfo(String id);
+	List<Reply> mycomment(String id, String mode);
 }

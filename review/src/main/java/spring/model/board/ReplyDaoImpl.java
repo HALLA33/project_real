@@ -106,8 +106,8 @@ public class ReplyDaoImpl implements ReplyDao{
 			depth++;
 		}
 		
-		sql = "insert into p_reply values(p_reply_seq.nextval, ?, ?, sysdate, ?, ?, ?, ?, ?)";
-		Object[] args4 = {reply.getWriter(), reply.getDetail(), reply.getBoard_no(), reply.getBoard_item_no(),
+		sql = "insert into p_reply values(? ,p_reply_seq.nextval, ?, ?, sysdate, ?, ?, ?, ?, ?)";
+		Object[] args4 = {reply.getTitle() ,reply.getWriter(), reply.getDetail(), reply.getBoard_no(), reply.getBoard_item_no(),
 									gno, gseq, depth};
 		
 		jdbcTemplate.update(sql, args4);

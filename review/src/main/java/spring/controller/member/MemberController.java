@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import spring.model.board.Board;
+import spring.model.board.Reply;
 import spring.model.member.Attendance;
 import spring.model.member.Cookies;
 import spring.model.member.Encryption;
@@ -477,10 +478,20 @@ public class MemberController {
 	}
 	
 	//내가쓴 글
-	@RequestMapping("/mycomment")
-	public String mycomment() {
-		return "member/mycomment";
-	}
+		@RequestMapping("/mycomment")
+		public String mycomment(HttpSession session, HttpServletRequest request,
+				@RequestParam(value = "mode", defaultValue = "new", required =false)String mode) {
+			
+			Member member =  (Member)session.getAttribute("member");
+			
+			String id = member.getId();
+			
+			List<Reply> list = memberDao.mycomment(id, mode);
+			
+			request.setAttribute("m_co", list);
+			
+			return "member/mycomment";
+		}
 	
 	@RequestMapping("/myboard")
 	public String myboard(HttpSession session, HttpServletRequest request) {

@@ -13,34 +13,31 @@
 
 <div id="mywrite-wrap">
 
+	<div align = "center">
+		<button class="btn btn-primary modify" onclick = "location.href = 'mycomment?mode=new'">최신순</button>
+		<button class="btn btn-primary modify" onclick = "location.href = 'mycomment?mode=old'">과거순</button>
+	</div>
+
 <table class = "table table-bordered mywrite" style="margin-left:0px;">
    
    <thead>
       <tr>
         <th id="check" width=10%><input type="checkbox" id="all"></th>
+        <th>제목</th>
           <th>댓글</th>
          <th width=10%>작성일</th>
       </tr>
    </thead>
    
    <tbody>
-       <tr>
-        <td id="check"><input type="checkbox" class="unit"></td>
-           <td>안녕안녕</td>
-         <td>2017/08/30</td>
-      </tr>
-       
-      <tr>
-          <td id="check"><input type="checkbox" class="unit"></td>
-          <td>ㅎㅇ</td>
-         <td>2017/08/30</td>
-      </tr>
-      
-      <tr>
-          <td id="check"><input type="checkbox" class="unit"></td>
-          <td>ㅋㅋㅋ</td>
-         <td>2017/08/30</td>
-      </tr>
+   <c:forEach items="${m_co}" var="m_co">
+   		<tr>
+   			<td id="check"><input type="checkbox" class="unit"></td>
+   			<td><a href = "${pageContext.request.contextPath}/book-detail?no=${m_co.board_no}&item_no=${m_co.board_item_no}">${m_co.title }</a></td>
+   			<td>${m_co.detail}</td>
+   			<td>${m_co.reg}</td>
+   		</tr>
+   </c:forEach>
        
    </tbody>
    
