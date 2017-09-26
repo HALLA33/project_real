@@ -89,8 +89,8 @@ public class BookDaoImpl implements BookDao{
 				}
 			if(item_no == 9) {
 				System.out.println("검색");
-				Object[] args = {word, word};
-				sql = "select * from p_board where detail like '%'||?||'%' or title like '%'||?||'%'";
+				Object[] args = {word, word, word};
+				sql = "select * from p_board where search_artist like '%'||?||'%' or search_title like '%'||?||'%' or detail like '%'||?||'%' order by reg desc";
 				System.out.println("item_no:9 = " + sql);
 				System.out.println(jdbcTemplate.query(sql, args, mapper).isEmpty());
 				return jdbcTemplate.query(sql, args, mapper);
@@ -159,7 +159,7 @@ public class BookDaoImpl implements BookDao{
 	
 	@Override
 	public int write(Board board, int no) {
-		String sql = "insert into p_board values(?, ?, ?, ?, ?, ?, ?, sysdate, 0, 0, 0, 0, ?, ?, ?, ?)";
+		String sql = "insert into p_board values(?, ?, ?, ?, ?, ?, ?, sysdate, 0, 0, 0, 0, ?, ?, ?, ?, ?, ?)";
 		String seq = null;
 		switch(board.getItem_no()) {
 		case 0 : seq = "p_board_notice_seq"; break;
@@ -180,7 +180,7 @@ public class BookDaoImpl implements BookDao{
 		Object[] args = {
 				seq_number, board.getItem_no(), board.getHead(), board.getTag(), 
 				board.getWriter(), board.getTitle(), board.getDetail(), board.getNotice(), no, 
-				board.getEmotion(), board.getWeather()
+				board.getEmotion(), board.getWeather(), board.getSearch_title(), board.getSearch_artist()
 				};
 		
 		jdbcTemplate.update(sql, args);

@@ -22,7 +22,9 @@ public class Board {
 	private int search_no;
 	private String emotion;
 	private String weather;
-	
+	private String search_title;
+	private String search_artist;
+
 	public Board() {}
 	
 	public Board(ResultSet rs) throws SQLException {
@@ -42,8 +44,26 @@ public class Board {
 		setSearch_no(rs.getInt("search_no"));
 		setEmotion(rs.getString("emotion"));
 		setWeather(rs.getString("weather"));
+		setSearch_title(rs.getString("search_title"));
+		setSearch_artist(rs.getString("search_artist"));
 	}
 	
+	
+	public String getSearch_title() {
+		return search_title;
+	}
+	
+	public void setSearch_title(String search_title) {
+		this.search_title = search_title;
+	}
+	
+	public String getSearch_artist() {
+		return search_artist;
+	}
+	
+	public void setSearch_artist(String search_artist) {
+		this.search_artist = search_artist;
+	}
 	
 	public int getSearch_no() {
 		return search_no;
@@ -245,10 +265,10 @@ public class Board {
 
 	@Override
 	public String toString() {
-		return "Board [no=" + no + ", item_no=" + item_no + ", head=" + head + ", tag=" + tag + ", writer=" + writer
-				+ ", title=" + title + ", detail=" + detail + ", reg=" + reg + ", read=" + read + ", reply=" + reply
-				+ ", good=" + good + ", bad=" + bad + ", notice=" + notice + ", search_no=" + search_no + "]";
-	}
-
-	
+		return "Board [no=" + no + ", item_no=" + item_no + ", b_item_no=" + b_item_no + ", head=" + head + ", b_head="
+				+ b_head + ", tag=" + tag + ", writer=" + writer + ", title=" + title + ", detail=" + detail + ", reg="
+				+ reg + ", read=" + read + ", reply=" + reply + ", good=" + good + ", bad=" + bad + ", notice=" + notice
+				+ ", search_no=" + search_no + ", emotion=" + emotion + ", weather=" + weather + ", search_title="
+				+ search_title + ", search_artist=" + search_artist + "]";
+	}	
 }

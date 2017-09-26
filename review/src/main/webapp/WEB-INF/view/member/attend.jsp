@@ -107,7 +107,7 @@
 				</c:if>
 				<c:if test="${sessionScope.member.checkflag eq true }">
 					<div class="login-view">
-						출석도장 찍으세요&nbsp;<input type="text" id="greetings"><input
+						출석도장 찍으세요&nbsp;<input type="text" id="greetings" value="=ㅅ="><input
 							type="button" value="출석" id="stamp">
 					</div>
 				</c:if>

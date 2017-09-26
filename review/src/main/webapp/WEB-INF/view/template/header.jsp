@@ -328,7 +328,7 @@ aside{
          <form action="${pageContext.request.contextPath}/list?item_no=9">
             <div class="col-lg-6">
                <div class="input-group">
-                  <input type="search" style="width: 200px;" placeholder="검색어" class="form-control" name = "word">
+                  <input type="search" style="width: 200px;" placeholder="검색어" class="form-control" name = "word" required>
                   <span class="input-group-btn search-bar">
                      <button class="btn btn-default searchicon " type="submit"><i class="xi-search xi-2x"></i></button>
                   </span>

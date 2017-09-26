@@ -269,6 +269,8 @@
 	<input type="hidden" class="director" name="director">
 	<input type="hidden" class="actor" name="actor">
 	<input type="hidden" class="pubDate" name="pubDate">
+	<input type="hidden" class="book_title" name="search_title">
+	<input type="hidden" class="author" name="search_artist">
    
 	<textarea name="ir1" id="ir1" class="nse_content" style="width:100%; height:412px; min-width:610px; display:none;" required></textarea>
 	<script type="text/javascript">
