@@ -20,19 +20,14 @@
 		var power = '${sessionScope.member.power}';
 		if(power=='관리자'){
 			$("#item_no_notice").show();
-			$("#head_notice").show();
 		}
 		else{
 			$("#item_no_notice").hide();
-			$("#head_notice").hide();
 		}
 		
 		var item_no = '${item_no}';
 		$("#item_no").val(item_no);
-		
-		var head = '${head}';
-		$("#head").val(head);
-		
+
 		$("#preview").on("click", function(){
  			var msg = valid(form);
  			var text = tagRemove(form.ir1.value);
