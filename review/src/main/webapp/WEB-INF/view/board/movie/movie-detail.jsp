@@ -35,7 +35,7 @@
 		        function(data){ //값을 data변수로 받아서 처리한다.	        	
 		        	console.log("좋아요 성공 : " + data.good_img);
 		        	console.log("좋아요 개수 : " + data.good_number);
-		        	$("#good_tag").attr("src", "${pageContext.request.contextPath}/movie/"+data.good_img);
+		        	$("#good_tag").attr("src", "${pageContext.request.contextPath}/"+data.good_img);
 		        	$("#good_number").text(data.good_number+"개");
 		        }
 		    });
@@ -55,7 +55,7 @@
 		        function(result){ //값을 data변수로 받아서 처리한다.
 		        	console.log("싫어요 성공 : " + result.bad_img)
 		        	console.log("좋아요 개수 : " + result.bad_number);
-		        	$("#bad_tag").attr("src", "${pageContext.request.contextPath}/movie/"+result.bad_img);
+		        	$("#bad_tag").attr("src", "${pageContext.request.contextPath}/"+result.bad_img);
 		        	$("#bad_number").text(result.bad_number+"개");
 		        }
 		    });
@@ -222,13 +222,13 @@
 	 				<div class="row form-inline">
 	 					<div class="align-left" style="padding-right:30px; padding-left:20px">  
 		 					<button id="good" style="background:white; border:none">
-		 						<img id="good_tag" src="${good_img }" style="align:left;">
+		 						<img id="good_tag" src="${pageContext.request.contextPath}/${good_img }" style="align:left;">
 		 					</button>​
 		 				</div>
 		 				
 		 				<div class="align-left">  
 		 					<button id="bad" style="background:white; border:none">
-		 						<img id="bad_tag" src="${bad_img }" style="align:left;">
+		 						<img id="bad_tag" src="${pageContext.request.contextPath}/${bad_img }" style="align:left;">
 		 					</button>
 		 				</div>
 	 				</div>	
