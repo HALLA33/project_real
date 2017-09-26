@@ -128,23 +128,42 @@
 		console.log(img.name);
 		var emoLabel = document.querySelector("#emoLabel");
 		var emotionSelector = document.querySelector("#emotionSelector");
-		emoLabel.innerHTML = "<input type='hidden'  name='emotion' value='"+img.name+"'>"+img.name;
+	    $("#emoLabel").css("display", "block");
+	    $("#emoDiv").css("border", "1px solid #b0c4de");
+	    $("#emoDiv").css("border-radius", "10px")
+	    $("#emoDiv").css("margin-bottom", "10px")
+	    $("#emoLabel").css("padding-left", "30px")
+	    var extention = "icon_" + img.name + ".PNG";
+	    var imgTag = '<img src="${pageContext.request.contextPath}/img/'+extention+'" style="width:40px; height:40px">'; 
+		emoLabel.innerHTML = "<input type='hidden'  name='emotion' value='"+img.name+"'>"+ imgTag;
 		emotionSelector.style.display = "none";
 	}
 	function weaClick(img){
 		console.log(img.name);
 		var weaLabel = document.querySelector("#weaLabel");
 		var weatherSelector = document.querySelector("#weatherSelector");
-		weaLabel.innerHTML = "<input type='hidden'  name='weather' value='"+img.name+"'>"+img.name;
+		$("#weaLabel").css("display", "block");
+		$("#weaDiv").css("border", "1px solid #b0c4de");
+		$("#weaDiv").css("border-radius", "10px")
+		$("#weaDiv").css("margin-bottom", "10px")
+		$("#weaDiv").css("margin-left", "10px")
+		$("#weaLabel").css("padding-left", "30px")
+		var extention = img.name + ".PNG";
+	    var imgTag = '<img src="${pageContext.request.contextPath}/img/'+extention+'" style="width:40px; height:40px">'; 
+		weaLabel.innerHTML = "<input type='hidden'  name='weather' value='"+img.name+"'>"+imgTag;
 		weatherSelector.style.display = "none";
 	}
 	function emoDel(){
 		var emoLabel = document.querySelector("#emoLabel");
+		$("#emoLabel").css("display", "none");
+		$("#emoDiv").css("border", "none");
 		emoLabel.innerHTML = "";
 		emotionSelector.style.display = "none";
 	}
 	function weaDel(){
 		var weaLabel = document.querySelector("#weaLabel");
+		$("#weaLabel").css("display", "none");
+		$("#weaDiv").css("border", "none");
 		weaLabel.innerHTML = "";
 		weatherSelector.style.display = "none";
 	}
@@ -188,53 +207,6 @@
 			<input type="text" name="title" class="user-input area-90" value="${board.title}">
 		</div>
 	</div>
-
-	<div class="row form-inline">
-		<div class="form-group area-20">
-			<input type="button" name="icon" id="icon" value="감정 이모티콘 넣기">
-		</div>
-		<div class="form-group mx-sm-3">
-			<input type="button"  name="weather" id="weather" value="날씨 이모티콘 넣기">
-		</div>
-	</div>
-	<label id="emoLabel"><input type="hidden"  name="emotion" value="${board.emotion}">${board.emotion}</label>&nbsp;&nbsp;
-	<label id=weaLabel><input type="hidden"  name="weather" value="${board.weather}">${board.weather}</label>
-	
-	<!-- 감정 이모티콘 레이어  -->
-	<div id="emotionSelector">
-	        <div style="position:absolute;top:5px;right:5px">
-	        <span onClick="javascript:document.getElementById('emotionSelector').style.display='none'" style="cursor:pointer;font-size:1.5em" title="닫기">X</span>
-	        </div> 
-	        <img class="icon" id="love" name="love" src="<c:url value="/img/icon_love.PNG"/>"  onclick="emoClick(this)" width="40" height="30">
-	        <img class="icon" id="good" name="good" src="<c:url value="/img/icon_good.PNG"/>" onclick="emoClick(this)" width="40" height="30">
-	        <img class="icon" id="sogood" name="sogood" src="<c:url value="/img/icon_sogood.PNG"/>" onclick="emoClick(this)" width="40" height="30"> <br>
-	        <img class="icon" id="fighting" name="fighting" src="<c:url value="/img/icon_fighting.PNG"/>" onclick="emoClick(this)" width="40" height="30">
-	        <img class="icon" id="angry" name="angry" src="<c:url value="/img/icon_angry.PNG"/>" onclick="emoClick(this)" width="40" height="30"> 
-	        <img class="icon" id="bad" name="bad" src="<c:url value="/img/icon_bad.PNG"/>" onclick="emoClick(this)" width="40" height="30"> <br>
-	        <img class="icon" id="shock" name="shock" src="<c:url value="/img/icon_shock.PNG"/>" onclick="emoClick(this)" width="40" height="30">
-	        <img class="icon" id="sobad" name="sobad" src="<c:url value="/img/icon_sobad.PNG"/>" onclick="emoClick(this)" width="40" height="30">
-	        <img class="icon" id="tired" name="tired" src="<c:url value="/img/icon_tired.PNG"/>" onclick="emoClick(this)" width="40" height="30">
-	        <label style="margin-left: 0;" width="130" height="30" onclick="emoDel()">삭제하기</label>
-	</div>
-	<!-- //감정 이모티콘 레이어  -->
-	
-	<!-- 날씨 이모티콘 레이어  -->
-	<div id="weatherSelector">
-	        <div style="position:absolute;top:5px;right:5px">
-	        <span onClick="javascript:document.getElementById('weatherSelector').style.display='none'" style="cursor:pointer;font-size:1.5em" title="닫기">X</span>
-	        </div> 
-	        <img class="icon" id="sunny" name="sunny" src="<c:url value="/img/sunny.PNG"/>"  onclick="weaClick(this)" width="40" height="30">
-	        <img class="icon" id="sunny_cloudy" name="sunny_cloudy" src="<c:url value="/img/sunny_cloudy.PNG"/>" onclick="weaClick(this)" width="40" height="30">
-	        <img class="icon" id="rainy" name="rainy" src="<c:url value="/img/rainy.PNG"/>" onclick="weaClick(this)" width="40" height="30"> <br>
-	        <img class="icon" id="cloudy" name="cloudy" src="<c:url value="/img/cloudy.PNG"/>" onclick="weaClick(this)" width="40" height="30">
-	        <img class="icon" id="night" name="night" src="<c:url value="/img/night.PNG"/>" onclick="weaClick(this)" width="40" height="30">
-	        <img class="icon" id="heavy_rain" name="heavy_rain" src="<c:url value="/img/heavy_rain.PNG"/>" onclick="weaClick(this)" width="40" height="30"> <br>
-	        <img class="icon" id="thunder" name="thunder" src="<c:url value="/img/thunder.PNG"/>" onclick="weaClick(this)" width="40" height="30">
-	        <img class="icon" id="packed_weather" name="packed_weather" src="<c:url value="/img/packed_weather.PNG"/>" onclick="weaClick(this)" width="40" height="30">
-	        <img class="icon" id="snowy" name="snowy" src="<c:url value="/img/snowy.PNG"/>" onclick="weaClick(this)" width="40" height="30">
-	        <label style="margin-left: 0;" width="130" height="30" onclick="weaDel()">삭제하기</label>
-	</div>
-	<!-- //날씨 이모티콘 레이어  -->
 
 	<div class="row form-inline">
 		<div class="form-group area-20" >
@@ -293,6 +265,59 @@
 	<input type="hidden" class="actor" name="actor" value="${movie.actor }">
 	<input type="hidden" class="pubDate" name="pubDate" value="${movie.pubDate }">
    
+   <div class="form-inline">
+		<div class="form-group area-20" >
+			<input type="button" class="btn" name="icon" id="icon"  value="감정 이모티콘" >
+		</div>
+		<div class="form-group mx-sm-3">
+			<input type="button"  class="btn" name="weather" id="weather" value="날씨 이모티콘">
+		</div>
+	</div>
+	<div class="form-inline">
+		<div class="form-group area-20"  id="emoDiv">
+			<label id="emoLabel" style="display:none"></label>
+		</div>
+		<div class="form-group area-20" id="weaDiv">
+			<label id="weaLabel" style="display:none"></label>
+		</div>
+	</div>
+		
+	<!-- 감정 이모티콘 레이어  -->
+	<div id="emotionSelector">
+	        <div style="position:absolute;top:5px;right:5px">
+	        <span onClick="javascript:document.getElementById('emotionSelector').style.display='none'" style="cursor:pointer;font-size:1.5em" title="닫기">X</span>
+	        </div> 
+	        <img class="icon" id="love" name="love" src="<c:url value="/img/icon_love.PNG"/>"  onclick="emoClick(this)" width="40" height="30">
+	        <img class="icon" id="good" name="good" src="<c:url value="/img/icon_good.PNG"/>" onclick="emoClick(this)" width="40" height="30">
+	        <img class="icon" id="sogood" name="sogood" src="<c:url value="/img/icon_sogood.PNG"/>" onclick="emoClick(this)" width="40" height="30"> <br>
+	        <img class="icon" id="fighting" name="fighting" src="<c:url value="/img/icon_fighting.PNG"/>" onclick="emoClick(this)" width="40" height="30">
+	        <img class="icon" id="angry" name="angry" src="<c:url value="/img/icon_angry.PNG"/>" onclick="emoClick(this)" width="40" height="30"> 
+	        <img class="icon" id="bad" name="bad" src="<c:url value="/img/icon_bad.PNG"/>" onclick="emoClick(this)" width="40" height="30"> <br>
+	        <img class="icon" id="shock" name="shock" src="<c:url value="/img/icon_shock.PNG"/>" onclick="emoClick(this)" width="40" height="30">
+	        <img class="icon" id="sobad" name="sobad" src="<c:url value="/img/icon_sobad.PNG"/>" onclick="emoClick(this)" width="40" height="30">
+	        <img class="icon" id="tired" name="tired" src="<c:url value="/img/icon_tired.PNG"/>" onclick="emoClick(this)" width="40" height="30">
+	        <label style="margin-left: 0;" width="130" height="30" onclick="emoDel()">삭제하기</label>
+	</div>
+	<!-- //감정 이모티콘 레이어  -->
+	
+	<!-- 날씨 이모티콘 레이어  -->
+	<div id="weatherSelector">
+	        <div style="position:absolute;top:5px;right:5px">
+	        <span onClick="javascript:document.getElementById('weatherSelector').style.display='none'" style="cursor:pointer;font-size:1.5em" title="닫기">X</span>
+	        </div> 
+	        <img class="icon" id="sunny" name="sunny" src="<c:url value="/img/sunny.PNG"/>"  onclick="weaClick(this)" width="40" height="30">
+	        <img class="icon" id="sunny_cloudy" name="sunny_cloudy" src="<c:url value="/img/sunny_cloudy.PNG"/>" onclick="weaClick(this)" width="40" height="30">
+	        <img class="icon" id="rainy" name="rainy" src="<c:url value="/img/rainy.PNG"/>" onclick="weaClick(this)" width="40" height="30"> <br>
+	        <img class="icon" id="cloudy" name="cloudy" src="<c:url value="/img/cloudy.PNG"/>" onclick="weaClick(this)" width="40" height="30">
+	        <img class="icon" id="night" name="night" src="<c:url value="/img/night.PNG"/>" onclick="weaClick(this)" width="40" height="30">
+	        <img class="icon" id="heavy_rain" name="heavy_rain" src="<c:url value="/img/heavy_rain.PNG"/>" onclick="weaClick(this)" width="40" height="30"> <br>
+	        <img class="icon" id="thunder" name="thunder" src="<c:url value="/img/thunder.PNG"/>" onclick="weaClick(this)" width="40" height="30">
+	        <img class="icon" id="packed_weather" name="packed_weather" src="<c:url value="/img/packed_weather.PNG"/>" onclick="weaClick(this)" width="40" height="30">
+	        <img class="icon" id="snowy" name="snowy" src="<c:url value="/img/snowy.PNG"/>" onclick="weaClick(this)" width="40" height="30">
+	        <label style="margin-left: 0;" width="130" height="30" onclick="weaDel()">삭제하기</label>
+	</div>
+	<!-- //날씨 이모티콘 레이어  -->
+	
 	<textarea name="ir1" id="ir1" class="nse_content" style="width:100%; height:412px; min-width:610px; display:none;">${board.detail }</textarea>
 	<script type="text/javascript">
    		var oEditors = [];
