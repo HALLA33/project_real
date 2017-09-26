@@ -28,6 +28,10 @@
 			$("#head_notice").hide();
 		}
 		
+		var icon = '${board.emotion}'
+		var weather = '${board.weather}'
+		iconSetting(icon, weather);
+		
 		var head = '${board.head}';
 		$("#head").val(head);
 		
@@ -122,6 +126,29 @@
 			return text;
 		}
 		
+	}
+	
+	function iconSetting(icon, weather){
+		if(icon!='없음'){
+			$("#emoLabel").css("display", "block");
+		    $("#emoDiv").css("border", "1px solid #b0c4de");
+		    $("#emoDiv").css("border-radius", "10px")
+		    $("#emoDiv").css("margin-bottom", "10px")
+		    $("#emoLabel").css("padding-left", "30px")
+		    var extention = "icon_" + icon + ".PNG";
+		    var imgTag = '<img src="${pageContext.request.contextPath}/img/'+extention+'" style="width:40px; height:40px">'; 
+			emoLabel.innerHTML = "<input type='hidden'  name='emotion' value='"+icon+"'>"+ imgTag;
+		}
+		if(weather!='없음')
+			$("#weaLabel").css("display", "block");
+			$("#weaDiv").css("border", "1px solid #b0c4de");
+			$("#weaDiv").css("border-radius", "10px")
+			$("#weaDiv").css("margin-bottom", "10px")
+			$("#weaDiv").css("margin-left", "10px")
+			$("#weaLabel").css("padding-left", "30px")
+			var extention = weather + ".PNG";
+		    var imgTag = '<img src="${pageContext.request.contextPath}/img/'+extention+'" style="width:40px; height:40px">'; 
+			weaLabel.innerHTML = "<input type='hidden'  name='weather' value='"+weather+"'>"+imgTag;
 	}
 	
 	function emoClick(img){
