@@ -123,6 +123,7 @@ public class BookController {
 			b.setB_item_no(b.getItem_no());
 			b.setB_head(b.getHead());
 			replaceDetail(b);
+			replaceTitle(b);
 			nickname.put(b.getNo(), bookDao.search_nickname(b.getWriter()));
 		}
 		
@@ -164,6 +165,18 @@ public class BookController {
 		}
 
 		board.setDetail(detail);
+	}
+	
+	public void replaceTitle(Board board) {
+		String title = board.getTitle();
+
+		title = title.replaceAll("<(/)?([a-zA-Z]*)(\\s[a-zA-Z]*=[^>]*)?(\\s)*(/)?>", " ").replaceAll("&nbsp;", " ");
+		
+		if(title.length() >= 15){
+			title = title.substring(0, 15) + "...";
+		}
+		
+		board.setTitle(title);
 	}
 	
 	@RequestMapping(value= {"/book-write"}, method=RequestMethod.GET)
