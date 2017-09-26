@@ -48,6 +48,9 @@
 			      					</a>
 	      						</c:when>
 	      					</c:choose>
+						<span style="padding-left:15px">조회수 : ${board.read }개</span>
+		                	<span><img src="${pageContext.request.contextPath}/img/good.png" width="20" height="20">${board.good }개</span>
+		                	<span><img src="${pageContext.request.contextPath}/img/bad.png" width="20" height="20">${board.bad }개</span>
 	      				</td>
 	      				<td>${nickname[board.no]}</td>
 	      				<td>${board.reg}</td>
@@ -90,6 +93,9 @@
 		                			<a href="<c:url value="/movie/movie-detail?no=${board.no }&item_no=${board.item_no }" />" style="font-size: 13px; width:600px; margin-top:10px " id="block" >${movie[board.search_no].title}</a>
 		                		</c:if>
 		                	</c:if>
+					<span style="padding-left:15px">조회수 : ${board.read }개</span>
+		                	<span><img src="${pageContext.request.contextPath}/img/good.png" width="20" height="20">${board.good }개</span>
+		                	<span><img src="${pageContext.request.contextPath}/img/bad.png" width="20" height="20">${board.bad }개</span>
 		                  </div>
 		                  <div class="align-left">
 		                      <h5 style="font-size: 13px">${nickname[board.no]}</h5>
