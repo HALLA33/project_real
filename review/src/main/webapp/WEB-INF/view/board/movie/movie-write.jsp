@@ -299,7 +299,7 @@
 	<div class="align-right">
 		<input type="button" class="btn" style="margin: 10px" value="글쓰기" id="register" onclick="submitContents(this)" />
 		<input type="button" class="btn" style="margin: 10px" id="preview" value="미리보기" onclick="submitContents(this)"/>		
-		<input type="button" class="btn" style="margin: 10px" value="목록보기" onclick="location.href='list?item_no=${item_no}'"/>	
+		<input type="button" class="btn" style="margin: 10px" value="목록보기" onclick="location.href='${pageContext.request.contextPath}list?item_no=${item_no}'"/>	
 	</div>
 	
 </form>
