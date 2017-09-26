@@ -119,23 +119,42 @@
 		console.log(img.name);
 		var emoLabel = document.querySelector("#emoLabel");
 		var emotionSelector = document.querySelector("#emotionSelector");
-		emoLabel.innerHTML = "<input type='hidden'  name='emotion' value='"+img.name+"'>"+img.name;
+	    $("#emoLabel").css("display", "block");
+	    $("#emoDiv").css("border", "1px solid #b0c4de");
+	    $("#emoDiv").css("border-radius", "10px")
+	    $("#emoDiv").css("margin-bottom", "10px")
+	    $("#emoLabel").css("padding-left", "30px")
+	    var extention = "icon_" + img.name + ".PNG";
+	    var imgTag = '<img src="${pageContext.request.contextPath}/img/'+extention+'" style="width:40px; height:40px">'; 
+		emoLabel.innerHTML = "<input type='hidden'  name='emotion' value='"+img.name+"'>"+ imgTag;
 		emotionSelector.style.display = "none";
 	}
 	function weaClick(img){
 		console.log(img.name);
 		var weaLabel = document.querySelector("#weaLabel");
 		var weatherSelector = document.querySelector("#weatherSelector");
-		weaLabel.innerHTML = "<input type='hidden'  name='weather' value='"+img.name+"'>"+img.name;
+		$("#weaLabel").css("display", "block");
+		$("#weaDiv").css("border", "1px solid #b0c4de");
+		$("#weaDiv").css("border-radius", "10px")
+		$("#weaDiv").css("margin-bottom", "10px")
+		$("#weaDiv").css("margin-left", "10px")
+		$("#weaLabel").css("padding-left", "30px")
+		var extention = img.name + ".PNG";
+	    var imgTag = '<img src="${pageContext.request.contextPath}/img/'+extention+'" style="width:40px; height:40px">'; 
+		weaLabel.innerHTML = "<input type='hidden'  name='weather' value='"+img.name+"'>"+imgTag;
 		weatherSelector.style.display = "none";
 	}
 	function emoDel(){
 		var emoLabel = document.querySelector("#emoLabel");
+		$("#emoLabel").css("display", "none");
+		$("#emoDiv").css("border", "none");
 		emoLabel.innerHTML = "";
 		emotionSelector.style.display = "none";
 	}
 	function weaDel(){
 		var weaLabel = document.querySelector("#weaLabel");
+		$("#weaLabel").css("display", "none");
+		$("#weaDiv").css("border", "none");
 		weaLabel.innerHTML = "";
 		weatherSelector.style.display = "none";
 	}
@@ -174,17 +193,23 @@
 		</div>
 	</div>
 
-	<div class="row form-inline">
-		<div class="form-group area-20">
-			<input type="button" name="icon" id="icon" value="감정 이모티콘 넣기">
+	<div class="form-inline">
+		<div class="form-group area-20" >
+			<input type="button" class="btn" name="icon" id="icon"  value="감정 이모티콘" >
 		</div>
 		<div class="form-group mx-sm-3">
-			<input type="button"  name="weather" id="weather" value="날씨 이모티콘 넣기">
+			<input type="button"  class="btn" name="weather" id="weather" value="날씨 이모티콘">
 		</div>
 	</div>
-	<label id="emoLabel"><input type="hidden"  name="emotion" value="${board.emotion}">${board.emotion}</label>&nbsp;&nbsp;
-	<label id=weaLabel><input type="hidden"  name="weather" value="${board.weather}">${board.weather}</label>
-	
+	<div class="form-inline">
+		<div class="form-group area-20"  id="emoDiv">
+			<label id="emoLabel" style="display:none"></label>
+		</div>
+		<div class="form-group area-20" id="weaDiv">
+			<label id="weaLabel" style="display:none"></label>
+		</div>
+	</div>
+		
 	<!-- 감정 이모티콘 레이어  -->
 	<div id="emotionSelector">
 	        <div style="position:absolute;top:5px;right:5px">
