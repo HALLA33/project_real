@@ -192,8 +192,10 @@ public class BookController {
 			return "board/book/book-write";
 		else if(item_no==3 || item_no==4)
 			return "redirect:/movie/movie-write";
+		else if(item_no==5 || item_no==6)
+			return "redirect:/etc/etc-write";
 		else
-			return "redirect:/movie/movie-write";
+			return "redirect:/free/free-write";
 	}
 
 	@RequestMapping(value= {"/book-write"}, method=RequestMethod.POST)
