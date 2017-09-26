@@ -5,8 +5,15 @@
 <%@ include file="/WEB-INF/view/template/header.jsp" %>  
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+<script>
+    function scrollMove(seq){
+        var offset = $("#ilch" + seq).offset();
+        $('html, body').animate({scrollTop : offset.top}, 400);
+    }
+</script>
+
 <article>
-<div class="container">
+<div class="container" id="ilch1">
 		<h3>2개 일치</h3>
 		<br>
 		
@@ -48,7 +55,7 @@
        <br><br>
        <hr>
 </div>
-<div class="container">
+<div class="container" id="ilch2">
 		<h3>감정 일치</h3>
 		<br>
 		
@@ -90,7 +97,7 @@
        <br>
        <hr>
 </div>
-<div class="container">
+<div class="container" id="ilch3">
 		<h3>날씨 일치</h3>
 		<br>
 		
@@ -130,6 +137,18 @@
       <hr/>
        </c:forEach>
        
+       <div id="scrolldiv" style="position: fixed; bottom: 55%; right: 70px;">
+ 		<i title="up" class="xi-view-stream xi-2x" onclick="scrollMove('1')"></i>
+ 	</div>
+ 	
+ 	<div id="scrolldiv" style="position: fixed; bottom:50%; right: 70px;">
+ 		<i title="down" class="xi-emoticon-smiley-o xi-2x" onclick="scrollMove('2')"></i>
+ 	</div>
+ 	
+ 	<div id="scrolldiv" style="position: fixed; bottom: 45%; right: 70px;">
+ 		<i title="down" class="xi-sun-o xi-2x" onclick="scrollMove('3')"></i>
+ 	</div>
+ 	
 </div>
 </article>
       
