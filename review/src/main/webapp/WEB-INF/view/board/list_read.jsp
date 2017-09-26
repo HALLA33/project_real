@@ -36,9 +36,18 @@
 	      				<td>${board.no }</td>
 	      				<td>&#91;${board.b_item_no}&#93;</td>
 	      				<td>
-	      					<a href="<c:url value="etc/etc-detail?no=${board.no }&item_no=${board.item_no }" />">
-	      						${board.title }
-	      					</a>
+	      					<c:choose>
+	      						<c:when test="${item_no==7 }">
+	      							<a href="<c:url value="free/free-detail?no=${board.no }&item_no=${board.item_no }" />">
+			      						${board.title }
+			      					</a>
+	      						</c:when>
+	      						<c:when test="${item_no==5 or item_no==6 }">
+	      							<a href="<c:url value="etc/etc-detail?no=${board.no }&item_no=${board.item_no }" />">
+			      						${board.title }
+			      					</a>
+	      						</c:when>
+	      					</c:choose>
 	      				</td>
 	      				<td>${nickname[board.no]}</td>
 	      				<td>${board.reg}</td>
