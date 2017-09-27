@@ -128,10 +128,20 @@
     		}
 		
 	// textArea에 이미지 첨부
-    	function pasteHTML(filename){
+    	function pasteHTML(filename, width, height){
     		console.log(filename);
+    		console.log(parseInt(width));
+    		console.log(parseInt(height));
+    		var sHTML;
     		
-    		var sHTML = '<img src="${pageContext.request.contextPath}/image/'+filename+'">';
+    		if(width>=500){
+    			console.log("이상")
+    			sHTML = '<img src="${pageContext.request.contextPath}/image/'+filename+'" style="width:700px">';
+    		}
+    		else{
+    			console.log("이하")
+    			sHTML = '<img src="${pageContext.request.contextPath}/image/'+filename+'">';
+    		}
     	    oEditors.getById["ir1"].exec("PASTE_HTML", [sHTML]);
     	}
     	
