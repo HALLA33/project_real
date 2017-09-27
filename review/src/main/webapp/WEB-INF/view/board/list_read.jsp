@@ -3,7 +3,30 @@
    
 <%-- header.jsp를 불러와서 배치하는 코드 --%>
 <%@ include file="/WEB-INF/view/template/header.jsp" %>  
-
+<script>
+function login(context, flag, no, item_no){
+	var session = '${sessionScope.member.id}';
+	if(session<=0)
+		alert("로그인해주세요");
+	else{
+		switch(flag){
+		case 1:
+			$(context).attr("href", "${pageContext.request.contextPath}/book-detail?no="+no+"&item_no="+item_no+"");
+			break;
+		case 2:
+			$(context).attr("href", "${pageContext.request.contextPath}/movie/movie-detail?no="+no+"&item_no="+item_no+"");
+			break;
+		case 5:
+			$(context).attr("href", "${pageContext.request.contextPath}/etc/etc-detail?no="+no+"&item_no="+item_no+"");
+			break;
+		case 7:
+			$(context).attr("href", "${pageContext.request.contextPath}/free/free-detail?no="+no+"&item_no="+item_no+"");
+			break;
+		}
+	}
+		
+} 
+</script>
 <article>
 <%-- 컨테이너 영역 --%>
  
@@ -65,7 +88,16 @@
 	</c:choose>
       
       <br>
-      
+      <div class="container">
+      <ul class="nav nav-tabs" id="listSubtitle">
+         <li class="nav-item" value="0">
+            <a class="nav-link " href="${pageContext.request.contextPath}/list_read?item_no=${item_no}&head=${head}&alignVal=1&tag=${tag}" >최신순</a>
+         </li>
+         <li class="nav-item" value="1">
+               <a class="nav-link active">조회수순</a>
+             </li>            
+        </ul>
+      <br>
       <c:choose>
       	<c:when test="${item_no==5 or item_no==6 or item_no==7 }">
       		<table class="table table-hover">
@@ -83,10 +115,10 @@
 	      				<td>
 	      					<c:choose>
 	      						<c:when test="${item_no==7 }">
-	      							<a href="#" id="free" onclick="login(this,${board.no}, ${board.item_no })">${board.title }</a>
+	      							<a href="#" onclick="login(this, 7,${board.no}, ${board.item_no })">${board.title }</a>
 	      						</c:when>
 	      						<c:when test="${item_no==5 or item_no==6 }">
-	      							<a href="#" id="etc" onclick="login(this,${board.no}, ${board.item_no })">${board.title }</a>
+	      							<a href="#" onclick="login(this, 5,${board.no}, ${board.item_no })">${board.title }</a>
 	      						</c:when>
 	      					</c:choose>
 						<span style="padding-left:15px">조회수 : ${board.read }개</span>
@@ -122,23 +154,23 @@
 				      <h5 style="font-size: 13px">${board.title}</h5>
 		                <div>
 		                	<c:if test="${item_no==1 or item_no==2 }">
-		                		<a href="#" style="font-size: 13px; width:600px; margin-top:10px" id="book" onclick="login(this,${board.no}, ${board.item_no })">
+		                		<a href="#" style="font-size: 13px; width:600px; margin-top:10px" onclick="login(this,1,${board.no}, ${board.item_no })">
 		                			${book[board.search_no].title}
 		                		</a>
 		                	</c:if>
 		                   <c:if test="${item_no==3 or item_no==4 }">
-		                   		<a href="#" style="font-size: 13px; width:600px; margin-top:10px" id="movie" onclick="login(this,${board.no}, ${board.item_no })">
+		                   		<a href="#" style="font-size: 13px; width:600px; margin-top:10px" onclick="login(this, 2,${board.no}, ${board.item_no })">
 		                			${movie[board.search_no].title}
 		                		</a>
 		                	</c:if>
 		                	<c:if test = "${item_no == 8 or item_no == 9}">
 		                		<c:if test = "${board.item_no == 1 or board.item_no ==2 }">
-		                			<a href="#" style="font-size: 13px; width:600px; margin-top:10px" id="book" onclick="login(this,${board.no}, ${board.item_no })">
+		                			<a href="#" style="font-size: 13px; width:600px; margin-top:10px" onclick="login(this, 1,${board.no}, ${board.item_no })">
 		                				${book[board.search_no].title}
 		                			</a>
 		                		</c:if>
 		                		<c:if test = "${board.item_no == 3 or board.item_no ==4 }">
-		                			<a href="#" style="font-size: 13px; width:600px; margin-top:10px" id="movie" onclick="login(this,${board.no}, ${board.item_no })">
+		                			<a href="#" style="font-size: 13px; width:600px; margin-top:10px" onclick="login(this, 2,${board.no}, ${board.item_no })">
 		                				${movie[board.search_no].title}
 		                			</a>
 		                		</c:if>
