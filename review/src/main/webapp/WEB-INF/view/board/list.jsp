@@ -12,7 +12,7 @@ function login(move, no, item_no){
 		$("#"+move.id).attr("href", "${pageContext.request.contextPath}/"+move.id+"/"+move.id+"-detail?no="+no+"&item_no="+item_no+"");
 	}
 		
-}      
+}
 </script>
 <article>
 <%-- 컨테이너 영역 --%>
@@ -72,21 +72,18 @@ function login(move, no, item_no){
 			</h1></c:when>
 		<c:when test="${item_no eq 5 or item_no eq 6}"><h1>기타 리뷰 게시판</h1></c:when>
 		<c:when test="${item_no eq 7 }"><h1>자유 게시판</h1></c:when>
-		<c:when test="${item_no eq 9 }">"${word }"에 대한 검색 결과</c:when>
 	</c:choose>
    
    <br>
    <div class="container">
-      <c:if test="${item_no != 9 }">
-	      <ul class="nav nav-tabs" id="listSubtitle">
-	         <li class="nav-item" value="0">
-	            <a class="nav-link active"  >최신순</a>
-	         </li>
-	         <li class="nav-item" value="1">
-	            <a class="nav-link " href="${pageContext.request.contextPath}/list_read?item_no=${item_no}&head=${head}&alignVal=1&tag=${tag}">조회수순</a>
-	         </li>            
-		</ul>
-      </c:if>
+      <ul class="nav nav-tabs" id="listSubtitle">
+         <li class="nav-item" value="0">
+            <a class="nav-link active"  >최신순</a>
+         </li>
+         <li class="nav-item" value="1">
+               <a class="nav-link " href="${pageContext.request.contextPath}/list_read?item_no=${item_no}&head=${head}&alignVal=1&tag=${tag}">조회수순</a>
+             </li>            
+        </ul>
       <br>
       
       <c:choose>
