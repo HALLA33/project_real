@@ -47,7 +47,8 @@
 						<td style="border: none">${board.b_head }</td>	
 						<td style="border: none">&#93;</td>
 					</tr>
-					<td class="area-20" style="border: none">감정</td>
+					<tr class="form-inline">
+						<td class="area-20" style="border: none">감정</td>
 						<td class="area-20" style="border: none">
 							<c:if test="${board.emotion != '없음' }">
 								<img src="${pageContext.request.contextPath}/img/icon_${board.emotion}.PNG" width="40px" height="30px"> 
