@@ -380,6 +380,16 @@ public class MemberDaoImpl implements MemberDao {
 	}
 	
 	@Override
+	public boolean mycodelete(String writeno, String id) {
+		
+		String sql = "delete p_reply where no =? and writer = ?";
+		
+		int result = jdbcTemplate.update(sql, new Object[] {writeno, id});
+		
+		return result > 0;
+	}
+	
+	@Override
 	 public List<Member> memberRank() {
 		
 	 int num = membercount();
@@ -521,5 +531,7 @@ public class MemberDaoImpl implements MemberDao {
 		
 		return list;
 	}
+
+	
 	
 }

@@ -562,6 +562,20 @@ public class MemberController {
 		return "member/success";
 	}
 	
+	//내가 쓴댓글 삭제
+		@RequestMapping(value = "mycodelete", method = RequestMethod.POST)
+		public String mycodelete(@RequestParam String[] writeno, HttpSession session) {
+			
+			Member member = (Member)session.getAttribute("member");
+			String id = member.getId();
+
+				for(int i =0; i < writeno.length; i++) {
+					
+					memberDao.mycodelete(writeno[i], id);
+			}	
+			return "member/success";
+		}
+	
 	@RequestMapping("/attend")
 	public String Login_attendanceview(HttpServletRequest request, HttpSession session,
 			@RequestParam(value="page", required=false) String page) {

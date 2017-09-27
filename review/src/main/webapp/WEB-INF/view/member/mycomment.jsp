@@ -2,7 +2,86 @@
     pageEncoding="UTF-8"%>
     <%@ include file="/WEB-INF/view/template/header.jsp" %>  
 <article>
+<script>
+window.onload = function(){
+	
+	var all = document.querySelector("#all");
+	var unit = document.querySelectorAll(".unit");
+	var item = $(".item");
+	var writeno = [];
 
+	var allcheck= function () {
+		$(all).change(function () {
+			
+			if(this.checked){
+				writeno = [];
+				for (var i = 0; i < unit.length; i++) {
+					unit[i].checked = this.checked;
+					writeno.push($(unit[i]).val());
+					console.log(writeno);
+				};
+			}else if(!this.checked){
+				for (var i = 0; i < unit.length; i++) {
+					unit[i].checked = this.checked;
+					writeno = [];
+					console.log(writeno);
+				}
+			}
+		});	
+	};
+	
+	
+	//하나라도 해제되면 '전체선택' 체크박스 해제
+	
+	var alldischeck= function () {
+		for (var i = 0; i < unit.length; i++) {
+			unit[i].addEventListener("click", function() {
+				if (!this.checked) {
+					all.checked = false;
+					writeno.splice(writeno.indexOf($(unit[i]).val()), 1);
+					console.log(writeno);
+				}
+			});
+		};
+	};
+		
+	var change= function () {
+			$(unit).change(function() {
+			
+			if (this.checked) {
+				writeno.push($(this).val());
+				console.log(writeno);
+			} else if (!this.checked) {
+				writeno.splice(writeno.indexOf($(this).val()), 1);
+				console.log(writeno);
+			}
+		});
+	};
+    
+    $("#mydelete").on("click", function () {
+    	jQuery.ajaxSettings.traditional = true;
+    	
+    	$.ajax({
+    		
+    		url:"mycodelete",
+    		type:"post",
+    		data:{
+    			"writeno" : writeno
+    		},
+    		success: function(){
+    			alert("선택한 댓글을 삭제하였습니다");
+    			location.reload();
+    		}
+
+    	});
+    	
+	});   
+    allcheck();
+	alldischeck();
+	change();
+    
+    }
+</script>
 <div class="empty-row"></div>
     
     <div style = "padding: 0px 100px 10px;">
@@ -32,7 +111,7 @@
    <tbody>
    <c:forEach items="${m_co}" var="m_co">
    		<tr>
-   			<td id="check"><input type="checkbox" class="unit"></td>
+   			<td id="check"><input type="checkbox" class="unit" value = "${m_co.no}"></td>
    			<c:if test = "${m_co.board_item_no ==1 or m_co.board_item_no == 2}">
    			<td><a href = "${pageContext.request.contextPath}/book-detail?no=${m_co.board_no}&item_no=${m_co.board_item_no}">${m_co.title }</a></td>
    			</c:if>
