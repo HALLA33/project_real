@@ -203,7 +203,7 @@
 						<div style="padding-left: 10px">
 							<h5 style="font-size: 15px; width: 500px">${movie.title }</h5>
 							<h5 style="font-size: 15px">${movie.director }</h5>
-							<h5 style="font-size: 15px">${movie.actor }</h5>
+							<h5 style="font-size: 15px; width: 500px">${movie.actor }</h5>
 							<h5 style="font-size: 15px">${movie.pubDate }</h5>
 						</div>   
 					</div>
