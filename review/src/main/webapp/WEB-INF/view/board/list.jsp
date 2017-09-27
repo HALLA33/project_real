@@ -100,7 +100,7 @@ function login(context, flag, no, item_no){
       <br>
       
       <c:choose>
-      	<c:when test="${item_no==5 or item_no==6 or item_no==7 }">
+      	<c:when test="${item_no==0 or item_no==5 or item_no==6 or item_no==7 }">
       		<table class="table table-hover">
       			<tr>
 	      			<th style="text-align:center">번호</th>
@@ -112,7 +112,7 @@ function login(context, flag, no, item_no){
 	      		<c:forEach items="${board}" var ="board">
 	      			<tr>
 	      				<td>${board.no }</td>
-	      				<td>&#91;${board.b_item_no}&#93;</td>
+	      				<td>&#91;${board.b_item_no}&#93;</td> 
 	      				<td>
 	      					<c:choose>
 	      						<c:when test="${item_no==7 }">
@@ -123,7 +123,7 @@ function login(context, flag, no, item_no){
 	      						</c:when>
 	      					</c:choose>
 						<br>
-						<span style="padding-left:15px">조회수 : ${board.read }개</span>
+							<span>조회수 : ${board.read }개</span>
 		                	<span><img src="${pageContext.request.contextPath}/img/good.png" width="20" height="20">${board.good }개</span>
 		                	<span><img src="${pageContext.request.contextPath}/img/bad.png" width="20" height="20">${board.bad }개</span>
 	      				</td>
