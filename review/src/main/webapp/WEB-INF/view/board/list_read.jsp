@@ -118,7 +118,14 @@
       </c:choose>
       
       <div class="align-right">
-         <button type="button" class="btn " onclick="location.href='book-write?item_no=${item_no}'">글쓰기</button>
+      <c:choose>
+      <c:when test="${sessionScope.member.id == null}">
+          <button type="button" class="btn " disabled>글쓰기</button>
+      </c:when>
+ 	 <c:otherwise>
+         <button type="button" class="btn " onclick="location.href='book-write?item_no=${item_no}&head=${head }'">글쓰기</button>
+     </c:otherwise>      
+      </c:choose>
       </div>
       
       <div class="text-center">
