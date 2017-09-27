@@ -12,6 +12,8 @@
 	$(document).ready(function() {
 		var idinput = $("#ids");
 		var nickinput = $("#nicks");
+		var emailinput = $("#emails");
+		
 		var pwinput = $("input[name=pw]");
 		var rpwinput = $("input[name=rpw]");
 		
@@ -25,6 +27,19 @@
 			}else{
 				$("#idreg").html("");
 				$("#idcheck").attr("disabled", false);
+			}	
+		});
+		
+		$(emailinput).on("keyup",function(){
+			var emailcheck = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
+			
+			if(!emailcheck.test(emailinput.val())){
+				$("#emailreg").html("<h5 class = 'font-red'>올바른 이메일 형식이 아닙니다</h5>");
+				$("#emailcheck").attr("disabled", true);
+				$("#check3").html("");
+			}else{
+				$("#emailreg").html("");
+				$("#emailcheck").attr("disabled", false);
 			}	
 		});
 		pwinput.on("keyup", function () {
@@ -98,7 +113,8 @@
 			 
     		console.log("서브밋 실행")
 			
-    		if($("#ids").hasClass("idnok") || $("#nicks").hasClass("nicknok") || $(pwinput).hasClass("pwregnok")
+    		if($("#ids").hasClass("idnok") || $("#nicks").hasClass("nicknok") 
+    				|| $("#emails").hasClass("emailnok") || $(pwinput).hasClass("pwregnok")
     				|| $(rpwinput).hasClass("rpwnok")){
     			alert("중복확인을 하지않으셨거나 올바르지않은 유형을 입력하셨습니다");
     			event.preventDefault();
@@ -107,7 +123,7 @@
 		}); 
 
 		$("#idcheck").click(function () {
-				console.log("실행댐");
+				console.log("실행됨");
 				console.log(idinput.val());
 			$.ajax({
 				url:"idcheck",
@@ -115,13 +131,13 @@
 				data:{id:idinput.val()},
 				dataType:"text",
 				success:function(){
-					console.log("정상실행댐");
+					console.log("정상실행됨");
 					$("#check").html("<h5>사용가능한 아이디입니다</h5>");
 					idinput.removeClass("idnok");
 					idinput.addClass("idok");
 				},
 				error:function(){
-					console.log("비정상실행댐");
+					console.log("비정상실행됨");
 					$("#check").html("<h5 class = 'font-red'>이미 존재하는 아이디 입니다</h5>");
 					idinput.removeClass("idok");
 					idinput.addClass("idnok");
@@ -131,7 +147,7 @@
 		});
 		
 		$("#nickcheck").click(function () {
-			console.log("닉네임실행댐");
+			console.log("닉네임실행됨");
 			console.log(nickinput.val());
 		$.ajax({
 			url:"nickcheck",
@@ -139,16 +155,41 @@
 			data:{nick:nickinput.val()},
 			dataType:"text",
 			success:function(){
-				console.log("정상실행댐");
+				console.log("정상실행됨");
 				$("#check2").html("<h5>사용가능한 닉네임 입니다</h5>");
 				nickinput.removeClass("nicknok");
 				nickinput.addClass("nickok");
 			},
 			error:function(){
-				console.log("비정상실행댐");
+				console.log("비정상실행됨");
 				$("#check2").html("<h5 class = 'font-red'>이미 존재하는 닉네임 입니다</h5>");
 				nickinput.removeClass("nickok");
 				nickinput.addClass("nicknok");
+			}
+			
+		});
+	});
+		
+		
+		$("#emailcheck").click(function () {
+			console.log("이메일실행됨");
+			console.log(emailinput.val());
+		$.ajax({
+			url:"emailcheck",
+			type:"post",
+			data:{email:emailinput.val()},
+			dataType:"text",
+			success:function(){
+				console.log("정상실행됨");
+				$("#check3").html("<h5>사용가능한 이메일 입니다</h5>");
+				emailinput.removeClass("emailnok");
+				emailinput.addClass("emailok");
+			},
+			error:function(){
+				console.log("비정상실행됨");
+				$("#check3").html("<h5 class = 'font-red'>이미 존재하는 이메일 입니다</h5>");
+				emailinput.removeClass("emailok");
+				emailinput.addClass("emailnok");
 			}
 			
 		});
@@ -201,8 +242,13 @@
 							<label id="check2"></label>
 						</div>
 						<div>
-							<input type="email" class="form-control" name="email"
-								placeholder="이메일" required>
+							<input type="email" class="form-control emailnok" name="email"
+								placeholder="이메일" required id="emails">
+							<div id="emailreg"></div>
+							<span></span>
+							<button type="button" class="btn btn-primary" id="emailcheck"
+								disabled="disabled">중복 확인</button>
+							<label id="check3"></label>
 						</div>
 						<div>
 							<select class="form-control" name="gender" required>
