@@ -33,7 +33,7 @@ public class DefaultController {
 		if(emo.equals("none") || wea.equals("none")) {
 			String err = "값을 선택해주세요";
 			model.addAttribute("err", err);
-			return "err500";
+			return "err/custom_err";
 		}
 		
 		System.out.println("컨트롤러 emo="+emo+", wea="+wea);
