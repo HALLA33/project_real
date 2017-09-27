@@ -234,6 +234,17 @@ public class MemberDaoImpl implements MemberDao {
 
 		return result;
 	}
+	
+	@Override
+	public boolean emailcheck(String email) {
+
+		String sql = "select * from p_member where email = ?";
+
+		boolean result = jdbcTemplate.query(sql, new Object[] { email }, mapper).isEmpty();
+
+		return result;
+
+	}
 
 	@Override
 	public int count(String smode, String key) throws Exception{
