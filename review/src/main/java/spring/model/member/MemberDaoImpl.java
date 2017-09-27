@@ -70,7 +70,7 @@ public class MemberDaoImpl implements MemberDao {
 		log.info(member.getPhone());
 
 		String test = "test";
-		String sql = "insert into p_member values(p_member_seq.nextval, ?, ?, ? , ?, ? , ? , ? , ? , ?, '일반', 0, sysdate, sysdate, 0, 0, 0, 'true', 0, 0, 0, 0, 'true')";
+		String sql = "insert into p_member values(p_member_seq.nextval, ?, ?, ? , ?, ? , ? , ? , ? , ?, '일반', 0, 0, sysdate, sysdate, 0, 0, 0, 'true', 0, 0, 0, 0, 'true')";
 
 		Object[] args = new Object[] { member.getId(), member.getPw(), member.getNickname(), member.getEmail(),
 				member.getName(), member.getGender(), member.getBirth(), member.getTelecom(), member.getPhone() };
