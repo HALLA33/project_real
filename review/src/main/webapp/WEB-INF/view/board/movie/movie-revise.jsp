@@ -85,7 +85,7 @@
 		     , "position": "absolute"
 		 }).show();
 		});
-		});
+		
 	});
 	
 	function valid(form){
@@ -178,21 +178,21 @@
 		$("#weaLabel").css("padding-left", "30px")
 		var extention = img.name + ".PNG";
 	    var imgTag = '<img src="${pageContext.request.contextPath}/img/'+extention+'" style="width:40px; height:40px">'; 
-		weaLabel.innerHTML = "<input type='hidden'  name='weather' value='"+img.name+"'>"+imgTag;
+		weaLabel.innerHTML = "<input type='hidden' name='weather' value='"+img.name+"'>"+imgTag;
 		weatherSelector.style.display = "none";
 	}
 	function emoDel(){
 		var emoLabel = document.querySelector("#emoLabel");
 		$("#emoLabel").css("display", "none");
 		$("#emoDiv").css("border", "none");
-		emoLabel.innerHTML = "";
+		emoLabel.innerHTML = "<input type='hidden'  name='emotion' value='없음'>";
 		emotionSelector.style.display = "none";
 	}
 	function weaDel(){
 		var weaLabel = document.querySelector("#weaLabel");
 		$("#weaLabel").css("display", "none");
 		$("#weaDiv").css("border", "none");
-		weaLabel.innerHTML = "";
+		weaLabel.innerHTML = "<input type='hidden' name='weather' value='없음'>";
 		weatherSelector.style.display = "none";
 	}
 </script>
@@ -273,7 +273,7 @@
 					<h5 id="actor" style="font-size: 15px">출연배우</h5>
 				</c:when>
 				<c:otherwise>
-					<h5 id="actor" style="font-size: 15px">${movie.actor }</h5>
+					<h5 id="actor" style="font-size: 15px; width:500px">${movie.actor }</h5>
 				</c:otherwise>
 			</c:choose>
 			<c:choose>
