@@ -24,6 +24,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -68,6 +69,10 @@ public class FreeController {
 	public String free_write(Model model, @RequestParam(required=false) int item_no, HttpSession session){
 		model.addAttribute("item_no", item_no);
 		
+		Member member = (Member) session.getAttribute("member");
+		if(member==null)
+			return "redirect:/home";
+		
 		return "board/free/free-write";
 	}
 
@@ -85,6 +90,8 @@ public class FreeController {
 		board.setSearch_artist(request.getParameter("search_artist"));
 		
 		Member member =(Member)session.getAttribute("member");
+		if(member==null)
+			return "redirect:/home";
 		
 		String notice = "false";		
 		if(board.getItem_no()==0 || board.getHead()==0)
@@ -119,6 +126,11 @@ public class FreeController {
 		return "redirect:/free/free-detail?no="+board.getNo()+"&item_no="+board.getItem_no();
 	}
 	
+	@RequestMapping(value= {"/free-preview"}, method=RequestMethod.GET)
+	public String movieGetPreview(HttpSession session) {
+		return "redirect:/home";
+	}
+	
 	@RequestMapping(value= {"/free-preview"}, method=RequestMethod.POST)
 	public String freePreview(Model model, HttpServletRequest request) {
 		Board board = new Board();
@@ -145,6 +157,10 @@ public class FreeController {
 		board.setB_item_no(board.getItem_no());
 		board.setB_head(board.getHead());
 			
+		Member member =(Member)session.getAttribute("member");
+		if(member==null)
+			return "redirect:/home";
+		
 		List<Image> list = bookDao.detail_board_image(no, item_no);
 		List<String> imageName = new ArrayList<>();
 		for(Image image: list) {
@@ -173,6 +189,13 @@ public class FreeController {
 	@RequestMapping(value= {"/free-revise/{no}/{item_no}"}, method=RequestMethod.GET)
 	public String freeDetail_re(HttpServletRequest request, HttpServletResponse response, Model model, @PathVariable int no, @PathVariable int item_no, HttpSession session) {
 		Member member = (Member)session.getAttribute("member");
+		if(member==null)
+			return "redirect:/home";
+		
+		Board b = bookDao.detail_board(no, item_no);
+		if(!member.getId().equals(b.getWriter()))
+			return "err/err500";
+		
 		Board board = null;
 		log.info("아이디 : " + member.getId());
 		board = bookDao.detail_board(no, item_no, member.getId());	
@@ -244,7 +267,13 @@ public class FreeController {
     public String freeDelete(Model model, @PathVariable int no, @PathVariable int item_no, HttpSession session, 
     		HttpServletRequest request, HttpServletResponse reponse) {
     	Member member = (Member)session.getAttribute("member");
-
+    	if(member==null)
+    		return "redirect:/home";
+    	
+    	Board board = bookDao.detail_board(no, item_no);
+    	if(!member.getId().equals(board.getWriter()))
+    		return "redirect:/home";
+    	
     	if(member.getPower().equals("일반")) {
     		freeDao.delete_board(no, item_no, member.getId());    		
     	}else if(member.getPower().equals("관리자") || member.getPower().equals("스탭")) {
@@ -454,5 +483,11 @@ public class FreeController {
 			file.delete();
 			System.out.println(file.getAbsolutePath()+" 삭제");
 		}
+	}
+	
+	@ExceptionHandler(IllegalStateException.class)
+	public String exceptionHandler() {
+		log.info("에러");
+		return "err/err500";
 	}
 }
