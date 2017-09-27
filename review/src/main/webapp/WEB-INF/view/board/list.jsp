@@ -166,8 +166,8 @@
 		                      <h5 style="font-size: 13px">${board.b_head}</h5>
 		                     
 		                      <h5 style="padding-left:15px; font-size: 13px">조회수 : ${board.read }개</h5>
-		                	  <h5 style="font-size: 13px"><img src="${pageContext.request.contextPath}/img/good.png" width="20" height="20">${board.good }개</h5>
-		                	  <h5 style="font-size: 13px"><img src="${pageContext.request.contextPath}/img/bad.png" width="20" height="20">${board.bad }개</h5>
+		                	  <h5 style="padding-left:10px;font-size: 13px"><img src="${pageContext.request.contextPath}/img/good.png" width="20" height="20">${board.good }개</h5>
+		                	  <h5 style="padding-left:10px;font-size: 13px"><img src="${pageContext.request.contextPath}/img/bad.png" width="20" height="20">${board.bad }개</h5>
 		                </div>
 		              </div>
 		         </div>
