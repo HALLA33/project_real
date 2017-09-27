@@ -130,6 +130,9 @@
 		    var imgTag = '<img src="${pageContext.request.contextPath}/img/'+extention+'" style="width:40px; height:40px">'; 
 			emoLabel.innerHTML = "<input type='hidden'  name='emotion' value='"+icon+"'>"+ imgTag;
 		}
+		else{
+			emoLabel.innerHTML = "<input type='hidden'  name='emotion' value='없음'>";
+		}
 		if(weather!='없음'){
 			$("#weaLabel").css("display", "block");
 			$("#weaDiv").css("border", "1px solid #b0c4de");
@@ -140,6 +143,9 @@
 			var extention = weather + ".PNG";
 		    var imgTag = '<img src="${pageContext.request.contextPath}/img/'+extention+'" style="width:40px; height:40px">'; 
 			weaLabel.innerHTML = "<input type='hidden'  name='weather' value='"+weather+"'>"+imgTag;
+		}
+		else{
+			weaLabel.innerHTML = "<input type='hidden'  name='weather' value='없음'>";
 		}
 	}
 	
