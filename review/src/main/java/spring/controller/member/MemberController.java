@@ -174,6 +174,13 @@ public class MemberController {
 		log.info("로그인 실행");
 		Member member = memberDao.login(id, encryptpw);
 		
+		//로그인 실패처리
+		if(member.getId()==null) {
+			String err="아이디 혹은 비밀번호가 잘못되었습니다";
+			request.setAttribute("err", err);
+			return "home";
+		}
+		
 		if(remember.equals("on")) {
 			Cookie cookies = new Cookie("autologin", encryptpw+id);
 			cookies.setMaxAge(60*60*24*7);
