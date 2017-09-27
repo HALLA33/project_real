@@ -392,7 +392,7 @@ public class MovieController {
 		copy(tPath, cPath);
 		imageList.clear();
 		
-		return "redirect:/movie-detail?no="+board.getNo()+"&item_no="+board.getItem_no();
+		return "redirect:/movie/movie-detail?no="+board.getNo()+"&item_no="+board.getItem_no();
     }
     
     @RequestMapping(value= {"/movie-delete/{no}/{item_no}"}, method=RequestMethod.GET)
