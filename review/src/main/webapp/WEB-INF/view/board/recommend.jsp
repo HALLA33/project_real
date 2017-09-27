@@ -13,6 +13,8 @@
 </script>
 
 <article>
+<br>
+<small>총 ${recomSize}개가 검색되었습니다</small><br><br>
 <div class="container" id="ilch1">
 		<h3>2개 일치</h3>
 		<br>
