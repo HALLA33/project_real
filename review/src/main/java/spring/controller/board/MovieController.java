@@ -86,8 +86,8 @@ public class MovieController {
 		movie.setActor(request.getParameter("actor"));
 		movie.setPubDate(request.getParameter("pubDate"));
 		
-		String[] director = movie.getDirector().split("|");
-		movie.setDirector(director[0]);
+		String director = movie.getDirector();
+		movie.setDirector(director.substring(0, director.length()-1));
 		log.info(movie.getDirector()); 
 		
 		Board board = new Board();
