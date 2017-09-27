@@ -42,6 +42,8 @@ public class DefaultController {
 		List<Board> recomEmo = bookDao.recomEmo(emo, wea);//감정 일치
 		List<Board> recomWea = bookDao.recomWea(emo, wea);//날씨 일치
 		
+		int recomSize = recomTwo.size() + recomEmo.size() + recomWea.size();
+		
 		Map<Integer, String> nickname = new HashMap<>();	
 		Map<Integer, Book> book = null;
 		Map<Integer, Movie> movie = null;
@@ -78,6 +80,7 @@ public class DefaultController {
 		model.addAttribute("nickname", nickname);
 		model.addAttribute("book", book);
 		model.addAttribute("movie", movie);
+		model.addAttribute("recomSize", recomSize);
 		
 		return "board/recommend";
 	}
