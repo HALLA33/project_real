@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -31,9 +32,14 @@ public class ReplyController {
 	@Autowired
 	private BookDao bookDao;
 	
-	@RequestMapping("/reply-insert")
+	@RequestMapping(value= {"/reply-insert", "reply-response-insert", "reply-delete"}, method=RequestMethod.GET)
+	public String err() {
+		return "err/err500";
+	}
+	
+	@RequestMapping(value= {"/reply-insert"}, method=RequestMethod.POST)
 	@ResponseBody
-	public Reply insert(HttpServletRequest request) {
+	public Reply insert(HttpServletRequest request, HttpSession session) {
 		Reply reply = new Reply(request);
 		log.info("reply : " + reply.toString());
 
@@ -44,7 +50,7 @@ public class ReplyController {
 		return r;
 	}
 	
-	@RequestMapping("/reply-response-insert")
+	@RequestMapping(value= {"/reply-response-insert"}, method=RequestMethod.POST)
 	@ResponseBody
 	public Reply response_insert(HttpServletRequest request) {
 		Reply reply = new Reply();
@@ -70,7 +76,7 @@ public class ReplyController {
 		return re;
 	}
 	
-	@RequestMapping("/reply-delete")
+	@RequestMapping(value= {"/reply-delete"}, method = RequestMethod.POST)
 	@ResponseBody
 	public boolean reply_delete(@RequestParam(required=false) int no, HttpSession session) {
 		Member member =(Member)session.getAttribute("member");
