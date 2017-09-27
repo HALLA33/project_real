@@ -59,10 +59,16 @@
          <td>${sessionScope.member.power }</td>
       </tr>
        
+      <tr>
+         <td>총포인트</td>
+         <td>${sessionScope.member.totalpoint }</td>
+      </tr>
+      
        <tr>
          <td>포인트</td>
          <td>${sessionScope.member.point }</td>
       </tr>
+      
        
        <tr>
          <td>가입일</td>

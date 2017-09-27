@@ -59,6 +59,11 @@
          <td>등급</td>
          <td>${u_list.power}</td>
       </tr>
+      
+      <tr>
+         <td>총포인트</td>
+         <td>${u_list.totalpoint}</td>
+      </tr>
        
        <tr>
          <td>포인트</td>

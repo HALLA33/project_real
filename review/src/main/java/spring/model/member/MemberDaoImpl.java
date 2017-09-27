@@ -106,7 +106,8 @@ public class MemberDaoImpl implements MemberDao {
 		System.out.println("flag : " + flag);
 		
 		if(flag == 0) {
-			sql = "update p_member set visitnumber = visitnumber +1, flag = 1, point = point+10 where id = ?";
+			sql = "update p_member set visitnumber = visitnumber +1, flag = 1, "
+					+ "point = point+10, totalpoint = totalpoint + 10 where id = ?";
 			jdbcTemplate.update(sql, new Object[] {id});
 			sql = "select point from p_member where id = ?";
 			point = jdbcTemplate.queryForObject(sql,new Object[] {id}, Integer.class);
@@ -415,7 +416,7 @@ public class MemberDaoImpl implements MemberDao {
 	 
 	 String sql = "select * from "
 	 + "(select rownum rn, A.* from "
-	 + "(select * from p_member order by point desc)A) "
+	 + "(select * from p_member order by totalpoint desc)A) "
 	 + "where rn between 1 and ?";		
 	 List<Member> list = jdbcTemplate.query(sql, new Object[] {num},  mapper);	
 	 
@@ -438,18 +439,18 @@ public class MemberDaoImpl implements MemberDao {
 		
 		switch(rank) {
 		case 1: sql = "update p_member set point = point + 40, opening = opening +1, "
-				+ "checkflag = 'false', totalcheck = totalcheck + 1 where nickname = ?"; 
+				+ "totalpoint = totalpoint + 40, checkflag = 'false', totalcheck = totalcheck + 1 where nickname = ?"; 
 		jdbcTemplate.update(sql, new Object[] {nick}); break;
 		case 2: sql = "update p_member set point = point + 30, opening = opening +1, "
-				+ "checkflag = 'false', totalcheck = totalcheck + 1 where nickname = ?";
+				+ "totalpoint = totalpoint + 30, checkflag = 'false', totalcheck = totalcheck + 1 where nickname = ?";
 		jdbcTemplate.update(sql, new Object[] {nick}); break;
 		case 3: sql = "update p_member set point = point + 20, opening = opening +1, "
-				+ "checkflag = 'false', totalcheck = totalcheck + 1 where nickname = ?";
+				+ "totalpoint = totalpoint + 20, checkflag = 'false', totalcheck = totalcheck + 1 where nickname = ?";
 		jdbcTemplate.update(sql, new Object[] {nick}); break;
 		default : sql = "update p_member set point = point + 10, opening = opening +1, "
-				+ "checkflag = 'false', totalcheck = totalcheck + 1 where nickname = ?";
+				+ "totalpoint = totalpoint + 10, checkflag = 'false', totalcheck = totalcheck + 1 where nickname = ?";
 		jdbcTemplate.update(sql, new Object[] {nick}); break;
-			} 
+			}
 
 		sql = "select opening from p_member where nickname = ?";
 		

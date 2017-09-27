@@ -107,7 +107,7 @@
 									<c:forEach items="${sessionScope.rankList}" var="list">
 										<tr style="width:180px !important;">
 											<td id=rankUnit><label id="rankLabel">${list.no}</label>&nbsp;${list.nickname }</td>
-											<td style="width:60px; font-size: 12px; text-align:right">${list.point }pt</td>
+											<td style="width:60px; font-size: 12px; text-align:right">${list.totalpoint }pt</td>
 										</tr>
 									</c:forEach>
 								</tbody>

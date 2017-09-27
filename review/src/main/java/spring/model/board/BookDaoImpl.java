@@ -1,3 +1,4 @@
+
 package spring.model.board;
 
 import java.sql.ResultSet;
@@ -213,7 +214,8 @@ public class BookDaoImpl implements BookDao{
 		int todaywrite = jdbcTemplate.queryForObject(sql, new Object[] {nickname}, Integer.class);
 	
 		if(todaywrite < 3) {
-			sql = "update p_member set point = point +10, todaywrite = todaywrite + 1 where id = ?";
+			sql = "update p_member set point = point +10, todaywrite = todaywrite + 1, "
+					+ "totalpoint = totalpoint + 10 where id = ?";
 			
 			jdbcTemplate.update(sql, new Object[] {nickname});
 		}

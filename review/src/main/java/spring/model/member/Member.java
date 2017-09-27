@@ -18,6 +18,7 @@ public class Member {
 	private String phone;
 	private String power;
 	private int point;
+	private int totalpoint;
 	private Date reg;
 	private Date lastvisit;
 	private int visitnumber;
@@ -29,6 +30,12 @@ public class Member {
 	private int totalcheck;
 	private String checkflag;
 	
+	public int getTotalpoint() {
+		return totalpoint;
+	}
+	public void setTotalpoint(int totalpoint) {
+		this.totalpoint = totalpoint;
+	}
 	public int getTotalcheck() {
 		return totalcheck;
 	}
@@ -287,6 +294,7 @@ public void setEnabled(String enabled) {
 		this.setTelecom(rs.getString("telecom"));
 		this.setPhone(rs.getString("phone"));
 		this.setPoint(rs.getInt("point"));
+		this.setTotalpoint(rs.getInt("totalpoint"));
 		this.setReg(rs.getDate("reg"));
 		this.setLastvisit(rs.getDate("lastvisit"));
 		this.setVisitnumber(rs.getInt("visitnumber"));
