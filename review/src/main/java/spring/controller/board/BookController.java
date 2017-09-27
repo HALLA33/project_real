@@ -290,7 +290,7 @@ public class BookController {
 		return "redirect:/book-detail?no="+board.getNo()+"&item_no="+board.getItem_no();
 	}
 	
-	@RequestMapping(value= {"/movie-preview"}, method=RequestMethod.GET)
+	@RequestMapping(value= {"/book-preview"}, method=RequestMethod.GET)
 	public String movieGetPreview(HttpSession session) {
 		return "redirect:/home";
 	}
