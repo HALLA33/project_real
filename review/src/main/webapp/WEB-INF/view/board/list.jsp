@@ -135,7 +135,8 @@
 		                </c:if>
 		             </div>
 		             <div class="area-80"> 
-		                <div style="padding-top:10px">
+				     <h5 style="font-size: 13px">${board.title}</h5>
+		                <div>
 		                	<c:if test="${item_no==1 or item_no==2 }">
 		                		<a href="<c:url value="book-detail?no=${board.no }&item_no=${board.item_no }" />" style="font-size: 13px; width:600px; margin-top:10px " id="block" >${book[board.search_no].title}</a>
 		                	</c:if>
