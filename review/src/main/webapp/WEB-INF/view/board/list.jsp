@@ -103,11 +103,11 @@ function login(context, flag, no, item_no){
       	<c:when test="${item_no==5 or item_no==6 or item_no==7 }">
       		<table class="table table-hover">
       			<tr>
-	      			<th>번호</th>
-	      			<th>장르</th>
-	      			<th>제목</th>
-	      			<th>작성자</th>
-	      			<th>작성일</th>
+	      			<th style="text-align:center">번호</th>
+	      			<th style="text-align:center">장르</th>
+	      			<th style="text-align:center">제목</th>
+	      			<th style="text-align:center">작성자</th>
+	      			<th style="text-align:center">작성일</th> 
 	      		</tr>
 	      		<c:forEach items="${board}" var ="board">
 	      			<tr>
