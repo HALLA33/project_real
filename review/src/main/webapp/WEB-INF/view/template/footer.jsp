@@ -99,9 +99,9 @@
 			</form>
 			</div>
 			<div id="rankbar">
-				<h2>랭킹</h2><br><br>
+				<h2>랭킹</h2>
 <!-- 				<img src="http://placehold.it/200x200"> -->
-						<div>
+						<div style="vertical-align:top;">
 							<table id="rankTable" >
 								<tbody>
 									<c:forEach items="${sessionScope.rankList}" var="list">
@@ -116,7 +116,7 @@
 				<br><br>
 			</div>
 			<div id="rankbar">
-				<h2>태그</h2><br><br>
+				<h2>태그</h2>
 <!-- 				<img src="http://placehold.it/200x200"> -->
 						<div>
 							<table id="rankTable" >
