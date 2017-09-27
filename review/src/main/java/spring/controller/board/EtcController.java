@@ -84,6 +84,8 @@ public class EtcController {
 		board.setDetail(request.getParameter("ir1"));
 		board.setEmotion(request.getParameter("emotion"));
 		board.setWeather(request.getParameter("weather"));
+		board.setSearch_title(request.getParameter("search_title"));
+		board.setSearch_artist(request.getParameter("search_artist"));
 		
 		Member member =(Member)session.getAttribute("member");
 		
