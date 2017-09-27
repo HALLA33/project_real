@@ -242,8 +242,8 @@
 	<input type="hidden" class="director" name="director">
 	<input type="hidden" class="actor" name="actor">
 	<input type="hidden" class="pubDate" name="pubDate">
-	<input type="hidden" class="book_title" name="search_title">
-	<input type="hidden" class="author" name="search_artist">
+	<input type="hidden" class="movie_title" name="search_title">
+	<input type="hidden" class="director" name="search_artist">
    
    <div class="form-inline">
 		<div class="form-group area-20" >
