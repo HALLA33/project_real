@@ -88,7 +88,7 @@ public class MovieController {
 		
 		String[] director = movie.getDirector().split("|");
 		movie.setDirector(director[0]);
-		log.info(movie.getDirector());
+		log.info(movie.getDirector()); 
 		
 		Board board = new Board();
 		board.setItem_no(Integer.parseInt(request.getParameter("item_no")));
