@@ -19,6 +19,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import spring.model.board.Board;
+import spring.model.board.Book;
+import spring.model.board.BookDao;
+import spring.model.board.Movie;
+import spring.model.board.MovieDao;
+import spring.model.board.Board;
 import spring.model.board.Reply;
 import spring.model.member.Attendance;
 import spring.model.member.Cookies;
@@ -445,7 +450,7 @@ public class MemberController {
 	
 	//자동로그인, 포인트 랭킹
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String test(HttpServletRequest request, HttpSession session, HttpServletResponse response) {
+	public String test(HttpServletRequest request, HttpSession session, HttpServletResponse response,Model model) {
 
 		//home 게시글 보이기
 		List<Board> home_notice = bookDao.home_notice(0);
