@@ -68,7 +68,7 @@
 			<form action="recommend" method="post">
 	   		
 	   		<select name="emo" style="width:160px !important" id="margin" required>
-	        	<option >감정 선택</option>
+	        	<option value = "none">감정 선택</option>
 	      		<option value = "love">love</option> 
 	        	<option value = "good">good</option>
 	        	<option value = "sogood">sogood</option>
@@ -81,7 +81,7 @@
 	   		</select><br>
 	   		<div style="height:5px;"></div>
 	   		<select name="wea" style="width:160px !important" id="margin" required>
-	        	<option >날씨 선택</option>
+	        	<option value = "none">날씨 선택</option>
 	      		<option value = "sunny">sunny</option> 
 	        	<option value = "sunny_cloudy">sunny_cloudy</option>
 	        	<option value = "rainy">rainy</option>

@@ -30,6 +30,12 @@ public class DefaultController {
 	@RequestMapping(value = {"/recommend", "/movie/recommend"})
 	public String recommend(Model model, String emo, String wea) {
 		
+		if(emo.equals("none") || wea.equals("none")) {
+			String err = "값을 선택해주세요";
+			model.addAttribute("err", err);
+			return "err500";
+		}
+		
 		System.out.println("컨트롤러 emo="+emo+", wea="+wea);
 		
 		List<Board> recomTwo = bookDao.recomTwo(emo, wea);//둘 다 일치
