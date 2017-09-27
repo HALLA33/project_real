@@ -48,6 +48,7 @@ public class ReplyController {
 	@ResponseBody
 	public Reply response_insert(HttpServletRequest request) {
 		Reply reply = new Reply();
+		reply.setTitle(request.getParameter("title"));
 		reply.setWriter(request.getParameter("writer"));
 		reply.setDetail(request.getParameter("detail"));
 		reply.setBoard_no(Integer.parseInt(request.getParameter("board_no")));

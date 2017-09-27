@@ -33,7 +33,12 @@
    <c:forEach items="${m_co}" var="m_co">
    		<tr>
    			<td id="check"><input type="checkbox" class="unit"></td>
+   			<c:if test = "${m_co.board_item_no ==1 or m_co.board_item_no == 2}">
    			<td><a href = "${pageContext.request.contextPath}/book-detail?no=${m_co.board_no}&item_no=${m_co.board_item_no}">${m_co.title }</a></td>
+   			</c:if>
+   			<c:if test = "${m_co.board_item_no ==3 or m_co.board_item_no == 4}">
+   			<td><a href = "${pageContext.request.contextPath}/movie/movie-detail?no=${m_co.board_no}&item_no=${m_co.board_item_no}">${m_co.title }</a></td>
+   			</c:if>
    			<td>${m_co.detail}</td>
    			<td>${m_co.reg}</td>
    		</tr>

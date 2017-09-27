@@ -62,6 +62,7 @@
 			
 		});
 		$("#replyRegister").on("click", function(){
+			var title = '${board.title}'
 			var writer = '${sessionScope.member.id}';
 			var detail = $("#reply").val();
 			var board_no = '${board.no}';
@@ -69,7 +70,7 @@
 			var gno = 0;
 			var gseq = 0;
 			var depth = 0;
-			var allData = {"writer":writer, "detail":detail, "board_no":board_no, "board_item_no": board_item_no, 
+			var allData = {"title" : title, "writer":writer, "detail":detail, "board_no":board_no, "board_item_no": board_item_no, 
 									"gno":gno, "gseq":gseq, "depth":depth}
 			
 			$.ajax({
@@ -113,13 +114,13 @@
 		var btnId = btn.id;
 		var textId = btnId.split("b");
 		var text = textId[0]+"reply";
-
+		var title = '${board.title}'
 		var writer = '${sessionScope.member.id}';
 		var detail = $("#"+text).val();
 		var board_no = '${board.no}';
 		var board_item_no = '${board.item_no}';
 		var reply_no = textId[0];
-		var allData = {"writer":writer, "detail":detail, "board_no":board_no, "board_item_no": board_item_no, 
+		var allData = {"title" : title, "writer":writer, "detail":detail, "board_no":board_no, "board_item_no": board_item_no, 
 								"reply_no":reply_no}
 		
 		$.ajax({
