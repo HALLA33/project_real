@@ -249,7 +249,7 @@
 		<script type="text/javascript">
 			function moviename(){
 				var movie_name = $("#movie_name").val();
-	            var openWin = window.open("movie/movieList?keyword="+movie_name, "영화 찾기", "width=750, height=800");
+	            var openWin = window.open("${pageContext.request.contextPath}/movie/movieList?keyword="+movie_name, "영화 찾기", "width=750, height=800");
 			}
 		</script>
 	</div>
