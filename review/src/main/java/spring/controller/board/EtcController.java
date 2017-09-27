@@ -140,7 +140,7 @@ public class EtcController {
 		return "redirect:/etc/etc-detail?no="+board.getNo()+"&item_no="+board.getItem_no();
 	}
 	
-	@RequestMapping(value= {"/movie-preview"}, method=RequestMethod.GET)
+	@RequestMapping(value= {"/etc-preview"}, method=RequestMethod.GET)
 	public String movieGetPreview(HttpSession session) {
 		return "redirect:/home";
 	}
