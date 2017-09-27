@@ -510,5 +510,36 @@ public class BookDaoImpl implements BookDao{
 		Object[] args = {emo, wea};
 		return jdbcTemplate.query(sql, args, mapper);
 	}
-
+	
+	@Override
+	public List<Board> home_notice(int item_no) {
+		String sql = "select * from ( select rownum rn, TMP.* from ( select * from p_board where item_no=? order by no desc )TMP ) where rn between 1 and 3";
+		Object[] arg = {item_no};
+		return jdbcTemplate.query(sql, arg, mapper);
+	}
+	@Override
+	public List<Board> home_book_inner(int item_no) {
+		String sql = "select * from ( select rownum rn, TMP.* from ( select * from p_board where item_no=? order by no desc )TMP ) where rn between 1 and 3";
+		Object[] arg = {item_no};
+		return jdbcTemplate.query(sql, arg, mapper);
+	}
+	@Override
+	public List<Board> home_book_outter(int item_no) {
+		String sql = "select * from ( select rownum rn, TMP.* from ( select * from p_board where item_no=? order by no desc )TMP ) where rn between 1 and 3";
+		Object[] arg = {item_no};
+		return jdbcTemplate.query(sql, arg, mapper);
+	}
+	@Override
+	public List<Board> home_movie_inner(int item_no) {
+		String sql = "select * from ( select rownum rn, TMP.* from ( select * from p_board where item_no=? order by no desc )TMP ) where rn between 1 and 3";
+		Object[] arg = {item_no};
+		return jdbcTemplate.query(sql, arg, mapper);
+	}
+	@Override
+	public List<Board> home_movie_outter(int item_no) {
+		String sql = "select * from ( select rownum rn, TMP.* from ( select * from p_board where item_no=? order by no desc )TMP ) where rn between 1 and 3";
+		Object[] arg = {item_no};
+		return jdbcTemplate.query(sql, arg, mapper);
+	}
+	
 }
