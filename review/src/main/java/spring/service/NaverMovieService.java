@@ -88,8 +88,15 @@ public class NaverMovieService {
                             m.setImage(parser.nextText());
                         break;
                     case "director":
-                        if(m != null)
+                        if(m != null) {
                             m.setDirector(parser.nextText());
+                            if(m.getDirector().length()<=0)
+                            	m.setDirector("감독 미상");
+                            else {
+                            	String director = m.getDirector();
+                        		m.setDirector(director.substring(0, director.length()-1));
+                            }
+                        }
                         break;
                     case "subtitle":
                         if(m != null)
@@ -100,8 +107,15 @@ public class NaverMovieService {
                             m.setPubDate(parser.nextText());
                         break;
                     case "actor":
-                        if(m != null)
+                        if(m != null) {
                             m.setActor(parser.nextText());
+                            if(m.getActor().length()<=0)
+                            	m.setActor("배우 미상");
+                            else {
+                            	String actor = m.getActor();
+                         		m.setActor(actor.substring(0, actor.length()-1));
+                            }
+                        }
                         break;
                     case "userRating":
                         if(m != null)
