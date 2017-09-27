@@ -304,16 +304,16 @@ public class MovieController {
 		if(member==null)
 			return "redirect:/home";
 		
+		Board b = bookDao.detail_board(no, item_no);
+		if(!member.getId().equals(b.getWriter()))
+			return "err/err500";
+		
 		Board board = null;
 		Movie movie = null;
 		log.info("아이디 : " + member.getId());
 		board = bookDao.detail_board(no, item_no, member.getId());	
 		movie = movieDao.detail_movie(board.getSearch_no());
-		
-		Board b = bookDao.detail_board(no, item_no);
-		if(!member.getId().equals(b.getWriter()))
-			return "redirect:/home";
-		
+
 		String tag = board.getTag();
 		if(tag != null) {
 			tag = tag.replace("#", "").replace("/", ",");
