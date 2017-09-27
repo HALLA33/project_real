@@ -95,6 +95,12 @@ public class MemberDaoImpl implements MemberDao {
 	public Member login(String id, String pw) {
 
 		String sql = "select * from p_member where id = ? and pw = ?";
+		
+		//아이디 비번에 맞는 항목이 있는지
+		boolean result = jdbcTemplate.query(sql, new Object[] { id, pw }, mapper).isEmpty();
+		
+		//없으면 빈 멤버를 보냄
+		if(result) return new Member();
 
 		List<Member> list = jdbcTemplate.query(sql, new Object[] { id, pw }, mapper);
 
