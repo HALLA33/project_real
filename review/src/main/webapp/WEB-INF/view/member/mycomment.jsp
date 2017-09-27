@@ -101,17 +101,16 @@ window.onload = function(){
    
    <thead>
       <tr>
-        <th id="check" width=10%><input type="checkbox" id="all"></th>
-        <th>제목</th>
-          <th>댓글</th>
-         <th width=10%>작성일</th>
+        <th width = "50%">제목</th>
+          <th width ="30%">댓글</th>
+         <th width=20%>작성일</th>
+        <th id="check"><input type="checkbox" id="all"></th>
       </tr>
    </thead>
    
    <tbody>
    <c:forEach items="${m_co}" var="m_co">
    		<tr>
-   			<td id="check"><input type="checkbox" class="unit" value = "${m_co.no}"></td>
    			<c:if test = "${m_co.board_item_no ==1 or m_co.board_item_no == 2}">
    			<td><a href = "${pageContext.request.contextPath}/book-detail?no=${m_co.board_no}&item_no=${m_co.board_item_no}">${m_co.title }</a></td>
    			</c:if>
@@ -120,6 +119,7 @@ window.onload = function(){
    			</c:if>
    			<td>${m_co.detail}</td>
    			<td>${m_co.reg}</td>
+   			<td id="check"><input type="checkbox" class="unit" value = "${m_co.no}"></td>
    		</tr>
    </c:forEach>
        

@@ -10,9 +10,11 @@
     	
     	var all = document.querySelector("#all");
 		var unit = document.querySelectorAll(".unit");
+// 		var tag = $(".tag");
 		var item = $(".item");
 		var writeno = [];
 		var itemno = [];
+// 		var tags = [];
 
 		var allcheck= function () {
 			$(all).change(function () {
@@ -20,19 +22,21 @@
 				if(this.checked){
 					writeno = [];
 					itemno = [];
+// 					tags = [];
 					for (var i = 0; i < unit.length; i++) {
 						unit[i].checked = this.checked;
 						writeno.push($(unit[i]).val());
 						itemno.push($(item[i]).val());
-						console.log(writeno);
-						console.log(itemno);
+// 						tags.push($(tag[i]).val());
+// 						console.log(tags);
 					};
 				}else if(!this.checked){
 					for (var i = 0; i < unit.length; i++) {
 						unit[i].checked = this.checked;
 						writeno = [];
 						itemno = [];
-						console.log(writeno);
+// 						tags = [];
+// 						console.log(tags);
 					}
 				}
 			});	
@@ -48,7 +52,8 @@
 						all.checked = false;
 						writeno.splice(writeno.indexOf($(unit[i]).val()), 1);
 						itemno.splice(itemno.indexOf($(item[i]).val()), 1);
-						console.log(writeno);
+// 						tags.splice(tags.indexOf($(tag[i]).val()), 1);
+// 						console.log(tags);
 					}
 				});
 			};
@@ -60,13 +65,15 @@
 				if (this.checked) {
 					writeno.push($(this).val());
 					itemno.push($(this).siblings().val());
-					console.log(writeno);
-					console.log(itemno);
+// 					tags.push($(this).siblings('.tag').val());
+					console.log("writeno :" + writeno);
+					console.log("itemno : " + itemno);
+// 					console.log(tags);
 				} else if (!this.checked) {
 					writeno.splice(writeno.indexOf($(this).val()), 1);
 					itemno.splice(itemno.indexOf($(this).siblings().val()), 1);
-					console.log(writeno);
-					console.log(itemno);
+// 					tags.splice(itemno.indexOf($(this).siblings('.tag').val()), 1);
+// 					console.log(tags);
 				}
 			});
 		};
@@ -112,19 +119,16 @@
    
    <thead>
       <tr>
-        <th id="check" width=10%><input type="checkbox" id="all"></th>
           <th>제목</th>
-         <th width=10%>작성일</th>
+         <th width=20%>작성일</th>
          <th width=80px>조회수</th>
+        <th id="check"><input type="checkbox" id="all"></th>
       </tr>
    </thead>
    
    <tbody>
    <c:forEach var = "list" items = "${lists}">
    		<tr>
-   			<td id="check"><input type="checkbox" class="unit" value = "${list.no}">
-   				<input type="hidden" class="item" value = "${list.item_no}">
-   			</td>
    			<c:if test = "${list.item_no == 1 or list.item_no == 2}">
    			<td><a href="${pageContext.request.contextPath}/book-detail?no=${list.no}&item_no=${list.item_no}">${list.title}</a></td> 
    			</c:if>
@@ -132,7 +136,11 @@
    			<td><a href="${pageContext.request.contextPath}/movie/movie-detail?no=${list.no}&item_no=${list.item_no}">${list.title}</a></td> 
    			</c:if>
    			<td>${list.reg}</td>
-   			<td>${list.read}</td>
+   			<td align = "center">${list.read}</td>
+   			<td id="check"><input type="checkbox" class="unit" value = "${list.no}">
+   				<input type="hidden" class="item" value = "${list.item_no}">
+<%--    				<input type="hidden" class="tag" value = "${list.tag}"> --%>
+   			</td>
    		</tr>
    </c:forEach>
        

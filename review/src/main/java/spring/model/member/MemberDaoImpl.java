@@ -372,9 +372,26 @@ public class MemberDaoImpl implements MemberDao {
 	@Override
 	public boolean mydelete(String itemno, String writeno, String id) {
 		
-		String sql = "delete p_board where item_no = ? and no = ? and writer = ?";
+		String sql = "select tag from p_board where item_no =? and no =? and writer = ?";
+		
+		String tag = jdbcTemplate.queryForObject(sql, new Object[] {itemno, writeno, id}, String.class);
+		
+		if(tag != null) {
+			String[] tags = tag.replace("#", "").split("/");
+			
+			for(String s : tags) {
+				
+				sql = "delete tags where item_no = ? and write_no = ? and tag = ?";
+				
+				jdbcTemplate.update(sql, new Object[] {itemno, writeno, s});
+				
+			}
+			
+		}
+		sql = "delete p_board where item_no = ? and no = ? and writer = ?";
 		
 		int result = jdbcTemplate.update(sql, new Object[] {itemno, writeno, id});
+		
 		
 		return result > 0;
 	}
