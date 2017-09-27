@@ -36,7 +36,14 @@
 //              });         
 //       });
 //    });
-   
+
+	//err라는 파라미터가 있다면 보여줌
+   $(document).ready(function(){
+	var err = "${err}";
+	if(err!="") {
+		window.alert(err);
+	}
+});
    
    </script>
    <link rel="stylesheet" type="text/css" href="<c:url value="/css/layout.css" />">
