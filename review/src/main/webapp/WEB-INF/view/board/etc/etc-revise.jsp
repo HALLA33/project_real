@@ -176,14 +176,14 @@
 		var emoLabel = document.querySelector("#emoLabel");
 		$("#emoLabel").css("display", "none");
 		$("#emoDiv").css("border", "none");
-		emoLabel.innerHTML = "";
+		emoLabel.innerHTML = "<input type='hidden'  name='emotion' value='없음'>";
 		emotionSelector.style.display = "none";
 	}
 	function weaDel(){
 		var weaLabel = document.querySelector("#weaLabel");
 		$("#weaLabel").css("display", "none");
 		$("#weaDiv").css("border", "none");
-		weaLabel.innerHTML = "";
+		weaLabel.innerHTML = "<input type='hidden'  name='weather' value='없음'>";
 		weatherSelector.style.display = "none";
 	}
 </script>
