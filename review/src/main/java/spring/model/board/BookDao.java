@@ -35,4 +35,9 @@ public interface BookDao {
 	List<Board> recomTwo(String emo, String wea);
 	List<Board> recomEmo(String emo, String wea);
 	List<Board> recomWea(String emo, String wea);
+	List<Board> home_notice(int item_no);
+	List<Board> home_book_inner(int item_no);
+	List<Board> home_book_outter(int item_no);
+	List<Board> home_movie_inner(int item_no);
+	List<Board> home_movie_outter(int item_no);	
 }
