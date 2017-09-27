@@ -90,7 +90,13 @@ public class BookDaoImpl implements BookDao{
 			if(item_no == 9) {
 				System.out.println("검색");
 				Object[] args = {word, word, word};
-				sql = "select * from p_board where search_artist like '%'||?||'%' or search_title like '%'||?||'%' or detail like '%'||?||'%' order by reg desc";
+				//sql = "select * from p_board where search_artist like '%'||?||'%' or search_title like '%'||?||'%' or detail like '%'||?||'%' order by reg desc";
+				// 전체 검색에서 기타, 자유게시판 제외
+				sql = "select * from "
+						+ "( select item_no ino, TMP.* from "
+							+ "( select * from p_board where search_artist like "
+							+ "'%'||?||'%' or search_title like '%'||?||'%' or detail like '%'||?||'%' order by reg desc )TMP ) "
+						+ "where ino not in(5, 7)";
 				System.out.println("item_no:9 = " + sql);
 				System.out.println(jdbcTemplate.query(sql, args, mapper).isEmpty());
 				return jdbcTemplate.query(sql, args, mapper);
