@@ -277,7 +277,7 @@ public class BookDaoImpl implements BookDao{
       try {
          return jdbcTemplate.queryForObject(sql, args, String.class );
       }catch(EmptyResultDataAccessException e) {
-         return "탈퇴한 아이디입니다.";
+         return "탈퇴한 아이디입니다";
       }
       
 
