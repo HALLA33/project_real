@@ -125,7 +125,12 @@
    			<td id="check"><input type="checkbox" class="unit" value = "${list.no}">
    				<input type="hidden" class="item" value = "${list.item_no}">
    			</td>
+   			<c:if test = "${list.item_no == 1 or list.item_no == 2}">
    			<td><a href="${pageContext.request.contextPath}/book-detail?no=${list.no}&item_no=${list.item_no}">${list.title}</a></td> 
+   			</c:if>
+   			<c:if test = "${list.item_no == 3 or list.item_no == 4}">
+   			<td><a href="${pageContext.request.contextPath}/movie/movie-detail?no=${list.no}&item_no=${list.item_no}">${list.title}</a></td> 
+   			</c:if>
    			<td>${list.reg}</td>
    			<td>${list.read}</td>
    		</tr>
