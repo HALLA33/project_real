@@ -88,8 +88,11 @@ public class NaverBookService {
                             b.setImage(parser.nextText());
                         break;
                     case "author":
-                        if(b != null)
-                            b.setAuthor(parser.nextText());
+                        if(b != null) {
+                        	 b.setAuthor(parser.nextText());
+                        	if(b.getAuthor().length()<=0)
+                            	b.setAuthor("작가 미상");
+                        }
                         break;
                     case "price":
                         if(b != null)
