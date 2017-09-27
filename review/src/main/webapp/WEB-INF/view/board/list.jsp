@@ -63,7 +63,7 @@ function login(context, flag, no, item_no){
 			<c:choose>
 				<c:when test="${head eq 101 }">&#40;SF/판타지&#41;</c:when>
 				<c:when test="${head eq 102 }">&#40;드라마&#41;</c:when>
-				<c:when test="${head eq 103 }">&#40;로맨스&#41;</c:when>
+				<c:when test="${head eq 103 }">&#40;전쟁/모험&#41;</c:when>
 				<c:when test="${head eq 104 }">&#40;미스터리/스릴러&#41;</c:when>
 				<c:when test="${head eq 105 }">&#40;애니메이션&#41;</c:when>
 				<c:when test="${head eq 106 }">&#40;코미디&#41;</c:when>
@@ -75,7 +75,7 @@ function login(context, flag, no, item_no){
 		<c:choose>
 				<c:when test="${head eq 101 }">&#40;SF/판타지&#41;</c:when>
 				<c:when test="${head eq 102 }">&#40;드라마&#41;</c:when>
-				<c:when test="${head eq 103 }">&#40;로맨스&#41;</c:when>
+				<c:when test="${head eq 103 }">&#40;전쟁/모험&#41;</c:when>
 				<c:when test="${head eq 104 }">&#40;미스터리/스릴러&#41;</c:when>
 				<c:when test="${head eq 105 }">&#40;애니메이션&#41;</c:when>
 				<c:when test="${head eq 106 }">&#40;코미디&#41;</c:when>
