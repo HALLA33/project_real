@@ -445,6 +445,21 @@ public class MemberController {
 		}		
 	}
 	
+	//이메일 
+	@RequestMapping(value = "/emailcheck", method = RequestMethod.POST)
+	public String emailcheck(@RequestParam String email) throws Exception {
+		
+		log.info(email);
+		
+		boolean result = memberDao.emailcheck(email);
+		
+		if(result) {
+			return "member/success";
+		}else {
+			throw new Exception("아이디가있음");
+		}		
+	}
+	
 	public void replaceDetail(Board board) {
 		String detail = board.getDetail();
 
