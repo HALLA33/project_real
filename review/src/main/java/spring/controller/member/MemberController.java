@@ -149,7 +149,7 @@ public class MemberController {
 		}
 	}
 	//로그인 처리
-	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	@RequestMapping(value = {"/login", "/movie/login", "/etc/login", "/free/login"}, method = RequestMethod.POST)
 	public String login(HttpServletRequest request, 
 			@RequestParam(value="remember", required=false, defaultValue = "off") String remember,
 			HttpServletResponse response,@RequestParam String id,
