@@ -81,6 +81,8 @@ public class FreeController {
 		board.setWriter(request.getParameter("writer"));
 		board.setTitle(request.getParameter("title"));
 		board.setDetail(request.getParameter("ir1"));
+		board.setSearch_title(request.getParameter("search_title"));
+		board.setSearch_artist(request.getParameter("search_artist"));
 		
 		Member member =(Member)session.getAttribute("member");
 		
