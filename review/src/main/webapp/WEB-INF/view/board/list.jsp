@@ -4,7 +4,15 @@
 <%-- header.jsp를 불러와서 배치하는 코드 --%>
 <%@ include file="/WEB-INF/view/template/header.jsp" %>  
 <script>
-      
+function login(move, no, item_no){
+	var session = '${sessionScope.member.id}';
+	if(session<=0)
+		alert("로그인해주세요");
+	else{
+		$("#"+move.id).attr("href", "${pageContext.request.contextPath}/"+move.id+"/"+move.id+"-detail?no="+no+"&item_no="+item_no+"");
+	}
+		
+}      
 </script>
 <article>
 <%-- 컨테이너 영역 --%>
@@ -98,14 +106,10 @@
 	      				<td>
 	      					<c:choose>
 	      						<c:when test="${item_no==7 }">
-	      							<a href="<c:url value="free/free-detail?no=${board.no }&item_no=${board.item_no }" />">
-			      						${board.title }
-			      					</a>
+	      							<a href="#" id="free" onclick="login(this,${board.no}, ${board.item_no })">${board.title }</a>
 	      						</c:when>
 	      						<c:when test="${item_no==5 or item_no==6 }">
-	      							<a href="<c:url value="etc/etc-detail?no=${board.no }&item_no=${board.item_no }" />">
-			      						${board.title }
-			      					</a>
+	      							<a href="#" id="etc" onclick="login(this,${board.no}, ${board.item_no })">${board.title }</a>
 	      						</c:when>
 	      					</c:choose>
 						<span style="padding-left:15px">조회수 : ${board.read }개</span>
@@ -141,17 +145,25 @@
 				     <h5 style="font-size: 13px">${board.title}</h5>
 		                <div>
 		                	<c:if test="${item_no==1 or item_no==2 }">
-		                		<a href="<c:url value="book-detail?no=${board.no }&item_no=${board.item_no }" />" style="font-size: 13px; width:600px; margin-top:10px " id="block" >${book[board.search_no].title}</a>
+		                		<a href="#" style="font-size: 13px; width:600px; margin-top:10px" id="book" onclick="login(this,${board.no}, ${board.item_no })">
+		                			${book[board.search_no].title}
+		                		</a>
 		                	</c:if>
 		                   <c:if test="${item_no==3 or item_no==4 }">
-		                		<a href="<c:url value="/movie/movie-detail?no=${board.no }&item_no=${board.item_no }" />" style="font-size: 13px; width:600px; margin-top:10px " id="block" >${movie[board.search_no].title}</a>
+		                   		<a href="#" style="font-size: 13px; width:600px; margin-top:10px" id="movie" onclick="login(this,${board.no}, ${board.item_no })">
+		                			${movie[board.search_no].title}
+		                		</a>
 		                	</c:if>
 		                	<c:if test = "${item_no == 8 or item_no == 9}">
 		                		<c:if test = "${board.item_no == 1 or board.item_no ==2 }">
-		                			<a href="<c:url value="book-detail?no=${board.no }&item_no=${board.item_no }" />" style="font-size: 13px; width:600px; margin-top:10px " id="block" >${book[board.search_no].title}</a>
+		                			<a href="#" style="font-size: 13px; width:600px; margin-top:10px" id="book" onclick="login(this,${board.no}, ${board.item_no })">
+		                				${book[board.search_no].title}
+		                			</a>
 		                		</c:if>
 		                		<c:if test = "${board.item_no == 3 or board.item_no ==4 }">
-		                			<a href="<c:url value="/movie/movie-detail?no=${board.no }&item_no=${board.item_no }" />" style="font-size: 13px; width:600px; margin-top:10px " id="block" >${movie[board.search_no].title}</a>
+		                			<a href="#" style="font-size: 13px; width:600px; margin-top:10px" id="movie" onclick="login(this,${board.no}, ${board.item_no })">
+		                				${movie[board.search_no].title}
+		                			</a>
 		                		</c:if>
 		                	</c:if>
 					
