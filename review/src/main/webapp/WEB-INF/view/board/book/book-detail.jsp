@@ -270,7 +270,9 @@
 								<h5 style="font-size: 15px">${replyNickname[reply.no]}</h5>
 								<h5 style="font-size: 15px">${reply.date }</h5>
 								<input type="button" name="${reply.no }" onclick="responseClick(this)" value="답글달기" style="border:none; background:white">
-		      					<input type="button" name="${reply.no }delete" onclick="replyDelete(this)" value="삭제하기" style="border:none; background:white">
+		      					<c:if test="${sessionScope.member.id == reply.writer }">
+		      						<input type="button" name="${reply.no }delete" onclick="replyDelete(this)" value="삭제하기" style="border:none; background:white">
+								</c:if>
 							</div>   
 						</div>
 	      			</td>
