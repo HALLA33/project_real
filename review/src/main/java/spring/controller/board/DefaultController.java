@@ -81,6 +81,8 @@ public class DefaultController {
 		model.addAttribute("book", book);
 		model.addAttribute("movie", movie);
 		model.addAttribute("recomSize", recomSize);
+		model.addAttribute("emotion", emo);
+		model.addAttribute("weather", wea);
 		
 		return "board/recommend";
 	}

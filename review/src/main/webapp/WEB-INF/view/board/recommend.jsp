@@ -14,7 +14,7 @@
 
 <article>
 <br>
-<small>총 ${recomSize}개가 검색되었습니다</small><br><br>
+<h4>총 ${recomSize}개의 항목이 검색되었습니다&nbsp;(${emotion})&nbsp;(${weather})</h4><br><br>
 <div class="container" id="ilch1">
 		<h3>2개 일치</h3>
 		<br>
