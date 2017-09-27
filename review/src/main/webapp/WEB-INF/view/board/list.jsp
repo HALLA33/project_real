@@ -122,6 +122,7 @@ function login(context, flag, no, item_no){
 	      							<a href="#" onclick="login(this, 5,${board.no}, ${board.item_no })">${board.title }</a>
 	      						</c:when>
 	      					</c:choose>
+						<br>
 						<span style="padding-left:15px">조회수 : ${board.read }개</span>
 		                	<span><img src="${pageContext.request.contextPath}/img/good.png" width="20" height="20">${board.good }개</span>
 		                	<span><img src="${pageContext.request.contextPath}/img/bad.png" width="20" height="20">${board.bad }개</span>
