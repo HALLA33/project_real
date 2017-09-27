@@ -70,6 +70,11 @@ public class BookController {
 			@RequestParam(defaultValue="9") int item_no, @RequestParam(defaultValue="-1")int head, @RequestParam(defaultValue="0")int alignVal,
 			@RequestParam(value = "tag", required=false) String tag, HttpSession session, @RequestParam(value="word", required=false) String word
 			) {
+		
+		if(item_no > 9 || item_no == 6) {
+			return "err/custom_err";
+		}
+			
 		String pageStr = request.getParameter("page") ;
 		int pageNo;
 		String status;
