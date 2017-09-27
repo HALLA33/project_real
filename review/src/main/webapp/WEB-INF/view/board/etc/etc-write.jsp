@@ -298,6 +298,9 @@
 		<input type="button" class="btn" style="margin: 10px" value="목록보기" onclick="location.href='${pageContext.request.contextPath}list?item_no=${item_no}'"/>	
 	</div>
 	
+	<input type="hidden" value="none" name="search_title">
+	<input type="hidden" value="none" name="search_artist">
+	
 </form>
 </article>
       
