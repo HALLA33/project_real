@@ -13,7 +13,7 @@
 		$("#detail").append(detail);
 		
 		var session = '${sessionScope.member.id}';
-		replyCheck(session);
+		replyCheck(session); 
 		
 		var img = '${movie.image}';
 		if(img.length==0){
@@ -270,7 +270,9 @@
 								<h5 style="font-size: 15px">${replyNickname[reply.no]}</h5>
 								<h5 style="font-size: 15px">${reply.date }</h5>
 								<input type="button" name="${reply.no }" onclick="responseClick(this)" value="답글달기" style="border:none; background:white">
-		      					<input type="button" name="${reply.no }delete" onclick="replyDelete(this)" value="삭제하기" style="border:none; background:white">
+		      					<c:if test="${sessionScope.member.id == reply.writer }">
+		      						<input type="button" name="${reply.no }delete" onclick="replyDelete(this)" value="삭제하기" style="border:none; background:white">
+		      					</c:if>
 							</div>   
 						</div>
 	      			</td>
@@ -306,9 +308,11 @@
 
 	<div class="align-right">
 		<input type="button" class="btn" onclick="location.href='${pageContext.request.contextPath}/movie/movie-write?item_no=${board.item_no }&head=${board.head }'" value="글쓰기">
-		<input type="button" class="btn" onclick="location.href='${pageContext.request.contextPath}/movie/movie-revise/${board.no }/${board.item_no }'" value="수정하기">
+		<c:if test="${board.writer == sessionScope.member.id}">
+				<input type="button" class="btn" onclick="location.href='${pageContext.request.contextPath}/movie/movie-revise/${board.no }/${board.item_no }'" value="수정하기">
+		</c:if>
 		<c:if test="${sessionScope.member.power eq '관리자' || sessionScope.member.power eq '스탭' || nickname eq sessionScope.member.nickname}">
-		<input type="button" class="btn" onclick="location.href='${pageContext.request.contextPath}/book-delete/${board.no }/${board.item_no }?tag=${board.tag.replace('#', '') }&writer=${board.writer}'" value="삭제하기">
+			<input type="button" class="btn" onclick="location.href='${pageContext.request.contextPath}/movie/movie-delete/${board.no }/${board.item_no }?tag=${board.tag.replace('#', '') }&writer=${board.writer}'" value="삭제하기">
 		</c:if>
 		<input type="button" class="btn" value="목록보기" onclick="location.href='${pageContext.request.contextPath}/list?item_no=${board.item_no }';"/>
 	</div>
