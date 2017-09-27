@@ -145,6 +145,7 @@ public class BookController {
 		model.addAttribute("item_no", item_no);
 		model.addAttribute("head", head);
 		model.addAttribute("align", align);
+		model.addAttribute("word", word);
 		
 		if(align == 0) {
 			return "board/list";
