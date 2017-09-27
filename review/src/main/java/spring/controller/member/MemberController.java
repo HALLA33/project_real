@@ -428,6 +428,76 @@ public class MemberController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String test(HttpServletRequest request, HttpSession session, HttpServletResponse response) {
 
+		//home 게시글 보이기
+		List<Board> home_notice = bookDao.home_notice(0);
+		List<Board> home_book_inner = bookDao.home_book_inner(1);
+		List<Board> home_book_outter = bookDao.home_book_outter(2);
+		List<Board> home_movie_inner = bookDao.home_movie_inner(3);
+		List<Board> home_movie_outter = bookDao.home_movie_outter(4);
+		
+		
+		Map<Integer, String> nickname = new HashMap<>();	
+		Map<Integer, Book> book = null;
+		Map<Integer, Movie> movie = null;
+		for(Board b: home_notice) {
+			book = bookDao.book_list(b.getSearch_no());
+			movie = movieDao.movie_list(b.getSearch_no());
+			b.setB_item_no(b.getItem_no());
+			b.setB_head(b.getHead());
+			replaceDetail(b);
+			nickname.put(b.getNo(), bookDao.search_nickname(b.getWriter()));
+		}
+		for(Board b: home_book_inner) {
+			book = bookDao.book_list(b.getSearch_no());
+			movie = movieDao.movie_list(b.getSearch_no());
+			b.setB_item_no(b.getItem_no());
+			b.setB_head(b.getHead());
+			replaceDetail(b);
+			nickname.put(b.getNo(), bookDao.search_nickname(b.getWriter()));
+		}
+		for(Board b: home_book_outter) {
+			book = bookDao.book_list(b.getSearch_no());
+			movie = movieDao.movie_list(b.getSearch_no());
+			b.setB_item_no(b.getItem_no());
+			b.setB_head(b.getHead());
+			replaceDetail(b);
+			nickname.put(b.getNo(), bookDao.search_nickname(b.getWriter()));
+		}
+		for(Board b: home_movie_inner) {
+			book = bookDao.book_list(b.getSearch_no());
+			movie = movieDao.movie_list(b.getSearch_no());
+			b.setB_item_no(b.getItem_no());
+			b.setB_head(b.getHead());
+			replaceDetail(b);
+			nickname.put(b.getNo(), bookDao.search_nickname(b.getWriter()));
+		}
+		for(Board b: home_movie_outter) {
+			book = bookDao.book_list(b.getSearch_no());
+			movie = movieDao.movie_list(b.getSearch_no());
+			b.setB_item_no(b.getItem_no());
+			b.setB_head(b.getHead());
+			replaceDetail(b);
+			nickname.put(b.getNo(), bookDao.search_nickname(b.getWriter()));
+		}
+		
+//		System.out.println("home_notice = " + home_notice.isEmpty());
+//		System.out.println("home_notice = " + home_notice.toString());
+//		System.out.println("home_book_inner = " + home_book_inner.isEmpty());
+//		System.out.println("home_book_inner = " + home_book_inner.toString());
+//		System.out.println("home_book_outter = " + home_book_outter.isEmpty());
+//		System.out.println("home_book_outter = " + home_book_outter.toString());
+//		System.out.println("home_movie_inner = " + home_movie_inner.isEmpty());
+//		System.out.println("home_movie_inner = " + home_movie_inner.toString());
+//		System.out.println("home_movie_outter = " + home_movie_outter.isEmpty());
+//		System.out.println("home_movie_outter = " + home_movie_outter.toString());
+		
+		model.addAttribute("home_notice", home_notice);
+		model.addAttribute("home_book_inner", home_book_inner);
+		model.addAttribute("home_book_outter", home_book_outter);
+		model.addAttribute("home_movie_inner", home_movie_inner);
+		model.addAttribute("home_movie_outter", home_movie_outter);
+		
+		
 		List<Member> list = memberDao.memberRank();
 		
 		for(int i=0;i<list.size();i++) {
