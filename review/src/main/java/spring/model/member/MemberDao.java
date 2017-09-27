@@ -25,6 +25,7 @@ public interface MemberDao {
 	public boolean idcheck(String id);
 	public boolean nickcheck(String nick);
 	public boolean nickcheck(String id, String nick);
+	public boolean emailcheck(String email);
 	public int count(String smode, String key) throws Exception;
 	int singleSearchCount(String smode, String key) throws Exception;
 	public List<Attendance> attendlist(int start, int end);
