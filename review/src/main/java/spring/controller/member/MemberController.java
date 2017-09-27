@@ -34,6 +34,12 @@ public class MemberController {
 	@Autowired
 	private MemberDao memberDao;
 	
+	@Autowired
+	private BookDao bookDao;
+	
+	@Autowired
+	private MovieDao movieDao;	
+	
 	private Logger log = LoggerFactory.getLogger(getClass());
 	
 	@Autowired
@@ -424,6 +430,19 @@ public class MemberController {
 			throw new Exception("아이디가있음");
 		}		
 	}
+	
+	public void replaceDetail(Board board) {
+		String detail = board.getDetail();
+
+		detail = detail.replaceAll("<(/)?([a-zA-Z]*)(\\s[a-zA-Z]*=[^>]*)?(\\s)*(/)?>", " ").replaceAll("&nbsp;", " ");
+		
+		if(detail.length() >= 100){
+			detail = detail.substring(0, 100) + "...";
+		}
+
+		board.setDetail(detail);
+	}	
+	
 	//자동로그인, 포인트 랭킹
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String test(HttpServletRequest request, HttpSession session, HttpServletResponse response) {
