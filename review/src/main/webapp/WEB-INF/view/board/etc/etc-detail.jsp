@@ -55,6 +55,7 @@
 			
 		});
 		$("#replyRegister").on("click", function(){
+			var title = '${board.title}'
 			var writer = '${sessionScope.member.id}';
 			var detail = $("#reply").val();
 			var board_no = '${board.no}';
@@ -62,9 +63,8 @@
 			var gno = 0;
 			var gseq = 0;
 			var depth = 0;
-			var allData = {"writer":writer, "detail":detail, "board_no":board_no, "board_item_no": board_item_no, 
+			var allData = {"title" : title, "writer":writer, "detail":detail, "board_no":board_no, "board_item_no": board_item_no, 
 									"gno":gno, "gseq":gseq, "depth":depth}
-			
 			$.ajax({
 		        type: "POST", 
 		        url: "${pageContext.request.contextPath}/reply/reply-insert", 
@@ -106,15 +106,15 @@
 		var btnId = btn.id;
 		var textId = btnId.split("b");
 		var text = textId[0]+"reply";
-
+		var title = "${board.title}"
 		var writer = '${sessionScope.member.id}';
 		var detail = $("#"+text).val();
 		var board_no = '${board.no}';
 		var board_item_no = '${board.item_no}';
 		var reply_no = textId[0];
-		var allData = {"writer":writer, "detail":detail, "board_no":board_no, "board_item_no": board_item_no, 
+		var allData = {"title" : title, "writer":writer, "detail":detail, "board_no":board_no, "board_item_no": board_item_no, 
 								"reply_no":reply_no}
-		
+		console.log(title);
 		$.ajax({
 	        type: "POST", 
 	        url: "${pageContext.request.contextPath}/reply/reply-response-insert", 
@@ -245,7 +245,9 @@
 								<h5 style="font-size: 15px">${replyNickname[reply.no]}</h5>
 								<h5 style="font-size: 15px">${reply.date }</h5>
 								<input type="button" name="${reply.no }" onclick="responseClick(this)" value="답글달기" style="border:none; background:white">
-		      					<input type="button" name="${reply.no }delete" onclick="replyDelete(this)" value="삭제하기" style="border:none; background:white">
+		      					<c:if test="${sessionScope.member.id == reply.writer }">
+		      						<input type="button" name="${reply.no }delete" onclick="replyDelete(this)" value="삭제하기" style="border:none; background:white">
+		      					</c:if>
 							</div>   
 						</div>
 	      			</td>
@@ -281,7 +283,9 @@
 
 	<div class="align-right">
 		<input type="button" class="btn" onclick="location.href='${pageContext.request.contextPath}/etc/etc-write?item_no=${board.item_no }&head=${board.head }'" value="글쓰기">
-		<input type="button" class="btn" onclick="location.href='${pageContext.request.contextPath}/etc/etc-revise/${board.no }/${board.item_no }'" value="수정하기">
+		<c:if test="${sessionScope.member.id == board.writer }">
+			<input type="button" class="btn" onclick="location.href='${pageContext.request.contextPath}/etc/etc-revise/${board.no }/${board.item_no }'" value="수정하기">
+		</c:if>
 		<c:if test="${sessionScope.member.power eq '관리자' || sessionScope.member.power eq '스탭' || nickname eq sessionScope.member.nickname}">
 		<input type="button" class="btn" onclick="location.href='${pageContext.request.contextPath}/etc/etc-delete/${board.no }/${board.item_no }?tag=${board.tag.replace('#', '') }'" value="삭제하기">
 		</c:if>
