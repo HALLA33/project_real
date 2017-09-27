@@ -24,6 +24,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -36,6 +37,7 @@ import net.sf.jmimemagic.Magic;
 import net.sf.jmimemagic.MagicException;
 import net.sf.jmimemagic.MagicMatchNotFoundException;
 import net.sf.jmimemagic.MagicParseException;
+import oracle.jdbc.proxy.annotation.OnError;
 import spring.model.board.Board;
 import spring.model.board.BookDao;
 import spring.model.board.Image;
@@ -70,6 +72,10 @@ public class MovieController {
 		model.addAttribute("item_no", item_no);
 		model.addAttribute("head", head);
 		
+		Member member = (Member) session.getAttribute("member");
+		if(member==null)
+			return "redirect:/home";
+		
 		List<Tags> taglist = bookDao.taglist();
 		
 		session.setAttribute("tags", taglist);
@@ -86,10 +92,6 @@ public class MovieController {
 		movie.setActor(request.getParameter("actor"));
 		movie.setPubDate(request.getParameter("pubDate"));
 		
-		String director = movie.getDirector();
-		movie.setDirector(director.substring(0, director.length()-1));
-		log.info(movie.getDirector()); 
-		
 		Board board = new Board();
 		board.setItem_no(Integer.parseInt(request.getParameter("item_no")));
 		board.setB_item_no(board.getItem_no());
@@ -105,6 +107,8 @@ public class MovieController {
 		board.setSearch_artist(request.getParameter("search_artist"));
 		
 		Member member =(Member)session.getAttribute("member");
+		if(member==null)
+			return "redirect:/home";
 		
 		String notice = "false";		
 		if(board.getItem_no()==0 || board.getHead()==0)
@@ -160,18 +164,19 @@ public class MovieController {
 		return "redirect:/movie/movie-detail?no="+board.getNo()+"&item_no="+board.getItem_no();
 	}
 	
+	@RequestMapping(value= {"/movie-preview"}, method=RequestMethod.GET)
+	public String movieGetPreview(HttpSession session) {
+		return "redirect:/home";
+	}
+	
 	@RequestMapping(value= {"/movie-preview"}, method=RequestMethod.POST)
-	public String moviePreview(Model model, HttpServletRequest request) {
+	public String moviePreview(Model model, HttpServletRequest request, HttpSession session) {
 		Movie movie = new Movie();
 		movie.setImage(request.getParameter("image"));
 		movie.setTitle(request.getParameter("movie_title"));
 		movie.setDirector(request.getParameter("director"));
 		movie.setActor(request.getParameter("actor"));
 		movie.setPubDate(request.getParameter("pubDate"));
-		
-		String[] director = movie.getDirector().split("|");
-		movie.setDirector(director[0]);
-		log.info(movie.getDirector());
 		
 		Board board = new Board();
 		board.setItem_no(Integer.parseInt(request.getParameter("item_no")));
@@ -238,6 +243,10 @@ public class MovieController {
 		board.setB_item_no(board.getItem_no());
 		board.setB_head(board.getHead());
 		
+		Member member =(Member)session.getAttribute("member");
+		if(member==null)
+			return "redirect:/home";
+		
 //		String[] tags = board.getTag().split("/");
 //		
 //		for(String s : tags) {
@@ -292,11 +301,18 @@ public class MovieController {
 	@RequestMapping(value= {"/movie-revise/{no}/{item_no}"}, method=RequestMethod.GET)
 	public String movieDetail_re(HttpServletRequest request, HttpServletResponse response, Model model, @PathVariable int no, @PathVariable int item_no, HttpSession session) {
 		Member member = (Member)session.getAttribute("member");
+		if(member==null)
+			return "redirect:/home";
+		
 		Board board = null;
 		Movie movie = null;
 		log.info("아이디 : " + member.getId());
 		board = bookDao.detail_board(no, item_no, member.getId());	
 		movie = movieDao.detail_movie(board.getSearch_no());
+		
+		Board b = bookDao.detail_board(no, item_no);
+		if(!member.getId().equals(b.getWriter()))
+			return "redirect:/home";
 		
 		String tag = board.getTag();
 		if(tag != null) {
@@ -399,6 +415,12 @@ public class MovieController {
     public String movieDelete(Model model, @PathVariable int no, @PathVariable int item_no, HttpSession session, 
     		@RequestParam(value = "tag", required=false) String tag, HttpServletRequest request, HttpServletResponse reponse) {
     	Member member = (Member)session.getAttribute("member");
+    	if(member==null)
+    		return "redirect:/home";
+
+    	Board board = bookDao.detail_board(no, item_no);
+    	if(!member.getId().equals(board.getWriter()))
+    		return "redirect:/home";
     	
     	log.info("실행됨"  + tag);
     	
@@ -625,7 +647,6 @@ public class MovieController {
 		boolean flag = true;
 		String filetype = null;
 		
-		
 		try {
 			filetype = Magic.getMagicMatch(file.getBytes()).getMimeType(); //파일 유형		
 			
@@ -699,7 +720,6 @@ public class MovieController {
 		} catch (IOException e) {
 			log.info(e.getMessage());
 		} 
-
 		
 		return map;
 	 }
@@ -757,5 +777,11 @@ public class MovieController {
 			file.delete();
 			System.out.println(file.getAbsolutePath()+" 삭제");
 		}
+	}
+
+	@ExceptionHandler(IllegalStateException.class)
+	public String exceptionHandler() {
+		log.info("에러");
+		return "err/err500";
 	}
 }
