@@ -91,7 +91,7 @@ function login(context, flag, no, item_no){
       <div class="container">
       <ul class="nav nav-tabs" id="listSubtitle">
          <li class="nav-item" value="0">
-            <a class="nav-link " href="${pageContext.request.contextPath}/list?item_no=${item_no}&head=${head}&alignVal=1&tag=${tag}" >최신순</a>
+            <a class="nav-link " href="${pageContext.request.contextPath}/list?item_no=${item_no}&head=${head}&alignVal=0&tag=${tag}" >최신순</a>
          </li>
          <li class="nav-item" value="1">
                <a class="nav-link active">조회수순</a>
@@ -99,14 +99,14 @@ function login(context, flag, no, item_no){
         </ul>
       <br>
       <c:choose>
-      	<c:when test="${item_no==5 or item_no==6 or item_no==7 }">
+      	<c:when test="${item_no==0 or item_no==5 or item_no==6 or item_no==7 }">
       		<table class="table table-hover">
       			<tr>
-	      			<th style="text-align:center">번호</th>
-	      			<th style="text-align:center">장르</th>
-	      			<th style="text-align:center">제목</th>
-	      			<th style="text-align:center">작성자</th>
-	      			<th style="text-align:center">작성일</th> 
+	      			<th>번호</th>
+	      			<th>장르</th>
+	      			<th>제목</th>
+	      			<th>작성자</th>
+	      			<th>작성일</th>
 	      		</tr>
 	      		<c:forEach items="${board}" var ="board">
 	      			<tr>
@@ -122,7 +122,7 @@ function login(context, flag, no, item_no){
 	      						</c:when>
 	      					</c:choose>
 						<br>
-						<span>조회수 : ${board.read }개</span>
+							<span >조회수 : ${board.read }개</span>
 		                	<span><img src="${pageContext.request.contextPath}/img/good.png" width="20" height="20">${board.good }개</span>
 		                	<span><img src="${pageContext.request.contextPath}/img/bad.png" width="20" height="20">${board.bad }개</span>
 	      				</td>
