@@ -105,7 +105,7 @@
 		   		number++;
 		    }
 		    if(number>5)
-		    	console.log("태그는 5개까지 입력해주세요");
+		    	msg = "태그는 5개까지 입력해주세요";
 		}
 		
 		return msg;
