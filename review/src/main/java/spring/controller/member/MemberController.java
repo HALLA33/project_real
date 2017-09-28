@@ -714,7 +714,17 @@ public class MemberController {
 			String nickname = member.getNickname();
 
 			member = memberDao.getmember(nickname);
+			
+			List<Member> list = memberDao.memberRank();
 
+			for (int i = 0; i < list.size(); i++) {
+				list.get(i).setNo(i + 1);// 임시 리스트에 no를 번호 대신에 랭킹 순위로 넣음
+			}
+
+			List<Tags> taglist = memberDao.taglist();
+			
+			
+			session.setAttribute("rankList", list); // 실시간 상태 갱신
 			session.setAttribute("member", member); // 실시간 상태 갱신
 		}
 
