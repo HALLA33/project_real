@@ -249,9 +249,9 @@ public class BookDaoImpl implements BookDao{
    
       if(todaywrite < 3) {
          sql = "update p_member set point = point +10 + ? + ?, todaywrite = todaywrite + 1, "
-               + "totalpoint = totalpoint + 10 where id = ?";
+               + "totalpoint = totalpoint + 10 + ? + ? where id = ?";
          
-         jdbcTemplate.update(sql, new Object[] {tagpoint, emonwea, nickname});
+         jdbcTemplate.update(sql, new Object[] {tagpoint, emonwea, nickname, tagpoint, emonwea});
       }
       
       return seq_number;
