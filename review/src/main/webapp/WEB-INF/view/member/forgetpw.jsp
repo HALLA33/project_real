@@ -11,7 +11,7 @@
     <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2" align = center>
         <div class="panel panel-success">
             <div class="panel-heading">
-                <div class="panel-title">아이디 찾기</div>
+                <div class="panel-title">비밀번호 찾기</div>
             </div>
             <div class="panel-body">
                 <form id="login-form" action="forgetpw" method="post">
