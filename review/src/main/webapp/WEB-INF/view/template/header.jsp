@@ -277,6 +277,7 @@ aside{
    margin: 10px 10px; 
    opacity: 0.7;
    font-size: 15px;
+   border-radius: 5px;
 }
 .main-left{
    order:2;
@@ -370,7 +371,7 @@ body{
                   <li value="8"><a href="${pageContext.request.contextPath}/list?item_no=2&head=8">과학</a></li>
                   <li value="99"><a href="${pageContext.request.contextPath}/list?item_no=2&head=99">기타</a></li>
                </ul></li>
-            <li><a href="${pageContext.request.contextPath}/list?item_no=5">기타</a></li>
+            <li><a href="${pageContext.request.contextPath}/list?item_no=6">기타</a></li>
             <li><a href="${pageContext.request.contextPath}/list?item_no=7">자유게시판</a></li>
             <li><a href="${pageContext.request.contextPath}/list?item_no=0">공지</a></li>
             <li><a href="${pageContext.request.contextPath}/attend">출석체크</a></li>

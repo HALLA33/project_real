@@ -72,7 +72,7 @@ public class BookController {
 			@RequestParam(value = "tag", required=false) String tag, HttpSession session, @RequestParam(value="word", required=false) String word
 			) {
 		
-		if(item_no > 9 || item_no == 6) {
+		if(item_no > 9 || item_no == 5) {
 			return "err/custom_err";
 		}
 			

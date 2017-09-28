@@ -135,9 +135,10 @@
 	</aside>
 	</div>
 	
-	<footer>
-		footer
-	</footer>
+	<footer style="align-text: center; background-color: #D4D3D4; border: 0; text-align: center;">
+      <div>문의 : ######@gmail.com | 팩스 : xxxx - xxxx - xxxx</div>
+      <div>대표 : 홍길동 | 소재지 : 서울특별시</div>
+   </footer>
 	
 	<div id="scrolldiv" style="position: fixed; bottom: 60%; right: 20px;">
  		<i title="top" class="xi-arrow-top xi-2x" onclick="$( 'html, body' ).stop().animate( { scrollTop : 0 }, 500)"></i>

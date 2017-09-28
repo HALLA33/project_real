@@ -211,7 +211,7 @@
 	   			<option value = "2">해외도서</option>
 				<option value = "3">국내영화</option>
 				<option value = "4">해외영화</option> 
-				<option value = "5">공연</option>  
+	        	<!--  <option value = "5">공연</option>-->
 				<option value = "6">기타</option>
 				<option value = "7">자유게시판</option>
 	   		</select> 

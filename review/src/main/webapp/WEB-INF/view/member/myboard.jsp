@@ -135,6 +135,12 @@
    			<c:if test = "${list.item_no == 3 or list.item_no == 4}">
    			<td><a href="${pageContext.request.contextPath}/movie/movie-detail?no=${list.no}&item_no=${list.item_no}">${list.title}</a></td> 
    			</c:if>
+   			<c:if test = "${list.item_no == 5 or list.item_no == 6}">
+            <td><a href="${pageContext.request.contextPath}/etc/etc-detail?no=${list.no}&item_no=${list.item_no}">${list.title}</a></td> 
+            </c:if>
+   			<c:if test = "${list.item_no == 0 or list.item_no == 7}">
+            <td><a href="${pageContext.request.contextPath}/free/free-detail?no=${list.no}&item_no=${list.item_no}">${list.title}</a></td> 
+            </c:if>
    			<td>${list.reg}</td>
    			<td align = "center">${list.read}</td>
    			<td id="check"><input type="checkbox" class="unit" value = "${list.no}">
