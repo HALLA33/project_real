@@ -42,15 +42,15 @@
 				<a href="${pageContext.request.contextPath}/myinfo">${sessionScope.member.nickname }&#40;${sessionScope.member.id}&#41;</a>
 			</div>
 			<div class="right">
-				<button class="edit-btn" onclick="location.href='${pageContext.request.contextPath}/myedit'">edit</button>
+				<button class="edit-btn" style="cursor:pointer;" onclick="location.href='${pageContext.request.contextPath}/myedit'">edit</button>
 			</div>
 			<c:if test = "${sessionScope.member.power == '관리자' }">
 			<div class="right">
-				<button style="width:50px !important"; class="edit-btn" onclick="location.href='${pageContext.request.contextPath}/member'">회원관리</button>
+				<button style="width:50px !important; cursor:pointer;" class="edit-btn" onclick="location.href='${pageContext.request.contextPath}/member'">회원관리</button>
 			</div>
 			</c:if>
 			<div class="right" style="margin-bottom: 10px;"> 
-				<input type="button" value="로그아웃" onclick="location.href='${pageContext.request.contextPath}/logout'" style="border-radius: 5px; font-size: 8px; background-color: white;">
+				<input type="button" value="로그아웃" onclick="location.href='${pageContext.request.contextPath}/logout'" style="border-radius: 5px; font-size: 8px; background-color: white; cursor:pointer;">
 			</div>
 			
 			<div>
@@ -100,7 +100,6 @@
 			</div>
 			<div id="rankbar">
 				<h2>랭킹</h2>
-<!-- 				<img src="http://placehold.it/200x200"> -->
 						<div style="vertical-align:top;">
 							<table id="rankTable" >
 								<tbody>
@@ -117,7 +116,6 @@
 			</div>
 			<div id="rankbar">
 				<h2>태그</h2>
-<!-- 				<img src="http://placehold.it/200x200"> -->
 						<div style="vertical-align:top;">
 							<table id="rankTable" >
 								<tbody>
