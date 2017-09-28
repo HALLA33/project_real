@@ -101,7 +101,7 @@
 			<div id="rankbar">
 				<h2>랭킹</h2>
 						<div style="vertical-align:top;">
-							<table id="rankTable" >
+							<table id="rankTable" style="background:none">
 								<tbody>
 									<c:forEach items="${sessionScope.rankList}" var="list">
 										<tr style="width:180px !important;">
