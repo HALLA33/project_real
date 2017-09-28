@@ -232,13 +232,28 @@ public class BookDaoImpl implements BookDao{
          todaywrite = 3;
       }
       
+      int tagpoint = 0;
+      int emonwea = 0;
+      
+      if(board.getTag() != null) {
+    	  tagpoint = 5;
+      }
+      
+      if(board.getEmotion() != "없음" && board.getWeather() == "없음" ||
+    		  board.getWeather() == "없음" && board.getWeather() != "없음") {
+    	  emonwea = 5;
+      }else if(board.getEmotion() != "없음" && board.getWeather() != "없음"){
+    	  emonwea = 10;
+      }
+      
    
       if(todaywrite < 3) {
-         sql = "update p_member set point = point +10, todaywrite = todaywrite + 1, "
+         sql = "update p_member set point = point +10 + ? + ?, todaywrite = todaywrite + 1, "
                + "totalpoint = totalpoint + 10 where id = ?";
          
-         jdbcTemplate.update(sql, new Object[] {nickname});
+         jdbcTemplate.update(sql, new Object[] {tagpoint, emonwea, nickname});
       }
+      
       return seq_number;
    }
 
