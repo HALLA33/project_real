@@ -46,6 +46,7 @@ import spring.model.board.MovieDao;
 import spring.model.board.Reply;
 import spring.model.board.ReplyDao;
 import spring.model.member.Member;
+import spring.model.member.MemberDao;
 import spring.model.member.Tags;
 import spring.service.NaverBookService;
 
@@ -59,6 +60,9 @@ public class BookController {
 	
 	@Autowired
 	private BookDao bookDao;
+	
+	@Autowired
+	private MemberDao memberDao;
 	
 	@Autowired
 	private MovieDao movieDao;
@@ -273,6 +277,10 @@ public class BookController {
 		
 		List<Tags> taglist = bookDao.taglist();
 		
+		List<Member> r_list = memberDao.memberRank();
+		
+		session.setAttribute("rankList", r_list);
+		
 		session.setAttribute("tags", taglist);
 		
 		session.setAttribute("member", member);
@@ -286,6 +294,7 @@ public class BookController {
 		File copyPath = new File("E:\\sw\\image");		
 		copy(targetPath, copyPath);
 		imageList.clear();
+		
 		
 		return "redirect:/book-detail?no="+board.getNo()+"&item_no="+board.getItem_no();
 	}
