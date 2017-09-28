@@ -8,7 +8,7 @@
 <%-- 컨테이너 영역 --%>
 <div class="empty-row"></div>
     <div align="center">
-        <h1>내 정보</h1>
+        <h1>회원 정보</h1>
     </div>
     <div class="empty-row"></div>
 <table class = "table-striped info">
