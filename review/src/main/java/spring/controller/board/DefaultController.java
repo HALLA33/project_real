@@ -27,7 +27,7 @@ public class DefaultController {
 	@Autowired
 	private MovieDao movieDao;
 	
-	@RequestMapping(value = {"/recommend", "/movie/recommend"})
+	@RequestMapping(value = {"/recommend", "/movie/recommend", "/etc/recommend", "/free/recommend"})
 	public String recommend(Model model, String emo, String wea) {
 		
 		if(emo.equals("none") || wea.equals("none")) {
