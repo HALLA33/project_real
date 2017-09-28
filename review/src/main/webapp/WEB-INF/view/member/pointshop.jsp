@@ -62,7 +62,9 @@
 				var itemno2 = $(this).siblings('#itemno2').val();
 				console.log("아이템 구매 실행");
 				console.log(title);
-				if(mypoint < $(this).val()){
+				console.log("포인트 : " + $(this).val());
+				console.log(mypoint);
+				if(mypoint - $(this).val() < 0){
 					alert("보유하신 포인트가 부족합니다");
 	    			return;
 				}else{
