@@ -25,7 +25,6 @@ import spring.model.board.Book;
 import spring.model.board.BookDao;
 import spring.model.board.Movie;
 import spring.model.board.MovieDao;
-import spring.model.board.Board;
 import spring.model.board.Reply;
 import spring.model.member.Attendance;
 import spring.model.member.Cookies;
@@ -78,7 +77,7 @@ public class MemberController {
 
 	// 회원가입 처리
 	@RequestMapping(value = "/sign", method = RequestMethod.POST)
-	public String sign(@ModelAttribute Member member, @RequestParam String rpw) throws Exception {
+	public String sign(@ModelAttribute Member member, @RequestParam String rpw, Model model) throws Exception {
 		log.info("sign() 실행");
 
 		String pw = member.getPw();
@@ -96,7 +95,8 @@ public class MemberController {
 
 			if (result) {
 				log.info("잘 시작됨");
-				return "redirect:/";
+				model.addAttribute("err", new String("가입을 축하드립니다"));
+				return "home";
 			} else {
 				throw new Exception("비정상적인 회원가입 발생");
 			}
