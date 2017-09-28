@@ -211,7 +211,7 @@ function login(context, flag, no, item_no){
           <button type="button" class="btn " title="로그인 후 이용 가능합니다" disabled>글쓰기</button>
       </c:when>
  	 <c:otherwise>
-         <button type="button" class="btn " onclick="location.href='book-write?item_no=${item_no}&head=${head }'">글쓰기</button>
+         <button type="button" class="btn " onclick="location.href='book-write?item_no=${item_no}&head=${head }'" style="cursor:pointer;">글쓰기</button>
      </c:otherwise>      
       </c:choose>
       </div>

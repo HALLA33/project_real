@@ -145,13 +145,13 @@
 
 #home_article{
    background-image: url('${pageContext.request.contextPath}/img/sea_crop_left.jpg');
-   opacity: 0.825;
+/*    opacity: 0.825; */
 }
 aside{
 /*    background-color: #e4e8f1; */
 /*       background: linear-gradient(#e3e7f0, #50b1d7); */
    background-image: url('${pageContext.request.contextPath}/img/sea_crop_right.jpg');
-   opacity: 0.825;
+/*    opacity: 0.825; */
 }
 
 .imgHeader{
@@ -270,24 +270,47 @@ aside{
 
 /* main-view */
 .main-page{
-	display: flex;
-	flex-wrap: wrap;
-	background-color: white; 
-	padding: 10px 10px; 
-	margin: 10px 10px;
-	opacity: 0.7;
+   display: flex;
+   flex-wrap: wrap;
+   background-color: white; 
+   padding: 10px 10px; 
+   margin: 10px 10px; 
+   opacity: 0.7;
+   font-size: 15px;
 }
 .main-left{
-	order:2;
-	width:50%;
-	height:200px;
-	flex-grow:1;
+   order:2;
+   width:50%;
+   height:200px;
+   flex-grow:1;
 }
 .main-right{
-	order:4;
-	width:50%;
-	flex-grow:1;
+   order:4;
+   width:50%;
+   flex-grow:1;
 }
+.sub-left > a{
+   font-size: 25px;
+}
+.sub-right > a{
+   margin-right: 20px;
+}
+.head-td{
+   width: 15%; 
+   font-size: 12px;
+}
+.title-td{
+   width: 40%;
+}
+.writer-td{
+   width: 20%; 
+   font-size: 12px;
+}
+.reg-td{
+   width: 25%; 
+   font-size: 10px;
+}
+
 body{
 	cursor:url('${pageContext.request.contextPath}/img/Blue Pencil 1 Normal.cur'), pointer; 
 }
