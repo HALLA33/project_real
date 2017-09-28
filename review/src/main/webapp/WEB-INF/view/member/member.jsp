@@ -183,6 +183,9 @@
 					<c:if test="${list.power == '일반' }">
 						<td><input type="checkbox" class="unit" value="${list.id}" ></td>
 					</c:if>
+					<c:if test="${list.power == '스탭' }">
+						<td><input type="checkbox" class="unit" value="${list.id}" ></td>
+					</c:if>
 				
 					<td><a href = "userinfo?id=${list.id}">${list.nickname}(${list.id})</a></td>
 <%-- 					<td>${list.email}</td> --%>

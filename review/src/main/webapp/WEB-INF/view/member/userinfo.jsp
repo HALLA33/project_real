@@ -103,7 +103,7 @@
             <c:if test="${u_list.get(0).power eq '관리자'}">
             	<button type="button"  class = "btn btn-primary" id = "unsign" title="관리자는 탈퇴할 수 없습니다" disabled>회원 탈퇴</button>
             </c:if>
-            <c:if test="${u_list.get(0).power eq '일반'}">
+            <c:if test="${u_list.get(0).power eq '일반' or u_list.get(0).power eq '스탭'}">
             	<button type="button" onclick="location.href = 'check?mode=unsign'" class = "btn btn-primary" id = "unsign">회원 탈퇴</button>
             </c:if>
         </div>
