@@ -25,7 +25,9 @@
 			<h3 style="font-size: 13px">구매 포인트</h3>
 		</div>
 		<div class="area-20">
+		<c:if test = "${sessionScope.member.power eq '관리자' }">
 			<input type="checkbox" id="all">전체 선택			
+		</c:if>
 		</div>
 	</div>
 	<c:forEach items="${slist}" var="slist">
@@ -43,7 +45,9 @@
 <%-- 			<c:if test = "${sessionScope.member.power ne '관리자' }"> --%>
 			<div class="area-20">
 				<button class="btn btn-primary modify buybtn" " value = "${slist.point}">구매</button>
-				<td><input type="checkbox" class="unit" value="${slist.no}" ></td>
+				<c:if test = "${sessionScope.member.power eq '관리자' }">
+				<input type="checkbox" class="unit" value="${slist.no}" >
+				</c:if>
 				<input type="hidden" value="${slist.title }" id = "titles">
 				<input type="hidden" value="${slist.no }" id = "itemno">
 				<input type="hidden" value="${slist.savename }" id = "itemno2">
