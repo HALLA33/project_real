@@ -448,10 +448,13 @@ public class MemberDaoImpl implements MemberDao {
 		
 		int rank = jdbcTemplate.queryForObject(sql, Integer.class)+1;
 		
+		sql = "select to_char(sysdate, 'HH24:MI:SS') from dual";
 		
-		sql = "insert into attendance values(?, sysdate, ?, ?, 0, 0, 0)";
+		String time = jdbcTemplate.queryForObject(sql, String.class);
 		
-		Object[] args = new Object[] {rank, greetings, nick};
+		sql = "insert into attendance values(?, ?, ?, ?, 0, 0, 0)";
+		
+		Object[] args = new Object[] {rank, time, greetings, nick};
 		
 		int result = jdbcTemplate.update(sql, args);
 		

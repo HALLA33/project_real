@@ -53,50 +53,50 @@
 	<%-- 컨테이너 영역 --%>
 	<div>
 		<div>
-			<ul>
-				<li>출석부</li>
-			</ul>
+<!-- 			<ul> -->
+<!-- 				<li>출석부</li> -->
+<!-- 			</ul> -->
 			<div id="target" align="center"></div>
-			<table border="1" class="c-table"
-				style="width: 700px !important; margin: 0 auto;">
-				<tr>
-					<th>출석점수</th>
-					<th>??</th>
-					<th>개근점수</th>
-					<th>자세히보기(drop)</th>
-					<th>랭킹점수</th>
-					<th>자세히보기(drop)</th>
-					<th>출석권한</th>
-					<th>??</th>
-				</tr>
-				<tr>
-					<th>출석시간</th>
-					<th>00:00:00 ~ 24:00:00</th>
-					<th>진행상태</th>
-					<th>??</th>
-					<th>출석여부</th>
-					<th>??</th>
-					<th><a href="#">개근분류</a></th>
-					<th>
-						<div class="attend-menu-wrap">
-							<a href="#">자세히보기▼</a>
-							<ul>
-								<li>
-									<table>
-										<tr>
-											<td>개근분류</td>
-										</tr>
-										<tr>
-											<td>주 月 年<br>
-											<font color="red">최근만 표시</font></td>
-										</tr>
-									</table>
-								</li>
-							</ul>
-						</div>
-					</th>
-				</tr>
-			</table>
+<!-- 			<table border="1" class="c-table" -->
+<!-- 				style="width: 700px !important; margin: 0 auto;"> -->
+<!-- 				<tr> -->
+<!-- 					<th>출석점수</th> -->
+<!-- 					<th>??</th> -->
+<!-- 					<th>개근점수</th> -->
+<!-- 					<th>자세히보기(drop)</th> -->
+<!-- 					<th>랭킹점수</th> -->
+<!-- 					<th>자세히보기(drop)</th> -->
+<!-- 					<th>출석권한</th> -->
+<!-- 					<th>??</th> -->
+<!-- 				</tr> -->
+<!-- 				<tr> -->
+<!-- 					<th>출석시간</th> -->
+<!-- 					<th>00:00:00 ~ 24:00:00</th> -->
+<!-- 					<th>진행상태</th> -->
+<!-- 					<th>??</th> -->
+<!-- 					<th>출석여부</th> -->
+<!-- 					<th>??</th> -->
+<!-- 					<th><a href="#">개근분류</a></th> -->
+<!-- 					<th> -->
+<!-- 						<div class="attend-menu-wrap"> -->
+<!-- 							<a href="#">자세히보기▼</a> -->
+<!-- 							<ul> -->
+<!-- 								<li> -->
+<!-- 									<table> -->
+<!-- 										<tr> -->
+<!-- 											<td>개근분류</td> -->
+<!-- 										</tr> -->
+<!-- 										<tr> -->
+<!-- 											<td>주 月 年<br> -->
+<!-- 											<font color="red">최근만 표시</font></td> -->
+<!-- 										</tr> -->
+<!-- 									</table> -->
+<!-- 								</li> -->
+<!-- 							</ul> -->
+<!-- 						</div> -->
+<!-- 					</th> -->
+<!-- 				</tr> -->
+<!-- 			</table> -->
 			<div></div>
 			<c:if test="${sessionScope.member eq null}">
 				<div class="login-view">로그인을 하지 않았습니다</div>

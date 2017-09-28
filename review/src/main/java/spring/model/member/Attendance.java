@@ -13,7 +13,7 @@ import java.sql.Date;
 
 public class Attendance {
    private int rank;
-   private Date reg_check;
+   private String reg_check;
    private String greetings;
    private String nick;
    private int point;
@@ -26,7 +26,7 @@ public class Attendance {
 
    public Attendance(ResultSet rs) throws SQLException {
       this.setRank(rs.getInt("rank"));
-      this.setReg_check(rs.getDate("reg_check"));
+      this.setReg_check(rs.getString("reg_check"));
       this.setGreetings(rs.getString("greetings"));
       this.setNick(rs.getString("nick"));
       this.setPoint(rs.getInt("point"));
@@ -40,10 +40,10 @@ public class Attendance {
    public void setRank(int rank) {
       this.rank = rank;
    }
-   public Date getReg_check() {
+   public String getReg_check() {
       return reg_check;
    }
-   public void setReg_check(Date reg_check) {
+   public void setReg_check(String reg_check) {
       this.reg_check = reg_check;
    }
    public String getGreetings() {
