@@ -10,7 +10,7 @@ function login(context, no, item_no){
 	else{
 		switch(item_no){
 		case 0:
-			$(context).attr("href", "${pageContext.request.contextPath}/book-detail?no="+no+"&item_no="+item_no+"");
+			$(context).attr("href", "${pageContext.request.contextPath}/free/free-detail?no="+no+"&item_no="+item_no+"");
 			break;
 		case 1:
 			$(context).attr("href", "${pageContext.request.contextPath}/book-detail?no="+no+"&item_no="+item_no+"");
@@ -42,13 +42,22 @@ function login(context, no, item_no){
             </li>           
       </ul>
       <table>
+            <c:forEach items="${home_book_inner}" var="bi">
+               <tr>
+                  <td class="head-td"></td>
+                  <td class="title-td"></td>
+                  <td class="writer-td"></td>
+                  <td class="reg-td"></td>
+               </tr>
+            </c:forEach>
+         </table>
+      <table>
          <c:forEach items="${home_notice}" var="notice">
             <tr>
                <td><a href="#" onclick="login(this,${notice.no },${notice.item_no })"
-                        style="font-size: 13px; width: 600px; margin-top: 10px"
                         id="block">${notice.title}</a></td>
-               <td>${notice.writer}</td>
-               <td>${notice.reg}</td>
+               <td style="width: 20%;">${notice.writer}</td>
+               <td style="width: 25%;">${notice.reg}</td>
             </tr>
          </c:forEach>
       </table>
