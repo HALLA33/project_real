@@ -433,7 +433,8 @@ public class MemberDaoImpl implements MemberDao {
 	 
 	 String sql = "select * from "
 	 + "(select rownum rn, A.* from "
-	 + "(select * from p_member order by totalpoint desc)A) "
+	 + "(select * from p_member where power!='관리자' and totalpoint != 0 "
+	 + "order by totalpoint desc, reg)A) "
 	 + "where rn between 1 and ?";		
 	 List<Member> list = jdbcTemplate.query(sql, new Object[] {num},  mapper);	
 	 
