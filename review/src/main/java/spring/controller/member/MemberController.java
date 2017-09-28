@@ -601,7 +601,7 @@ public class MemberController {
 	}
 
 	// 내가 쓴 글
-	@RequestMapping(value= {"/mycomment", "/movie/mycomment"})
+	@RequestMapping(value= {"/mycomment", "/movie/mycomment", "/etc/mycomment", "/free/mycomment"})
 	public String mycomment(HttpSession session, HttpServletRequest request,
 			@RequestParam(value = "mode", defaultValue = "new", required = false) String mode) {
 
@@ -616,7 +616,7 @@ public class MemberController {
 		return "member/mycomment";
 	}
 
-	@RequestMapping(value = {"/myboard", "/movie/myboard"})
+	@RequestMapping(value = {"/myboard", "/movie/myboard", "/etc/myboard", "/free/myboard"})
 	public String myboard(HttpSession session, HttpServletRequest request) {
 
 		Member member = (Member) session.getAttribute("member");
