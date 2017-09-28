@@ -112,22 +112,22 @@
 		<h1>회원 목록</h1>
 	</div>
 
-	<div style="padding: 50px 100px 10px;">
+	<div style="width: 700px;">
 
 
 		<form class="bs-example bs-example-form" role="form" action="member"
 			method="get">
 			<div class="row">
 
-				<div class="col-lg-6">
-					<div class="input-group">
-						<label class="search"> 회원 검색&nbsp;&nbsp;&nbsp; </label> <select
+				<div>
+					<div class="input-group" style="width: 700px;">
+						<label class="search" style="width: 120px;"> 회원 검색&nbsp;&nbsp;&nbsp; </label> <select
 							class="" name="smode">
 							<option value="0">아이디</option>
 							<option value="1">닉네임</option>
 						</select> <input type="search" style="width: 200px;" placeholder="검색어" name = "key" class="form-control"> <span
 							class="input-group-btn">
-							<button class="btn btn-default" type="submit">검색</button>
+							<button class="btn btn-default" type="submit" style="margin: 0  auto;">검색</button>
 						</span>
 
 					</div>
