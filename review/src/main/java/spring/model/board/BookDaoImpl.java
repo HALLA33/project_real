@@ -97,7 +97,7 @@ public class BookDaoImpl implements BookDao{
             sql = "select * from "
                   + "( select item_no ino, TMP.* from "
                      + "( select * from p_board where search_artist like "
-                     + "'%'||?||'%' or search_title like '%'||?||'%' or detail like '%'||?||'%' order by reg desc )TMP ) "
+                     + "'%'||?||'%' or search_title like '%'||?||'%' or detail like '%'||?||'%' or title like '%'||?||'%' order by reg desc )TMP ) "
                   + "where ino not in(0, 5, 7)";
             System.out.println("item_no:9 = " + sql);
             System.out.println(jdbcTemplate.query(sql, args, mapper).isEmpty());
