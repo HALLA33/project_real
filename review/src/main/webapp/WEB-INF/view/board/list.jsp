@@ -90,7 +90,7 @@ function login(context, flag, no, item_no){
    
    <br>
    <div class="container">
-      <c:if test="${item_no != 7 or item_no != 9 }">
+      <c:if test="${item_no != 7 and item_no != 9 }">
 	      <ul class="nav nav-tabs" id="listSubtitle">
 	         <li class="nav-item" value="0">
 	            <a class="nav-link active"  >최신순</a>
