@@ -152,28 +152,47 @@ function login(context, flag, no, item_no){
 		                </c:if>
 		             </div>
 		             <div class="area-80"> 
-				      <h5 style="font-size: 13px">${board.title}</h5>
 		                <div>
 		                	<c:if test="${item_no==1 or item_no==2 }">
-		                		<a href="#" style="font-size: 13px; width:600px; margin-top:10px" onclick="login(this,1,${board.no}, ${board.item_no })">
-		                			${book[board.search_no].title}
+		                		<div>
+		                		<a href="#" style="font-size: 20px; width:600px; margin-top:10px" onclick="login(this,1,${board.no}, ${board.item_no })">
+		                			${board.title}
 		                		</a>
+		                		</div>
+		                		<div style="font-size: 13px;">
+		                			${book[board.search_no].title}
+		                		</div>
 		                	</c:if>
 		                   <c:if test="${item_no==3 or item_no==4 }">
-		                   		<a href="#" style="font-size: 13px; width:600px; margin-top:10px" onclick="login(this, 2,${board.no}, ${board.item_no })">
+		                   		<div>
+			                		<a href="#" style="font-size: 20px; width:600px; margin-top:10px" onclick="login(this,1,${board.no}, ${board.item_no })">
+			                			${board.title}
+			                		</a>
+		                		</div>
+		                		<div style="font-size: 13px;">
 		                			${movie[board.search_no].title}
-		                		</a>
+		                		</div>
 		                	</c:if>
 		                	<c:if test = "${item_no == 8 or item_no == 9}">
 		                		<c:if test = "${board.item_no == 1 or board.item_no ==2 }">
-		                			<a href="#" style="font-size: 13px; width:600px; margin-top:10px" onclick="login(this, 1,${board.no}, ${board.item_no })">
+		                			<div>
+				                		<a href="#" style="font-size: 20px; width:600px; margin-top:10px" onclick="login(this,1,${board.no}, ${board.item_no })">
+				                			${board.title}
+				                		</a>
+			                		</div>
+		                			<div style="font-size: 13px;">
 		                				${book[board.search_no].title}
-		                			</a>
+		                			</div>
 		                		</c:if>
 		                		<c:if test = "${board.item_no == 3 or board.item_no ==4 }">
-		                			<a href="#" style="font-size: 13px; width:600px; margin-top:10px" onclick="login(this, 2,${board.no}, ${board.item_no })">
+		                			<div>
+				                		<a href="#" style="font-size: 20px; width:600px; margin-top:10px" onclick="login(this,1,${board.no}, ${board.item_no })">
+				                			${board.title}
+				                		</a>
+			                		</div>
+		                			<div style="font-size: 13px;">
 		                				${movie[board.search_no].title}
-		                			</a>
+		                			</div>
 		                		</c:if>
 		                	</c:if>
 					
