@@ -453,29 +453,41 @@ public class MovieController {
     	return "redirect:/list?item_no="+item_no;
     }
     
-    @RequestMapping(value= {"/goodCount"}, method=RequestMethod.POST)
+     @RequestMapping(value= {"/goodCount"}, method=RequestMethod.POST)
     @ResponseBody
     public Map<String, String> goodCount(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
     	int no = Integer.parseInt(request.getParameter("no"));
     	int item_no = Integer.parseInt(request.getParameter("item_no"));
+    	String bad_img = request.getParameter("bad_tag");
+    	String[] bad_imgs = bad_img.split("/");
     	Map<String, String> result = good_bad(1, request, no, item_no, response, session);
     	Map<String, String> map = new HashMap<>();
     	String good_img = null;
-		
+
 		if(result.get("good").equals("black")) {
+			if(bad_img.equals("/review/img/after_bads.png") || bad_img.equals("img/after_bads.png")){
+				bad_img = "img/before_bads.png";
+				bookDao.plus_minus_Count(4, no, item_no);
+			}
+			else {
+				bad_img = "img/before_bads.png";
+			}
 			good_img = "img/after_goods.png";
 			bookDao.plus_minus_Count(1, no, item_no);
 		}
 		else {
+			bad_img = bad_imgs[bad_imgs.length-2] + "/" +bad_imgs[bad_imgs.length-1];
 			good_img = "img/before_goods.png";
 			bookDao.plus_minus_Count(2, no, item_no);
 		}
 
 		Board board = bookDao.detail_board(no, item_no);
 		//board.getGood()
-		
+
 		map.put("good_img", good_img);
 		map.put("good_number", String.valueOf(board.getGood()));
+		map.put("bad_img", bad_img);
+		map.put("bad_number", String.valueOf(board.getBad()));
 		
 		return map;
     }
@@ -485,23 +497,35 @@ public class MovieController {
     public Map<String, String> badCount(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
     	int no = Integer.parseInt(request.getParameter("no"));
     	int item_no = Integer.parseInt(request.getParameter("item_no"));
+    	String good_img = request.getParameter("good_tag");
+    	String[] good_imgs = good_img.split("/");
     	Map<String, String> result = good_bad(2, request, no, item_no, response, session);
     	Map<String, String> map = new HashMap<>();
 		String bad_img = null;
-		
+		log.info("전 : " + good_img);
 		if(result.get("bad").equals("black")) {
+			if(good_img.equals("/review/img/after_goods.png") || good_img.equals("img/after_goods.png")){
+				good_img = "img/before_goods.png";
+				bookDao.plus_minus_Count(2, no, item_no);
+			}
+			else {
+				good_img = "img/before_goods.png";
+			}
 			bad_img = "img/after_bads.png";
 			bookDao.plus_minus_Count(3, no, item_no);
 		}
 		else {
+			good_img = good_imgs[good_imgs.length-2] + "/" +good_imgs[good_imgs.length-1];
 			bad_img = "img/before_bads.png";
 			bookDao.plus_minus_Count(4, no, item_no);
 		}
-
+		log.info("후 : " + good_img);
 		Board board = bookDao.detail_board(no, item_no);
 		
 		map.put("bad_img", bad_img);
 		map.put("bad_number", String.valueOf(board.getBad()));
+		map.put("good_img", good_img);
+		map.put("good_number", String.valueOf(board.getGood()));
 		
     	return map;
     }
