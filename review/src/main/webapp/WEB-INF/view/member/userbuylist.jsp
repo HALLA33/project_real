@@ -25,7 +25,7 @@
 	<c:forEach items="${ubuy}" var="ubuy">
 		<div class="row form-inline" style="height: 90px" id="testing">
 			<div class="form-group area-20" style="border: 1px darkseagreen;">
-				<img src="${pageContext.request.contextPath}/img/${ubuy.item_path}"
+				<img src="${pageContext.request.contextPath}/img2/${ubuy.item_path}"
 					style="width: 80px; height: 100px" />
 			</div>
 			<div class="area-20">

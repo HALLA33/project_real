@@ -28,6 +28,7 @@
     <mvc:resources location="/resources/smarteditors/" mapping="/smarteditors/**"></mvc:resources>
     <mvc:resources location="/resources/js/" mapping="/js/**"></mvc:resources>
     <mvc:resources location="/resources/img/" mapping="/img/**"></mvc:resources>
+    <mvc:resources location="/resources/img2/" mapping="/img2/**"></mvc:resources>
     <mvc:resources location="/resources/font/" mapping="/font/**"></mvc:resources>
 	 <mvc:resources location="/resources/image/" mapping="/image/**"></mvc:resources>
     

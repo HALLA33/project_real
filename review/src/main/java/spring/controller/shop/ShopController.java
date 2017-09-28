@@ -1,6 +1,8 @@
 package spring.controller.shop;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
@@ -46,7 +48,21 @@ public class ShopController {
 	
 	
 	@RequestMapping("/shop")
-	public String shopview(Model model) {
+	public String shopview(Model model, HttpServletRequest request) {
+		
+		String savePath = request.getServletContext().getRealPath("/resources/img2");
+		log.info(savePath);
+		File targetPath = new File(savePath);
+		File copyPath = new File("E:\\sw2\\image");
+		
+		File path = new File(savePath, "");
+
+		if(!path.exists()) {
+			log.info("실제경로가 존재하지 않습니다");
+			
+			//서버를 clean하면 업로드한 사진들은 없어지기 때문에 copyPath에 있는 사진들을 다시 다운
+			copy(copyPath, targetPath);
+		}
 		
 		List<Shop> list = shopDao.shoplist();
 		
@@ -169,7 +185,9 @@ public class ShopController {
 //			throw new MagicMatchNotFoundException("GIF, JPG, PNG만 업로드가 가능합니다");
 //		}
 		
-		String savePath = mRequest.getServletContext().getRealPath("/resources/img");
+		String savePath = mRequest.getServletContext().getRealPath("/resources/img2");
+		
+		log.info("업로드 : " + savePath);
 		
 		Shop shop = new Shop();
 		shop.setLan(file.getSize());
@@ -181,6 +199,9 @@ public class ShopController {
 		
 		File target = new File(savePath, filename);
 		file.transferTo(target);	
+		File targetPath = new File(savePath);
+		File copyPath = new File("E:\\SW2\\image");		
+		copy(targetPath, copyPath);
 		
 		return "redirect:/shop";
 		
@@ -228,5 +249,42 @@ public class ShopController {
 		return "redirect:/mybuylist";
 		
 	};
+	
+public void copy(File origin, File target){
+		
+		if(origin.isFile()){
+			try(
+				FileInputStream in = new FileInputStream(origin);
+				FileOutputStream out = new FileOutputStream(target);
+			){
+				//if(!target.exists()) target.createNewFile();
+				byte[] buffer = new byte[1024];
+				while(true){
+					int size = in.read(buffer);
+					if(size==-1) break;
+					out.write(buffer, 0, size);
+				}
+
+			} catch(IOException e){
+				System.out.println("에러 : " + e.getMessage());
+			}
+
+		}
+		else if(origin.isDirectory()){
+			//[1] target 생성
+			target.mkdirs();
+			
+			//[2] origin의 구성요소 추출
+			File[] list = origin.listFiles();	
+			if(list==null) return;
+			
+			//[3] 하나씩 복사
+			for(File file : list){
+				File newTarget = new File(target, file.getName());
+				copy(file, newTarget);							
+			}
+		
+		}
+	}
 	
 }

@@ -29,7 +29,7 @@
 	<c:forEach items="${slist}" var="slist">
 		<div class="row form-inline" style="height: 90px" id="testing">
 			<div class="form-group area-20" style="border: 1px darkseagreen;">
-				<img src="${pageContext.request.contextPath}/img/${slist.savename}"
+				<img src="${pageContext.request.contextPath}/img2/${slist.savename}"
 					style="width: 80px; height: 100px" />
 			</div>
 			<div class="area-40">
