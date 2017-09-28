@@ -251,7 +251,7 @@ public class BookDaoImpl implements BookDao{
          sql = "update p_member set point = point +10 + ? + ?, todaywrite = todaywrite + 1, "
                + "totalpoint = totalpoint + 10 + ? + ? where id = ?";
          
-         jdbcTemplate.update(sql, new Object[] {tagpoint, emonwea, nickname, tagpoint, emonwea});
+         jdbcTemplate.update(sql, new Object[] {tagpoint, emonwea, tagpoint, emonwea, nickname});
       }
       
       return seq_number;
