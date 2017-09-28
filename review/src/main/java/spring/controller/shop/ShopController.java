@@ -73,7 +73,7 @@ public class ShopController {
 	}
 	
 	@RequestMapping("/buyitem")
-	public String buyitemview(String item, HttpServletRequest request, String point) {
+	public String buyitemview(String itemno, String item, HttpServletRequest request, String point) throws Exception {
 		
 		log.info(item);
 		log.info(point);
@@ -81,7 +81,17 @@ public class ShopController {
 		request.setAttribute("item", item);
 		request.setAttribute("point", point);
 		
-		return "member/insertaddress";
+		int point2 = Integer.parseInt(point);
+		int itemno2 = Integer.parseInt(itemno);
+		
+		boolean result = shopDao.checkparam(itemno2, item, point2);
+		
+		if(result) {
+			throw new Exception("아이템이 일치하지않음");
+		}else {
+			return "member/insertaddress";
+		}
+		
 	}
 	
 	private String[] typeFilter = new String[] {

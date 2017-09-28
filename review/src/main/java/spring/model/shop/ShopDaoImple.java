@@ -83,4 +83,14 @@ public class ShopDaoImple implements ShopDao {
 		
 	}
 
+	@Override
+	public boolean checkparam(int itemno, String itemname, int point) {
+		
+		String sql = "select * from p_pshop where no = ? and title = ?  and point = ?";
+		
+		boolean result = jdbcTemplate.query(sql, new Object[] {itemno, itemname, point}, mapper).isEmpty();
+		
+		return result;
+	}
+
 }
