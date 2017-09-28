@@ -279,6 +279,10 @@ public class BookController {
 		
 		List<Member> r_list = memberDao.memberRank();
 		
+		for (int i = 0; i < r_list.size(); i++) {
+			r_list.get(i).setNo(i + 1);// 임시 리스트에 no를 번호 대신에 랭킹 순위로 넣음
+		}
+		
 		session.setAttribute("rankList", r_list);
 		
 		session.setAttribute("tags", taglist);
