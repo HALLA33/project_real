@@ -85,6 +85,9 @@ public class MemberController {
 
 		String encryptpw = encryption.encryptPw(pw);
 		log.info("encryppw : " + encryptpw);
+		
+		// 메인게시글
+		mainData(model);
 
 		member.setPw(encryptpw);
 
