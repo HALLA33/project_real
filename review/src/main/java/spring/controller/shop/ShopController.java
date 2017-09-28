@@ -80,7 +80,7 @@ public class ShopController {
 		
 		if(!power.equals("관리자")) {
 			try {
-				throw new Exception("권한 없음");
+				return "err/custom_err";
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -108,7 +108,7 @@ public class ShopController {
 		boolean result = shopDao.checkparam(itemno3, item, point2);
 		
 		if(result) {
-			throw new Exception("아이템이 일치하지않음");
+			return "err/custom_err";
 		}else {
 			return "member/insertaddress";
 		}

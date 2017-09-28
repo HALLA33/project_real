@@ -69,7 +69,7 @@ public class MemberController {
 		Member member = (Member) session.getAttribute("member");
 
 		if (member != null) {
-			throw new Exception("잘못된 접근");
+			return "err/custom_err";
 		}
 
 		return "member/sign";
@@ -92,7 +92,7 @@ public class MemberController {
 		member.setPw(encryptpw);
 
 		if (!pw.equals(rpw)) {
-			throw new Exception("비밀번호와 확인비밀번호 불일치");
+			return "err/custom_err";
 		} else if (pw.equals(rpw)) {
 			boolean result = memberDao.sign(member);
 
@@ -101,7 +101,7 @@ public class MemberController {
 				model.addAttribute("err", new String("가입을 축하드립니다"));
 				return "home";
 			} else {
-				throw new Exception("비정상적인 회원가입 발생");
+				return "err/custom_err";
 			}
 		}
 		return null;
@@ -125,7 +125,7 @@ public class MemberController {
 			try {
 				pageno = Integer.parseInt(page);
 				if (pageno <= 0)
-					throw new Exception();
+					return "err/custom_err";
 			} catch (Exception e) {
 				pageno = 1;
 			}
@@ -163,7 +163,7 @@ public class MemberController {
 
 			return "member/member";
 		} else {
-			throw new Exception("권한 없음");
+			return "err/custom_err";
 		}
 	}
 
@@ -296,7 +296,7 @@ public class MemberController {
 		session.removeAttribute("token");
 
 		if (!token.equals(sessionToken))
-			throw new Exception("토큰이 일치하지 않습니다");
+			return "err/custom_err";
 
 		return "member/repwset";
 	}
@@ -320,12 +320,12 @@ public class MemberController {
 				return "redirect:/";
 			} else {
 
-				throw new Exception("비정상적 비밀번호 변경 감지");
+				return "err/custom_err";
 
 			}
 
 		} else {
-			throw new Exception("비밀번호 미일치");
+			return "err/custom_err";
 		}
 	}
 
@@ -353,7 +353,7 @@ public class MemberController {
 		log.info(rpw);
 
 		if (!pw.equals(rpw)) {
-			throw new Exception("비밀번호 다름 발생");
+			return "err/custom_err";
 		} else {
 			member.setNickname(nickname);
 			memberDao.infoedit(id, rpw, nickname, phone);
@@ -392,11 +392,11 @@ public class MemberController {
 				session.invalidate();
 				return "redirect:/";
 			} else {
-				throw new Exception("없는 모드");
+				return "err/custom_err";
 			}
 
 		} else {
-			throw new Exception("없는 아이디나 비밀번호");
+			return "err/custom_err";
 		}
 
 	}
@@ -412,7 +412,7 @@ public class MemberController {
 		if (result) {
 			return "member/success";
 		} else {
-			throw new Exception("아이디가있음");
+			return "err/custom_err";
 		}
 	}
 
@@ -427,7 +427,7 @@ public class MemberController {
 		if (result) {
 			return "member/success";
 		} else {
-			throw new Exception("아이디가있음");
+			return "err/custom_err";
 		}
 	}
 
@@ -444,7 +444,7 @@ public class MemberController {
 		if (!result || result2) {
 			return "member/success";
 		} else {
-			throw new Exception("아이디가있음");
+			return "err/custom_err";
 		}
 	}
 
@@ -459,7 +459,7 @@ public class MemberController {
 		if (result) {
 			return "member/success";
 		} else {
-			throw new Exception("아이디가있음");
+			return "err/custom_err";
 		}
 	}
 
@@ -649,7 +649,7 @@ public class MemberController {
 			boolean result = memberDao.chengepower(power, userid[i]);
 
 			if (!result) {
-				throw new Exception("비정상적 권한 변경 발생");
+				return "err/custom_err";
 			}
 		}
 
@@ -732,7 +732,7 @@ public class MemberController {
 		try {
 			pageno = Integer.parseInt(page);
 			if (pageno <= 0)
-				throw new Exception();
+				return "err/custom_err";
 		} catch (Exception e) {
 			pageno = 1;
 		}
@@ -787,7 +787,7 @@ public class MemberController {
 
 		if (session.getAttribute("member") == null) {
 			try {
-				throw new Exception("로그인하셈");
+				return "err/custom_err";
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

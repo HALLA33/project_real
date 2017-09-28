@@ -85,7 +85,7 @@ public class BookController {
 		String status;
 		try{
 			pageNo = Integer.parseInt(pageStr);
-			if(pageNo <= 0) throw new Exception();
+			if(pageNo <= 0) return "err/custom_err";
 		} catch(Exception e){
 			pageNo = 1;
 		}
