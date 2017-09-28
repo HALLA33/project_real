@@ -55,7 +55,7 @@
 			
 			<div>
 				<div class="left">
-					포인트 : <a href="#" class="left">${sessionScope.member.point }</a>
+					포인트 : <a href="shop" class="left">${sessionScope.member.point }</a>
 				</div>
 				
 			</div>
