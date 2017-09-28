@@ -17,6 +17,12 @@ public class ShopDaoImple implements ShopDao {
 	RowMapper<Shop> mapper = (rs, index)->{
 		return new Shop(rs);
 	};
+	RowMapper<Mybuy> mapper2 = (rs, index)->{
+		return new Mybuy(rs);
+	};
+	RowMapper<Userbuy> mapper3 = (rs, index)->{
+		return new Userbuy(rs);
+	};
 
 	@Override
 	public String insert(Shop shop) {
@@ -55,21 +61,21 @@ public class ShopDaoImple implements ShopDao {
 	}
 
 	@Override
-	public String buyitem(String itemname, String id, int postnum, String address, String address2, int point) {
+	public String buyitem(String itemname, String item_path, String id, int postnum, String address, String address2, int point) {
 		
-		String sql = "insert into mybuy values(p_buy_seq.nextval, ?, ?, sysdate, 'false')";
+		String sql = "insert into mybuy values(p_buy_seq.nextval, ?, ?, ?, sysdate, 'false')";
 		
-		jdbcTemplate.update(sql, new Object[] {itemname, id});
-		
+		jdbcTemplate.update(sql, new Object[] {item_path, itemname, id});
+			
 		sql = "select max(no) from mybuy";
 		
 		int ordernum = jdbcTemplate.queryForObject(sql, Integer.class);
 		
 		System.out.println("ordernum : " + ordernum);
 		
-		sql = "insert into userbuy values(?, ?, ?, ?, ?, ?, 'false')";
+		sql = "insert into userbuy values(?, ?, ?, ?, ?, ?, ?, 'false')";
 		
-		jdbcTemplate.update(sql, new Object[] {ordernum, itemname, id, postnum, address, address2});
+		jdbcTemplate.update(sql, new Object[] {ordernum, item_path, itemname, id, postnum, address, address2});
 		
 		sql = "update p_member set point = point - ? where id = ?";
 		
@@ -92,5 +98,39 @@ public class ShopDaoImple implements ShopDao {
 		
 		return result;
 	}
+
+	@Override
+	public List<Mybuy> mybuylist(String id) {
+		
+		String sql = "select * from mybuy where id = ? order by no desc";
+		
+		List<Mybuy> list = jdbcTemplate.query(sql, new Object[] {id}, mapper2);
+		
+		return list;
+	}
+
+	@Override
+	public List<Userbuy> userbuylist() {
+		
+		String sql = "select * from userbuy order by no desc";
+		
+		List<Userbuy> list = jdbcTemplate.query(sql, mapper3);
+		
+		return list;
+	}
+
+	@Override
+	public void statusset(int itemno) {
+		
+		String sql = "update mybuy set status = 'true' where no = ?";		
+		
+		jdbcTemplate.update(sql, new Object[] {itemno});
+		
+		sql = "update userbuy set status = 'true' where no = ?";
+		
+		jdbcTemplate.update(sql, new Object[] {itemno});
+		
+	}
+	
 
 }

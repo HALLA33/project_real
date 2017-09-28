@@ -28,8 +28,10 @@ import net.sf.jmimemagic.MagicMatchNotFoundException;
 import net.sf.jmimemagic.MagicParseException;
 import spring.model.member.Member;
 import spring.model.member.MemberDao;
+import spring.model.shop.Mybuy;
 import spring.model.shop.Shop;
 import spring.model.shop.ShopDao;
+import spring.model.shop.Userbuy;
 
 @Controller
 public class ShopController {
@@ -73,18 +75,21 @@ public class ShopController {
 	}
 	
 	@RequestMapping("/buyitem")
-	public String buyitemview(String itemno, String item, HttpServletRequest request, String point) throws Exception {
+	public String buyitemview(String itemno, String item, HttpServletRequest request, String point,
+			String itemno2) throws Exception {
 		
 		log.info(item);
 		log.info(point);
+		log.info(itemno2);
 		
 		request.setAttribute("item", item);
 		request.setAttribute("point", point);
+		request.setAttribute("item_no", itemno2);
 		
 		int point2 = Integer.parseInt(point);
-		int itemno2 = Integer.parseInt(itemno);
+		int itemno3 = Integer.parseInt(itemno);
 		
-		boolean result = shopDao.checkparam(itemno2, item, point2);
+		boolean result = shopDao.checkparam(itemno3, item, point2);
 		
 		if(result) {
 			throw new Exception("아이템이 일치하지않음");
@@ -94,9 +99,59 @@ public class ShopController {
 		
 	}
 	
-	private String[] typeFilter = new String[] {
-			"image/png", "image/jpeg", "image/gif"
-	};
+	@RequestMapping("/mybuylist")
+	public String mybuylistview(Model model, HttpSession session) {
+		
+		Member member = (Member)session.getAttribute("member");
+		
+		String id = member.getId();
+		
+		List<Mybuy> list = shopDao.mybuylist(id);
+		
+		model.addAttribute("buylist", list);
+		
+		return "member/mybuylist";
+		
+	}
+	
+	@RequestMapping("/userbuylist")
+	public String userbuylistview(Model model, HttpSession session) {
+		
+		Member member = (Member)session.getAttribute("member");
+		
+		log.info(member.getPower());
+		
+		if(!member.getPower().equals("관리자")) {
+			log.info("에러 발생!!!!");
+			return "err/custom_err";
+		}
+		
+		List<Userbuy> list = shopDao.userbuylist();
+		
+		model.addAttribute("ubuy", list);
+		
+		return "member/userbuylist";
+		
+	}
+	
+	@RequestMapping("/delivery")
+	public String delivery(Model model, String item_no) {
+		
+		int itemno = Integer.parseInt(item_no);
+		
+		shopDao.statusset(itemno);
+		
+		List<Userbuy> list = shopDao.userbuylist();
+		
+		model.addAttribute("ubuy", list);
+		
+		return "member/userbuylist";
+		
+	}
+	
+//	private String[] typeFilter = new String[] {
+//			"image/png", "image/jpeg", "image/gif"
+//	};
 	
 	@RequestMapping(value ="/shopinput", method = RequestMethod.POST)
 	public String shopinput(MultipartHttpServletRequest mRequest) throws Exception {
@@ -134,18 +189,18 @@ public class ShopController {
 	@RequestMapping(value = "/buyitem", method = RequestMethod.POST)
 	public String buyitem(@RequestParam String itemname, @RequestParam String postnum,
 			@RequestParam String address, @RequestParam String address2, HttpSession session,
-			@RequestParam String point) {
+			@RequestParam String point, @RequestParam String item_no) {
 
 		log.info("아이템 구입");
+		log.info(item_no);
 		
 		Member member = (Member)session.getAttribute("member");
 		
 		String id = member.getId();
-		
 		int points  =Integer.parseInt(point);
 		int pnum = Integer.parseInt(postnum);
 		
-		String nickname = shopDao.buyitem(itemname, id, pnum, address, address2, points);
+		String nickname = shopDao.buyitem(itemname,item_no, id, pnum, address, address2, points);
 		
 		member = memberDao.getmember(nickname);
 		

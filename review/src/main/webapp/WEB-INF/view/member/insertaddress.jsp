@@ -10,6 +10,8 @@
 <h3>주의사항 : 주소를 정확하게 입력해주셔야 원할한 배송이 가능합니다</h3>
 <form action="buyitem" method="post">
 <input type="hidden" name = "itemname" value="${item}">
+<input type="hidden" name = "point" value="${point}">
+<input type="hidden" name = "item_no" value="${item_no}">
 <label for = "postbtn">우편번호 : </label><input type="text" id="sample6_postcode" placeholder="우편번호" name = "postnum">
 <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기" id = "postbtn"><br>
 <label for = "sample6_address">주소 : </label><input type="text" id="sample6_address" placeholder="주소" name = "address" ><br>
