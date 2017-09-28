@@ -31,8 +31,7 @@ public class DefaultController {
 	public String recommend(Model model, String emo, String wea) {
 		
 		if(emo.equals("none") || wea.equals("none")) {
-			String err = "값을 선택해주세요";
-			model.addAttribute("err", err);
+			model.addAttribute("err", new String("값을 선택해주세요"));
 			return "err/custom_err";
 		}
 		
