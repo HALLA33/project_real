@@ -169,7 +169,7 @@ function login(context, flag, no, item_no){
 		                	</c:if>
 		                   <c:if test="${item_no==3 or item_no==4 }">
 		                   		<div>
-			                		<a href="#" style="font-size: 20px; width:600px; margin-top:10px" onclick="login(this,1,${board.no}, ${board.item_no })">
+			                		<a href="#" style="font-size: 20px; width:600px; margin-top:10px" onclick="login(this,2,${board.no}, ${board.item_no })">
 			                			${board.title}
 			                		</a>
 		                		</div>
@@ -190,7 +190,7 @@ function login(context, flag, no, item_no){
 		                		</c:if>
 		                		<c:if test = "${board.item_no == 3 or board.item_no ==4 }">
 		                			<div>
-				                		<a href="#" style="font-size: 20px; width:600px; margin-top:10px" onclick="login(this,1,${board.no}, ${board.item_no })">
+				                		<a href="#" style="font-size: 20px; width:600px; margin-top:10px" onclick="login(this,2,${board.no}, ${board.item_no })">
 				                			${board.title}
 				                		</a>
 			                		</div>
