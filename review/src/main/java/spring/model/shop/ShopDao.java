@@ -17,5 +17,6 @@ public interface ShopDao {
 	public String buyitem(String itemname, String item_path, String id, int postnum, String address, String address2, int point);
 	public void statusset(int itemno);
 	public String deliverycencel(int no, String savename, String id);
+	public void deleteitem(int itemno);
 
 }

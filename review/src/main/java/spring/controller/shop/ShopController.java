@@ -53,7 +53,7 @@ public class ShopController {
 		String savePath = request.getServletContext().getRealPath("/resources/img2");
 		log.info(savePath);
 		File targetPath = new File(savePath);
-		File copyPath = new File("E:\\sw2\\image");
+		File copyPath = new File("D:\\sw2\\image");
 		
 		File path = new File(savePath, "");
 
@@ -200,7 +200,7 @@ public class ShopController {
 		File target = new File(savePath, filename);
 		file.transferTo(target);	
 		File targetPath = new File(savePath);
-		File copyPath = new File("E:\\SW2\\image");		
+		File copyPath = new File("D:\\SW2\\image");		
 		copy(targetPath, copyPath);
 		
 		return "redirect:/shop";
@@ -249,6 +249,19 @@ public class ShopController {
 		return "redirect:/mybuylist";
 		
 	};
+	
+	@RequestMapping(value = "/deleteitem", method = RequestMethod.POST)
+	public String deleteitem(String[] item_no) {
+		
+		for(String itemno : item_no) {
+			
+			int num = Integer.parseInt(itemno);
+			
+			shopDao.deleteitem(num);
+		}
+		
+		return "member/success";
+	}
 	
 public void copy(File origin, File target){
 		

@@ -158,6 +158,15 @@ public class ShopDaoImple implements ShopDao {
 		return jdbcTemplate.queryForObject(sql, new Object[] {id}, String.class);
 		
 	}
+
+	@Override
+	public void deleteitem(int itemno) {
+		
+		String sql = "delete p_pshop where no = ?";
+		
+		jdbcTemplate.update(sql, itemno);
+		
+	}
 	
 
 }
