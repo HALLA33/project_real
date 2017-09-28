@@ -140,15 +140,15 @@
        </c:forEach>
        
        <div id="scrolldiv" style="position: fixed; bottom: 55%; right: 70px;">
- 		<i title="up" class="xi-view-stream xi-2x" onclick="scrollMove('1')"></i>
+ 		<i title="2개 일치" class="xi-view-stream xi-2x" onclick="scrollMove('1')"></i>
  	</div>
  	
  	<div id="scrolldiv" style="position: fixed; bottom:50%; right: 70px;">
- 		<i title="down" class="xi-emoticon-smiley-o xi-2x" onclick="scrollMove('2')"></i>
+ 		<i title="감정 일치" class="xi-emoticon-smiley-o xi-2x" onclick="scrollMove('2')"></i>
  	</div>
  	
  	<div id="scrolldiv" style="position: fixed; bottom: 45%; right: 70px;">
- 		<i title="down" class="xi-sun-o xi-2x" onclick="scrollMove('3')"></i>
+ 		<i title="날씨 일치" class="xi-sun-o xi-2x" onclick="scrollMove('3')"></i>
  	</div>
  	
 </div>
