@@ -419,7 +419,7 @@ public class MovieController {
     		return "redirect:/home";
 
     	Board board = bookDao.detail_board(no, item_no);
-    	if(!member.getId().equals(board.getWriter()))
+    	if(!member.getId().equals(board.getWriter()) && !member.getPower().equals("관리자") && !member.getPower().equals("스텝"))
     		return "redirect:/home";
     	
     	log.info("실행됨"  + tag);
