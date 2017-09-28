@@ -91,7 +91,7 @@ public class BookDaoImpl implements BookDao{
             }
          if(item_no == 9) {
             System.out.println("검색");
-            Object[] args = {word, word, word};
+            Object[] args = {word, word, word, word};
             //sql = "select * from p_board where search_artist like '%'||?||'%' or search_title like '%'||?||'%' or detail like '%'||?||'%' order by reg desc";
             // 전체 검색에서 공지, 기타, 자유게시판 제외
             sql = "select * from "
