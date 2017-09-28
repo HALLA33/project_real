@@ -271,7 +271,7 @@ public class FreeController {
     		return "redirect:/home";
     	
     	Board board = bookDao.detail_board(no, item_no);
-    	if(!member.getId().equals(board.getWriter()) && !member.getPower().equals("관리자") && !member.getPower().equals("스텝"))
+    	if(!member.getId().equals(board.getWriter()) && !member.getPower().equals("관리자") && !member.getPower().equals("스"))
     		return "redirect:/home";
     	
     	if(member.getPower().equals("일반")) {
