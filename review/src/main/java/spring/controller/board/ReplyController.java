@@ -86,7 +86,7 @@ public class ReplyController {
 		String msg = null;
 		log.info(member.getId());
 		log.info(reply.getWriter());
-		if(!member.getId().equals(reply.getWriter())) {
+		if(!member.getId().equals(reply.getWriter()) && !member.getPower().equals("관리자") && !member.getPower().equals("스텝")) {
 			msg = "작성자가 아닙니다";
 			flag = false;
 			return flag;
