@@ -131,6 +131,33 @@ public class ShopDaoImple implements ShopDao {
 		jdbcTemplate.update(sql, new Object[] {itemno});
 		
 	}
+
+	@Override
+	public String deliverycencel(int no, String savename, String id) {
+		
+		System.out.println("savename" + savename);
+		
+		String sql = "select point from p_pshop where savename = ?";
+		
+		int point = jdbcTemplate.queryForObject(sql, new Object[] {savename}, Integer.class);
+		
+		sql = "delete mybuy where no = ?";
+		
+		jdbcTemplate.update(sql, new Object[] {no});
+		
+		sql = "delete userbuy where no = ?";
+		
+		jdbcTemplate.update(sql, new Object[] {no});
+		
+		sql = "update p_member set point = point + ? where id = ?";
+		
+		jdbcTemplate.update(sql, new Object[] {point, id});
+		
+		sql = "select nickname from p_member where id = ?";
+		
+		return jdbcTemplate.queryForObject(sql, new Object[] {id}, String.class);
+		
+	}
 	
 
 }

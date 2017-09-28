@@ -16,6 +16,8 @@
 		<div class="area-20">
 			<h3 style="font-size: 13px">발송 상태</h3>
 		</div>
+		<div class="area-20">
+		</div>
 	</div>
 	<c:forEach items="${buylist}" var="buylist">
 		<div class="row form-inline" style="height: 90px" id="testing">
@@ -34,6 +36,15 @@
 				<h3 style="font-size: 13px">발송 중</h3>
 			</c:if>
 			</div>
+			<div class="area-20">
+			<c:if test ="${buylist.status eq 'false' }">
+				<form action="deliverycencle" method="post">
+				<input type = "hidden" value="${buylist.item_path}" name = "savename">
+				<input type = "hidden" value="${buylist.no}" name = "no">
+				<button class="btn btn-primary modify"  type = "submit">주문 취소</button>
+				</form>
+			</c:if>
+			</div>
 <%-- 			<c:if test = "${sessionScope.member.power ne '관리자' }"> --%>
 <%-- 			</c:if> --%>
 <%--  --%>
@@ -41,25 +52,4 @@
 		<hr />
 	</c:forEach>
 </article>
-<script>
-		$(document).ready(function () {
-			var mypoint = "${sessionScope.member.point}";
-			var bpoint = $(".buybtn");
-			
-			$(".buybtn").on("click", function () {
-				var title = $(this).siblings('#titles').val();
-				var itemno = $(this).siblings('#itemno').val();
-				console.log("아이템 구매 실행");
-				console.log(title);
-				if(mypoint < $(this).val()){
-					alert("보유하신 포인트가 부족합니다");
-	    			return;
-				}else{
-					$(location).attr('href', 'buyitem?item='+title+"&point="+$(this).val()+"&itemno="+itemno);
-				}
-				
-			});
-			
-		});
-</script>
 <%@ include file="/WEB-INF/view/template/footer.jsp"%>

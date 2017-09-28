@@ -210,4 +210,23 @@ public class ShopController {
 		
 	}
 	
+	@RequestMapping(value = "/deliverycencle", method = RequestMethod.POST)
+	public String deliverycencel(String no, String savename, HttpSession session) {
+		
+		Member member = (Member)session.getAttribute("member");
+		
+		String id = member.getId();
+		
+		int num = Integer.parseInt(no);
+		
+		String nickname = shopDao.deliverycencel(num, savename, id);
+		
+		member = memberDao.getmember(nickname);
+		
+		session.setAttribute("member", member);
+		
+		return "redirect:/mybuylist";
+		
+	};
+	
 }
