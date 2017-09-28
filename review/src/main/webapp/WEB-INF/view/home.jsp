@@ -5,7 +5,7 @@
 <article id="home_article">
 	<%-- 컨테이너 영역 --%>
 	<!-- 공지 -->
-	<div style="background-color: white; padding: 10px 10px; margin: 10px 10px;">
+	<div class="main-page">
 		<div style="margin-right: 0px, font-size: 5px">
 			<h1>공지글~!</h1>
 			<a href="${pageContext.request.contextPath}/list?item_no=0">전체보기</a>
@@ -24,7 +24,7 @@
 	</div>
 	
 	<!-- 도서 -->
-	<div class="main-page" style="background-color: white; padding: 10px 10px; margin: 10px 10px;">
+	<div class="main-page">
 		<div class="main-left" style="margin-right: 0px, font-size: 5px">
 			<h1>도서(국내)~!</h1>
 			<a href="${pageContext.request.contextPath}/list?item_no=1">전체보기(국내)</a>
@@ -41,7 +41,7 @@
 				</c:forEach>
 			</table>
 		</div>
-		<div class="main-right" style="margin-right: 0px, font-size: 5px">
+		<div class="main-page">
 			<h1>도서(국외)~!</h1>
 			<a href="${pageContext.request.contextPath}/list?item_no=2">전체보기(국외)</a>
 			<table>
@@ -61,7 +61,7 @@
 	</div>
 	
 	<!-- 영화 -->
-	<div class="main-page" style="background-color: white; padding: 10px 10px; margin: 10px 10px;">
+	<div class="main-page">
 		<div class="main-left" style="margin-right: 0px, font-size: 5px">
 			<h1>영화(국내)~!</h1>
 			<a href="${pageContext.request.contextPath}/list?item_no=3">전체보기(국내)</a>

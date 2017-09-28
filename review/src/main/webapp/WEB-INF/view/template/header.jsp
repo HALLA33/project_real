@@ -272,6 +272,10 @@ aside{
 .main-page{
 	display: flex;
 	flex-wrap: wrap;
+	background-color: white; 
+	padding: 10px 10px; 
+	margin: 10px 10px;
+	opacity: 0.7;
 }
 .main-left{
 	order:2;
