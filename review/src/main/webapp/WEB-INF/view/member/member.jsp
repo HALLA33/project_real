@@ -177,8 +177,13 @@
 			<!-- forcech 준비 구간 -->
 			<c:forEach var="list" items="${list}">
 				<tr>
-					<td><input type="checkbox" class="unit" value="${list.id}"></td>
-<%-- 					<td>${list.no}</td> --%>
+					<c:if test = "${list.power == '관리자' }">
+						<td><input type="checkbox" value="${list.id}" disabled></td>
+					</c:if>
+					<c:if test="${list.power == '일반' }">
+						<td><input type="checkbox" class="unit" value="${list.id}" ></td>
+					</c:if>
+				
 					<td><a href = "userinfo?id=${list.id}">${list.nickname}(${list.id})</a></td>
 <%-- 					<td>${list.email}</td> --%>
 					<td>${list.name}</td>
