@@ -267,7 +267,23 @@ aside{
    margin-bottom: 0;
    border-radius: 5px;
 }
-/* write-view */
+
+/* main-view */
+.main-page{
+	display: flex;
+	flex-wrap: wrap;
+}
+.main-left{
+	order:2;
+	width:50%;
+	height:200px;
+	flex-grow:1;
+}
+.main-right{
+	order:4;
+	width:50%;
+	flex-grow:1;
+}
 
 
 </style>
