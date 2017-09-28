@@ -18,18 +18,22 @@
 		$("#good").on("click", function(){
 			var no = '${board.no}';
 			var item_no = '${board.item_no}';
-			var allData = {"no":no, "item_no":item_no};
-			
+			var bad_tag = $("#bad_tag").attr("src");
+			var allData = {"no":no, "item_no":item_no, "bad_tag": bad_tag};
+			console.log(bad_tag);
 			$.ajax({
 		        type: "POST", 
-		        url: "${pageContext.request.contextPath}/etc/goodCount", 
+		        url: "${pageContext.request.contextPath}/goodCount", 
 		        data: allData,
 		        success: //호출이 성공하면 호출되는 함수를 정의한다.
 		        function(data){ //값을 data변수로 받아서 처리한다.	        	
 		        	console.log("좋아요 성공 : " + data.good_img);
 		        	console.log("좋아요 개수 : " + data.good_number);
+		        	console.log("싫어요 상태 : " + data.bad_img);
 		        	$("#good_tag").attr("src", "${pageContext.request.contextPath}/"+data.good_img);
+		        	$("#bad_tag").attr("src", "${pageContext.request.contextPath}/"+data.bad_img);
 		        	$("#good_number").text(data.good_number+"개");
+		        	$("#bad_number").text(data.bad_number+"개");
 		        }
 		    });
 			
@@ -38,18 +42,22 @@
 		$("#bad").on("click", function(){
 			var no = '${board.no}';
 			var item_no = '${board.item_no}';
-			var allData = {"no":no, "item_no":item_no};
+			var good_tag = $("#good_tag").attr("src");
+			var allData = {"no":no, "item_no":item_no, "good_tag":good_tag};
 			
 			$.ajax({
 		        type: "POST", 
-		        url: "${pageContext.request.contextPath}/etc/badCount", 
+		        url: "${pageContext.request.contextPath}/badCount", 
 		        data: allData,
 		        success: //호출이 성공하면 호출되는 함수를 정의한다.
 		        function(result){ //값을 data변수로 받아서 처리한다.
 		        	console.log("싫어요 성공 : " + result.bad_img)
 		        	console.log("좋아요 개수 : " + result.bad_number);
+		        	console.log("좋아요 상태 : " + result.good_img);
 		        	$("#bad_tag").attr("src", "${pageContext.request.contextPath}/"+result.bad_img);
+		        	$("#good_tag").attr("src", "${pageContext.request.contextPath}/"+result.good_img);
 		        	$("#bad_number").text(result.bad_number+"개");
+		        	$("#good_number").text(result.good_number+"개");
 		        }
 		    });
 			
