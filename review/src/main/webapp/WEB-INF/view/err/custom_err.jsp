@@ -20,6 +20,6 @@ body{
 		<br>
 		<h2><a href="javascript:history.back();">뒤로가기</a></h2>
 		<br>
-		<img src="<c:url value="/img/err500.jpg"/>" width="900" height="550">
+		<img src="<c:url value="/img/wrong.png"/>" width="900" height="550">
 </div>
 </body>
