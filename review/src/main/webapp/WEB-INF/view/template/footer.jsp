@@ -117,7 +117,7 @@
 			<div id="rankbar">
 				<h2>태그</h2>
 						<div style="vertical-align:top;">
-							<table id="rankTable" >
+							<table id="rankTable" class="align-left" style="background:none; border: 1px solid" >
 								<tbody>
 									<c:forEach items="${sessionScope.tags}" var="tags">
 										<tr style="width:180px !important;">
