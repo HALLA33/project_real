@@ -118,7 +118,7 @@ function login(context, flag, no, item_no){
 	      				<td>&#91;${board.b_item_no}&#93;</td> 
 	      				<td>
 	      					<c:choose>
-	      						<c:when test="${item_no==7 }">
+	      						<c:when test="${item_no==7 or item_no==0}">
 	      							<a href="#" onclick="login(this, 7,${board.no}, ${board.item_no })">${board.title }</a>
 	      						</c:when>
 	      						<c:when test="${item_no==5 or item_no==6 }">
