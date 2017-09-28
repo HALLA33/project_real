@@ -288,6 +288,9 @@ aside{
 	width:50%;
 	flex-grow:1;
 }
+body{
+	cursor:url('${pageContext.request.contextPath}/img/Blue Pencil 1 Normal.cur'), pointer; 
+}
 
 
 </style>
