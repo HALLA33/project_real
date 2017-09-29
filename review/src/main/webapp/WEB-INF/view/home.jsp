@@ -92,7 +92,7 @@ function login(context, no, item_no){
                <li class="nav-item">
                   <label class="left sub_left"><a>해외도서</a></label>
                   <label class="right" style="font-size: 12px; margin: 0 0 0 40;">
-                  <a href="${pageContext.request.contextPath}/list?item_no=2">전체보기(국외)</a>
+                  <a href="${pageContext.request.contextPath}/list?item_no=2">전체보기(해외)</a>
                   </label>
                </li>           
          </ul>
@@ -141,7 +141,7 @@ function login(context, no, item_no){
                <li class="nav-item">
                   <label class="left sub_left"><a>해외영화</a></label>
                   <label class="right" style="font-size: 12px; margin: 0 0 0 40;">
-                  <a href="${pageContext.request.contextPath}/list?item_no=2">전체보기(국외)</a>
+                  <a href="${pageContext.request.contextPath}/list?item_no=2">전체보기(해외)</a>
                   </label>
                </li>           
          </ul>
